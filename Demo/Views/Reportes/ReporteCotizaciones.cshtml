@@ -1,0 +1,103 @@
+﻿@model Demo.Models.ReporteCotizacionesModelView
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card-primary">
+                <div class="card-header">
+                    <h3>Reporte de cotizaciones</h3>
+                </div>
+                <br />
+                @using (Html.BeginForm("ReporteCotizaciones", "Reportes", FormMethod.Post))
+                {
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.Label("FechaInicial", "Fecha inicial")
+                                @Html.TextBoxFor(m => m.FechaInicial, new { @class = "form-control datetimepicker-input" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.Label("FechaFinal", "Fecha final")
+                                @Html.TextBoxFor(m => m.FechaFinal, new { @class = "form-control datetimepicker-input" })
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-12">
+                            <input type="submit" class="btn btn-lg btn-success" value="Actualizar" />
+                        </div>
+                    </div>
+                    <br />
+                    <table id="tabla" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Folio</th>
+                                <th>Fecha</th>
+                                <th>Cliente</th>
+                                <th>Nombre</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var cotiz in Model.Datos)
+                            {
+                            <tr>
+                                <td><a href="#" onclick="detalleCotizacion('@cotiz.folio.Trim()');">@cotiz.folio</a></td>
+                                <td>@cotiz.fecha.ToString("dd/MM/yyyy")</td>
+                                <td>@cotiz.cod_cte</td>
+                                <td>@cotiz.razon_social</td>
+                                <td>@cotiz.total.ToString("#,##0.00")</td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal modal-lg fade" id="modalDetalle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Productos de la cotizacion</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="datosProductos">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#tabla').DataTable();
+        $('#FechaInicial').datetimepicker({
+            format: 'L'
+        });
+        $('#FechaFinal').datetimepicker({
+            format: 'L'
+        });
+    });
+
+    function detalleCotizacion(folio){
+        $("#datosProductos").empty();
+        $.ajax({
+            type:"GET",
+            url:"@Url.Action("DetalleCotizacion","Reportes")" + "?folio=" + folio,
+            success:function(data){
+                $("#datosProductos").append(data);
+                $('#modalDetalle').modal('show');
+            },
+            error: function (xhr,ajaxOptions,thrownError){alert(xhr.responseText);}
+        });
+    }
+</script>

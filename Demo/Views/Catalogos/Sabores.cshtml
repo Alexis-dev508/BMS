@@ -1,0 +1,55 @@
+﻿@model List<Demo.Models.Sabores>
+<div class="container-fluid">
+	<div class="row">
+	<div class="col-sm-12">
+	 <div class="card-primary">
+	  <div class="card-header">
+	   <h3>Sabores</h3>
+   </div>
+   <br />
+   <a href="@Url.Action("NuevoSabor","Catalogos")" class="btn btn-danger">
+	   <i class="fa fa-newspaper"></i>
+	   Nuevo
+   </a>
+   <br />
+   <table id="tabla" class="table table-bordered">
+	   <thead>
+		<tr>
+	  <th>Código</th>
+	  <th>Nombre</th>
+	  <th>Abreviatura</th>
+	  <th>Status</th>
+	  <th></th>
+  </tr>
+	</thead>
+	<tbody>
+
+	  @foreach (var sabor in Model)
+						{
+							<tr>
+		   <td>@sabor.sabor</td>
+		   <td>@sabor.nombre</td>
+		   <td>@sabor.abreviatura</td>
+		   <td>@sabor.status</td>
+		   <td>
+			   @*//NUEVO!!!!1*@
+		 <a href="@Url.Action("EditarSabor","Catalogos",new {id = sabor.sabor })" class="btn btn-warning">
+	   <i class="fa fa-pencil-square" aria-hidden="true"></i>
+	   Editar
+   </a>
+	 </td>
+	   </tr>
+						}
+			
+  
+ </tbody>
+   </table>
+  </div>
+ </div>
+ </div>
+</div>
+<script>
+$(document).ready( function () {
+    $('#tabla').DataTable();
+} );
+</Script>

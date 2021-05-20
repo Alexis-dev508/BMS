@@ -1,0 +1,30 @@
+﻿@model List<Demo.Models.DetallePedido>
+
+<table class="table table-hover" id="tablaProds">
+	<thead>
+	 <tr>
+	  <th>Código</th>
+	  <th>Descripción</th>
+	  <th>Cantidad Autorizada</th>
+	  <th>Cantidad Surtida</th>
+	  <th>Unidad</th>
+	  <th>Precio</th>
+	  <th>Total</th>
+  </tr>
+ </thead>
+ <tbody>
+	 @foreach(var prods in Model)
+		{
+			<tr>
+	   <td>@prods.cod_prod</td>
+	   <td>@prods.descripcion_completa</td>
+	   <td>@prods.cantidad_autorizada.ToString("#,##0.###")</td>
+	   <td>@prods.cantidad_surtida.ToString("#,##0.###")</td>
+	   <td>@prods.unidad</td>
+	    <td>@prods.precio.ToString("#,##0.00")</td>
+		<td>@prods.total.ToString("#,##0.00")</td>
+		
+   </tr>
+		}
+ </tbody>
+</table>

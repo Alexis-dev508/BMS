@@ -1,0 +1,51 @@
+﻿<nav class="mt-2">
+    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-book"></i>
+                <p>
+                    Catálogos
+                    <i class="fas fa-angle-left right"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="@Url.Action("Sabores","Catalogos")" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Sabores</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="@Url.Action("Aromas","Catalogos")" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Aromas</p>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-table"></i>
+                <p>
+                    Reportes
+                    <i class="fas fa-angle-left right"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="@Url.Action("ReportePedidos","Reportes")" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Pedidos</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    @*NUEVO!!!!*@
+                    <a href="@Url.Action("ReporteCotizaciones","Reportes")" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Cotizaciones</p>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</nav>

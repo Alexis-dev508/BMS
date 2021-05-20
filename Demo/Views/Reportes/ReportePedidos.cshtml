@@ -1,0 +1,109 @@
+﻿@model Demo.Models.ReportePedidosModelView
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card-primary">
+                <div class="card-header">
+                    <h3>Reporte de pedidos</h3>
+                </div>
+                <br />
+                @using (Html.BeginForm("ReportePedidos", "Reportes", FormMethod.Post))
+                {
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.Label("FechaInicial", "Fecha inicial")
+                                @Html.TextBoxFor(m => m.FechaInicial, new { @class = "form-control datetimepicker-input" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.Label("FechaFinal", "Fecha final")
+                                @Html.TextBoxFor(m => m.FechaFinal, new { @class = "form-control datetimepicker-input" })
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-12">
+                            <input type="submit" class="btn btn-lg btn-success" value="Actualizar" />
+                        </div>
+                    </div>
+                    <br />
+                    <table id="tabla" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Folio</th>
+                                <th>Fecha</th>
+                                <th>Cliente</th>
+                                <th>Nombre Cte</th>
+                                <th>Vendedor</th>
+                                <th>Nombre Vdor</th>
+                                <th>Total</th>
+                                <th>Establecimiento</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var ped in Model.Datos)
+                            {
+                            <tr>
+                                <td><a href="#" onclick="detallePedido('@ped.folio.Trim()');">@ped.folio</a></td>
+                                <td>@ped.fecha.ToString("dd/MM/yyyy")</td>
+                                <td>@ped.cod_cte</td>
+                                <td>@ped.razon_social</td>
+                                <td>@ped.vendedor</td>
+                                <td>@ped.nombre</td>
+                                <td>@ped.total.ToString("#,##0.00")</td>
+                                <td>@ped.establecimiento</td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-lg" id="modalDetalle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Detalles del Pedido</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="datosProductos">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#tabla').DataTable();
+        $('#FechaInicial').datetimepicker({
+            format: 'L'
+        });
+        $('#FechaFinal').datetimepicker({
+            format: 'L'
+        });
+    });
+
+    function detallePedido(folio){
+        $("#datosProductos").empty();
+        $.ajax({
+            type:"GET",
+            url:"@Url.Action("DetallePedido","Reportes")" + "?folio=" + folio,
+            success:function(data){
+                $("#datosProductos").append(data);
+                $('#modalDetalle').modal('show');
+            },
+            error: function (xhr,ajaxOptions,thrownError){alert(xhr.responseText);}
+        });
+    }
+</script>
