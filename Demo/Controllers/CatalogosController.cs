@@ -35,6 +35,14 @@ namespace Demo.Controllers
                 model.MarcasList.Add(new SelectListItem { Value = st.marca_equipo, Text = st.nombre });
 
             }
+            model.status = "V";
+            //llenar DropDownList de modelos
+            var mode = datos.TraerModelos();
+            foreach (var st in mode)
+            {
+                model.ModelosList.Add(new SelectListItem { Value = st.modelo_equipos, Text = st.nombre });
+
+            }
             //llenar status
             model.status = "V";
             var sts = datos.TraerStatus();

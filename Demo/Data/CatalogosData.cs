@@ -1,4 +1,5 @@
 ﻿using Demo.Models;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -51,20 +52,366 @@ namespace Demo.Data
         {
             List<MarcasEquipos> marcas = new List<MarcasEquipos>();
 
-            SqlDataAdapter sda = new SqlDataAdapter("dbo.BMS_traerMarcas", this.ConnectionString);
+            SqlDataAdapter sda = new SqlDataAdapter("dbo.DEMO_DATOSEQUIPOS", this.ConnectionString);
             sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            sda.SelectCommand.Parameters.AddWithValue("@oper", "MA");
             DataTable dt = new DataTable();
             sda.Fill(dt);
             marcas = dt.AsEnumerable().Select(a =>
             new MarcasEquipos
             {
                 marca_equipo = a["marca_equipos"].ToString(),
-                nombre = a["nombre"].ToString(),
+                nombre = a["nombre"].ToString()
             }).ToList();
-
-            //model.EquiposList.Add(marcas);
-
             return marcas;
+        }
+        //tarer modelos
+        public List<ModelosEquipos> TraerModelos()
+        {
+            List<ModelosEquipos> modelos = new List<ModelosEquipos>();
+
+            SqlDataAdapter sda = new SqlDataAdapter("dbo.DEMO_DATOSEQUIPOS", this.ConnectionString);
+            sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            sda.SelectCommand.Parameters.AddWithValue("@oper", "MO");
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            modelos = dt.AsEnumerable().Select(a =>
+            new ModelosEquipos
+            {
+                marca_equipos = a["marca_equipos"].ToString(),
+                modelo_equipos = a["modelo_equipos"].ToString(),
+                nombre = a["nombre"].ToString()
+            }).ToList();
+            return modelos;
+        }
+        //traer versiones
+        public List<VersionesEquipos> TraerVersiones()
+        {
+            List<VersionesEquipos> versiones = new List<VersionesEquipos>();
+
+            SqlDataAdapter sda = new SqlDataAdapter("dbo.DEMO_DATOSEQUIPOS", this.ConnectionString);
+            sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            sda.SelectCommand.Parameters.AddWithValue("@oper", "VE");
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            versiones = dt.AsEnumerable().Select(a =>
+            new VersionesEquipos
+            {
+                version_equipos = a["version_equipos"].ToString(),
+                nombre = a["nombre"].ToString(),
+                modelo_equipos = a["modelo_equipos"].ToString(),
+                marca_equipos = a["marca_equipos"].ToString()
+
+            }).ToList();
+            return versiones;
+        }
+        //traer años
+        public List<AnniosEquipos> TraerAnnios()
+        {
+            List<AnniosEquipos> annios = new List<AnniosEquipos>();
+
+            SqlDataAdapter sda = new SqlDataAdapter("dbo.DEMO_DATOSEQUIPOS", this.ConnectionString);
+            sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            sda.SelectCommand.Parameters.AddWithValue("@oper", "AN");
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            annios = dt.AsEnumerable().Select(a =>
+            new AnniosEquipos
+            {
+                año_equipos=a["año_equipos"].ToString()
+
+            }).ToList();
+            return annios;
+        }
+        //traer tipo equipos
+        public List<TiposEquipos> TraerTipoEquipo()
+        {
+            List<TiposEquipos> tiposE = new List<TiposEquipos>();
+
+            SqlDataAdapter sda = new SqlDataAdapter("dbo.DEMO_DATOSEQUIPOS", this.ConnectionString);
+            sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            sda.SelectCommand.Parameters.AddWithValue("@oper", "TE");
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            tiposE = dt.AsEnumerable().Select(a =>
+            new TiposEquipos
+            {
+                tipo_equipo = a["tipo_equipo"].ToString(),
+                nombre = a["nombre"].ToString()
+
+            }).ToList();
+            return tiposE;
+        }
+        //traer usos
+        public List<UsosEquipos> TraerUsos()
+        {
+            List<UsosEquipos> usos = new List<UsosEquipos>();
+
+            SqlDataAdapter sda = new SqlDataAdapter("dbo.DEMO_DATOSEQUIPOS", this.ConnectionString);
+            sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            sda.SelectCommand.Parameters.AddWithValue("@oper", "US");
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            usos = dt.AsEnumerable().Select(a =>
+            new UsosEquipos
+            {
+                uso_equipos = a["uso_equipos"].ToString(),
+                nombre = a["nombre"].ToString()
+
+            }).ToList();
+            return usos;
+        }
+        //traer establecimientos
+        public List<EstablecimientosEquipos> TraerEstablecimientos()
+        {
+            List<EstablecimientosEquipos> establecimientos = new List<EstablecimientosEquipos>();
+
+            SqlDataAdapter sda = new SqlDataAdapter("dbo.DEMO_DATOSEQUIPOS", this.ConnectionString);
+            sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            sda.SelectCommand.Parameters.AddWithValue("@oper", "ES");
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            establecimientos = dt.AsEnumerable().Select(a =>
+            new EstablecimientosEquipos
+            {
+                cod_estab = a["cod_estab"].ToString(),
+                nombre = a["nombre"].ToString()
+
+            }).ToList();
+            return establecimientos;
+        }
+        //traer odometro
+        public List<OdometrosEquipos> TraerOdometro()
+        {
+            List<OdometrosEquipos> odometros = new List<OdometrosEquipos>();
+
+            SqlDataAdapter sda = new SqlDataAdapter("dbo.DEMO_DATOSEQUIPOS", this.ConnectionString);
+            sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            sda.SelectCommand.Parameters.AddWithValue("@oper", "OD");
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            odometros = dt.AsEnumerable().Select(a =>
+            new OdometrosEquipos
+            {
+                odometro = a["odometro"].ToString(),
+                nombre = a["nombre"].ToString()
+
+            }).ToList();
+            return odometros;
+        }
+        //traer colores
+        public List<ColoresEquipos> TraerColores()
+        {
+            List<ColoresEquipos> colores = new List<ColoresEquipos>();
+
+            SqlDataAdapter sda = new SqlDataAdapter("dbo.DEMO_DATOSEQUIPOS", this.ConnectionString);
+            sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            sda.SelectCommand.Parameters.AddWithValue("@oper", "CO");
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            colores = dt.AsEnumerable().Select(a =>
+            new ColoresEquipos
+            {
+                color = a["color"].ToString(),
+                nombre = a["nombre"].ToString(),
+                status = a["status"].ToString()
+
+            }).ToList();
+            return colores;
+        }
+        //traer frecuencias
+        public List<FrecuenciasEquipos> TraerFrecuencias()
+        {
+            List<FrecuenciasEquipos> frecuencias = new List<FrecuenciasEquipos>();
+
+            SqlDataAdapter sda = new SqlDataAdapter("dbo.DEMO_DATOSEQUIPOS", this.ConnectionString);
+            sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            sda.SelectCommand.Parameters.AddWithValue("@oper", "FR");
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            frecuencias = dt.AsEnumerable().Select(a =>
+            new FrecuenciasEquipos
+            {
+                frecuencia_servicio_equipos = a["frecuencia_servicio_equipos"].ToString(),
+                nombre = a["nombre"].ToString()
+
+            }).ToList();
+            return frecuencias;
+        }
+        //traer activos fijos
+        public List<ActivosFiEquipos> TraerActivosFi()
+        {
+            List<ActivosFiEquipos> activosFi = new List<ActivosFiEquipos>();
+
+            SqlDataAdapter sda = new SqlDataAdapter("dbo.DEMO_DATOSEQUIPOS", this.ConnectionString);
+            sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            sda.SelectCommand.Parameters.AddWithValue("@oper", "AF");
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            activosFi = dt.AsEnumerable().Select(a =>
+            new ActivosFiEquipos
+            {
+                activo_fijo = a["activo_fijo"].ToString(),
+                fecha = Convert.ToDateTime(a["fecha"]),
+                descripcion = a["descripcion"].ToString(),
+                marca = a["marca"].ToString(),
+                modelo = a["modelo"].ToString(),
+                talla = a["talla"].ToString(),
+                color = a["color"].ToString(),
+                serie = a["serie"].ToString(),
+                motor = a["motor"].ToString(),
+                tipo_activo_fijo = a["tipo_activo_fijo"].ToString(),
+                transaccion = a["transaccion"].ToString(),
+                cod_estab = a["cod_estab"].ToString(),
+                ubicacion = a["ubicacion"].ToString(),
+                fecha_adquisicion = Convert.ToDateTime(a["fecha_adquisicion"]),
+                monto_original_inversion = Convert.ToDecimal(a["monto_original_inversion"]),
+                usuario = a["usuario"].ToString(),
+                usuario_baja = a["usuario_baja"].ToString(),
+                fecha_baja = Convert.ToDateTime(a["fecha_baja"]),
+                status = a["status"].ToString(),
+                empleado = a["empleado"].ToString(), 
+
+            }).ToList();
+            return activosFi;
+        }
+        //traer tipo vehiculo
+        public List<TiposVeEquipos> TraerTiposVehiculos()
+        {
+            List<TiposVeEquipos> tiposVe = new List<TiposVeEquipos>();
+
+            SqlDataAdapter sda = new SqlDataAdapter("dbo.DEMO_DATOSEQUIPOS", this.ConnectionString);
+            sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            sda.SelectCommand.Parameters.AddWithValue("@oper", "TV");
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            tiposVe = dt.AsEnumerable().Select(a =>
+            new TiposVeEquipos
+            {
+                tipo_vehiculo = a["tipo_vehiculo"].ToString(),
+                nombre = a["nombre"].ToString()
+
+            }).ToList();
+            return tiposVe;
+        }
+        //traer chofer
+        public List<ChoferEquipos> TraerChofer()
+        {
+            List<ChoferEquipos> chofer = new List<ChoferEquipos>();
+
+            SqlDataAdapter sda = new SqlDataAdapter("dbo.DEMO_DATOSEQUIPOS", this.ConnectionString);
+            sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            sda.SelectCommand.Parameters.AddWithValue("@oper", "CH");
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            chofer = dt.AsEnumerable().Select(a =>
+            new ChoferEquipos
+            {
+                chofer_ayudante = a["chofer_ayudante"].ToString(),
+                nombre = a["nombre"].ToString()
+
+            }).ToList();
+            return chofer;
+        }
+        //traer empleados
+        public List<EmpleadosEquipos> TraerEmpleados()
+        {
+            List<EmpleadosEquipos> empleados = new List<EmpleadosEquipos>();
+
+            SqlDataAdapter sda = new SqlDataAdapter("dbo.DEMO_DATOSEQUIPOS", this.ConnectionString);
+            sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            sda.SelectCommand.Parameters.AddWithValue("@oper", "EM");
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            empleados = dt.AsEnumerable().Select(a =>
+            new EmpleadosEquipos
+            {
+                empleado = a["empleado"].ToString(),
+                nombre_completo = a["nombre_completo"].ToString()
+
+            }).ToList();
+            return empleados;
+        }
+        //traer cargas estandar
+        public List<CargasEstEquipos> TraerCargasEstandar()
+        {
+            List<CargasEstEquipos> cargasEst = new List<CargasEstEquipos>();
+
+            SqlDataAdapter sda = new SqlDataAdapter("dbo.DEMO_DATOSEQUIPOS", this.ConnectionString);
+            sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            sda.SelectCommand.Parameters.AddWithValue("@oper", "CE");
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            cargasEst = dt.AsEnumerable().Select(a =>
+            new CargasEstEquipos
+            {
+                folio = a["folio"].ToString(),
+                nombre = a["nombre"].ToString()
+
+            }).ToList();
+            return cargasEst;
+        }
+        //traer accesorios
+        public List<AccesoriosEquipos> TraerAccesorios()
+        {
+            List<AccesoriosEquipos> accesorios = new List<AccesoriosEquipos>();
+
+            SqlDataAdapter sda = new SqlDataAdapter("dbo.DEMO_DATOSEQUIPOS", this.ConnectionString);
+            sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            sda.SelectCommand.Parameters.AddWithValue("@oper", "AC");
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            accesorios = dt.AsEnumerable().Select(a =>
+            new AccesoriosEquipos
+            {
+                equipo = a["equipo"].ToString(),
+                accesorio = a["accesorio"].ToString(),
+                cantidad = Convert.ToDecimal(a["cantidad"]),
+                valor = Convert.ToDecimal(a["valor"]),
+                fecha = Convert.ToDateTime(a["fecha"]),
+                nombre = a["nombre"].ToString(),
+                Tipo_equipo = a["Tipo_equipo"].ToString()
+
+            }).ToList();
+            return accesorios;
+        }
+        //traer combustibles
+        public List<CombustiblesEquipos> TraerCombustibles()
+        {
+            List<CombustiblesEquipos> combustibles = new List<CombustiblesEquipos>();
+
+            SqlDataAdapter sda = new SqlDataAdapter("dbo.DEMO_DATOSEQUIPOS", this.ConnectionString);
+            sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            sda.SelectCommand.Parameters.AddWithValue("@oper", "CM");
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            combustibles = dt.AsEnumerable().Select(a =>
+            new CombustiblesEquipos
+            {
+                cod_prod = a["cod_prod"].ToString(),
+                descripcion_completa = a["descripcion_completa"].ToString()
+
+            }).ToList();
+            return combustibles;
+        }
+        //traer ayudantes
+        public List<AyudantesEquipos> TraerAyudantes()
+        {
+            List<AyudantesEquipos> ayudantes = new List<AyudantesEquipos>();
+
+            SqlDataAdapter sda = new SqlDataAdapter("dbo.DEMO_DATOSEQUIPOS", this.ConnectionString);
+            sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            sda.SelectCommand.Parameters.AddWithValue("@oper", "AY");
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            ayudantes = dt.AsEnumerable().Select(a =>
+            new AyudantesEquipos
+            {
+                chofer_ayudante = a["chofer_ayudante"].ToString(),
+                nombre = a["nombre"].ToString()
+
+            }).ToList();
+            return ayudantes;
         }
         //traer informacion de equipos
         public List<Equipos> TraerEquipos()
