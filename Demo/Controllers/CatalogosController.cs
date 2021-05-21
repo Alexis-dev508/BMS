@@ -35,7 +35,13 @@ namespace Demo.Controllers
                 model.MarcasList.Add(new SelectListItem { Value = st.marca_equipo, Text = st.nombre });
 
             }
-            model.status = "V";
+            //llenar DropDownList de versiones
+            var vers = datos.TraerVersiones();
+            foreach (var st in vers)
+            {
+                model.VersionList.Add(new SelectListItem { Value = st.version_equipos, Text = st.nombre });
+
+            }
             //llenar DropDownList de modelos
             var mode = datos.TraerModelos();
             foreach (var st in mode)
@@ -43,6 +49,52 @@ namespace Demo.Controllers
                 model.ModelosList.Add(new SelectListItem { Value = st.modelo_equipos, Text = st.nombre });
 
             }
+            //llenar DropDownList de años
+            var annios = datos.TraerAnnios();
+            foreach (var st in annios)
+            {
+                model.AnniosList.Add(new SelectListItem { Value = st.año_equipos, Text = st.año_equipos });
+            }
+            //llenar DropDownList de tipo Equipo
+            var tipoE = datos.TraerTipoEquipo();
+            foreach (var st in tipoE)
+            {
+                model.TipoEquipoList.Add(new SelectListItem { Value = st.tipo_equipo, Text = st.nombre });
+            }
+            //llenar DropDownList de usos
+            var usos = datos.TraerUsos();
+            foreach (var st in usos)
+            {
+                model.UsosList.Add(new SelectListItem { Value = st.uso_equipos, Text = st.nombre });
+            }
+            //llenar DropDownList de establecimientos
+            var estab = datos.TraerEstablecimientos();
+            foreach (var st in estab)
+            {
+                model.EstabList.Add(new SelectListItem { Value = st.cod_estab, Text = st.nombre });
+            }
+            //llenar DropDownList de odometro
+            var odo = datos.TraerOdometro();
+            foreach (var st in odo)
+            {
+                model.OdometroList.Add(new SelectListItem { Value = st.odometro, Text = st.nombre });
+            }
+            //llenar DropDownList de Colores
+            var color = datos.TraerColores();
+            foreach (var st in color)
+            {
+                model.ColorList.Add(new SelectListItem { Value = st.color, Text = st.nombre });
+            }
+            //llenar DropDownList de Frecuencia, vida util1, util2, garantia1, garantia2
+            var fre = datos.TraerFrecuencias();
+            foreach (var st in fre)
+            {
+                model.FrecuenciaList.Add(new SelectListItem { Value = st.frecuencia_servicio_equipos, Text = st.nombre });
+            }
+
+
+
+
             //llenar status
             model.status = "V";
             var sts = datos.TraerStatus();

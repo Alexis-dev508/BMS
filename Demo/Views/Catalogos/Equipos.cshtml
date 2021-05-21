@@ -84,14 +84,14 @@
                         </div>
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <div class="form-group m-2">
-                            @Html.Label("version","Version",new {@class="control-label"})
+                            @Html.Label("version_equipos","Version",new {@class="control-label"})
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.DropDownList("version",Model.MarcasList, new {@class="form-control"})
+                            @Html.DropDownList("version_equipos",Model.VersionList, new {@class="form-control"})
                         </div>
                         <div class="form-group m-2">
-                            @Html.Label("año","Año",new {@class="control-label"})
+                            @Html.Label("año_equipos","Año",new {@class="control-label"})
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.DropDownList("año",Model.MarcasList, new {@class="form-control"})
+                            @Html.DropDownList("año_equipos",Model.AnniosList, new {@class="form-control"})
                         </div>
                         <div class="form-group m-2">
                             <label asp-for="Serie" class="control-label">Serie</label>
@@ -99,15 +99,15 @@
                             <input asp-for="Serie" class="form-control" />
                         </div>
                         <div class="form-group m-2">
-                            @Html.Label("tipo","Tipo",new {@class="control-label"})
+                            @Html.Label("tipo_equipo","Tipo",new {@class="control-label"})
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.DropDownList("tipo",Model.MarcasList, new {@class="form-control"})
+                            @Html.DropDownList("tipo_equipo",Model.TipoEquipoList, new {@class="form-control"})
                             &nbsp;&nbsp;&nbsp;&nbsp;
                         </div>
                         <div class="form-group m-2">
-                            @Html.Label("establecimiento","Estab.",new {@class="control-label"})
+                            @Html.Label("cod_estab","Estab.",new {@class="control-label"})
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.DropDownList("establecimiento",Model.MarcasList, new {@class="form-control"})
+                            @Html.DropDownList("cod_estab",Model.EstabList, new {@class="form-control"})
                         </div>
                         <div class="form-group m-2">
                             <label asp-for="Cod Eco" class="control-label">CódEco</label>
@@ -117,19 +117,19 @@
                         <div class="form-group m-2">
                             @Html.Label("color","Color",new {@class="control-label"})
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.DropDownList("color",Model.MarcasList, new {@class="form-control"})
+                            @Html.DropDownList("color",Model.ColorList, new {@class="form-control"})
                             
                         </div>
                         <div class="form-group m-1">
-                            @Html.Label("uso","Uso",new {@class="control-label"})
+                            @Html.Label("uso_equipos","Uso",new {@class="control-label"})
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.DropDownList("color",Model.MarcasList, new {@class="form-control"})
+                            @Html.DropDownList("color_equipos",Model.UsosList, new {@class="form-control"})
                            
                         </div>
                         <div class="form-group m-2">
                             @Html.Label("odometro","Odómetro",new {@class="control-label"})
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.DropDownList("odometro",Model.MarcasList, new {@class="form-control"})
+                            @Html.DropDownList("odometro",Model.OdometroList, new {@class="form-control"})
                             
                         </div>
                         <div class="checkbox m-2">
@@ -173,11 +173,11 @@
                         <div class="form-group m-2">
                            <b>Vida útil 1: <input type="number" name="vidaUtil1" style="max-width: 6vw;"></b> 
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.DropDownList("vidaUtil1",Model.MarcasList, new {@class="form-control"})
+                            @Html.DropDownList("frecuencia_servicio_equipos",Model.FrecuenciaList, new {@class="form-control"})
                                 &nbsp;&nbsp;&nbsp;&nbsp;
                            <b> Garantía 1: <input type="number" name="garantia1"  style="max-width: 6vw;"></b> 
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.DropDownList("garantia1",Model.MarcasList, new {@class="form-control"})
+                            @Html.DropDownList("frecuencia_servicio_equipos",Model.FrecuenciaList, new {@class="form-control"})
                                 &nbsp;&nbsp;&nbsp;&nbsp;
                             <label asp-for="lote" class="control-label">Lote</label>
                                 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -188,11 +188,11 @@
                         <div class="form-group m-2">
                            <b>Vida útil 2: <input type="number" name="vidaUtil2" style="max-width: 6vw;"></b> 
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.DropDownList("vidaUtil2",Model.MarcasList, new {@class="form-control"})
+                            @Html.DropDownList("frecuencia_servicio_equipos",Model.FrecuenciaList, new {@class="form-control"})
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                           <b> Garantía 2: <input type="number" name="garantia1"  style="max-width: 6vw;"></b> 
+                           <b> Garantía 2: <input type="number" name="garantia2"  style="max-width: 6vw;"></b> 
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.DropDownList("garantia2",Model.MarcasList, new {@class="form-control"})
+                            @Html.DropDownList("frecuencia_servicio_equipos",Model.FrecuenciaList, new {@class="form-control"})
                                 &nbsp;&nbsp;&nbsp;&nbsp;
                           
                          </div>
