@@ -100,53 +100,53 @@ namespace Demo.Data
                 fecha_alta = Convert.ToDateTime(a["fecha_alta"]),
                 cod_estab = a["cod_estab"].ToString(),
                 uso_equipos = a["uso_equipos"].ToString(),
-                codigo_economico = a[""].ToString(),
-                empleado    
-                fecha_compra   
-                costo   
-                valor_comercial 
-                abono_mensual   
-                carga_estandar  
-                equipo_depende  
-                vida_util   
-                medida_vida_util    
-                garantia    
-                medida_garantia 
-                lote    
-                tanque1 
-                tanque2 
-                tanque3 
-                combustible1    
-                combustible2    
-                combustible3    
-                nivel_licencia  
-                nivel_licencia_empresa  
-                usa_lubricante  
-                vigencia_placas 
-                vigencia_circulacion    
-                vida_util2  
-                medida_vida_util2   
-                garantia2   
-                medida_garantia2    
-                area    
-                departamento    
-                tarjeta 
-                ayudante    
-                RENDIMIENTO1    
-                RENDIMIENTO2    
-                RENDIMIENTO3    
-                recorrido_maximo    
-                version odometro    
-                llantas llantas_extras  
-                llantas_eje1    
-                llantas_eje2    
-                llantas_eje3    
-                llantas_eje4    
-                llantas_eje5    
-                llantas_eje6    
-                color   
-                ayudante2   
-                sirve_odometro
+                codigo_economico = a[""].ToString()
+                //,empleado    
+                //fecha_compra   
+                //costo   
+                //valor_comercial 
+                //abono_mensual   
+                //carga_estandar  
+                //equipo_depende  
+                //vida_util   
+                //medida_vida_util    
+                //garantia    
+                //medida_garantia 
+                //lote    
+                //tanque1 
+                //tanque2 
+                //tanque3 
+                //combustible1    
+                //combustible2    
+                //combustible3    
+                //nivel_licencia  
+                //nivel_licencia_empresa  
+                //usa_lubricante  
+                //vigencia_placas 
+                //vigencia_circulacion    
+                //vida_util2  
+                //medida_vida_util2   
+                //garantia2   
+                //medida_garantia2    
+                //area    
+                //departamento    
+                //tarjeta 
+                //ayudante    
+                //RENDIMIENTO1    
+                //RENDIMIENTO2    
+                //RENDIMIENTO3    
+                //recorrido_maximo    
+                //version odometro    
+                //llantas llantas_extras  
+                //llantas_eje1    
+                //llantas_eje2    
+                //llantas_eje3    
+                //llantas_eje4    
+                //llantas_eje5    
+                //llantas_eje6    
+                //color   
+                //ayudante2   
+                //sirve_odometro
             }).ToList();
 
             return equipos;
