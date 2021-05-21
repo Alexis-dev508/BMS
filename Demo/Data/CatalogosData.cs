@@ -100,53 +100,55 @@ namespace Demo.Data
                 fecha_alta = Convert.ToDateTime(a["fecha_alta"]),
                 cod_estab = a["cod_estab"].ToString(),
                 uso_equipos = a["uso_equipos"].ToString(),
-                codigo_economico = a[""].ToString(),
-                empleado    
-                fecha_compra   
-                costo   
-                valor_comercial 
-                abono_mensual   
-                carga_estandar  
-                equipo_depende  
-                vida_util   
-                medida_vida_util    
-                garantia    
-                medida_garantia 
-                lote    
-                tanque1 
-                tanque2 
-                tanque3 
-                combustible1    
-                combustible2    
-                combustible3    
-                nivel_licencia  
-                nivel_licencia_empresa  
-                usa_lubricante  
-                vigencia_placas 
-                vigencia_circulacion    
-                vida_util2  
-                medida_vida_util2   
-                garantia2   
-                medida_garantia2    
-                area    
-                departamento    
-                tarjeta 
-                ayudante    
-                RENDIMIENTO1    
-                RENDIMIENTO2    
-                RENDIMIENTO3    
-                recorrido_maximo    
-                version odometro    
-                llantas llantas_extras  
-                llantas_eje1    
-                llantas_eje2    
-                llantas_eje3    
-                llantas_eje4    
-                llantas_eje5    
-                llantas_eje6    
-                color   
-                ayudante2   
-                sirve_odometro
+                codigo_economico = a["codigo_economico"].ToString(),
+                empleado = a["empleado"].ToString(),
+                fecha_compra = Convert.ToDateTime(a["fecha_compra"]),
+                costo = Convert.ToDecimal(a["costo"]),
+                valor_comercial =Convert.ToDecimal(a["costo"]),
+                abono_mensual = Convert.ToDecimal(a["abono_mensual"]),
+                carga_estandar = a["carga_estandar"].ToString(),
+                equipo_depende = a["equipo_depende"].ToString(),
+                vida_util   = Convert.ToInt32(a["vida_util"]),
+                medida_vida_util = a["medida_vida_util"].ToString(),
+                garantia = Convert.ToInt32(a["garantia"]),
+                medida_garantia = a["medida_garantia"].ToString(),
+                lote = a["lote"].ToString(),
+                tanque1 =Convert.ToInt32(a["tanque1"]),
+                tanque2 = Convert.ToInt32(a["tanque2"]),
+                tanque3 = Convert.ToInt32(a["tanque3"]),
+                combustible1 = a["combustible1"].ToString(),
+                combustible2 = a["combustible2"].ToString(),
+                combustible3 = a["combustible3"].ToString(),
+                nivel_licencia  = Convert.ToByte(a["nivel_licencia"]),
+                nivel_licencia_empresa = Convert.ToByte(a["nivel_licencia_empresa"]),
+                usa_lubricante  =Convert.ToBoolean(a["usa_lubricante"]),
+                vigencia_placas =Convert.ToDateTime(a["vigencia_placas"]),
+                vigencia_circulacion = Convert.ToDateTime(a["vigencia_circulacion"]),
+                vida_util2  =Convert.ToInt32(a["vida_util2"]),
+                medida_vida_util2   =a["medida_vida_util2"].ToString(),
+                garantia2   =Convert.ToInt32(a["garantia2"]),
+                medida_garantia2   = a["medida_garantia2"].ToString(),
+                area    = a["area"].ToString(),
+                departamento = a["departamento"].ToString(),
+                tarjeta = a["tarjeta"].ToString(),
+                ayudante = a["ayudante"].ToString(),
+                RENDIMIENTO1 = Convert.ToDecimal(a["RENDIMIENTO1"]),
+                RENDIMIENTO2 =Convert.ToDecimal(a["RENDIMIENTO2"]),
+                RENDIMIENTO3 = Convert.ToDecimal(a["RENDIMIENTO3"]),
+                recorrido_maximo   =Convert.ToInt32(a["recorrido_maximo"]), 
+                version = a["version"].ToString(),
+                odometro = a["odometro"].ToString(),
+                llantas = Convert.ToByte(a["llantas"]),
+                llantas_extras = Convert.ToByte(a["llantas_extras"]),
+                llantas_eje1 = Convert.ToByte(a["llantas_eje1"]),
+                llantas_eje2 = Convert.ToByte(a["llantas_eje2"]),
+                llantas_eje3 = Convert.ToByte(a["llantas_eje3"]),
+                llantas_eje4 = Convert.ToByte(a["llantas_eje4"]),
+                llantas_eje5 = Convert.ToByte(a["llantas_eje5"]),
+                llantas_eje6 = Convert.ToByte(a["llantas_eje6"]),
+                color   =a["color"].ToString(),
+                ayudante2 = a["ayudante2"].ToString(),
+                sirve_odometro =Convert.ToBoolean(a["sirve_odometro"])
             }).ToList();
 
             return equipos;

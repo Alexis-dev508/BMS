@@ -55,9 +55,9 @@ namespace Demo.Models
         public string combustible2 { get; set; }
         public string combustible3 { get; set; }
         //nivel licencia
-        public byte[] nivel_licencia { get; set; }
+        public byte nivel_licencia { get; set; }
         //nivel licencia empresa
-        public byte[] nivel_licencia_empresa { get; set; }
+        public byte nivel_licencia_empresa { get; set; }
         //usa_lubricante
         public Boolean usa_lubricante { get; set; }
         //vigencia placas
@@ -81,21 +81,21 @@ namespace Demo.Models
         public string version { get; set; }
         public string odometro { get; set; }
         //llantas
-        public byte[] llantas { get; set; }
+        public byte llantas { get; set; }
         //llantas extras
-        public byte[] llantas_extras { get; set; }
+        public byte llantas_extras { get; set; }
         //llantas eje1
-        public byte[] llantas_eje1 { get; set; }
+        public byte llantas_eje1 { get; set; }
         //llantas eje2
-        public byte[] llantas_eje2 { get; set; }
+        public byte llantas_eje2 { get; set; }
         //llantas eje3
-        public byte[] llantas_eje3 { get; set; }
+        public byte llantas_eje3 { get; set; }
         //llantas eje4
-        public byte[] llantas_eje4 { get; set; }
+        public byte llantas_eje4 { get; set; }
         //llantas eje5
-        public byte[] llantas_eje5 { get; set; }
+        public byte llantas_eje5 { get; set; }
         //llantas eje6
-        public byte[] llantas_eje6 { get; set; }
+        public byte llantas_eje6 { get; set; }
         public string color { get; set; }
         public string ayudante2 { get; set; }
         //sirve odometro
