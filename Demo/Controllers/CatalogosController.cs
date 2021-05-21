@@ -23,6 +23,28 @@ namespace Demo.Controllers
         {
             return View();
         }
+        //Equipos
+        public IActionResult Equipos()
+        {
+            var model = new EquiposModelView();
+            model.status = "V";
+            //llenar DropDownList de marcas
+            var marc = datos.TraerMarcas();
+            foreach (var st in marc)
+            {
+                model.MarcasList.Add(new SelectListItem { Value = st.marca_equipo, Text = st.nombre });
+
+            }
+            //llenar status
+            model.status = "V";
+            var sts = datos.TraerStatus();
+            foreach (var st in sts)
+            {
+                model.StatusList.Add(new SelectListItem { Value = st.status, Text = st.nombre, Selected = model.status.Trim() == st.status });
+
+            }
+            return View(model);
+        }
         [HttpGet]
         public IActionResult Aromas()
         {

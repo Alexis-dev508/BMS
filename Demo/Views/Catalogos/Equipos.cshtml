@@ -1,0 +1,97 @@
+﻿@model Demo.Models.EquiposModelView
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <form class="form-inline my-2 my-lg-0">
+      <button class="btn btn-outline-primary my-2 my-sm-0" href="#">
+          <span class="fas fa-search"></span>
+      </button>
+    </form>
+    &nbsp;&nbsp;
+    <form class="form-inline my-2 my-lg-0">
+      <button class="btn btn-outline-primary my-2 my-sm-0" href="#">
+          <span class="fas fa-file"></span>
+      </button>
+    </form>
+    &nbsp;&nbsp;
+    <form class="form-inline my-2 my-lg-0">
+      <button class="btn btn-outline-primary my-2 my-sm-0" href="#">
+          <span class="fas fa-edit"></span>
+      </button>
+    </form>
+    &nbsp;&nbsp;
+    <form class="form-inline my-2 my-lg-0">
+      <button class="btn btn-outline-primary my-2 my-sm-0" href="#" type="submit">
+          <span class="fas fa-save"></span>
+      </button>
+    </form>
+    &nbsp;&nbsp;
+    <form class="form-inline my-2 my-lg-0">
+      <button class="btn btn-outline-primary my-2 my-sm-0" href="#">
+          <span class="fas fa-sync"></span>
+      </button>
+    </form>
+    &nbsp;&nbsp;
+    <a class="navbar-brand" href="#">Datos generales</a>
+</nav>
+<br />
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <form method="post" asp-action="GuardarEquipo" asp-controller="Catalogos">
+                <div class="form-inline">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label asp-for="Equipo" class="control-label">Equipo</label>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <input asp-for="Equipo" class="form-control" />
+                        </div>
+                         &nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="form-group">
+                            <input asp-for="Nombre" class="form-control" />
+                        </div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="form-group">
+                            <label asp-for="Abrev" class="control-label">Abrev</label>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <input asp-for="Abrev" class="form-control" />
+                        </div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="form-group">
+                            @Html.Label("status","Status",new {@class="control-label"})
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.DropDownList("status",Model.StatusList,new {@class="form-control"})
+                        </div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="form-group">
+                            <button class="btn btn-outline-primary my-2 my-sm-0" href="#">
+                                   <span class="far fa-image"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <br />
+            <div class="form-inline">
+                        <div class="form-group">
+                            @Html.Label("marca_equipos","Marca",new {@class="control-label"})
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.DropDownList("marca_equipos",Model.MarcasList,new {@class="form-control"})
+                        </div>
+                    @*    &nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="form-group">
+                            @Html.Label("modelo","Modelo",new {@class="control-label"})
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.DropDownList("modelo",Model.ModeloList,new {@class="form-control"})
+                        </div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="form-group">
+                            @Html.Label("version","Version",new {@class="control-label"})
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.DropDownList("version",Model.VersionList,new {@class="form-control"})
+                        </div>*@
+            </div>
+                
+        </div>
+    </div>
+</div>
+
+

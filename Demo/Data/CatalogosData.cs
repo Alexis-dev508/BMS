@@ -1,10 +1,12 @@
 ﻿using Demo.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -44,6 +46,111 @@ namespace Demo.Data
 
             return aromas;
         }
+        //traer marcas
+        public List<MarcasEquipos> TraerMarcas()
+        {
+            List<MarcasEquipos> marcas = new List<MarcasEquipos>();
+
+            SqlDataAdapter sda = new SqlDataAdapter("dbo.BMS_traerMarcas", this.ConnectionString);
+            sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            marcas = dt.AsEnumerable().Select(a =>
+            new MarcasEquipos
+            {
+                marca_equipo = a["marca_equipos"].ToString(),
+                nombre = a["nombre"].ToString(),
+            }).ToList();
+
+            //model.EquiposList.Add(marcas);
+
+            return marcas;
+        }
+        //traer informacion de equipos
+        public List<Equipos> TraerEquipos()
+        {
+            List<Equipos> equipos = new List<Equipos>();
+
+            SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_Equipos", this.ConnectionString);
+            sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            sda.SelectCommand.Parameters.AddWithValue("@Operacion", "R");
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            equipos = dt.AsEnumerable().Select(a =>
+            new Equipos
+            {
+                equipo  =a["equipo"].ToString(),
+                nombre = a["nombre"].ToString(),
+                abreviatura = a["abreviatura"].ToString(),
+                tipo_equipo = a["tipo_equipo"].ToString(),
+                tipo_vehiculo = a["tipo_vehiculo"].ToString(),
+                marca = a["marca"].ToString(),
+                modelo = a["modelo"].ToString(),
+                año = a["año"].ToString(),
+                serie = a["serie"].ToString(),
+                motor = a["motor"].ToString(),
+                caracteristicas = a["caracteristicas"].ToString(),
+                placas = a["placas"].ToString(),
+                ultima_lectura = Convert.ToInt64(a["ultima_lectura"]),
+                seguro  =Convert.ToDecimal(a["seguro"]),
+                tenencia = Convert.ToDecimal(a["tenencia"]),
+                chofer = a["chofer"].ToString(),
+                status = a["status"].ToString(),
+                activo_fijo = a["activo_fijo"].ToString(),
+                fecha_alta = Convert.ToDateTime(a["fecha_alta"]),
+                cod_estab = a["cod_estab"].ToString(),
+                uso_equipos = a["uso_equipos"].ToString(),
+                codigo_economico = a[""].ToString(),
+                empleado    
+                fecha_compra   
+                costo   
+                valor_comercial 
+                abono_mensual   
+                carga_estandar  
+                equipo_depende  
+                vida_util   
+                medida_vida_util    
+                garantia    
+                medida_garantia 
+                lote    
+                tanque1 
+                tanque2 
+                tanque3 
+                combustible1    
+                combustible2    
+                combustible3    
+                nivel_licencia  
+                nivel_licencia_empresa  
+                usa_lubricante  
+                vigencia_placas 
+                vigencia_circulacion    
+                vida_util2  
+                medida_vida_util2   
+                garantia2   
+                medida_garantia2    
+                area    
+                departamento    
+                tarjeta 
+                ayudante    
+                RENDIMIENTO1    
+                RENDIMIENTO2    
+                RENDIMIENTO3    
+                recorrido_maximo    
+                version odometro    
+                llantas llantas_extras  
+                llantas_eje1    
+                llantas_eje2    
+                llantas_eje3    
+                llantas_eje4    
+                llantas_eje5    
+                llantas_eje6    
+                color   
+                ayudante2   
+                sirve_odometro
+            }).ToList();
+
+            return equipos;
+        }
         //Traer sabores
         public List<Sabores> TraerSabores()
         {
@@ -74,6 +181,8 @@ namespace Demo.Data
             sts.Add(new Status { status = "V", nombre = "Vigente" });
             return sts;
         }
+
+        
 
         public Aromas TraerAroma(string codigo)
         {
