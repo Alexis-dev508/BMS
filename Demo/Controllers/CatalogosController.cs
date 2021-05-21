@@ -44,6 +44,7 @@ namespace Demo.Controllers
 
             }
             return View(model);
+          
         }
         [HttpGet]
         public IActionResult Aromas()

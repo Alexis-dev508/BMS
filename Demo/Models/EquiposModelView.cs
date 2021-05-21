@@ -12,10 +12,13 @@ namespace Demo.Models
         {
             this.MarcasList = new List<SelectListItem>();
             this.StatusList = new List<SelectListItem>();
+           
         }
 
         public IList<SelectListItem> MarcasList { get; set; }
         public IList<SelectListItem> StatusList { get; set; }
+
+      
 
     }
 }
