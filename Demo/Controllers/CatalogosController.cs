@@ -23,8 +23,8 @@ namespace Demo.Controllers
         {
             return View();
         }
-        //Equipos
-        public IActionResult Equipos()
+        [HttpGet]
+        public EquiposModelView combos()
         {
             var model = new EquiposModelView();
             model.status = "V";
@@ -91,10 +91,6 @@ namespace Demo.Controllers
             {
                 model.FrecuenciaList.Add(new SelectListItem { Value = st.frecuencia_servicio_equipos, Text = st.nombre });
             }
-
-
-
-
             //llenar status
             model.status = "V";
             var sts = datos.TraerStatus();
@@ -103,9 +99,69 @@ namespace Demo.Controllers
                 model.StatusList.Add(new SelectListItem { Value = st.status, Text = st.nombre, Selected = model.status.Trim() == st.status });
 
             }
+            return model;
+        }
+        [HttpGet]
+        public IActionResult NuevoEquipo()
+        {
+            return View(combos());
+        }
+
+        
+
+        [HttpPost]
+        public IActionResult NuevoEquipo(EquiposModelView model)
+        {
+            try
+            {
+                combos();
+                var res = datos.GuardarEquipo(model, "N");
+                if (res)
+                {
+                    return RedirectToAction("Equipos");
+                }
+                else
+                {
+                    return View(model);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ViewBag.Errores = ex.Message;
+                return View(model);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult EditarEquipo(string id)
+        {
+            var model = new EquiposModelView();
+            model = datos.TraerEquipo(id);
+            //llenar DropDownList
+            combos();
             return View(model);
+        }
+
+
+        //Equipos
+        public IActionResult Equipos()
+        {
+            var model = new List<Equipos>();
+            model = datos.TraerEquipos();
+            return View(model);
+           
           
         }
+        ////guardar equipo
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult GuardarEquipo(EquiposModelView model)
+        //{
+            
+
+        //}
+        //lista de equipos kewydown
         [HttpGet]
         public IActionResult Aromas()
         {

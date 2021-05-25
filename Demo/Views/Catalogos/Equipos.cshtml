@@ -1,271 +1,76 @@
-﻿@model Demo.Models.EquiposModelView
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <form class="form-inline my-2 my-lg-0">
-      <button class="btn btn-outline-primary my-2 my-sm-0" href="#">
-          <span class="fas fa-search"></span>
-      </button>
-    </form>
-    &nbsp;&nbsp;
-    <form class="form-inline my-2 my-lg-0">
-      <button class="btn btn-outline-primary my-2 my-sm-0" href="#">
-          <span class="fas fa-file"></span>
-      </button>
-    </form>
-    &nbsp;&nbsp;
-    <form class="form-inline my-2 my-lg-0">
-      <button class="btn btn-outline-primary my-2 my-sm-0" href="#">
-          <span class="fas fa-edit"></span>
-      </button>
-    </form>
-    &nbsp;&nbsp;
-    <form class="form-inline my-2 my-lg-0">
-      <button class="btn btn-outline-primary my-2 my-sm-0" href="#" type="submit">
-          <span class="fas fa-save"></span>
-      </button>
-    </form>
-    &nbsp;&nbsp;
-    <form class="form-inline my-2 my-lg-0">
-      <button class="btn btn-outline-primary my-2 my-sm-0" href="#">
-          <span class="fas fa-sync"></span>
-      </button>
-    </form>
-    &nbsp;&nbsp;
-    <a class="navbar-brand" href="#">Datos generales</a>
-</nav>
-<br />
+﻿@model List<Demo.Models.Equipos>
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-12">
-            <form method="post" asp-action="GuardarEquipo" asp-controller="Catalogos">
-                <div class="form-inline">
-                    <div class="form-group">
-                        <div class="form-group m-2">
-                            <label asp-for="Equipo" class="control-label">Equipo</label>
-                            
-                            <input asp-for="Equipo" class="form-control" />
-                        </div>
-                         
-                        <div class="form-group m-2">
-                            <input asp-for="Nombre" class="form-control" />
-                        </div>
-                       
-                        <div class="form-group m-2">
-                            <label asp-for="Abrev" class="control-label">Abrev</label>
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            <input asp-for="Abrev" class="form-control" />
-                        </div>
-                        
-                        <div class="form-group m-2">
-                            @Html.Label("status","Status",new {@class="control-label"})
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.DropDownList("status",Model.StatusList,new {@class="form-control"})
-                        </div>
-                       
-                        <div class="form-group m-2">
-                            <button class="btn btn-outline-primary my-2 my-sm-0" href="#">
-                                   <span class="far fa-image"></span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </form>
- 
-            <div class="form-inline">
-                        <div class="form-group m-2">
-                            @Html.Label("marca_equipos","Marca",new {@class="control-label"})
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.DropDownList("marca_equipos",Model.MarcasList,new {@class="form-control"})
-                        </div>
-                       &nbsp;&nbsp;&nbsp;&nbsp;
-                        <div class="form-group m-2">
-                            @Html.Label("modelo_equipos","Modelo",new {@class="control-label"})
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.DropDownList("modelo_equipos",Model.ModelosList,new {@class="form-control"})
-                        </div>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <div class="form-group m-2">
-                            @Html.Label("version_equipos","Version",new {@class="control-label"})
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.DropDownList("version_equipos",Model.VersionList, new {@class="form-control"})
-                        </div>
-                        <div class="form-group m-2">
-                            @Html.Label("año_equipos","Año",new {@class="control-label"})
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.DropDownList("año_equipos",Model.AnniosList, new {@class="form-control"})
-                        </div>
-                        <div class="form-group m-2">
-                            <label asp-for="Serie" class="control-label">Serie</label>
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            <input asp-for="Serie" class="form-control" />
-                        </div>
-                        <div class="form-group m-2">
-                            @Html.Label("tipo_equipo","Tipo",new {@class="control-label"})
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.DropDownList("tipo_equipo",Model.TipoEquipoList, new {@class="form-control"})
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                        </div>
-                        <div class="form-group m-2">
-                            @Html.Label("cod_estab","Estab.",new {@class="control-label"})
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.DropDownList("cod_estab",Model.EstabList, new {@class="form-control"})
-                        </div>
-                        <div class="form-group m-2">
-                            <label asp-for="Cod Eco" class="control-label">CódEco</label>
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            <input asp-for="Cod Eco" class="form-control" />
-                        </div>
-                        <div class="form-group m-2">
-                            @Html.Label("color","Color",new {@class="control-label"})
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.DropDownList("color",Model.ColorList, new {@class="form-control"})
-                            
-                        </div>
-                        <div class="form-group m-1">
-                            @Html.Label("uso_equipos","Uso",new {@class="control-label"})
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.DropDownList("color_equipos",Model.UsosList, new {@class="form-control"})
-                           
-                        </div>
-                        <div class="form-group m-2">
-                            @Html.Label("odometro","Odómetro",new {@class="control-label"})
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.DropDownList("odometro",Model.OdometroList, new {@class="form-control"})
-                            
-                        </div>
-                        <div class="checkbox m-2">
-                         <div class="checkbox">
-                              <label>
-                                <input type="checkbox" id="cb1" value="option1"> Sirve odómetro
-                              </label>
-                        </div>
-                     </div>
-
-                        <div class="form-group m-2">
-                          @Html.Label("caracterizticas","Características", new {@class = "control-label"})
-                          &nbsp;&nbsp;&nbsp;&nbsp;
-                          <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3"></textarea>
-                        </div>
-
-                        <div class="form-group m-2">
-                            <label asp-for="fijo" class="control-label ">Activo Fijo</label>
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            <input asp-for="fijo" class="form-control sm" />
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                             <input asp-for="fijo" class="form-control" />
-                        </div>
-
-                        <div class="checkbox m-2">
-                         <div class="checkbox">
-                              <label>
-                                <input type="checkbox" id="cbFijo" value="option1"> Activo Fijo
-                              </label>
-                             </div>
-                        </div>
-
-                         <div class="form-group m-2">
-                            <label asp-for="depende" class="control-label">Depende</label>
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            <input asp-for="depende" class="form-control" />
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                             <input asp-for="depende" class="form-control" />
-                        </div>
-
-                        <div class="form-group m-2">
-                           <b>Vida útil 1: <input type="number" name="vidaUtil1" style="max-width: 6vw;"></b> 
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.DropDownList("frecuencia_servicio_equipos",Model.FrecuenciaList, new {@class="form-control"})
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                           <b> Garantía 1: <input type="number" name="garantia1"  style="max-width: 6vw;"></b> 
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.DropDownList("frecuencia_servicio_equipos",Model.FrecuenciaList, new {@class="form-control"})
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                            <label asp-for="lote" class="control-label">Lote</label>
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                            <input asp-for="lote" class="form-control" />
-                         </div>
-
-
-                        <div class="form-group m-2">
-                           <b>Vida útil 2: <input type="number" name="vidaUtil2" style="max-width: 6vw;"></b> 
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.DropDownList("frecuencia_servicio_equipos",Model.FrecuenciaList, new {@class="form-control"})
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                           <b> Garantía 2: <input type="number" name="garantia2"  style="max-width: 6vw;"></b> 
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.DropDownList("frecuencia_servicio_equipos",Model.FrecuenciaList, new {@class="form-control"})
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                          
-                         </div>
-
-                        <div class="form-group m-2">
-                            <b>Área <input type="number" name="area" style="max-width: 8vw;"></b> 
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                             <input type="number" name="direccion" style="max-width: 8vw;">
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                               <b>Recorrido máximo: <input type="number" name="recorrido" style="max-width: 8vw;"></b> 
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                        </div>
-                         <div class="form-group m-2">
-                            <b>Depto. <input type="number" name="depto" style="max-width: 8vw;"></b> 
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                             <input type="number" name="nombreDepto" style="max-width: 8vw;">
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                               
-                        </div>
-
-            </div>
-                
-        </div>
-    </div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="card-primary">
+				<div class="card-header">
+				   <h3>Equipos</h3>
+			   </div>
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <form class="form-inline my-2 my-lg-0">
+					  <a class="btn btn-outline-primary" href="@Url.Action("NuevoEquipo","Catalogos")" > @*href="@Url.Action("NuevoEquipo","Catalogos")"*@
+						   <i class="fas fa-file"></i>
+						   Nuevo Equipo
+					  </a>
+                    &nbsp;&nbsp;
+                </nav>
+				<table class="table table-hover" id="tabla">
+					<thead>
+					 <tr>
+					  <th>Equipo</th>
+					  <th>Nombre</th>
+					  <th>Abreviatura</th>
+					  <th>Empleado</th>
+					  <th>Status</th>
+					  <th>Serie</th>
+					  <th></th>
+				  </tr>
+				 </thead>
+				 <tbody>
+					 @foreach(var dat in Model)
+						{
+							<tr>
+					   <td>@dat.equipo</td>
+					   <td>@dat.nombre</td>
+					   <td>@dat.abreviatura</td>
+					   <td>@dat.empleado</td>
+					   <td>@dat.status</td>
+						<td>@dat.serie</td>
+						<td>
+							<button class="btn btn-outline-warning my-2 my-sm-0" href="@Url.Action("EditarAroma","Catalogos",new {id = dat.equipo})">
+							  <span class="fas fa-edit"></span>
+							  Editar
+							</button>
+						</td>
+				   </tr>
+						}
+				 </tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 </div>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark"></nav>
-@*<div class="container-fluid">
-    <div class="form-inline">
-        <div class="col-sm-4">
-            <table class="table table-bordered" id="tabla">
-                <thead>
-                    <tr>
-                        <th>Valores</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <div class="container-fluid">
-                                <div class="form-group">
-                                    @Html.Label("fecha_compra","Compra",new {@class="control-label"})
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                    @Html.TextBoxFor(model=> model.fecha_compra,new {@class="form-control datepicker-input"})
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="col-sm-8">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Vehículo</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+<div class="modal fade bd-example-modal-lg" id="modalDetalle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Datos</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="datosEquipos">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
     </div>
+  </div>
 </div>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#fecha_compra').datepicker({
-            format: 'L'
-        });
-
-    });
-</script>*@
-
+<script>
+$(document).ready( function () {
+    $('#tabla').DataTable();
+} );
+</script>
 

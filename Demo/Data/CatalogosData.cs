@@ -123,6 +123,8 @@ namespace Demo.Data
             }).ToList();
             return annios;
         }
+
+
         //traer tipo equipos
         public List<TiposEquipos> TraerTipoEquipo()
         {
@@ -420,13 +422,36 @@ namespace Demo.Data
 
             SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_Equipos", this.ConnectionString);
             sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            sda.SelectCommand.Parameters.AddWithValue("@Operacion", "R");
+            sda.SelectCommand.Parameters.AddWithValue("@oper", "R");
             DataTable dt = new DataTable();
             sda.Fill(dt);
             equipos = dt.AsEnumerable().Select(a =>
             new Equipos
             {
-                equipo  =a["equipo"].ToString(),
+                equipo = a["equipo"].ToString(),
+                nombre = a["nombre"].ToString(),
+                abreviatura = a["abreviatura"].ToString(),
+                empleado = a["empleado"].ToString(),
+                status = a["status"].ToString(),
+                serie = a["serie"].ToString()
+            }).ToList();
+            return equipos;
+        }
+
+        public EquiposModelView TraerEquipo(string equipo)
+        {
+            EquiposModelView equipos = new EquiposModelView();
+
+            SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_Equipos", this.ConnectionString);
+            sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            sda.SelectCommand.Parameters.AddWithValue("@Operacion", "R");
+            sda.SelectCommand.Parameters.AddWithValue("@equipo",equipo);
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            equipos = dt.AsEnumerable().Select(a =>
+            new EquiposModelView
+            {
+                equipo = a["equipo"].ToString(),
                 nombre = a["nombre"].ToString(),
                 abreviatura = a["abreviatura"].ToString(),
                 tipo_equipo = a["tipo_equipo"].ToString(),
@@ -439,7 +464,7 @@ namespace Demo.Data
                 caracteristicas = a["caracteristicas"].ToString(),
                 placas = a["placas"].ToString(),
                 ultima_lectura = Convert.ToInt64(a["ultima_lectura"]),
-                seguro  =Convert.ToDecimal(a["seguro"]),
+                seguro = Convert.ToDecimal(a["seguro"]),
                 tenencia = Convert.ToDecimal(a["tenencia"]),
                 chofer = a["chofer"].ToString(),
                 status = a["status"].ToString(),
@@ -451,54 +476,162 @@ namespace Demo.Data
                 empleado = a["empleado"].ToString(),
                 fecha_compra = Convert.ToDateTime(a["fecha_compra"]),
                 costo = Convert.ToDecimal(a["costo"]),
-                valor_comercial =Convert.ToDecimal(a["costo"]),
+                valor_comercial = Convert.ToDecimal(a["costo"]),
                 abono_mensual = Convert.ToDecimal(a["abono_mensual"]),
                 carga_estandar = a["carga_estandar"].ToString(),
                 equipo_depende = a["equipo_depende"].ToString(),
-                vida_util   = Convert.ToInt32(a["vida_util"]),
+                vida_util = Convert.ToInt32(a["vida_util"]),
                 medida_vida_util = a["medida_vida_util"].ToString(),
                 garantia = Convert.ToInt32(a["garantia"]),
                 medida_garantia = a["medida_garantia"].ToString(),
                 lote = a["lote"].ToString(),
-                tanque1 =Convert.ToInt32(a["tanque1"]),
+                tanque1 = Convert.ToInt32(a["tanque1"]),
                 tanque2 = Convert.ToInt32(a["tanque2"]),
                 tanque3 = Convert.ToInt32(a["tanque3"]),
                 combustible1 = a["combustible1"].ToString(),
                 combustible2 = a["combustible2"].ToString(),
                 combustible3 = a["combustible3"].ToString(),
-                nivel_licencia  = Convert.ToByte(a["nivel_licencia"]),
-                nivel_licencia_empresa = Convert.ToByte(a["nivel_licencia_empresa"]),
-                usa_lubricante  =Convert.ToBoolean(a["usa_lubricante"]),
-                vigencia_placas =Convert.ToDateTime(a["vigencia_placas"]),
+                nivel_licencia = Convert.ToInt32(a["nivel_licencia"]),
+                nivel_licencia_empresa = Convert.ToInt32(a["nivel_licencia_empresa"]),
+                usa_lubricante = Convert.ToBoolean(a["usa_lubricante"]),
+                vigencia_placas = Convert.ToDateTime(a["vigencia_placas"]),
                 vigencia_circulacion = Convert.ToDateTime(a["vigencia_circulacion"]),
-                vida_util2  =Convert.ToInt32(a["vida_util2"]),
-                medida_vida_util2   =a["medida_vida_util2"].ToString(),
-                garantia2   =Convert.ToInt32(a["garantia2"]),
-                medida_garantia2   = a["medida_garantia2"].ToString(),
-                area    = a["area"].ToString(),
+                vida_util2 = Convert.ToInt32(a["vida_util2"]),
+                medida_vida_util2 = a["medida_vida_util2"].ToString(),
+                garantia2 = Convert.ToInt32(a["garantia2"]),
+                medida_garantia2 = a["medida_garantia2"].ToString(),
+                area = a["area"].ToString(),
                 departamento = a["departamento"].ToString(),
                 tarjeta = a["tarjeta"].ToString(),
                 ayudante = a["ayudante"].ToString(),
                 RENDIMIENTO1 = Convert.ToDecimal(a["RENDIMIENTO1"]),
-                RENDIMIENTO2 =Convert.ToDecimal(a["RENDIMIENTO2"]),
+                RENDIMIENTO2 = Convert.ToDecimal(a["RENDIMIENTO2"]),
                 RENDIMIENTO3 = Convert.ToDecimal(a["RENDIMIENTO3"]),
-                recorrido_maximo   =Convert.ToInt32(a["recorrido_maximo"]), 
+                recorrido_maximo = Convert.ToInt32(a["recorrido_maximo"]),
                 version = a["version"].ToString(),
                 odometro = a["odometro"].ToString(),
-                llantas = Convert.ToByte(a["llantas"]),
-                llantas_extras = Convert.ToByte(a["llantas_extras"]),
-                llantas_eje1 = Convert.ToByte(a["llantas_eje1"]),
-                llantas_eje2 = Convert.ToByte(a["llantas_eje2"]),
-                llantas_eje3 = Convert.ToByte(a["llantas_eje3"]),
-                llantas_eje4 = Convert.ToByte(a["llantas_eje4"]),
-                llantas_eje5 = Convert.ToByte(a["llantas_eje5"]),
-                llantas_eje6 = Convert.ToByte(a["llantas_eje6"]),
-                color   =a["color"].ToString(),
+                llantas = Convert.ToInt32(a["llantas"]),
+                llantas_extras = Convert.ToInt32(a["llantas_extras"]),
+                llantas_eje1 = Convert.ToInt32(a["llantas_eje1"]),
+                llantas_eje2 = Convert.ToInt32(a["llantas_eje2"]),
+                llantas_eje3 = Convert.ToInt32(a["llantas_eje3"]),
+                llantas_eje4 = Convert.ToInt32(a["llantas_eje4"]),
+                llantas_eje5 = Convert.ToInt32(a["llantas_eje5"]),
+                llantas_eje6 = Convert.ToInt32(a["llantas_eje6"]),
+                color = a["color"].ToString(),
                 ayudante2 = a["ayudante2"].ToString(),
-                sirve_odometro =Convert.ToBoolean(a["sirve_odometro"])
-            }).ToList();
+                sirve_odometro = Convert.ToBoolean(a["sirve_odometro"])
+            }).SingleOrDefault();
 
             return equipos;
+        }
+
+        //guardar equipo
+        public bool GuardarEquipo(Equipos equipo, string operacion)
+        {
+            SqlTransaction sqlTransaction = null;
+            SqlConnection cnn = new SqlConnection(this.ConnectionString);
+            try
+            {
+                cnn.Open();
+                sqlTransaction = cnn.BeginTransaction();
+                SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_Equipos", cnn);
+                sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sda.SelectCommand.Transaction = sqlTransaction;
+                sda.SelectCommand.Parameters.AddWithValue("@oper", operacion);
+                sda.SelectCommand.Parameters.AddWithValue("@equipo", equipo.equipo);
+                sda.SelectCommand.Parameters.AddWithValue("@nombre", equipo.nombre);
+                sda.SelectCommand.Parameters.AddWithValue("@abreviatura", equipo.abreviatura);
+                sda.SelectCommand.Parameters.AddWithValue("@tipo_equipo", equipo.tipo_equipo);
+                sda.SelectCommand.Parameters.AddWithValue("@tipo_vehiculo", equipo.tipo_vehiculo);
+                sda.SelectCommand.Parameters.AddWithValue("@marca", equipo.marca);
+                sda.SelectCommand.Parameters.AddWithValue("@modelo", equipo.modelo);
+                sda.SelectCommand.Parameters.AddWithValue("@año", equipo.año);
+                sda.SelectCommand.Parameters.AddWithValue("@serie", equipo.serie);
+                sda.SelectCommand.Parameters.AddWithValue("@motor", equipo.motor);
+                sda.SelectCommand.Parameters.AddWithValue("@caracteristicas", equipo.caracteristicas);
+                sda.SelectCommand.Parameters.AddWithValue("@placas", equipo.placas);
+                sda.SelectCommand.Parameters.AddWithValue("@ultima_lectura", equipo.ultima_lectura);
+                sda.SelectCommand.Parameters.AddWithValue("@seguro", equipo.seguro);
+                sda.SelectCommand.Parameters.AddWithValue("@tenencia", equipo.tenencia);
+                sda.SelectCommand.Parameters.AddWithValue("@chofer", equipo.chofer);
+                sda.SelectCommand.Parameters.AddWithValue("@status", equipo.status);
+                sda.SelectCommand.Parameters.AddWithValue("@activo_fijo", equipo.activo_fijo);
+                sda.SelectCommand.Parameters.AddWithValue("@fecha_alta", equipo.fecha_alta);
+                sda.SelectCommand.Parameters.AddWithValue("@cos_estab", equipo.cod_estab);
+                sda.SelectCommand.Parameters.AddWithValue("@uso_equipos", equipo.uso_equipos);
+                sda.SelectCommand.Parameters.AddWithValue("@codigo_economico", equipo.codigo_economico);
+                sda.SelectCommand.Parameters.AddWithValue("@empleado", equipo.empleado);
+                sda.SelectCommand.Parameters.AddWithValue("@fecha_compra", equipo.fecha_compra);
+                sda.SelectCommand.Parameters.AddWithValue("@costo", equipo.costo);
+                sda.SelectCommand.Parameters.AddWithValue("@valor_comercial", equipo.valor_comercial);
+                sda.SelectCommand.Parameters.AddWithValue("@abono_mensual", equipo.abono_mensual);
+                sda.SelectCommand.Parameters.AddWithValue("@carga_estandar", equipo.carga_estandar);
+                sda.SelectCommand.Parameters.AddWithValue("@equipo_depende", equipo.equipo_depende);
+                sda.SelectCommand.Parameters.AddWithValue("@vida_util", equipo.vida_util);
+                sda.SelectCommand.Parameters.AddWithValue("@medida_vida_util", equipo.medida_vida_util);
+                sda.SelectCommand.Parameters.AddWithValue("@garantia", equipo.garantia);
+                sda.SelectCommand.Parameters.AddWithValue("@medida_garantia", equipo.medida_garantia);
+                sda.SelectCommand.Parameters.AddWithValue("@lote", equipo.lote);
+                sda.SelectCommand.Parameters.AddWithValue("@tanque1", equipo.tanque1);
+                sda.SelectCommand.Parameters.AddWithValue("@tanque2", equipo.tanque2);
+                sda.SelectCommand.Parameters.AddWithValue("@tanque3", equipo.tanque3);
+                sda.SelectCommand.Parameters.AddWithValue("@combustible1", equipo.combustible1);
+                sda.SelectCommand.Parameters.AddWithValue("@combustible2", equipo.combustible2);
+                sda.SelectCommand.Parameters.AddWithValue("@combustible3", equipo.combustible3);
+                sda.SelectCommand.Parameters.AddWithValue("@nivel_licencia", equipo.nivel_licencia);
+                sda.SelectCommand.Parameters.AddWithValue("@nivel_licencia_empresa", equipo.nivel_licencia_empresa);
+                sda.SelectCommand.Parameters.AddWithValue("@usa_lubricante", equipo.usa_lubricante);
+                sda.SelectCommand.Parameters.AddWithValue("@vigencia_placas", equipo.vigencia_placas);
+                sda.SelectCommand.Parameters.AddWithValue("@vigencia_circulacion", equipo.vigencia_circulacion);
+                sda.SelectCommand.Parameters.AddWithValue("@vida_util2", equipo.vida_util2);
+                sda.SelectCommand.Parameters.AddWithValue("@medida_vida_util2", equipo.medida_vida_util2);
+                sda.SelectCommand.Parameters.AddWithValue("@garantia2", equipo.garantia2);
+                sda.SelectCommand.Parameters.AddWithValue("@medida_garantia2", equipo.medida_garantia2);
+                sda.SelectCommand.Parameters.AddWithValue("@area", equipo.area);
+                sda.SelectCommand.Parameters.AddWithValue("@departamento", equipo.departamento);
+                sda.SelectCommand.Parameters.AddWithValue("@tarjeta", equipo.tarjeta);
+                sda.SelectCommand.Parameters.AddWithValue("@ayudante", equipo.ayudante);
+                sda.SelectCommand.Parameters.AddWithValue("@RENDIMIENTO1", equipo.RENDIMIENTO1);
+                sda.SelectCommand.Parameters.AddWithValue("@RENDIMIENTO2", equipo.RENDIMIENTO2);
+                sda.SelectCommand.Parameters.AddWithValue("@RENDIMIENTO3", equipo.RENDIMIENTO3);
+                sda.SelectCommand.Parameters.AddWithValue("@recorrido_maximo", equipo.recorrido_maximo);
+                sda.SelectCommand.Parameters.AddWithValue("@version", equipo.version);
+                sda.SelectCommand.Parameters.AddWithValue("@odometro", equipo.odometro);
+                sda.SelectCommand.Parameters.AddWithValue("@llantas", equipo.llantas);
+                sda.SelectCommand.Parameters.AddWithValue("@llantas_extras", equipo.llantas_extras);
+                sda.SelectCommand.Parameters.AddWithValue("@llantas_eje1", equipo.llantas_eje1);
+                sda.SelectCommand.Parameters.AddWithValue("@llantas_eje2", equipo.llantas_eje2);
+                sda.SelectCommand.Parameters.AddWithValue("@llantas_eje3", equipo.llantas_eje3);
+                sda.SelectCommand.Parameters.AddWithValue("@llantas_eje4", equipo.llantas_eje4);
+                sda.SelectCommand.Parameters.AddWithValue("@llantas_eje5", equipo.llantas_eje5);
+                sda.SelectCommand.Parameters.AddWithValue("@llantas_eje6", equipo.llantas_eje6);
+                sda.SelectCommand.Parameters.AddWithValue("@color", equipo.color);
+                sda.SelectCommand.Parameters.AddWithValue("@ayudante2", equipo.ayudante2);
+                sda.SelectCommand.Parameters.AddWithValue("@sirve_odometro", equipo.sirve_odometro);
+                sda.SelectCommand.Parameters.Add(new SqlParameter("@Msg", SqlDbType.VarChar, 500, ParameterDirection.InputOutput, false, 0, 0, "", DataRowVersion.Current, ""));
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                if (!string.IsNullOrEmpty(sda.SelectCommand.Parameters["@Msg"].Value.ToString()))
+                {
+                    throw new Exception(sda.SelectCommand.Parameters["@Msg"].Value.ToString());
+                }
+                sqlTransaction.Commit();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                sqlTransaction.Rollback();
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                if (cnn.State != ConnectionState.Closed)
+                {
+                    cnn.Close();
+                }
+            }
+
         }
         //Traer sabores
         public List<Sabores> TraerSabores()
