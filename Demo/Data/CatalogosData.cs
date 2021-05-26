@@ -1,4 +1,5 @@
 ﻿using Demo.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
@@ -444,7 +445,7 @@ namespace Demo.Data
 
             SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_Equipos", this.ConnectionString);
             sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            sda.SelectCommand.Parameters.AddWithValue("@Operacion", "R");
+            sda.SelectCommand.Parameters.AddWithValue("@oper", "R");
             sda.SelectCommand.Parameters.AddWithValue("@equipo",equipo);
             DataTable dt = new DataTable();
             sda.Fill(dt);
@@ -543,71 +544,71 @@ namespace Demo.Data
                 sda.SelectCommand.Parameters.AddWithValue("@nombre", equipo.nombre);
                 sda.SelectCommand.Parameters.AddWithValue("@abreviatura", equipo.abreviatura);
                 sda.SelectCommand.Parameters.AddWithValue("@tipo_equipo", equipo.tipo_equipo);
-                sda.SelectCommand.Parameters.AddWithValue("@tipo_vehiculo", equipo.tipo_vehiculo);
+                sda.SelectCommand.Parameters.AddWithValue("@tipo_vehiculo", 1);
                 sda.SelectCommand.Parameters.AddWithValue("@marca", equipo.marca);
                 sda.SelectCommand.Parameters.AddWithValue("@modelo", equipo.modelo);
                 sda.SelectCommand.Parameters.AddWithValue("@año", equipo.año);
                 sda.SelectCommand.Parameters.AddWithValue("@serie", equipo.serie);
-                sda.SelectCommand.Parameters.AddWithValue("@motor", equipo.motor);
+                sda.SelectCommand.Parameters.AddWithValue("@motor", 1);
                 sda.SelectCommand.Parameters.AddWithValue("@caracteristicas", equipo.caracteristicas);
-                sda.SelectCommand.Parameters.AddWithValue("@placas", equipo.placas);
-                sda.SelectCommand.Parameters.AddWithValue("@ultima_lectura", equipo.ultima_lectura);
-                sda.SelectCommand.Parameters.AddWithValue("@seguro", equipo.seguro);
-                sda.SelectCommand.Parameters.AddWithValue("@tenencia", equipo.tenencia);
-                sda.SelectCommand.Parameters.AddWithValue("@chofer", equipo.chofer);
+                sda.SelectCommand.Parameters.AddWithValue("@placas", 1);
+                sda.SelectCommand.Parameters.AddWithValue("@ultima_lectura", 1);
+                sda.SelectCommand.Parameters.AddWithValue("@seguro", 1);
+                sda.SelectCommand.Parameters.AddWithValue("@tenencia", 1);
+                sda.SelectCommand.Parameters.AddWithValue("@chofer", 1);
                 sda.SelectCommand.Parameters.AddWithValue("@status", equipo.status);
                 sda.SelectCommand.Parameters.AddWithValue("@activo_fijo", equipo.activo_fijo);
-                sda.SelectCommand.Parameters.AddWithValue("@fecha_alta", equipo.fecha_alta);
-                sda.SelectCommand.Parameters.AddWithValue("@cos_estab", equipo.cod_estab);
+                sda.SelectCommand.Parameters.AddWithValue("@fecha_alta", "01/01/2000");
+                sda.SelectCommand.Parameters.AddWithValue("@cod_estab", equipo.cod_estab);
                 sda.SelectCommand.Parameters.AddWithValue("@uso_equipos", equipo.uso_equipos);
                 sda.SelectCommand.Parameters.AddWithValue("@codigo_economico", equipo.codigo_economico);
-                sda.SelectCommand.Parameters.AddWithValue("@empleado", equipo.empleado);
-                sda.SelectCommand.Parameters.AddWithValue("@fecha_compra", equipo.fecha_compra);
-                sda.SelectCommand.Parameters.AddWithValue("@costo", equipo.costo);
-                sda.SelectCommand.Parameters.AddWithValue("@valor_comercial", equipo.valor_comercial);
-                sda.SelectCommand.Parameters.AddWithValue("@abono_mensual", equipo.abono_mensual);
-                sda.SelectCommand.Parameters.AddWithValue("@carga_estandar", equipo.carga_estandar);
+                sda.SelectCommand.Parameters.AddWithValue("@empleado", 1);
+                sda.SelectCommand.Parameters.AddWithValue("@fecha_compra", "01/01/2000");
+                sda.SelectCommand.Parameters.AddWithValue("@costo", "1");
+                sda.SelectCommand.Parameters.AddWithValue("@valor_comercial", 1);
+                sda.SelectCommand.Parameters.AddWithValue("@abono_mensual", 1);
+                sda.SelectCommand.Parameters.AddWithValue("@carga_estandar", 1);
                 sda.SelectCommand.Parameters.AddWithValue("@equipo_depende", equipo.equipo_depende);
                 sda.SelectCommand.Parameters.AddWithValue("@vida_util", equipo.vida_util);
                 sda.SelectCommand.Parameters.AddWithValue("@medida_vida_util", equipo.medida_vida_util);
                 sda.SelectCommand.Parameters.AddWithValue("@garantia", equipo.garantia);
                 sda.SelectCommand.Parameters.AddWithValue("@medida_garantia", equipo.medida_garantia);
                 sda.SelectCommand.Parameters.AddWithValue("@lote", equipo.lote);
-                sda.SelectCommand.Parameters.AddWithValue("@tanque1", equipo.tanque1);
-                sda.SelectCommand.Parameters.AddWithValue("@tanque2", equipo.tanque2);
-                sda.SelectCommand.Parameters.AddWithValue("@tanque3", equipo.tanque3);
-                sda.SelectCommand.Parameters.AddWithValue("@combustible1", equipo.combustible1);
-                sda.SelectCommand.Parameters.AddWithValue("@combustible2", equipo.combustible2);
-                sda.SelectCommand.Parameters.AddWithValue("@combustible3", equipo.combustible3);
-                sda.SelectCommand.Parameters.AddWithValue("@nivel_licencia", equipo.nivel_licencia);
-                sda.SelectCommand.Parameters.AddWithValue("@nivel_licencia_empresa", equipo.nivel_licencia_empresa);
-                sda.SelectCommand.Parameters.AddWithValue("@usa_lubricante", equipo.usa_lubricante);
-                sda.SelectCommand.Parameters.AddWithValue("@vigencia_placas", equipo.vigencia_placas);
-                sda.SelectCommand.Parameters.AddWithValue("@vigencia_circulacion", equipo.vigencia_circulacion);
+                sda.SelectCommand.Parameters.AddWithValue("@tanque1", 1);
+                sda.SelectCommand.Parameters.AddWithValue("@tanque2", 1);
+                sda.SelectCommand.Parameters.AddWithValue("@tanque3", 1);
+                sda.SelectCommand.Parameters.AddWithValue("@combustible1", 1);
+                sda.SelectCommand.Parameters.AddWithValue("@combustible2", 1);
+                sda.SelectCommand.Parameters.AddWithValue("@combustible3", 1);
+                sda.SelectCommand.Parameters.AddWithValue("@nivel_licencia", 1);
+                sda.SelectCommand.Parameters.AddWithValue("@nivel_licencia_empresa", 1);
+                sda.SelectCommand.Parameters.AddWithValue("@usa_lubricante", 1);
+                sda.SelectCommand.Parameters.AddWithValue("@vigencia_placas", 1);
+                sda.SelectCommand.Parameters.AddWithValue("@vigencia_circulacion", 1);
                 sda.SelectCommand.Parameters.AddWithValue("@vida_util2", equipo.vida_util2);
                 sda.SelectCommand.Parameters.AddWithValue("@medida_vida_util2", equipo.medida_vida_util2);
                 sda.SelectCommand.Parameters.AddWithValue("@garantia2", equipo.garantia2);
                 sda.SelectCommand.Parameters.AddWithValue("@medida_garantia2", equipo.medida_garantia2);
                 sda.SelectCommand.Parameters.AddWithValue("@area", equipo.area);
                 sda.SelectCommand.Parameters.AddWithValue("@departamento", equipo.departamento);
-                sda.SelectCommand.Parameters.AddWithValue("@tarjeta", equipo.tarjeta);
-                sda.SelectCommand.Parameters.AddWithValue("@ayudante", equipo.ayudante);
-                sda.SelectCommand.Parameters.AddWithValue("@RENDIMIENTO1", equipo.RENDIMIENTO1);
-                sda.SelectCommand.Parameters.AddWithValue("@RENDIMIENTO2", equipo.RENDIMIENTO2);
-                sda.SelectCommand.Parameters.AddWithValue("@RENDIMIENTO3", equipo.RENDIMIENTO3);
+                sda.SelectCommand.Parameters.AddWithValue("@tarjeta", 1);
+                sda.SelectCommand.Parameters.AddWithValue("@ayudante", 1);
+                sda.SelectCommand.Parameters.AddWithValue("@RENDIMIENTO1", 1);
+                sda.SelectCommand.Parameters.AddWithValue("@RENDIMIENTO2", 1);
+                sda.SelectCommand.Parameters.AddWithValue("@RENDIMIENTO3", 1);
                 sda.SelectCommand.Parameters.AddWithValue("@recorrido_maximo", equipo.recorrido_maximo);
                 sda.SelectCommand.Parameters.AddWithValue("@version", equipo.version);
                 sda.SelectCommand.Parameters.AddWithValue("@odometro", equipo.odometro);
-                sda.SelectCommand.Parameters.AddWithValue("@llantas", equipo.llantas);
-                sda.SelectCommand.Parameters.AddWithValue("@llantas_extras", equipo.llantas_extras);
-                sda.SelectCommand.Parameters.AddWithValue("@llantas_eje1", equipo.llantas_eje1);
-                sda.SelectCommand.Parameters.AddWithValue("@llantas_eje2", equipo.llantas_eje2);
-                sda.SelectCommand.Parameters.AddWithValue("@llantas_eje3", equipo.llantas_eje3);
-                sda.SelectCommand.Parameters.AddWithValue("@llantas_eje4", equipo.llantas_eje4);
-                sda.SelectCommand.Parameters.AddWithValue("@llantas_eje5", equipo.llantas_eje5);
-                sda.SelectCommand.Parameters.AddWithValue("@llantas_eje6", equipo.llantas_eje6);
+                sda.SelectCommand.Parameters.AddWithValue("@llantas", 1);
+                sda.SelectCommand.Parameters.AddWithValue("@llantas_extras", 1);
+                sda.SelectCommand.Parameters.AddWithValue("@llantas_eje1", 1);
+                sda.SelectCommand.Parameters.AddWithValue("@llantas_eje2", 1);
+                sda.SelectCommand.Parameters.AddWithValue("@llantas_eje3", 1);
+                sda.SelectCommand.Parameters.AddWithValue("@llantas_eje4", 1);
+                sda.SelectCommand.Parameters.AddWithValue("@llantas_eje5", 1);
+                sda.SelectCommand.Parameters.AddWithValue("@llantas_eje6", 1);
                 sda.SelectCommand.Parameters.AddWithValue("@color", equipo.color);
-                sda.SelectCommand.Parameters.AddWithValue("@ayudante2", equipo.ayudante2);
+                sda.SelectCommand.Parameters.AddWithValue("@ayudante2", 1);
                 sda.SelectCommand.Parameters.AddWithValue("@sirve_odometro", equipo.sirve_odometro);
                 sda.SelectCommand.Parameters.Add(new SqlParameter("@Msg", SqlDbType.VarChar, 500, ParameterDirection.InputOutput, false, 0, 0, "", DataRowVersion.Current, ""));
                 DataTable dt = new DataTable();
@@ -616,6 +617,10 @@ namespace Demo.Data
                 {
                     throw new Exception(sda.SelectCommand.Parameters["@Msg"].Value.ToString());
                 }
+                else
+                {
+
+                }
                 sqlTransaction.Commit();
                 return true;
             }
@@ -623,6 +628,7 @@ namespace Demo.Data
             {
                 sqlTransaction.Rollback();
                 throw new Exception(ex.Message);
+                
             }
             finally
             {

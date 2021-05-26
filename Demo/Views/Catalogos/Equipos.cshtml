@@ -8,11 +8,42 @@
 			   </div>
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                     <form class="form-inline my-2 my-lg-0">
-					  <a class="btn btn-outline-primary" href="@Url.Action("NuevoEquipo","Catalogos")" > @*href="@Url.Action("NuevoEquipo","Catalogos")"*@
+					  <a class="btn btn-outline-primary" href="@Url.Action("NuevoEquipo","Catalogos")" >
 						   <i class="fas fa-file"></i>
 						   Nuevo Equipo
 					  </a>
-                    &nbsp;&nbsp;
+					  &nbsp;&nbsp;&nbsp;&nbsp;
+					  @if (TempData["mensajeINF"] != null)
+						{
+							<div class="alert alert-info alert-dismissible fade show" role="alert">
+								@TempData["mensajeINF"]
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+						}
+						@if (TempData["mensajeSAVE"] != null)
+						{
+							<div class="alert alert-success alert-dismissible fade show" role="alert">
+								@TempData["mensajeSAVE"]
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+						}
+						@if (TempData["mensajeMODI"] != null)
+						{
+							<div class="alert alert-warning alert-dismissible fade show" role="alert">
+								@TempData["mensajeMODI"]
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+						}
+						
+
+					</form>
+
                 </nav>
 				<table class="table table-hover" id="tabla">
 					<thead>
@@ -37,10 +68,10 @@
 					   <td>@dat.status</td>
 						<td>@dat.serie</td>
 						<td>
-							<button class="btn btn-outline-warning my-2 my-sm-0" href="@Url.Action("EditarAroma","Catalogos",new {id = dat.equipo})">
-							  <span class="fas fa-edit"></span>
-							  Editar
-							</button>
+							<a class="btn btn-outline-warning" href="@Url.Action("EditarEquipos","Catalogos", new {id = dat.equipo})" >
+							   <i class="fas fa-edit"></i>
+							   Editar
+							</a>
 						</td>
 				   </tr>
 						}
