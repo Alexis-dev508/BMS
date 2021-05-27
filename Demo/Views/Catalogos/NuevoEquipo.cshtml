@@ -141,7 +141,7 @@
                         <div class="form-group m-2">
                             @Html.Label("activo_fijo","Activo Fijo", new {@class = "control-label"})
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.TextBoxFor(model=> model.activo_fijo,new {@class="form-control",@onkeydown="detalleActivo()",@id="activo"})
+                            @Html.TextBoxFor(model=> model.activo_fijo,new {@class="form-control",@onkeydown="onKeyDownHandler(event);",@id="activo"})
                             &nbsp;&nbsp;&nbsp;&nbsp;
                             @*@Html.TextBoxFor(model=> model.descripcion,new {@class="form-control"})*@
                             <input asp-for="activo_nombre" class="form-control" id="anombre"/>
@@ -303,6 +303,15 @@ function activosFi(activo,nombre){
     $('#activo').val(activo);
     $('#anombre').val(nombre);
     $('#modalDetalle').modal('hide');
+}
+function onKeyDownHandler(event) {
+
+    var codigo = event.which || event.keyCode;
+     
+    if(codigo === 113){
+      detalleActivo();
+    }
+ 
 }
 </script>
 @*<div class="container-fluid">
