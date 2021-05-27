@@ -24,87 +24,168 @@ namespace Demo.Controllers
             return View();
         }
         [HttpGet]
-        public EquiposModelView combos()
+        public EquiposModelView combos(string? id, string oper = null)
         {
             var model = new EquiposModelView();
-            model.status = "V";
-            //llenar DropDownList de marcas
             var marc = datos.TraerMarcas();
-            foreach (var st in marc)
-            {
-                model.MarcasList.Add(new SelectListItem { Value = st.marca_equipo, Text = st.nombre });
-
-            }
-            //llenar DropDownList de versiones
             var vers = datos.TraerVersiones();
-            foreach (var st in vers)
-            {
-                model.VersionList.Add(new SelectListItem { Value = st.version_equipos, Text = st.nombre });
-
-            }
-            //llenar DropDownList de modelos
             var mode = datos.TraerModelos();
-            foreach (var st in mode)
-            {
-                model.ModelosList.Add(new SelectListItem { Value = st.modelo_equipos, Text = st.nombre });
-
-            }
-            //llenar DropDownList de años
             var annios = datos.TraerAnnios();
-            foreach (var st in annios)
-            {
-                model.AnniosList.Add(new SelectListItem { Value = st.año_equipos, Text = st.año_equipos });
-            }
-            //llenar DropDownList de tipo Equipo
             var tipoE = datos.TraerTipoEquipo();
-            foreach (var st in tipoE)
-            {
-                model.TipoEquipoList.Add(new SelectListItem { Value = st.tipo_equipo, Text = st.nombre });
-            }
-            //llenar DropDownList de usos
             var usos = datos.TraerUsos();
-            foreach (var st in usos)
-            {
-                model.UsosList.Add(new SelectListItem { Value = st.uso_equipos, Text = st.nombre });
-            }
-            //llenar DropDownList de establecimientos
             var estab = datos.TraerEstablecimientos();
-            foreach (var st in estab)
-            {
-                model.EstabList.Add(new SelectListItem { Value = st.cod_estab, Text = st.nombre });
-            }
-            //llenar DropDownList de odometro
-            var odo = datos.TraerOdometro();
-            foreach (var st in odo)
-            {
-                model.OdometroList.Add(new SelectListItem { Value = st.odometro, Text = st.nombre });
-            }
-            //llenar DropDownList de Colores
             var color = datos.TraerColores();
-            foreach (var st in color)
-            {
-                model.ColorList.Add(new SelectListItem { Value = st.color, Text = st.nombre });
-            }
-            //llenar DropDownList de Frecuencia, vida util1, util2, garantia1, garantia2
             var fre = datos.TraerFrecuencias();
-            foreach (var st in fre)
-            {
-                model.FrecuenciaList.Add(new SelectListItem { Value = st.frecuencia_servicio_equipos, Text = st.nombre });
-            }
-            //llenar status
+            var odo = datos.TraerOdometro();
             model.status = "V";
             var sts = datos.TraerStatus();
-            foreach (var st in sts)
+            if (id != "")
             {
-                model.StatusList.Add(new SelectListItem { Value = st.status, Text = st.nombre, Selected = model.status.Trim() == st.status });
+                model = datos.TraerEquipo(id);
+                if(model == null)
+                {
+                    TempData["mensajeINF"] = "No se encontró ningun equipo con ese ID";
+                    RedirectToAction("Equipos");
+                }
+                foreach (var st in marc)
+                {
+                    model.MarcasList.Add(new SelectListItem { Value = st.marca_equipo, Text = st.nombre, Selected = st.marca_equipo.Trim() == model.marca.Trim()  });
+                }
+                foreach (var st in vers)
+                {
+                    model.VersionList.Add(new SelectListItem { Value = st.version_equipos, Text = st.nombre, Selected = model.version.Trim() == st.version_equipos.Trim() });
 
+                }
+                foreach (var st in mode)
+                {
+                    model.ModelosList.Add(new SelectListItem { Value = st.modelo_equipos, Text = st.nombre, Selected = model.modelo.Trim() == st.modelo_equipos.Trim() });
+
+                }
+                foreach (var st in annios)
+                {
+                    model.AnniosList.Add(new SelectListItem { Value = st.año_equipos, Text = st.año_equipos, Selected = model.año.Trim() == st.año_equipos.Trim() });
+                }
+                foreach (var st in tipoE)
+                {
+                    model.TipoEquipoList.Add(new SelectListItem { Value = st.tipo_equipo, Text = st.nombre, Selected = model.tipo_equipo.Trim() == st.tipo_equipo.Trim() });
+                }
+                foreach (var st in usos)
+                {
+                    model.UsosList.Add(new SelectListItem { Value = st.uso_equipos, Text = st.nombre, Selected = model.uso_equipos.Trim() == st.uso_equipos.Trim() });
+                }
+                foreach (var st in estab)
+                {
+                    model.EstabList.Add(new SelectListItem { Value = st.cod_estab, Text = st.nombre, Selected = model.cod_estab.Trim() == st.cod_estab.Trim() });
+                }
+                foreach (var st in color)
+                {
+                    model.ColorList.Add(new SelectListItem { Value = st.color, Text = st.nombre, Selected = model.color.Trim() == st.color.Trim() });
+                }
+                foreach (var st in fre)
+                {
+                    model.MedidaGarantiaList.Add(new SelectListItem { Value = st.frecuencia_servicio_equipos, Text = st.nombre, Selected = model.medida_garantia.Trim() == st.frecuencia_servicio_equipos.Trim() });
+                }
+                foreach (var st in fre)
+                {
+                    model.MedidaGarantia2List.Add(new SelectListItem { Value = st.frecuencia_servicio_equipos, Text = st.nombre, Selected = model.medida_garantia2.Trim() == st.frecuencia_servicio_equipos.Trim() });
+                }
+                foreach (var st in fre)
+                {
+                    model.MedidaVidaUtilList.Add(new SelectListItem { Value = st.frecuencia_servicio_equipos, Text = st.nombre, Selected = model.medida_vida_util.Trim() == st.frecuencia_servicio_equipos.Trim() });
+                }
+                foreach (var st in fre)
+                {
+                    model.MedidaVidaUtil2List.Add(new SelectListItem { Value = st.frecuencia_servicio_equipos, Text = st.nombre, Selected = model.medida_vida_util2.Trim() == st.frecuencia_servicio_equipos.Trim() });
+                }
+                foreach (var st in sts)
+                {
+                    model.StatusList.Add(new SelectListItem { Value = st.status, Text = st.nombre, Selected = model.status.Trim() == st.status });
+
+                }
+                foreach (var st in odo)
+                {
+                    model.OdometroList.Add(new SelectListItem { Value = st.odometro, Text = st.nombre });
+                }
             }
+            else
+            {
+                //llenar DropDownList de marcas
+                foreach (var st in marc)
+                {
+                    model.MarcasList.Add(new SelectListItem { Value = st.marca_equipo, Text = st.nombre });
+
+                }
+                //llenar DropDownList de versiones
+
+                foreach (var st in vers)
+                {
+                    model.VersionList.Add(new SelectListItem { Value = st.version_equipos, Text = st.nombre });
+
+                }
+                //llenar DropDownList de modelos
+
+                foreach (var st in mode)
+                {
+                    model.ModelosList.Add(new SelectListItem { Value = st.modelo_equipos, Text = st.nombre });
+
+                }
+                //llenar DropDownList de años
+
+                foreach (var st in annios)
+                {
+                    model.AnniosList.Add(new SelectListItem { Value = st.año_equipos, Text = st.año_equipos });
+                }
+                //llenar DropDownList de tipo Equipo
+
+                foreach (var st in tipoE)
+                {
+                    model.TipoEquipoList.Add(new SelectListItem { Value = st.tipo_equipo, Text = st.nombre });
+                }
+                //llenar DropDownList de usos
+
+                foreach (var st in usos)
+                {
+                    model.UsosList.Add(new SelectListItem { Value = st.uso_equipos, Text = st.nombre });
+                }
+                //llenar DropDownList de establecimientos
+
+                foreach (var st in estab)
+                {
+                    model.EstabList.Add(new SelectListItem { Value = st.cod_estab, Text = st.nombre });
+                }
+                //llenar DropDownList de odometro
+
+                foreach (var st in odo)
+                {
+                    model.OdometroList.Add(new SelectListItem { Value = st.odometro, Text = st.nombre });
+                }
+                //llenar DropDownList de Colores
+
+                foreach (var st in color)
+                {
+                    model.ColorList.Add(new SelectListItem { Value = st.color, Text = st.nombre });
+                }
+                //llenar DropDownList de Frecuencia, vida util1, util2, garantia1, garantia2
+
+                foreach (var st in fre)
+                {
+                    model.FrecuenciaList.Add(new SelectListItem { Value = st.frecuencia_servicio_equipos, Text = st.nombre });
+                }
+                //llenar status
+
+                foreach (var st in sts)
+                {
+                    model.StatusList.Add(new SelectListItem { Value = st.status, Text = st.nombre, Selected = model.status.Trim() == st.status });
+
+                }
+            }
+            
             return model;
         }
         [HttpGet]
         public IActionResult NuevoEquipo()
         {
-            return View(combos());
+            return View(combos(""));
         }
 
         
@@ -114,15 +195,16 @@ namespace Demo.Controllers
         {
             try
             {
-                combos();
                 var res = datos.GuardarEquipo(model, "N");
-                if (res)
+                if (res == true)
                 {
+                    TempData["mensajeSAVE"] = "Equipo guardado exitosamente";
                     return RedirectToAction("Equipos");
                 }
                 else
                 {
-                    return View(model);
+                    TempData["mensajeINF"] = "Error al guardar Equipo";
+                    return RedirectToAction("Equipos");
                 }
             }
             catch (Exception ex)
@@ -134,16 +216,38 @@ namespace Demo.Controllers
         }
 
         [HttpGet]
-        public IActionResult EditarEquipo(string id)
+        public IActionResult EditarEquipos(string id)
         {
-            var model = new EquiposModelView();
-            model = datos.TraerEquipo(id);
-            //llenar DropDownList
-            combos();
-            return View(model);
+            if (id == null)
+            {
+                return BadRequest();
+            }
+            return View(combos(id));
         }
+        [HttpPost]
+        public IActionResult EditarEquipos(EquiposModelView model)
+        {
+            try
+            {
+                var res = datos.GuardarEquipo(model, "M");
+                if (res == true)
+                {
+                    TempData["mensajeEDIT"] = "Equipo editado exitosamente";
+                    return RedirectToAction("Equipos");
+                }
+                else
+                {
+                    TempData["mensajeINF"] = "Error al guardar Equipo";
+                    return RedirectToAction("Equipos");
+                }
+            }
+            catch (Exception ex)
+            {
 
-
+                ViewBag.Errores = ex.Message;
+                return View(model);
+            }
+        }
         //Equipos
         public IActionResult Equipos()
         {
@@ -261,8 +365,6 @@ namespace Demo.Controllers
                 ViewBag.Errores = ex.Message;
                 return View(model);
             }
-
-
         }
         //NUEVO!!!!
         [HttpGet]

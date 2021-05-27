@@ -1,29 +1,32 @@
 ﻿@model Demo.Models.EquiposModelView
-<div class="container-fluid" asp-action="GuardarEquipo" asp-controller="Catalogos" method="post">
+<div class="container-fluid">
     <div class="row">
         <div class="col-sm-12">
+            <div class="card-warning">
+				<div class="card-header">
+				   <h3>Editar Equipo</h3>
+			   </div>
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                    <a href="@Url.Action("Equipos","Catalogos")" class="btn btn-outline-primary">
+                    <a href="@Url.Action("Equipos","Catalogos")" class="btn btn-outline-warning">
 						   <i class="fas fa-arrow-alt-circle-left"></i>
 						   Regresar
 					  </a>
-                    &nbsp;&nbsp;
-                    <a class="navbar-brand" href="#">Datos generales</a>
                 </nav>
+                @using (Html.BeginForm("EditarEquipos","Catalogos",FormMethod.Post)){
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-inline">
                     <div class="form-group">
                         <div class="form-group m-2">
-                            <label asp-for="Equipo" class="control-label">Equipo</label>
-                            <input asp-for="Equipo" class="form-control" id="equipo" onkeydown="listaEquipo()"/> @*onkeydown="listaEquipo()"*@
+                            @Html.Label("equipo","Equipo",new {@class="control-label"})
+                            @Html.TextBoxFor(model=> model.equipo,new {@class="form-control",@readonly ="readonly"})
                         </div>
                         <div class="form-group m-2">
-                            <input asp-for="Nombre" class="form-control" />
+                            @Html.TextBoxFor(model=> model.nombre,new {@class="form-control"})
                         </div>
-                       
                         <div class="form-group m-2">
-                            <label asp-for="Abrev" class="control-label">Abrev</label>
+                            @Html.Label("abreviatura","Abrev",new {@class="control-label"})
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            <input asp-for="Abrev" class="form-control" />
+                            @Html.TextBoxFor(model=> model.abreviatura,new {@class="form-control"})
                         </div>
                         <div class="form-group m-2">
                             @Html.Label("status","Status",new {@class="control-label"})
@@ -37,90 +40,109 @@
                         </div>
                     </div>
                 </div>
-            <div class="form-inline" asp-action="GuardarEquipo" method="post">
+                <div class="form-inline">
+                    <div class="form-group">
                         <div class="form-group m-2">
-                            @Html.Label("marca_equipos","Marca",new {@class="control-label"})
+                            @Html.Label("marca","Marca",new {@class="control-label"})
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.DropDownList("marca_equipos",Model.MarcasList,new {@class="form-control"})
+                            @Html.DropDownList("marca",Model.MarcasList,new {@class="form-control"})
                         </div>
                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <div class="form-group m-2">
-                            @Html.Label("modelo_equipos","Modelo",new {@class="control-label"})
+                       <div class="form-group m-2">
+                            @Html.Label("modelo","Modelo",new {@class="control-label"})
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.DropDownList("modelo_equipos",Model.ModelosList,new {@class="form-control"})
+                            @Html.DropDownList("modelo",Model.ModelosList,new {@class="form-control"})
                         </div>
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <div class="form-group m-2">
-                            @Html.Label("version_equipos","Version",new {@class="control-label"})
+                            @Html.Label("version","Version",new {@class="control-label"})
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.DropDownList("version_equipos",Model.VersionList, new {@class="form-control"})
+                            @Html.DropDownList("version",Model.VersionList, new {@class="form-control"})
                         </div>
+                    </div>
+                </div>
+                <div class="form-inline">
+                    <div class="form-group">
                         <div class="form-group m-2">
-                            @Html.Label("año_equipos","Año",new {@class="control-label"})
+                            @Html.Label("año","Año",new {@class="control-label"})
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.DropDownList("año_equipos",Model.AnniosList, new {@class="form-control"})
-                        </div>
-                        <div class="form-group m-2">
-                            <label asp-for="Serie" class="control-label">Serie</label>
+                            @Html.DropDownList("año",Model.AnniosList, new {@class="form-control"})
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            <input asp-for="Serie" class="form-control" />
-                        </div>
-                        <div class="form-group m-2">
+                            <div class="form-group m-2">
+                            @Html.Label("serie","Serie",new {@class="control-label"})
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.TextBoxFor(model=> model.serie,new {@class="form-control"})
+                            </div>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <div class="form-group m-2">
                             @Html.Label("tipo_equipo","Tipo",new {@class="control-label"})
                             &nbsp;&nbsp;&nbsp;&nbsp;
                             @Html.DropDownList("tipo_equipo",Model.TipoEquipoList, new {@class="form-control"})
                             &nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <div class="form-group m-1">
+                            @Html.Label("uso_equipos","Uso",new {@class="control-label"})
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.DropDownList("uso_equipos",Model.UsosList, new {@class="form-control"})
+                            </div>
                         </div>
-                        <div class="form-group m-2">
+                    </div>
+                </div>
+                <div class="form-inline">
+                    <div class="form-group">
+                            <div class="form-group m-2">
                             @Html.Label("cod_estab","Estab.",new {@class="control-label"})
                             &nbsp;&nbsp;&nbsp;&nbsp;
                             @Html.DropDownList("cod_estab",Model.EstabList, new {@class="form-control"})
-                        </div>
-                        <div class="form-group m-2">
-                            <label asp-for="Cod Eco" class="control-label">CódEco</label>
+                            </div>
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            <input asp-for="Cod Eco" class="form-control" />
-                        </div>
-                        <div class="form-group m-2">
-                            @Html.Label("color","Color",new {@class="control-label"})
+                            <div class="form-group m-2">
+                            @Html.Label("codigo_economico","CódEco",new {@class="control-label"})
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.DropDownList("color",Model.ColorList, new {@class="form-control"})
-                            
-                        </div>
-                        <div class="form-group m-1">
-                            @Html.Label("uso_equipos","Uso",new {@class="control-label"})
+                            @Html.TextBoxFor(model=> model.codigo_economico,new {@class="form-control"})
+                            </div>
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.DropDownList("color_equipos",Model.UsosList, new {@class="form-control"})
-                           
-                        </div>
+                            <div class="form-group m-2">
+                            @Html.Label("caracteristicas","Características", new {@class = "control-label"})
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.TextAreaFor(model=> model.caracteristicas,new {@class="form-control"})
+                            </div>
+                    </div>
+                </div>
+                <div class="form-inline">
+                    <div class="form-group">
                         <div class="form-group m-2">
                             @Html.Label("odometro","Odómetro",new {@class="control-label"})
                             &nbsp;&nbsp;&nbsp;&nbsp;
                             @Html.DropDownList("odometro",Model.OdometroList, new {@class="form-control"})
-                            
                         </div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
                         <div class="checkbox m-2">
-                         <div class="checkbox">
-                              <label>
-                                <input type="checkbox" id="cb1" value="option1"> Sirve odómetro
-                              </label>
+                            <div class="checkbox">
+                               @Html.Label("sirve_odometro","Sirve odómetro",new {@class="control-label"})
+                              @Html.CheckBoxFor(model=> model.sirve_odometro,new {@class="form-control"})
+                              
+                            </div>
                         </div>
-                        </div>
-
+                        &nbsp;&nbsp;&nbsp;&nbsp;
                         <div class="form-group m-2">
-                          @Html.Label("caracterizticas","Características", new {@class = "control-label"})
-                          &nbsp;&nbsp;&nbsp;&nbsp;
-                          <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3"></textarea>
+                            @Html.Label("color","Color",new {@class="control-label"})
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.DropDownList("color",Model.ColorList, new {@class="form-control"})
                         </div>
-
+                    </div>
+                </div>
+                <div class="form-inline">
+                    <div class="form-group">
                         <div class="form-group m-2">
-                            <label asp-for="fijo" class="control-label ">Activo Fijo</label>
+                            @Html.Label("activo_fijo","Activo Fijo", new {@class = "control-label"})
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            <input asp-for="fijo" class="form-control sm" />
+                            @Html.TextBoxFor(model=> model.activo_fijo,new {@class="form-control"})
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                             <input asp-for="fijo" class="form-control" />
+                            @*@Html.TextBoxFor(model=> model.descripcion,new {@class="form-control"})*@
+                            <input asp-for="activo_nombre" class="form-control" />
                         </div>
-
+                        &nbsp;&nbsp;&nbsp;&nbsp;
                         <div class="checkbox m-2">
                          <div class="checkbox">
                               <label>
@@ -128,99 +150,87 @@
                               </label>
                              </div>
                         </div>
-
-                         <div class="form-group m-2">
-                            <label asp-for="depende" class="control-label">Depende</label>
+                    </div>
+                </div>
+                <div class="form-inline">
+                    <div class="form-group">
+                        <div class="form-group m-2">
+                            @Html.Label("equipo_depende","Depende", new {@class = "control-label"})
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            <input asp-for="depende" class="form-control" />
+                            @Html.TextBoxFor(model=> model.equipo_depende,new {@class="form-control"})
                             &nbsp;&nbsp;&nbsp;&nbsp;
                              <input asp-for="depende" class="form-control" />
                         </div>
-
+                    </div>
+                </div>
+                <div class="form-inline">
+                    <div class="form-group">
                         <div class="form-group m-2">
-                           <b>Vida útil 1: <input type="number" name="vidaUtil1" style="max-width: 6vw;"></b> 
+                           <b>Vida útil 1: @Html.TextBoxFor(model=> model.vida_util,new {@class="form-control"})</b> 
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.DropDownList("frecuencia_servicio_equipos",Model.FrecuenciaList, new {@class="form-control"})
+                            @Html.DropDownList("medida_vida_util",Model.MedidaVidaUtilList, new {@class="form-control"})
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                           <b> Garantía 1: <input type="number" name="garantia1"  style="max-width: 6vw;"></b> 
+                           <b> Garantía 1: @Html.TextBoxFor(model=> model.garantia,new {@class="form-control"})</b> 
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.DropDownList("frecuencia_servicio_equipos",Model.FrecuenciaList, new {@class="form-control"})
+                            @Html.DropDownList("medida_garantia",Model.MedidaGarantiaList, new {@class="form-control"})
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                            <label asp-for="lote" class="control-label">Lote</label>
+                            @Html.Label("lote","Lote", new {@class = "control-label"})
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                            <input asp-for="lote" class="form-control" />
+                            @Html.TextBoxFor(model=> model.lote,new {@class="form-control"})
                          </div>
-
-
+                    </div>
+                </div>
+                <div class="form-inline">
+                    <div class="form-group">
                         <div class="form-group m-2">
-                           <b>Vida útil 2: <input type="number" name="vidaUtil2" style="max-width: 6vw;"></b> 
+                           <b>Vida útil 2: @Html.TextBoxFor(model=> model.vida_util2,new {@class="form-control"})</b> 
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.DropDownList("frecuencia_servicio_equipos",Model.FrecuenciaList, new {@class="form-control"})
+                            @Html.DropDownList("medida_vida_util2",Model.MedidaVidaUtil2List, new {@class="form-control"})
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                           <b> Garantía 2: <input type="number" name="garantia2"  style="max-width: 6vw;"></b> 
+                           <b> Garantía 2: @Html.TextBoxFor(model=> model.garantia2,new {@class="form-control"})</b> 
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.DropDownList("frecuencia_servicio_equipos",Model.FrecuenciaList, new {@class="form-control"})
+                            @Html.DropDownList("medida_garantia2",Model.MedidaGarantia2List, new {@class="form-control"})
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                          
                          </div>
-
+                    </div>
+                </div>
+                <div class="form-inline">
+                    <div class="form-group">
                         <div class="form-group m-2">
-                            <b>Área <input type="number" name="area" style="max-width: 8vw;"></b> 
+                            <b>Área @Html.TextBoxFor(model=> model.area,new {@class="form-control"})</b> 
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                             <input type="number" name="direccion" style="max-width: 8vw;">
+                             <input name="nombre_area" style="max-width: 8vw;">
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                               <b>Recorrido máximo: <input type="number" name="recorrido" style="max-width: 8vw;"></b> 
-                                &nbsp;&nbsp;&nbsp;&nbsp;
+                               <b>Recorrido máximo: @Html.TextBoxFor(model=> model.recorrido_maximo,new {@class="form-control"})</b> 
                         </div>
-                         <div class="form-group m-2">
-                            <b>Depto. <input type="number" name="depto" style="max-width: 8vw;"></b> 
+                    </div>
+                </div>
+                <div class="form-inline">
+                    <div class="form-group">
+                        <div class="form-group m-2">
+                            <b>Depto. @Html.TextBoxFor(model=> model.departamento,new {@class="form-control"})</b> 
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                             <input type="number" name="nombreDepto" style="max-width: 8vw;">
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                               
+                             <input name="nombreDepto" style="max-width: 8vw;">
                        </div>
-            </div>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark"></nav>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Guardar" class="btn btn-success"/>
+                </div>
+            }
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		    </a>
+        </nav>
+        </div>
+        <div class="text-danger">
+            @if(ViewBag.Errores != null)
+                    {
+                        @ViewBag.Errores
+            }
+        </div>
        </div>
     </div>
 </div>
-<div class="modal modal-lg fade" id="modalDetalle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Productos de la cotizacion</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" id="datosEquipos">
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-@*<div class="container-fluid">
-    @Html.Partial("Prueba")
-</div>*@
-<script>
-
-function listaEquipo(){
-        $("#datosEquipos").empty();
-        $.ajax({
-            type:"GET",
-            url:"@Url.Action("DatosEquipos","Catalogos")",
-            success:function(data){
-                $("#datosEquipos").append(data);
-                $('#modalDetalle').modal('show');
-            },
-            error: function (xhr,ajaxOptions,thrownError){alert(xhr.responseText);}
-        });
-    }
-</script>
 
 
 
