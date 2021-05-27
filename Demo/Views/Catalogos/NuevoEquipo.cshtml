@@ -2,13 +2,13 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12">
-            <div class="card-primary">
+            <div class="card-info">
 				<div class="card-header">
 				   <h3>Nuevo Equipo</h3>
 			   </div>
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                     <form class="form-inline my-2 my-lg-0">
-                      <a href="@Url.Action("Equipos","Catalogos")" class="btn btn-outline-primary">
+                      <a href="@Url.Action("Equipos","Catalogos")" class="btn btn-outline-info">
 						   <i class="fas fa-arrow-alt-circle-left"></i>
 						   Regresar
 					  </a>
@@ -20,7 +20,7 @@
                     <div class="form-group">
                         <div class="form-group m-2">
                             @Html.Label("equipo","Equipo",new {@class="control-label"})
-                            @Html.TextBoxFor(model=> model.equipo,new {@class="form-control"})
+                            @Html.TextBoxFor(model=> model.equipo,new {@class="form-control",@readonly="readonly"})
                         </div>
                         <div class="form-group m-2">
                             @Html.TextBoxFor(model=> model.nombre,new {@class="form-control"})
@@ -224,6 +224,12 @@
             }
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark" content></nav>
             </div>
+            <div class="text-danger">
+            @if(ViewBag.Errores != null)
+                    {
+                        @ViewBag.Errores
+            }
+        </div>
         </div>
     </div>
 </div>

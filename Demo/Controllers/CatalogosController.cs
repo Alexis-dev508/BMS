@@ -106,67 +106,6 @@ namespace Demo.Controllers
                 {
                     model.OdometroList.Add(new SelectListItem { Value = st.odometro, Text = st.nombre });
                 }
-            }else if (id == "SAVE")
-            {
-                foreach (var st in marc)
-                {
-                    model.MarcasList.Add(new SelectListItem { Value = st.marca_equipo, Text = st.nombre, Selected = model.marca.Trim() == st.marca_equipo.Trim() });
-                }
-                foreach (var st in vers)
-                {
-                    model.VersionList.Add(new SelectListItem { Value = st.version_equipos, Text = st.nombre, Selected = model.version.Trim() == st.version_equipos.Trim() });
-
-                }
-                foreach (var st in mode)
-                {
-                    model.ModelosList.Add(new SelectListItem { Value = st.modelo_equipos, Text = st.nombre, Selected = model.modelo.Trim() == st.modelo_equipos.Trim() });
-
-                }
-                foreach (var st in annios)
-                {
-                    model.AnniosList.Add(new SelectListItem { Value = st.año_equipos, Text = st.año_equipos, Selected = model.año.Trim() == st.año_equipos.Trim() });
-                }
-                foreach (var st in tipoE)
-                {
-                    model.TipoEquipoList.Add(new SelectListItem { Value = st.tipo_equipo, Text = st.nombre, Selected = model.tipo_equipo.Trim() == st.tipo_equipo.Trim() });
-                }
-                foreach (var st in usos)
-                {
-                    model.UsosList.Add(new SelectListItem { Value = st.uso_equipos, Text = st.nombre, Selected = model.uso_equipos.Trim() == st.uso_equipos.Trim() });
-                }
-                foreach (var st in estab)
-                {
-                    model.EstabList.Add(new SelectListItem { Value = st.cod_estab, Text = st.nombre, Selected = model.cod_estab.Trim() == st.cod_estab.Trim() });
-                }
-                foreach (var st in color)
-                {
-                    model.ColorList.Add(new SelectListItem { Value = st.color, Text = st.nombre, Selected = model.color.Trim() == st.color.Trim() });
-                }
-                foreach (var st in fre)
-                {
-                    model.MedidaGarantiaList.Add(new SelectListItem { Value = st.frecuencia_servicio_equipos, Text = st.nombre, Selected = model.medida_garantia.Trim() == st.frecuencia_servicio_equipos.Trim() });
-                }
-                foreach (var st in fre)
-                {
-                    model.MedidaGarantia2List.Add(new SelectListItem { Value = st.frecuencia_servicio_equipos, Text = st.nombre, Selected = model.medida_garantia2.Trim() == st.frecuencia_servicio_equipos.Trim() });
-                }
-                foreach (var st in fre)
-                {
-                    model.MedidaVidaUtilList.Add(new SelectListItem { Value = st.frecuencia_servicio_equipos, Text = st.nombre, Selected = model.medida_vida_util.Trim() == st.frecuencia_servicio_equipos.Trim() });
-                }
-                foreach (var st in fre)
-                {
-                    model.MedidaVidaUtil2List.Add(new SelectListItem { Value = st.frecuencia_servicio_equipos, Text = st.nombre, Selected = model.medida_vida_util2.Trim() == st.frecuencia_servicio_equipos.Trim() });
-                }
-                foreach (var st in sts)
-                {
-                    model.StatusList.Add(new SelectListItem { Value = st.status, Text = st.nombre, Selected = model.status.Trim() == st.status });
-
-                }
-                foreach (var st in odo)
-                {
-                    model.OdometroList.Add(new SelectListItem { Value = st.odometro, Text = st.nombre });
-                }
             }
             else
             {
@@ -285,7 +224,30 @@ namespace Demo.Controllers
             }
             return View(combos(id));
         }
+        [HttpPost]
+        public IActionResult EditarEquipos(EquiposModelView model)
+        {
+            try
+            {
+                var res = datos.GuardarEquipo(model, "M");
+                if (res == true)
+                {
+                    TempData["mensajeEDIT"] = "Equipo editado exitosamente";
+                    return RedirectToAction("Equipos");
+                }
+                else
+                {
+                    TempData["mensajeINF"] = "Error al guardar Equipo";
+                    return RedirectToAction("Equipos");
+                }
+            }
+            catch (Exception ex)
+            {
 
+                ViewBag.Errores = ex.Message;
+                return View(model);
+            }
+        }
         //Equipos
         public IActionResult Equipos()
         {
