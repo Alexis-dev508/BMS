@@ -248,6 +248,21 @@ namespace Demo.Controllers
                 return View(model);
             }
         }
+        [HttpGet]
+        public IActionResult detalleActivos()
+        {
+            List<ActivosFiEquipos> detalle = new List<ActivosFiEquipos>();
+            try
+            {
+                detalle = datos.TraerActivosFi();
+            }
+            catch (Exception ex)
+            {
+
+                ViewBag.ErroresM = ex.Message;
+            }
+            return PartialView("_ActivosFijos", detalle);
+        }
         //Equipos
         public IActionResult Equipos()
         {

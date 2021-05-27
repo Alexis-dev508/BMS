@@ -141,10 +141,10 @@
                         <div class="form-group m-2">
                             @Html.Label("activo_fijo","Activo Fijo", new {@class = "control-label"})
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.TextBoxFor(model=> model.activo_fijo,new {@class="form-control"})
+                            @Html.TextBoxFor(model=> model.activo_fijo,new {@class="form-control",@onkeydown="detalleActivo()",@id="activo"})
                             &nbsp;&nbsp;&nbsp;&nbsp;
                             @*@Html.TextBoxFor(model=> model.descripcion,new {@class="form-control"})*@
-                            <input asp-for="activo_nombre" class="form-control" />
+                            <input asp-for="activo_nombre" class="form-control" id="anombre"/>
                         </div>
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <div class="checkbox m-2">
@@ -233,6 +233,78 @@
         </div>
     </div>
 </div>
+<div class="modal fade bd-example-modal-xl" id="modalDetalle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="datosActivos">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+function buscar()
+        {
+            const tableReg = document.getElementById('tabla');
+            const searchText = document.getElementById('busqueda').value.toLowerCase();
+            let total = 0;
+            for (let i = 1; i < tableReg.rows.length; i++) {
+                if (tableReg.rows[i].classList.contains("noSearch")) {
+                    continue;
+                }
+                let found = false;
+                const cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
+                for (let j = 0; j < cellsOfRow.length && !found; j++) {
+                    const compareWith = cellsOfRow[j].innerHTML.toLowerCase();
+                    if (searchText.length == 0 || compareWith.indexOf(searchText) > -1) {
+                        found = true;
+                        total++;
+                    }
+                }
+                if (found) {
+                    tableReg.rows[i].style.display = '';
+                } else {
+                    tableReg.rows[i].style.display = 'none';
+                }
+            }
+            const lastTR=tableReg.rows[tableReg.rows.length-1];
+            const td=lastTR.querySelector("td");
+            lastTR.classList.remove("hide", "red");
+            if (searchText == "") {
+                lastTR.classList.add("hide");
+            }
+        }
+$(document).ready( function () {
+    $('#tabla').DataTable();
+} );
+
+function detalleActivo(){
+        $("#datosActivos").empty();
+        $.ajax({
+            type:"GET",
+            url:"@Url.Action("detalleActivos","Catalogos")",
+            success:function(data){
+                $("#datosActivos").append(data);
+                $('#modalDetalle').modal('show');
+            },
+            error: function (xhr,ajaxOptions,thrownError){alert(xhr.responseText);}
+        });
+    }
+function activosFi(activo,nombre){
+    $('#activo').val(activo);
+    $('#anombre').val(nombre);
+    $('#modalDetalle').modal('hide');
+}
+</script>
 @*<div class="container-fluid">
     @Html.Partial("Prueba")
 </div>*@

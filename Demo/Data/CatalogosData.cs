@@ -245,37 +245,44 @@ namespace Demo.Data
         public List<ActivosFiEquipos> TraerActivosFi()
         {
             List<ActivosFiEquipos> activosFi = new List<ActivosFiEquipos>();
-
-            SqlDataAdapter sda = new SqlDataAdapter("dbo.DEMO_DATOSEQUIPOS", this.ConnectionString);
-            sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            sda.SelectCommand.Parameters.AddWithValue("@oper", "AF");
-            DataTable dt = new DataTable();
-            sda.Fill(dt);
-            activosFi = dt.AsEnumerable().Select(a =>
-            new ActivosFiEquipos
+            try
             {
-                activo_fijo = a["activo_fijo"].ToString(),
-                fecha = Convert.ToDateTime(a["fecha"]),
-                descripcion = a["descripcion"].ToString(),
-                marca = a["marca"].ToString(),
-                modelo = a["modelo"].ToString(),
-                talla = a["talla"].ToString(),
-                color = a["color"].ToString(),
-                serie = a["serie"].ToString(),
-                motor = a["motor"].ToString(),
-                tipo_activo_fijo = a["tipo_activo_fijo"].ToString(),
-                transaccion = a["transaccion"].ToString(),
-                cod_estab = a["cod_estab"].ToString(),
-                ubicacion = a["ubicacion"].ToString(),
-                fecha_adquisicion = Convert.ToDateTime(a["fecha_adquisicion"]),
-                monto_original_inversion = Convert.ToDecimal(a["monto_original_inversion"]),
-                usuario = a["usuario"].ToString(),
-                usuario_baja = a["usuario_baja"].ToString(),
-                fecha_baja = Convert.ToDateTime(a["fecha_baja"]),
-                status = a["status"].ToString(),
-                empleado = a["empleado"].ToString(), 
+                SqlDataAdapter sda = new SqlDataAdapter("dbo.DEMO_DATOSEQUIPOS", this.ConnectionString);
+                sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sda.SelectCommand.Parameters.AddWithValue("@oper", "AF");
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                activosFi = dt.AsEnumerable().Select(a =>
+                new ActivosFiEquipos
+                {
+                    activo_fijo = a["activo_fijo"].ToString(),
+                    fecha = Convert.ToDateTime(a["fecha"]),
+                    descripcion = a["descripcion"].ToString(),
+                    marca = a["marca"].ToString(),
+                    modelo = a["modelo"].ToString(),
+                    talla = a["talla"].ToString(),
+                    color = a["color"].ToString(),
+                    serie = a["serie"].ToString(),
+                    motor = a["motor"].ToString(),
+                    tipo_activo_fijo = a["tipo_activo_fijo"].ToString(),
+                    transaccion = a["transaccion"].ToString(),
+                    cod_estab = a["cod_estab"].ToString(),
+                    ubicacion = a["ubicacion"].ToString(),
+                    fecha_adquisicion = Convert.ToDateTime(a["fecha_adquisicion"]),
+                    monto_original_inversion = Convert.ToDecimal(a["monto_original_inversion"]),
+                    usuario = a["usuario"].ToString(),
+                    usuario_baja = a["usuario_baja"].ToString(),
+                    fecha_baja = Convert.ToDateTime(a["fecha_baja"]),
+                    status = a["status"].ToString(),
+                    empleado = a["empleado"].ToString(),
 
-            }).ToList();
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
             return activosFi;
         }
         //traer tipo vehiculo
