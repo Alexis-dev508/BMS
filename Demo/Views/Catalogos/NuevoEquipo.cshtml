@@ -221,8 +221,139 @@
             <div class="form-group">
                 <input type="submit" value="Guardar" class="btn btn-success"/>
             </div>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark" content></nav>
+            @*Formualrio de datos adicionales*@
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-4 border">
+                        Valores
+                        <div class="form-group m-3">
+                             @Html.Label("compra","Compra",new {@class="control-label"})
+                             &nbsp;&nbsp;&nbsp;&nbsp;
+                             @Html.TextBoxFor(model=> model.fecha_compra,new {@class="my-4",@name="dtpfecha_compra", @style="width:80%;", @type="date"})           
+                         </div>
+                         <div class="form-group m-3">
+                             <b>Costo @Html.TextBoxFor(model=> model.costo,new {@class="form-control", @type="number", @style ="width: 80%;"})</b>
+                                 <b>Valor @Html.TextBoxFor(model=> model.valor_comercial,new {@class="form-control", @type="number", @style ="width: 80%;"})</b>
+                                 <b>Seguro @Html.TextBoxFor(model=> model.seguro,new {@class="form-control", @type="number", @style ="width: 80%;"})</b>
+                                 <b>Abono mensual @Html.TextBoxFor(model=> model.abono_mensual,new {@class="form-control", @type="number", @style ="width: 80%;"})</b>
+                         </div>
+                    </div>
+                    <div class="col-8 border">
+                          Vehículo
+                        <div class ="row"> @*comienzo de la segunda parte de detalles adicionales*@
+                            
+                            <div class="col-3">
+                                 <label asp-for="placas" class="control-label">Placas</label>
+                                 &nbsp;&nbsp;&nbsp;&nbsp;
+                                 @Html.TextBoxFor(model=> model.placas,new {@class="form-control"})
+                                 
+
+                                 <label asp-for="motor" class="control-label">Motor</label>
+                                 &nbsp;&nbsp;&nbsp;&nbsp;
+                                 @Html.TextBoxFor(model=> model.motor,new {@class="form-control"})
+                                 
+
+                                 <label asp-for="tipo_vehiculo" class="control-label">Tipo</label>
+                                 @Html.DropDownList("tipo_vehiculo",Model.TipoVehicList, new {@class="form-control"})
+                              
+
+                                 <label asp-for="chofer" class="control-label">Chofer</label>
+                                 @Html.DropDownList("chofer",Model.ChoferList, new {@class="form-control"})
+                                 &nbsp;&nbsp;&nbsp;&nbsp;
+                                 <b>Fecha @Html.TextBoxFor(model=> model.fecha_alta,new {@class="form-control", @type="date", @name="fecha", @style ="width: 80%;"})</b>
+                                
+                            </div>
+                            <div class="col-3">
+                                 @Html.TextBoxFor(model=> model.vigencia_placas,new {@class="my-4",@name="dtpPlacas", @style="width:80%;", @type="date"})
+                                
+                                 <div>
+                                 </div>
+
+
+                            </div>
+                            <div class="col-3">
+                                 @Html.Label("tenencia","Tenencia",new {@class="control-label"})
+                                 @Html.TextBoxFor(model=> model.tenencia,new {@class="form-control", @type="number"})
+                                 &nbsp;&nbsp;&nbsp;&nbsp;
+
+                                 @Html.Label("ultLectura","Últ. Lectura",new {@class="control-label"})
+                                 @Html.TextBoxFor(model=> model.tenencia,new {@class="form-control", @type="number"})
+                                 &nbsp;&nbsp;&nbsp;&nbsp;
+                                 
+                                 @Html.Label("carga_estandar","Carga Estándar",new {@class="control-label"})
+                                 @Html.DropDownList("carga_estandar",Model.CargaEstList, new {@class="form-control"})
+                                 &nbsp;&nbsp;&nbsp;&nbsp;
+
+                                 @Html.Label("ayudante","Ayudante 1",new {@class="control-label"})
+                                 @Html.DropDownList("ayudante",Model.AyudanteList, new {@class="form-control"})
+                                 &nbsp;&nbsp;&nbsp;&nbsp;
+
+                                 @Html.Label("ayudante2","Ayudante 2",new {@class="control-label"})
+                                  @Html.DropDownList("ayudante2",Model.AyudanteList, new {@class="form-control"})
+                                &nbsp;&nbsp;&nbsp;&nbsp;   
+
+                            </div>
+                            <div class="col-3">
+                                @Html.Label("usa_lubricante","Lubricantes",new {@class="control-label"})
+                                @Html.TextBoxFor(model=> model.usa_lubricante,new {@class="form-control", @type="checkbox", @style=""})
+                            </div>
+                        </div>
+                         
+                            @* Tercera parte de detalles adicionales*@
+                          <div class="row">
+                                <div class="col-3  p-2">
+                                 <b>Tanque 1 @Html.TextBoxFor(model=> model.tanque1,new {@class="form-control", @type="number", @style ="width: 80%;"})</b>
+                                 <b>Tanque 2 @Html.TextBoxFor(model=> model.tanque2,new {@class="form-control", @type="number", @style ="width: 80%;"})</b>
+                                 <b>Tanque 3 @Html.TextBoxFor(model=> model.tanque3,new {@class="form-control", @type="number", @style ="width: 80%;"})</b>
+                                 <b>LLantas @Html.TextBoxFor(model=> model.llantas,new {@class="form-control", @type="number", @style ="width: 80%;"})</b>
+                                     
+                                </div>
+                                <div class="col-3 p-2">
+                                    @Html.DropDownList("combustible1",Model.Tanque1List, new {@class="form-control my-3 "})
+                                    @Html.DropDownList("combustible2",Model.Tanque1List, new {@class="form-control my-3"})
+                                    @Html.DropDownList("combustible3",Model.Tanque1List, new {@class="form-control my-3"})    
+                                </div>
+                                <div class="col-3  p-2">
+                                    @Html.TextBoxFor(model=> model.RENDIMIENTO1,new {@class="form-control my-3", @type="number", @style ="width: 80%;"})
+                                    @Html.TextBoxFor(model=> model.RENDIMIENTO2,new {@class="form-control my-3", @type="number", @style ="width: 80%;"})
+                                    @Html.TextBoxFor(model=> model.RENDIMIENTO3,new {@class="form-control my-3", @type="number", @style ="width: 80%;"})
+                                    
+                                </div>
+                                <div class="col-3">
+                                    <strong>Nivel Licencia @Html.TextBoxFor(model=> model.nivel_licencia,new {@class="form-control my-3", @type="number", @style ="width: 80%;"})</strong><br>
+                                    <strong>Nivel Licencia epm. @Html.TextBoxFor(model=> model.nivel_licencia_empresa,new {@class="form-control my-3", @type="number", @style ="width: 80%;"})</strong>
+                                    <strong>Llantas extra<br>@Html.TextBoxFor(model=> model.llantas_extras,new {@class="form-control my-3", @type="number", @style ="width: 80%;"})</strong>
+                                </div>
+                        </div> @*se cierra la parte 3*@
+                        <div class="row"> @*cuarta parte de detalles adicionales*@
+                            <div class="col-2">
+                                <b>Eje 1 @Html.TextBoxFor(model=> model.llantas_eje1,new {@class="form-control my-3", @type="number", @style ="width: 80%;"})</b>
+                            </div>
+                            <div class="col-2">
+                               <b>Eje 2 @Html.TextBoxFor(model=> model.llantas_eje2,new {@class="form-control my-3", @type="number", @style ="width: 80%;"})</b>
+                            </div>
+                            <div class="col-2">
+                               <b>Eje 3 @Html.TextBoxFor(model=> model.llantas_eje3,new {@class="form-control my-3", @type="number", @style ="width: 80%;"})</b>
+                            </div>
+                            <div class="col-2">
+                              <b>Eje 4  @Html.TextBoxFor(model=> model.llantas_eje4,new {@class="form-control my-3", @type="number", @style ="width: 80%;"})</b>
+                            </div>
+                            <div class="col-2">
+                               <b>Eje 5 @Html.TextBoxFor(model=> model.llantas_eje5,new {@class="form-control my-3", @type="number", @style ="width: 80%;"})</b>
+                            </div>
+                            <div class="col-2">
+                               <b>Eje 6 @Html.TextBoxFor(model=> model.llantas_eje6,new {@class="form-control my-3", @type="number", @style ="width: 80%;"})</b>
+                            </div>
+                        </div> @*se cierra la parte cuatro*@
+                    </div> 
+                    
+                   
+               </div>
+            </div>
             }
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" content></nav>
+        
             </div>
             <div class="text-danger">
             @if(ViewBag.Errores != null)

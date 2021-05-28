@@ -37,6 +37,13 @@ namespace Demo.Controllers
             var color = datos.TraerColores();
             var fre = datos.TraerFrecuencias();
             var odo = datos.TraerOdometro();
+
+            var vehi = datos.TraerTiposVehiculos();
+            var chof = datos.TraerChofer();
+            var carga = datos.TraerCargasEstandar();
+            var ayudant = datos.TraerAyudantes();
+            var comb = datos.TraerCombustibles();
+
             model.status = "V";
             var sts = datos.TraerStatus();
             if (id != "")
@@ -105,6 +112,39 @@ namespace Demo.Controllers
                 foreach (var st in odo)
                 {
                     model.OdometroList.Add(new SelectListItem { Value = st.odometro, Text = st.nombre });
+                }
+
+                foreach (var st in vehi)
+                {
+                    model.TipoVehicList.Add(new SelectListItem { Value = st.tipo_vehiculo, Text = st.nombre, Selected = model.tipo_vehiculo.Trim() == st.tipo_vehiculo });
+                }
+                foreach (var st in chof)
+                {
+                    model.ChoferList.Add(new SelectListItem { Value = st.chofer_ayudante, Text = st.nombre, Selected = model.chofer.Trim()== st.chofer_ayudante });
+                }
+                foreach (var st in carga)
+                {
+                    model.CargaEstList.Add(new SelectListItem { Value = st.folio, Text = st.nombre,Selected = model.carga_estandar.Trim() == st.folio });
+                }
+                foreach (var st in ayudant)
+                {
+                    model.AyudanteList.Add(new SelectListItem { Value = st.chofer_ayudante, Text = st.nombre,Selected = model.ayudante.Trim() == st.chofer_ayudante });
+                }
+                foreach (var st in ayudant)
+                {
+                    model.Ayudante2List.Add(new SelectListItem { Value = st.chofer_ayudante, Text = st.nombre, Selected = model.ayudante2.Trim() == st.chofer_ayudante });
+                }
+                foreach (var st in comb)
+                {
+                    model.Tanque1List.Add(new SelectListItem { Value = st.cod_prod, Text = st.descripcion_completa,Selected = model.combustible1.Trim()==st.cod_prod });
+                }
+                foreach (var st in comb)
+                {
+                    model.Tanque2List.Add(new SelectListItem { Value = st.cod_prod, Text = st.descripcion_completa, Selected = model.combustible2.Trim() == st.cod_prod });
+                }
+                foreach (var st in comb)
+                {
+                    model.Tanque3List.Add(new SelectListItem { Value = st.cod_prod, Text = st.descripcion_completa, Selected = model.combustible3.Trim() == st.cod_prod });
                 }
             }
             else
@@ -178,6 +218,32 @@ namespace Demo.Controllers
                     model.StatusList.Add(new SelectListItem { Value = st.status, Text = st.nombre, Selected = model.status.Trim() == st.status });
 
                 }
+                //llenar DropDownList Tipovehiculo
+                foreach (var st in vehi)
+                {
+                    model.TipoVehicList.Add(new SelectListItem { Value = st.tipo_vehiculo, Text = st.nombre });
+                }
+                //llenar DropDownList choferes
+                foreach (var st in chof)
+                {
+                    model.ChoferList.Add(new SelectListItem { Value = st.chofer_ayudante, Text = st.nombre });
+                }
+                //llenar DropDownList carga estandar
+                foreach (var st in carga)
+                {
+                    model.CargaEstList.Add(new SelectListItem { Value = st.folio, Text = st.nombre });
+                }
+                //llenar DropDownList ayudantes
+                foreach (var st in ayudant)
+                {
+                    model.AyudanteList.Add(new SelectListItem { Value = st.chofer_ayudante, Text = st.nombre });
+                }
+                //llenar DropDownList combustible tanque
+                foreach (var st in comb)
+                {
+                    model.Tanque1List.Add(new SelectListItem { Value = st.cod_prod, Text = st.descripcion_completa });
+                }
+
             }
             
             return model;
