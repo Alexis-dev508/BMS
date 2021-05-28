@@ -653,7 +653,7 @@ namespace Demo.Data
                 sda.SelectCommand.Parameters.AddWithValue("@nivel_licencia_empresa", equipo.nivel_licencia_empresa);
                 sda.SelectCommand.Parameters.AddWithValue("@usa_lubricante", equipo.usa_lubricante);
                 sda.SelectCommand.Parameters.AddWithValue("@vigencia_placas", equipo.vigencia_placas);
-                sda.SelectCommand.Parameters.AddWithValue("@vigencia_circulacion", 1);//este no 
+                sda.SelectCommand.Parameters.AddWithValue("@vigencia_circulacion", equipo.vigencia_circulacion);
                 sda.SelectCommand.Parameters.AddWithValue("@vida_util2", equipo.vida_util2);
                 sda.SelectCommand.Parameters.AddWithValue("@medida_vida_util2", equipo.medida_vida_util2);
                 sda.SelectCommand.Parameters.AddWithValue("@garantia2", equipo.garantia2);

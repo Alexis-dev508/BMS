@@ -132,7 +132,7 @@ namespace Demo.Controllers
                 }
                 foreach (var st in ayudant)
                 {
-                    model.Ayudante2List.Add(new SelectListItem { Value = st.chofer_ayudante, Text = st.nombre, Selected = model.ayudante2.Trim() == st.chofer_ayudante });
+                    model.AyudanteList.Add(new SelectListItem { Value = st.chofer_ayudante, Text = st.nombre, Selected = model.ayudante2.Trim() == st.chofer_ayudante });
                 }
                 foreach (var st in comb)
                 {

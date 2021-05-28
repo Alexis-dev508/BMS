@@ -231,7 +231,7 @@
                         <div class="form-group m-3">
                              @Html.Label("compra","Compra",new {@class="control-label"})
                              &nbsp;&nbsp;&nbsp;&nbsp;
-                             @Html.TextBoxFor(model=> model.fecha_compra,new {@class="my-4",@name="dtpfecha_compra", @style="width:80%;", @type="date"})           
+                             @Html.TextBoxFor(model=> model.fecha_compra,new {@class="my-4",@name="dtpfecha_compra" @type="date", @style="width:80%;",@id="calendario"})           
                          </div>
                          <div class="form-group m-3">
                              <b>Costo @Html.TextBoxFor(model=> model.costo,new {@class="form-control", @type="number", @style ="width: 80%;"})</b>
@@ -266,8 +266,8 @@
                                 
                             </div>
                             <div class="col-3">
-                                 @Html.TextBoxFor(model=> model.vigencia_placas,new {@class="my-4",@name="dtpPlacas", @style="width:80%;", @type="date"})
-                                
+                                 @Html.TextBoxFor(model=> model.vigencia_placas,new {@class="my-4",@name="dtpPlacas", @style="width:80%;", @type="date"})<br>
+                                 <b>Tarjeta circulación @Html.TextBoxFor(model=> model.vigencia_circulacion,new {@class="form-control", @type="date", @name="fecha", @style ="width: 80%;"})</b>
                                  <div>
                                  </div>
 
@@ -278,8 +278,8 @@
                                  @Html.TextBoxFor(model=> model.tenencia,new {@class="form-control", @type="number"})
                                  &nbsp;&nbsp;&nbsp;&nbsp;
 
-                                 @Html.Label("ultLectura","Últ. Lectura",new {@class="control-label"})
-                                 @Html.TextBoxFor(model=> model.tenencia,new {@class="form-control", @type="number"})
+                                 @Html.Label("ultima_lectura","Últ. Lectura",new {@class="control-label"})
+                                 @Html.TextBoxFor(model=> model.ultima_lectura,new {@class="form-control", @type="number"})
                                  &nbsp;&nbsp;&nbsp;&nbsp;
                                  
                                  @Html.Label("carga_estandar","Carga Estándar",new {@class="control-label"})
@@ -297,7 +297,7 @@
                             </div>
                             <div class="col-3">
                                 @Html.Label("usa_lubricante","Lubricantes",new {@class="control-label"})
-                                @Html.TextBoxFor(model=> model.usa_lubricante,new {@class="form-control", @type="checkbox", @style=""})
+                                @Html.CheckBoxFor(model=> model.usa_lubricante,new {@class="form-control"})
                             </div>
                         </div>
                          
