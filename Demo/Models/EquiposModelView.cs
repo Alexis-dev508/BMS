@@ -26,6 +26,14 @@ namespace Demo.Models
             this.MedidaGarantia2List = new List<SelectListItem>();
             this.MedidaVidaUtilList = new List<SelectListItem>();
             this.MedidaVidaUtil2List = new List<SelectListItem>();
+
+            this.TipoVehicList = new List<SelectListItem>();
+            this.ChoferList = new List<SelectListItem>();
+            this.CargaEstList = new List<SelectListItem>();
+            this.AyudanteList = new List<SelectListItem>();
+            this.Tanque1List = new List<SelectListItem>();
+            this.Tanque2List = new List<SelectListItem>();
+            this.Tanque3List = new List<SelectListItem>();
         }
 
         public IList<SelectListItem> MarcasList { get; set; }
@@ -45,7 +53,14 @@ namespace Demo.Models
         public IList<SelectListItem> MedidaVidaUtilList { get; set; }
         public IList<SelectListItem> MedidaVidaUtil2List { get; set; }
 
-
+        public IList<SelectListItem> TipoVehicList { get; set; }
+        public IList<SelectListItem> ChoferList { get; set; }
+        public IList<SelectListItem> CargaEstList { get; set; }
+        public IList<SelectListItem> AyudanteList { get; set; }
+        public IList<SelectListItem> Ayudante2List { get; set; }
+        public IList<SelectListItem> Tanque1List { get; set; }
+        public IList<SelectListItem> Tanque2List { get; set; }
+        public IList<SelectListItem> Tanque3List { get; set; }
 
     }
 }

@@ -1,0 +1,42 @@
+﻿@model List<Demo.Models.DepartamentosEquipos>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="card-primary">
+				<div class="card-header">
+					<h2>Departamentos</h2>
+                     <input class="form-control mr-sm-2" id="busqueda" type="search" onkeyup="buscar()" placeholder="Buscar" aria-label="Search"/> 
+				</div>
+				<table class="table table-hover" id="tabla">
+                    <thead>
+                        <tr>
+                            <th>Departamento</th>
+                            <th>Nombre</th>
+                            <th>Abreviatura</th>
+                            <th>Status</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var dat in Model){
+                            <tr>
+                                <td>@dat.departamento</td>
+                                <td>@dat.nombre</td>
+                                <td>@dat.abreviatura</td>
+                                <td>@dat.status</td>
+                                <td>
+                                    <form class="form-inline my-2 my-lg-0">
+                                      <a  onclick="departEq('@dat.departamento.Trim()','@dat.nombre.Trim()')"class="btn btn-success" data-toggle="Seleccionar" title="Seleccionar">
+						                   <i class="fas fa-check"></i>
+					                  </a>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
