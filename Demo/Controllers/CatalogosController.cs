@@ -187,7 +187,10 @@ namespace Demo.Controllers
         {
             return View(combos(""));
         }
-
+        public IActionResult DetallesAdicionalesEquipos()
+        {
+            return View();
+        }
         
 
         [HttpPost]
