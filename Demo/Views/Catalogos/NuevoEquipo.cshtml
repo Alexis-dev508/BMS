@@ -8,7 +8,7 @@
 			   </div>
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                     <form class="form-inline my-2 my-lg-0">
-                      <a href="@Url.Action("Equipos","Catalogos")" class="btn btn-outline-info">
+                      <a href="@Url.Action("Equipos","Catalogos")" class="btn btn-outline-info" data-toggle="Regresar" title="Regresar">
 						   <i class="fas fa-arrow-alt-circle-left"></i>
 						   Regresar
 					  </a>
@@ -23,7 +23,7 @@
                             @Html.TextBoxFor(model=> model.equipo,new {@class="form-control",@readonly="readonly"})
                         </div>
                         <div class="form-group m-2">
-                            @Html.TextBoxFor(model=> model.nombre,new {@class="form-control"})
+                            @Html.TextBoxFor(model=> model.nombre,new {@class="form-control",@toggle="Nombre",@title="Nombre"})
                         </div>
                        
                         <div class="form-group m-2">
@@ -141,10 +141,10 @@
                         <div class="form-group m-2">
                             @Html.Label("activo_fijo","Activo Fijo", new {@class = "control-label"})
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.TextBoxFor(model=> model.activo_fijo,new {@class="form-control",@onkeydown="onKeyDownHandler(event);",@id="activo"})
+                            @Html.TextBoxFor(model=> model.activo_fijo,new {@class="form-control",@onkeydown="onKeyDownActivo(event);",@id="activo"})
                             &nbsp;&nbsp;&nbsp;&nbsp;
                             @*@Html.TextBoxFor(model=> model.descripcion,new {@class="form-control"})*@
-                            <input asp-for="activo_nombre" class="form-control" id="anombre"/>
+                            <input asp-for="activo_nombre" class="form-control" id="anombre" data-toggle="Nombre Activo fijo" title="Nombre Activo fijo"/>
                         </div>
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <div class="checkbox m-2">
@@ -161,9 +161,9 @@
                         <div class="form-group m-2">
                             @Html.Label("equipo_depende","Depende", new {@class = "control-label"})
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.TextBoxFor(model=> model.equipo_depende,new {@class="form-control"})
+                            @Html.TextBoxFor(model=> model.equipo_depende,new {@class="form-control",@onkeydown="onKeyDownDepende(event);",@id="depende"})
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                             <input asp-for="depende" class="form-control" />
+                             <input asp-for="depende" class="form-control" id="dnombre" data-toggle="Depende Equipo" title="Depende Equipo"/>
                         </div>
                     </div>
                 </div>
@@ -201,9 +201,9 @@
                 <div class="form-inline">
                     <div class="form-group">
                         <div class="form-group m-2">
-                            <b>Área @Html.TextBoxFor(model=> model.area,new {@class="form-control"})</b> 
+                            <b>Área @Html.TextBoxFor(model=> model.area,new {@class="form-control",@id="area",@onkeydown="onKeyDownArea(event);"})</b> 
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                             <input name="nombre_area" style="max-width: 8vw;">
+                             <input id="areanombre" style="max-width: 8vw;" data-toggle="Area" title="Area">
                                 &nbsp;&nbsp;&nbsp;&nbsp;
                                <b>Recorrido máximo: @Html.TextBoxFor(model=> model.recorrido_maximo,new {@class="form-control"})</b> 
                         </div>
@@ -212,9 +212,9 @@
                 <div class="form-inline">
                     <div class="form-group">
                         <div class="form-group m-2">
-                            <b>Depto. @Html.TextBoxFor(model=> model.departamento,new {@class="form-control"})</b> 
+                            <b>Depto. @Html.TextBoxFor(model=> model.departamento,new {@class="form-control",@onkeydown="onKeyDownDepart(event);",@id="departamento"})</b> 
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                             <input name="nombreDepto" style="max-width: 8vw;">
+                             <input id="departnombre" style="max-width: 8vw;" data-toggle="Nombre Departamento" title="Nombre Departamento">
                        </div>
                     </div>
                 </div>
@@ -242,7 +242,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body" id="datosActivos">
+      <div class="modal-body" id="datos">
         
       </div>
       <div class="modal-footer">
@@ -288,12 +288,48 @@ $(document).ready( function () {
 } );
 
 function detalleActivo(){
-        $("#datosActivos").empty();
+        $("#datos").empty();
         $.ajax({
             type:"GET",
             url:"@Url.Action("detalleActivos","Catalogos")",
             success:function(data){
-                $("#datosActivos").append(data);
+                $("#datos").append(data);
+                $('#modalDetalle').modal('show');
+            },
+            error: function (xhr,ajaxOptions,thrownError){alert(xhr.responseText);}
+        });
+    }
+function equipoDepende(){
+        $("#datos").empty();
+        $.ajax({
+            type:"GET",
+            url:"@Url.Action("EquipoDepende","Catalogos")",
+            success:function(data){
+                $("#datos").append(data);
+                $('#modalDetalle').modal('show');
+            },
+            error: function (xhr,ajaxOptions,thrownError){alert(xhr.responseText);}
+        });
+    }
+function areaEquipo(){
+        $("#datos").empty();
+        $.ajax({
+            type:"GET",
+            url:"@Url.Action("Areas","Catalogos")",
+            success:function(data){
+                $("#datos").append(data);
+                $('#modalDetalle').modal('show');
+            },
+            error: function (xhr,ajaxOptions,thrownError){alert(xhr.responseText);}
+        });
+    }
+function departEquipos(){
+        $("#datos").empty();
+        $.ajax({
+            type:"GET",
+            url:"@Url.Action("Departamentos","Catalogos")",
+            success:function(data){
+                $("#datos").append(data);
                 $('#modalDetalle').modal('show');
             },
             error: function (xhr,ajaxOptions,thrownError){alert(xhr.responseText);}
@@ -304,12 +340,54 @@ function activosFi(activo,nombre){
     $('#anombre').val(nombre);
     $('#modalDetalle').modal('hide');
 }
-function onKeyDownHandler(event) {
+function equipoDep(equipo,nombre){
+    $('#depende').val(equipo);
+    $('#dnombre').val(nombre);
+    $('#modalDetalle').modal('hide');
+}
+function areaEq(area,nombre){
+    $('#area').val(area);
+    $('#areanombre').val(nombre);
+    $('#modalDetalle').modal('hide');
+}
+function departEq(depart,nombre){
+    $('#departamento').val(depart);
+    $('#departnombre').val(nombre);
+    $('#modalDetalle').modal('hide');
+}
+function onKeyDownActivo(event) {
 
     var codigo = event.which || event.keyCode;
      
     if(codigo === 113){
       detalleActivo();
+    }
+ 
+}
+function onKeyDownArea(event) {
+
+    var codigo = event.which || event.keyCode;
+     
+    if(codigo === 113){
+      areaEquipo();
+    }
+ 
+}
+function onKeyDownDepende(event) {
+
+    var codigo = event.which || event.keyCode;
+     
+    if(codigo === 113){
+      equipoDepende();
+    }
+ 
+}
+function onKeyDownDepart(event) {
+
+    var codigo = event.which || event.keyCode;
+     
+    if(codigo === 113){
+      departEquipos();
     }
  
 }

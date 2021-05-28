@@ -1,33 +1,34 @@
-﻿<div class="container-fluid">
+﻿@model List<Demo.Models.Equipos>
+<div class="container-fluid">
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="card-primary">
 				<div class="card-header">
-					<h2>Activos Fijos</h2>
+					<h2>Equipos</h2>
                      <input class="form-control mr-sm-2" id="busqueda" type="search" onkeyup="buscar()" placeholder="Buscar" aria-label="Search"/> 
 				</div>
 				<table class="table table-hover" id="tabla">
                     <thead>
                         <tr>
-                            <th>Activo</th>
+                            <th>Equipo</th>
                             <th>Nombre</th>
-                            <th>Marca</th>
-                            <th>Modelo</th>
-                            <th>Fecha</th>
+                            <th>Abreviatura</th>
+                            <th>Empleado</th>
+                            <th>Status</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach(var dat in Model){
                             <tr>
-                                <td>@dat.activo_fijo</td>
-                                <td>@dat.descripcion</td>
-                                <td>@dat.marca</td>
-                                <td>@dat.modelo</td>
-                                <td>@dat.fecha</td>
+                                <td>@dat.equipo</td>
+                                <td>@dat.nombre</td>
+                                <td>@dat.abreviatura</td>
+                                <td>@dat.empleado</td>
+                                <td>@dat.status</td>
                                 <td>
                                     <form class="form-inline my-2 my-lg-0">
-                                      <a  onclick="activosFi('@dat.activo_fijo.Trim()','@dat.descripcion.Trim()')"class="btn btn-success" data-toggle="Seleccionar" title="Seleccionar">
+                                      <a  onclick="equipoDep('@dat.equipo.Trim()','@dat.nombre.Trim()')"class="btn btn-success" data-toggle="Seleccionar" title="Seleccionar">
 						                   <i class="fas fa-check"></i>
 					                  </a>
                                     </form>

@@ -263,14 +263,57 @@ namespace Demo.Controllers
             }
             return PartialView("_ActivosFijos", detalle);
         }
+        [HttpGet]
+        public IActionResult EquipoDepende()
+        {
+            List<Equipos> detalle = new List<Equipos>();
+            try
+            {
+                detalle = datos.TraerEquipos();
+            }
+            catch (Exception ex)
+            {
+
+                ViewBag.ErroresM = ex.Message;
+            }
+            return PartialView("_DependeEquipo", detalle);
+        }
+        [HttpGet]
+        public IActionResult Areas()
+        {
+            List<AreasEquipos> detalle = new List<AreasEquipos>();
+            try
+            {
+                detalle = datos.TraerAreas();
+            }
+            catch (Exception ex)
+            {
+
+                ViewBag.ErroresM = ex.Message;
+            }
+            return PartialView("_Areas", detalle);
+        }
+        [HttpGet]
+        public IActionResult Departamentos()
+        {
+            List<DepartamentosEquipos> detalle = new List<DepartamentosEquipos>();
+            try
+            {
+                detalle = datos.TraerDepart();
+            }
+            catch (Exception ex)
+            {
+
+                ViewBag.ErroresM = ex.Message;
+            }
+            return PartialView("_Departamentos", detalle);
+        }
         //Equipos
         public IActionResult Equipos()
         {
             var model = new List<Equipos>();
             model = datos.TraerEquipos();
             return View(model);
-           
-          
         }
         ////guardar equipo
         //[HttpPost]

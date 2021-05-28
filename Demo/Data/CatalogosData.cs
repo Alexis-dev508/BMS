@@ -241,6 +241,61 @@ namespace Demo.Data
             }).ToList();
             return frecuencias;
         }
+        //traer areas
+        public List<AreasEquipos> TraerAreas()
+        {
+            List<AreasEquipos> areas = new List<AreasEquipos>();
+            try
+            {
+                SqlDataAdapter sda = new SqlDataAdapter("dbo.DEMO_DATOSEQUIPOS", this.ConnectionString);
+                sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sda.SelectCommand.Parameters.AddWithValue("@oper", "AR");
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                areas = dt.AsEnumerable().Select(a =>
+                new AreasEquipos
+                {
+                    area = a["area"].ToString(),
+                    nombre = a["nombre"].ToString(),
+                    abreviatura = a["abreviatura"].ToString(),
+                    status = a["status"].ToString(),
+
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+            return areas;
+        }
+        public List<DepartamentosEquipos> TraerDepart()
+        {
+            List<DepartamentosEquipos> departamentos = new List<DepartamentosEquipos>();
+            try
+            {
+                SqlDataAdapter sda = new SqlDataAdapter("dbo.DEMO_DATOSEQUIPOS", this.ConnectionString);
+                sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sda.SelectCommand.Parameters.AddWithValue("@oper", "DT");
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                departamentos = dt.AsEnumerable().Select(a =>
+                new DepartamentosEquipos
+                {
+                    departamento = a["departamento"].ToString(),
+                    nombre = a["nombre"].ToString(),
+                    abreviatura = a["abreviatura"].ToString(),
+                    status = a["status"].ToString(),
+
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+            return departamentos;
+        }
         //traer activos fijos
         public List<ActivosFiEquipos> TraerActivosFi()
         {
