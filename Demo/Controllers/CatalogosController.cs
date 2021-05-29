@@ -253,6 +253,10 @@ namespace Demo.Controllers
         {
             return View(combos(""));
         }
+        public IActionResult Talleres()
+        {
+            return View();
+        }
 
         
 
@@ -314,6 +318,7 @@ namespace Demo.Controllers
                 return View(model);
             }
         }
+
         [HttpGet]
         public IActionResult detalleActivos()
         {
