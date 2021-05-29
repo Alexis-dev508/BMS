@@ -257,6 +257,10 @@ namespace Demo.Controllers
         {
             return View();
         }
+        public IActionResult Talleres()
+        {
+            return View();
+        }
         
 
         [HttpPost]
