@@ -57,7 +57,6 @@ namespace Demo.Models
         public IList<SelectListItem> ChoferList { get; set; }
         public IList<SelectListItem> CargaEstList { get; set; }
         public IList<SelectListItem> AyudanteList { get; set; }
-        public IList<SelectListItem> Ayudante2List { get; set; }
         public IList<SelectListItem> Tanque1List { get; set; }
         public IList<SelectListItem> Tanque2List { get; set; }
         public IList<SelectListItem> Tanque3List { get; set; }

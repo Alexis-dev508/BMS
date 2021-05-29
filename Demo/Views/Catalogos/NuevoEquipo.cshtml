@@ -231,7 +231,7 @@
                         <div class="form-group m-3">
                              @Html.Label("compra","Compra",new {@class="control-label"})
                              &nbsp;&nbsp;&nbsp;&nbsp;
-                             @Html.TextBoxFor(model=> model.fecha_compra,new {@class="my-4",@name="dtpfecha_compra" @type="date", @style="width:80%;",@id="calendario"})           
+                             @Html.TextBoxFor(model=> model.fecha_compra,new {@class="my-4",@name="dtpfecha_compra", @type="date", @style="width:80%;",@id="calendario"})           
                          </div>
                          <div class="form-group m-3">
                              <b>Costo @Html.TextBoxFor(model=> model.costo,new {@class="form-control", @type="number", @style ="width: 80%;"})</b>
@@ -311,14 +311,14 @@
                                      
                                 </div>
                                 <div class="col-3 p-2">
-                                    @Html.DropDownList("combustible1",Model.Tanque1List, new {@class="form-control my-3 "})
-                                    @Html.DropDownList("combustible2",Model.Tanque1List, new {@class="form-control my-3"})
-                                    @Html.DropDownList("combustible3",Model.Tanque1List, new {@class="form-control my-3"})    
+                                    @Html.DropDownList("combustible1",Model.Tanque1List, new {@class="form-control my-3 ",@toggle="Combustible 1",@title="Combustible 1"})
+                                    @Html.DropDownList("combustible2",Model.Tanque1List, new {@class="form-control my-3",@toggle="Combustible 2",@title="Combustible 2"})
+                                    @Html.DropDownList("combustible3",Model.Tanque1List, new {@class="form-control my-3",@toggle="Combustible 3",@title="Combustible 3"})    
                                 </div>
                                 <div class="col-3  p-2">
-                                    @Html.TextBoxFor(model=> model.RENDIMIENTO1,new {@class="form-control my-3", @type="number", @style ="width: 80%;"})
-                                    @Html.TextBoxFor(model=> model.RENDIMIENTO2,new {@class="form-control my-3", @type="number", @style ="width: 80%;"})
-                                    @Html.TextBoxFor(model=> model.RENDIMIENTO3,new {@class="form-control my-3", @type="number", @style ="width: 80%;"})
+                                    @Html.TextBoxFor(model=> model.RENDIMIENTO1,new {@class="form-control my-3", @type="number", @style ="width: 80%;",@toggle="Rendimiento 1",@title="Rendimiento 1"})
+                                    @Html.TextBoxFor(model=> model.RENDIMIENTO2,new {@class="form-control my-3", @type="number", @style ="width: 80%;",@toggle="Rendimiento 2",@title="Rendimiento 2"})
+                                    @Html.TextBoxFor(model=> model.RENDIMIENTO3,new {@class="form-control my-3", @type="number", @style ="width: 80%;",@toggle="Rendimiento 3",@title="Rendimiento 3"})
                                     
                                 </div>
                                 <div class="col-3">
