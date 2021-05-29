@@ -255,7 +255,9 @@ namespace Demo.Controllers
         }
         public IActionResult Talleres()
         {
-            return View();
+            var model = new List<Talleres>();
+            model = datos.TraerTalleres();
+            return View(model);
         }
 
         

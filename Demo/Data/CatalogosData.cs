@@ -507,6 +507,67 @@ namespace Demo.Data
             }).ToList();
             return equipos;
         }
+        //traer talleres
+        public List<ConceptosGTalleres> TraerConceptosG()
+        {
+            List<ConceptosGTalleres> conceptos = new List<ConceptosGTalleres>();
+            try
+            {
+                SqlDataAdapter sda = new SqlDataAdapter("dbo.", this.ConnectionString);
+                sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sda.SelectCommand.Parameters.AddWithValue("@oper", "R");
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                conceptos = dt.AsEnumerable().Select(a =>
+                new ConceptosGTalleres
+                {
+                    concepto_gastos = a["concepto_gatos"].ToString(),
+                    nombre = a["nombre"].ToString()
+
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+            return conceptos;
+        }
+        //traer talleres
+        public List<Talleres> TraerTalleres()
+        {
+            List<Talleres> talleres = new List<Talleres>();
+            try
+            {
+                SqlDataAdapter sda = new SqlDataAdapter("dbo.", this.ConnectionString);
+                sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sda.SelectCommand.Parameters.AddWithValue("@oper", "R");
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                talleres = dt.AsEnumerable().Select(a =>
+                new Talleres
+                {
+                    servicio = a["servicio"].ToString(),
+                    nombre = a["nombre"].ToString(),
+                    status = a["status"].ToString(),
+                    concepto_gastos = a["concepto_gastos"].ToString(),
+                    horas_mecanico = Convert.ToInt32(a["horas_mecanico"]),
+                    minutos_mecanico = Convert.ToInt32(a["minutos_mecanico"]),
+                    orden_mostrar = Convert.ToInt32(a["orden_mostrar"]),
+                    concepto_servicio = a["concepto_servicio"].ToString(),
+                    sistema_equipos = a["sistema_equipos"].ToString(),
+                    dias = Convert.ToDateTime(a["dias"]),
+                    precio = Convert.ToDecimal(a["precio"])
+
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+            return talleres;
+        }
 
         public EquiposModelView TraerEquipo(string equipo)
         {
