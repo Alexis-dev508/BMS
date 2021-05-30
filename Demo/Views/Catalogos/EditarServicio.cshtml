@@ -4,7 +4,7 @@
         <div class="col-sm-12">
             <div class="card-info">
                 <div class="card-header">
-                    <h3>Nuevo Servicio</h3>
+                    <h3>Editar Servicio</h3>
                 </div>
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                     <form class="form-inline my-2 my-lg-0">
@@ -29,23 +29,23 @@
                             </div>
                             <div class="form-group m-2">
                                 @Html.Label("status","Status",new {@class="control-label"})
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                                @Html.DropDownList("status",Model.StatusList,new {@class="form-control"})
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.DropDownList("status",Model.StatusList,new {@class="form-control"})
                             </div>
                         </div>
                     </div>
                         <div class="form-inline">
                             <div class="form-group">
                                 <div class="form-group m-2">
-                                    @Html.Label("tipo","Tipo",new {@class="control-label"})
+                                    @Html.Label("tipo_servicio","Tipo",new {@class="control-label"})
                                     &nbsp;&nbsp;&nbsp;&nbsp;
-                                    @Html.DropDownList("tipo",Model.TipoServList,new {@class="form-control"})
+                                    @Html.DropDownList("tipo_servicio",Model.TipoServList,new {@class="form-control"})
                                     &nbsp;&nbsp;&nbsp;&nbsp;
                                 </div>
                                 <div class="form-group m-2">
-                                    @Html.Label("concepto_gasto","Concepto de gastos",new {@class="control-label"})
+                                    @Html.Label("concepto_gastos","Concepto de gastos",new {@class="control-label"})
                                     &nbsp;&nbsp;&nbsp;&nbsp;
-                                    @Html.DropDownList("concepto_gasto",Model.ConceptoGList,new {@class="form-control"})
+                                    @Html.DropDownList("concepto_gastos",Model.ConceptoGList,new {@class="form-control"})
                                     &nbsp;&nbsp;&nbsp;&nbsp;
                                 </div>
                                 <div class="form-group m-2">
@@ -60,13 +60,13 @@
                             <div class="form-group m-2">
                                 @Html.Label("concepto_servicio","Conc. Serv.",new {@class="control-label"})
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                                @Html.DropDownList("concepto_servicio",Model.ConceptoServSList,new {@class="form-control"})
+                                @Html.DropDownList("concepto_servicio",Model.ConceptoServList,new {@class="form-control"})
                                 &nbsp;&nbsp;&nbsp;&nbsp;
                             </div>
                             <div class="form-group m-2">
                                 @Html.Label("sistema_equipos","Sistemas",new {@class="control-label"})
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                                @Html.DropDownList("sistema_equipo",Model.SistemasList,new {@class="form-control"})
+                                @Html.DropDownList("sistema_equipos",Model.SistemasList,new {@class="form-control"})
                                 &nbsp;&nbsp;&nbsp;&nbsp;
                             </div>
                             <div class="form-group m-2">
@@ -96,6 +96,9 @@
                             @Html.TextBoxFor(model=> model.precio,new {@class="form-control",@type="number"})
                         </div>
                     </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Guardar" class="btn btn-success"/>
             </div>
         }
         </div>

@@ -599,7 +599,7 @@ namespace Demo.Data
                 sistemas = dt.AsEnumerable().Select(a =>
                 new SistemasEquipos
                 {
-                    sistema_equipos = a["sistema_equipo"].ToString(),
+                    sistema_equipos = a["sistema_equipos"].ToString(),
                     nombre = a["nombre"].ToString(),
                     status = a["status"].ToString()
 
@@ -652,7 +652,7 @@ namespace Demo.Data
                 conceptos = dt.AsEnumerable().Select(a =>
                 new ConceptosGServ
                 {
-                    concepto_gastos = a["concepto_gatos"].ToString(),
+                    concepto_gastos = a["concepto_gastos"].ToString(),
                     nombre = a["nombre"].ToString()
 
                 }).ToList();
@@ -668,29 +668,36 @@ namespace Demo.Data
         public ServiciosModelView TraerServicio(string serv)
         {
             ServiciosModelView servicio = new ServiciosModelView();
-
-            SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_Taller", this.ConnectionString);
-            sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            sda.SelectCommand.Parameters.AddWithValue("@oper", "R");
-            sda.SelectCommand.Parameters.AddWithValue("@servicio", serv);
-            DataTable dt = new DataTable();
-            sda.Fill(dt);
-            servicio = dt.AsEnumerable().Select(a =>
-            new ServiciosModelView
+            try
             {
-                servicio = a["servicio"].ToString(),
-                nombre = a["nombre"].ToString(),
-                status = a["status"].ToString(),
-                concepto_gastos = a["concepto_gastos"].ToString(),
-                horas_mecanico = Convert.ToInt32(a["horas_mecanico"]),
-                minutos_mecanico = Convert.ToInt32(a["minutos_mecanico"]),
-                orden_mostrar = Convert.ToInt32(a["orden_mostrar"]),
-                concepto_servicio = a["concepto_servicio"].ToString(),
-                sistema_equipos = a["sistema_equipos"].ToString(),
-                dias = Convert.ToDateTime(a["dias"]),
-                precio = Convert.ToDecimal(a["precio"])
-            }).SingleOrDefault();
+                SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_Taller", this.ConnectionString);
+                sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sda.SelectCommand.Parameters.AddWithValue("@oper", "R");
+                sda.SelectCommand.Parameters.AddWithValue("@servicio", serv);
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                servicio = dt.AsEnumerable().Select(a =>
+                new ServiciosModelView
+                {
+                    servicio = a["servicio"].ToString(),
+                    nombre = a["nombre"].ToString(),
+                    status = a["status"].ToString(),
+                    tipo_servicio=a["tipo_servicio"].ToString(),
+                    concepto_gastos = a["concepto_gastos"].ToString(),
+                    horas_mecanico = Convert.ToInt32(a["horas_mecanico"]),
+                    minutos_mecanico = Convert.ToInt32(a["minutos_mecanico"]),
+                    orden_mostrar = Convert.ToInt32(a["orden_mostrar"]),
+                    concepto_servicio = a["concepto_servicio"].ToString(),
+                    sistema_equipos = a["sistema_equipos"].ToString(),
+                    dias = Convert.ToInt16(a["dias"]),
+                    precio = Convert.ToDecimal(a["precio"])
+                }).SingleOrDefault();
+            }
+            catch (Exception ex)
+            {
 
+                throw new Exception(ex.Message);
+            }
             return servicio;
         }
         //traer servicios
@@ -711,13 +718,11 @@ namespace Demo.Data
                     nombre = a["nombre"].ToString(),
                     tipo_servicio = a["tipo_servicio"].ToString(),
                     status = a["status"].ToString(),
-                    concepto_gastos = a["concepto_gastos"].ToString(),
                     horas_mecanico = Convert.ToInt32(a["horas_mecanico"]),
                     minutos_mecanico = Convert.ToInt32(a["minutos_mecanico"]),
-                    orden_mostrar = Convert.ToInt32(a["orden_mostrar"]),
                     concepto_servicio = a["concepto_servicio"].ToString(),
-                    sistema_equipos = a["sistema_equipos"].ToString(),
-                    dias = Convert.ToDateTime(a["dias"]),
+                    orden_mostrar = Convert.ToInt32(a["orden_mostrar"]),
+                    dias = Convert.ToInt16(a["dias"]),
                     precio = Convert.ToDecimal(a["precio"])
 
                 }).ToList();
@@ -896,8 +901,10 @@ namespace Demo.Data
             catch (Exception ex)
             {
                 sqlTransaction.Rollback();
+                return false;
                 throw new Exception(ex.Message);
-
+                
+                
             }
             finally
             {
@@ -905,7 +912,9 @@ namespace Demo.Data
                 {
                     cnn.Close();
                 }
+                
             }
+            
 
         }
 
@@ -1009,6 +1018,7 @@ namespace Demo.Data
             catch (Exception ex)
             {
                 sqlTransaction.Rollback();
+                return false;
                 throw new Exception(ex.Message);
                 
             }

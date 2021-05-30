@@ -18,8 +18,7 @@ namespace Demo.Models
         public int orden_mostrar { get; set; }
         public string concepto_servicio { get; set; }
         public string sistema_equipos { get; set; }
-        [DataType(DataType.Date)]
-        public DateTime dias { get; set; }
+        public Int16 dias { get; set; }
         public decimal precio { get; set; }
     }
 }

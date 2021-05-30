@@ -1,4 +1,4 @@
-﻿@model List<Demo.Models.Equipos>
+﻿@model List<Demo.Models.Servicios>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-sm-12">
@@ -8,9 +8,9 @@
 			   </div>
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                     <form class="form-inline my-2 my-lg-0">
-					  <a class="btn btn-outline-primary" href="@Url.Action("NuevoEquipo","Catalogos")" >
+					  <a class="btn btn-outline-primary" href="@Url.Action("NuevoServicio","Catalogos")" >
 						   <i class="fas fa-file"></i>
-						   Nuevo Equipo
+						   Nuevo Servicio
 					  </a>
 					  &nbsp;&nbsp;&nbsp;&nbsp;
 					  @if (TempData["mensajeINF"] != null)
@@ -40,12 +40,10 @@
 								</button>
 							</div>
 						}
-						
-
 					</form>
 
                 </nav>
-				<table class="table table-hover" id="tabla">
+				<table class="table table-bordered" id="tabla">
 					<thead>
 					 <tr>
 					  <th>Servicio</th>
@@ -60,23 +58,26 @@
 				  </tr>
 				 </thead>
 				 <tbody>
-					 @*@foreach(var dat in Model)
+					 @foreach(var dat in Model)
 						{
 							<tr>
-					   <td>@dat.equipo</td>
+					   <td>@dat.servicio</td>
 					   <td>@dat.nombre</td>
-					   <td>@dat.abreviatura</td>
-					   <td>@dat.empleado</td>
-					   <td>@dat.status</td>
-						<td>@dat.serie</td>
+					   <td>@dat.concepto_servicio</td>
+					   <td>@dat.horas_mecanico</td>
+					   <td>@dat.minutos_mecanico</td>
+						<td>@dat.precio</td>
+						<td>@dat.orden_mostrar</td>
+						<td>@dat.dias</td>
+						<td>@dat.status</td>
 						<td>
-							<a class="btn btn-outline-warning" href="@Url.Action("EditarEquipos","Catalogos", new {id = dat.equipo})" >
+							<a class="btn btn-outline-warning" href="@Url.Action("EditarServicio","Catalogos", new {id = dat.servicio})" >
 							   <i class="fas fa-edit"></i>
 							   Editar
 							</a>
 						</td>
 				   </tr>
-						}*@
+						}
 				 </tbody>
 				</table>
 			</div>

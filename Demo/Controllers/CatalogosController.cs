@@ -1,6 +1,7 @@
 ﻿using Demo.Data;
 using Demo.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -31,11 +32,15 @@ namespace Demo.Controllers
             var conceptoS = datos.TraerConceptosS();
             var conceptoG = datos.TraerConceptosG();
             var sis = datos.TraerSistemaEquipos();
-            var stat = datos.TraerStatus();
             model.status = "V";
+            var sts = datos.TraerStatus();
             if (id != "")
             {
                 model = datos.TraerServicio(id);
+                if (model.status.Trim() == "V")
+                {
+                    model.status = "V";
+                }
                 if (model == null)
                 {
                     TempData["mensajeINF"] = "No se encontró ningun servicio con ese ID";
@@ -43,7 +48,7 @@ namespace Demo.Controllers
                 }
                 foreach (var st in tipo)
                 {
-                    model.TipoServList.Add(new SelectListItem { Value = st.Tipo_servicio, Text = st.Nombre, Selected = st.Tipo_servicio.Trim() == model.servicio.Trim() });
+                    model.TipoServList.Add(new SelectListItem { Value = st.Tipo_servicio, Text = st.Nombre, Selected = st.Tipo_servicio.Trim() == model.tipo_servicio.Trim() });
                 }
                 foreach (var st in conceptoG)
                 {
@@ -57,9 +62,10 @@ namespace Demo.Controllers
                 {
                     model.SistemasList.Add(new SelectListItem { Value = st.sistema_equipos, Text = st.nombre, Selected = st.sistema_equipos.Trim() == model.sistema_equipos.Trim() });
                 }
-                foreach (var st in stat)
+                foreach (var st in sts)
                 {
-                    model.StatusList.Add(new SelectListItem { Value = st.status, Text = st.nombre, Selected = st.status.Trim() == model.status.Trim() });
+                    model.StatusList.Add(new SelectListItem { Value = st.status, Text = st.nombre});
+
                 }
             }
             else
@@ -80,7 +86,7 @@ namespace Demo.Controllers
                 {
                     model.SistemasList.Add(new SelectListItem { Value = st.sistema_equipos, Text = st.nombre});
                 }
-                foreach (var st in stat)
+                foreach (var st in sts)
                 {
                     model.StatusList.Add(new SelectListItem { Value = st.status, Text = st.nombre});
                 }
@@ -112,8 +118,9 @@ namespace Demo.Controllers
             var sts = datos.TraerStatus();
             if (id != "")
             {
+                
                 model = datos.TraerEquipo(id);
-                if(model == null)
+                if (model == null)
                 {
                     TempData["mensajeINF"] = "No se encontró ningun equipo con ese ID";
                     RedirectToAction("Equipos");
@@ -410,8 +417,10 @@ namespace Demo.Controllers
             if (id == null)
             {
                 return BadRequest();
+                
             }
-            return View(combosServ(id));
+            var model = combosServ(id);
+            return View(model);
         }
 
         //editar servicio
@@ -420,6 +429,7 @@ namespace Demo.Controllers
         {
             try
             {
+                
                 var res = datos.GuardarServicio(model, "M");
                 if (res == true)
                 {
