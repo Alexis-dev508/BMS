@@ -1,0 +1,104 @@
+﻿@model Demo.Models.ServiciosModelView
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-info">
+                <div class="card-header">
+                    <h3>Nuevo Servicio</h3>
+                </div>
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <form class="form-inline my-2 my-lg-0">
+                      <a href="@Url.Action("Servicios","Catalogos")" class="btn btn-outline-info" data-toggle="Regresar" title="Regresar">
+						   <i class="fas fa-arrow-alt-circle-left"></i>
+						   Regresar
+					  </a>
+                    </form>
+                </nav>
+                @using (Html.BeginForm("EditarServicio","Catalogos",FormMethod.Post)){
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <div class="form-group m-2">
+                                @Html.Label("servicio","Servicio",new {@class="control-label"})
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                @Html.TextBoxFor(model=> model.servicio,new {@class="form-control",@readonly="readonly"})
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <div class="form-group m-2">
+                                @Html.TextBoxFor(model=> model.nombre,new {@class="form-control"})
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <div class="form-group m-2">
+                                @Html.Label("status","Status",new {@class="control-label"})
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                @Html.DropDownList("status",Model.StatusList,new {@class="form-control"})
+                            </div>
+                        </div>
+                    </div>
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <div class="form-group m-2">
+                                    @Html.Label("tipo","Tipo",new {@class="control-label"})
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    @Html.DropDownList("tipo",Model.TipoServList,new {@class="form-control"})
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                </div>
+                                <div class="form-group m-2">
+                                    @Html.Label("concepto_gasto","Concepto de gastos",new {@class="control-label"})
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    @Html.DropDownList("concepto_gasto",Model.ConceptoGList,new {@class="form-control"})
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                </div>
+                                <div class="form-group m-2">
+                                    @Html.Label("orden_mostrar","Orden mostrar",new {@class="control-label"})
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    @Html.TextBoxFor(model=> model.orden_mostrar,new {@class="form-control",@type="number"})
+                                </div>
+                            </div>
+                    </div>
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <div class="form-group m-2">
+                                @Html.Label("concepto_servicio","Conc. Serv.",new {@class="control-label"})
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                @Html.DropDownList("concepto_servicio",Model.ConceptoServSList,new {@class="form-control"})
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <div class="form-group m-2">
+                                @Html.Label("sistema_equipos","Sistemas",new {@class="control-label"})
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                @Html.DropDownList("sistema_equipo",Model.SistemasList,new {@class="form-control"})
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <div class="form-group m-2">
+                                @Html.Label("dias","Días",new {@class="control-label"})
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                @Html.TextBoxFor(model=> model.dias,new {@class="form-control",@type="number"})
+                            </div>
+                        </div>
+                </div>
+                <div class="form-inline">
+                    <div class="form-group">
+                        <div class="form-group m-2">
+                            @Html.Label("horas_mecanico","Hrs. Mecánico",new {@class="control-label"})
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.TextBoxFor(model=> model.horas_mecanico,new {@class="form-control",@type="number"})
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                        </div>
+                        <div class="form-group m-2">
+                            @Html.Label("minutos_mecanico","Min. Mecánico",new {@class="control-label"})
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.TextBoxFor(model=> model.minutos_mecanico,new {@class="form-control",@type="number"})
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                        </div>
+                        <div class="form-group m-2">
+                            @Html.Label("precio","Precio",new {@class="control-label"})
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.TextBoxFor(model=> model.precio,new {@class="form-control",@type="number"})
+                        </div>
+                    </div>
+            </div>
+        }
+        </div>
+    </div>
+</div>
+</div>

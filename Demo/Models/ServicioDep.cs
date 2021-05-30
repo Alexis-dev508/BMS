@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Demo.Models
 {
-    public class ServicioDepTalleres
+    public class ServicioDep
     {
         public string servicio { get; set; }
         public string nom_servicio { get; set; }

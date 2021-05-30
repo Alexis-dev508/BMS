@@ -24,7 +24,71 @@ namespace Demo.Controllers
             return View();
         }
         [HttpGet]
-        public EquiposModelView combos(string? id, string oper = null)
+        public ServiciosModelView combosServ(string? id)
+        {
+            var model = new ServiciosModelView();
+            var tipo = datos.TraerTiposServ();
+            var conceptoS = datos.TraerConceptosS();
+            var conceptoG = datos.TraerConceptosG();
+            var sis = datos.TraerSistemaEquipos();
+            var stat = datos.TraerStatus();
+            model.status = "V";
+            if (id != "")
+            {
+                model = datos.TraerServicio(id);
+                if (model == null)
+                {
+                    TempData["mensajeINF"] = "No se encontró ningun servicio con ese ID";
+                    RedirectToAction("Talleres");
+                }
+                foreach (var st in tipo)
+                {
+                    model.TipoServList.Add(new SelectListItem { Value = st.Tipo_servicio, Text = st.Nombre, Selected = st.Tipo_servicio.Trim() == model.servicio.Trim() });
+                }
+                foreach (var st in conceptoG)
+                {
+                    model.ConceptoGList.Add(new SelectListItem { Value = st.concepto_gastos, Text = st.nombre, Selected = st.concepto_gastos.Trim() == model.concepto_gastos.Trim() });
+                }
+                foreach (var st in conceptoS)
+                {
+                    model.ConceptoServList.Add(new SelectListItem { Value = st.concepto_servicio, Text = st.nombre, Selected = st.concepto_servicio.Trim() == model.concepto_servicio.Trim() });
+                }
+                foreach (var st in sis)
+                {
+                    model.SistemasList.Add(new SelectListItem { Value = st.sistema_equipos, Text = st.nombre, Selected = st.sistema_equipos.Trim() == model.sistema_equipos.Trim() });
+                }
+                foreach (var st in stat)
+                {
+                    model.StatusList.Add(new SelectListItem { Value = st.status, Text = st.nombre, Selected = st.status.Trim() == model.status.Trim() });
+                }
+            }
+            else
+            {
+                foreach (var st in tipo)
+                {
+                    model.TipoServList.Add(new SelectListItem { Value = st.Tipo_servicio, Text = st.Nombre});
+                }
+                foreach (var st in conceptoG)
+                {
+                    model.ConceptoGList.Add(new SelectListItem { Value = st.concepto_gastos, Text = st.nombre});
+                }
+                foreach (var st in conceptoS)
+                {
+                    model.ConceptoServList.Add(new SelectListItem { Value = st.concepto_servicio, Text = st.nombre});
+                }
+                foreach (var st in sis)
+                {
+                    model.SistemasList.Add(new SelectListItem { Value = st.sistema_equipos, Text = st.nombre});
+                }
+                foreach (var st in stat)
+                {
+                    model.StatusList.Add(new SelectListItem { Value = st.status, Text = st.nombre});
+                }
+            }
+            return model;
+        }
+        [HttpGet]
+        public EquiposModelView combos(string? id)
         {
             var model = new EquiposModelView();
             var marc = datos.TraerMarcas();
@@ -253,14 +317,129 @@ namespace Demo.Controllers
         {
             return View(combos(""));
         }
-        public IActionResult Talleres()
+        [HttpGet]
+        public IActionResult NuevoServicio()
         {
-            var model = new List<Talleres>();
-            model = datos.TraerTalleres();
+            return View(combosServ(""));
+        }
+        public IActionResult Servicios()
+        {
+            var model = new List<Servicios>();
+            model = datos.TraerServicios();
             return View(model);
         }
+        [HttpGet]
+        public IActionResult servicioDependiente()
+        {
+            List<ServicioDep> serv = new List<ServicioDep>();
+            try
+            {
+                serv = datos.TraerServiciosDep();
+            }
+            catch (Exception ex)
+            {
 
-        
+                ViewBag.ErroresM = ex.Message;
+            }
+            return PartialView("_ServiciosDependientes", serv);
+        }
+        [HttpPost]
+        public IActionResult NuevoServicioDependiente(ServicioDep model)
+        {
+            try
+            {
+                var res = datos.GuardarServicioDep(model, "N");
+                if (res == true)
+                {
+                    TempData["mensajeSAVE"] = "Equipo guardado exitosamente";
+                    return RedirectToAction("servicioDependiente");
+                }
+                else
+                {
+                    TempData["mensajeINF"] = "Error al guardar Equipo";
+                    return RedirectToAction("Servicios");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ViewBag.Errores = ex.Message;
+                return View(model);
+            }
+        }
+        [HttpPost]
+        public IActionResult NuevoServicio(ServiciosModelView model)
+        {
+            try
+            {
+                var res = datos.GuardarServicio(model, "N");
+                if (res == true)
+                {
+                    TempData["mensajeSAVE"] = "Servicio guardado exitosamente";
+                    return RedirectToAction("Servicios");
+                }
+                else
+                {
+                    TempData["mensajeINF"] = "Error al guardar Servicio";
+                    return RedirectToAction("Servicios");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ViewBag.Errores = ex.Message;
+                return View(model);
+            }
+        }
+        //editar servicio dependiente
+        [HttpGet]
+        public IActionResult EditarServicioDepende(string id)
+        {
+            if (id == null)
+            {
+                return BadRequest();
+            }
+            var serv = datos.TraerServicioDep(id);
+            var model = new ServicioDep() { servicio = serv.servicio, nom_servicio = serv.nom_servicio, servicio_dependiente = serv.servicio_dependiente};
+            return View(model);
+        }
+        //editar servicio
+        [HttpGet]
+        public IActionResult EditarServicio(string id)
+        {
+            if (id == null)
+            {
+                return BadRequest();
+            }
+            return View(combosServ(id));
+        }
+
+        //editar servicio
+        [HttpPost]
+        public IActionResult EditarServicio(ServiciosModelView model)
+        {
+            try
+            {
+                var res = datos.GuardarServicio(model, "M");
+                if (res == true)
+                {
+                    TempData["mensajeEDIT"] = "Servicio editado exitosamente";
+                    return RedirectToAction("Servicios");
+                }
+                else
+                {
+                    TempData["mensajeINF"] = "Error al guardar Servicio";
+                    return RedirectToAction("Servicios");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ViewBag.Errores = ex.Message;
+                return View(model);
+            }
+        }
+
 
         [HttpPost]
         public IActionResult NuevoEquipo(EquiposModelView model)
@@ -337,19 +516,19 @@ namespace Demo.Controllers
             return PartialView("_ActivosFijos", detalle);
         }
         [HttpGet]
-        public IActionResult EquipoDepende()
+        public IActionResult ServiciosDepende()
         {
-            List<Equipos> detalle = new List<Equipos>();
+            List<ServicioDep> detalle = new List<ServicioDep>();
             try
             {
-                detalle = datos.TraerEquipos();
+                detalle = datos.TraerServiciosDep();
             }
             catch (Exception ex)
             {
 
                 ViewBag.ErroresM = ex.Message;
             }
-            return PartialView("_DependeEquipo", detalle);
+            return PartialView("_DependenciaServicio", detalle);
         }
         [HttpGet]
         public IActionResult Areas()

@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Demo.Models
 {
-    public class Talleres
+    public class Servicios
     {
         public  string servicio { get; set; }
         public string nombre { get; set; }
+        public string tipo_servicio { get; set; }
         public string status { get; set; }
         public string concepto_gastos { get; set; }
         public int horas_mecanico { get; set; }

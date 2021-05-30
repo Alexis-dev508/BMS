@@ -507,19 +507,150 @@ namespace Demo.Data
             }).ToList();
             return equipos;
         }
-        //traer talleres
-        public List<ConceptosGTalleres> TraerConceptosG()
+        //traer tipos servicio
+        public List<TipoServ> TraerTiposServ()
         {
-            List<ConceptosGTalleres> conceptos = new List<ConceptosGTalleres>();
+            List<TipoServ>tipoServs = new List<TipoServ>();
             try
             {
-                SqlDataAdapter sda = new SqlDataAdapter("dbo.", this.ConnectionString);
+                SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_DatosServicios", this.ConnectionString);
                 sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
-                sda.SelectCommand.Parameters.AddWithValue("@oper", "R");
+                sda.SelectCommand.Parameters.AddWithValue("@oper", "TS");
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                tipoServs = dt.AsEnumerable().Select(a =>
+                new TipoServ
+                {
+                    Tipo_servicio = a["Tipo_servicio"].ToString(),
+                    Nombre = a["Nombre"].ToString()
+
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+            return tipoServs;
+        }
+        //traer sercvicio depende
+        public ServicioDep TraerServicioDep(string serv)
+        {
+            ServicioDep servicio = new ServicioDep();
+
+            SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_Taller", this.ConnectionString);
+            sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            sda.SelectCommand.Parameters.AddWithValue("@oper", "DS");
+            sda.SelectCommand.Parameters.AddWithValue("@servicio", serv);
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            servicio = dt.AsEnumerable().Select(a =>
+            new ServicioDep
+            {
+                servicio = a["servicio"].ToString(),
+                nom_servicio = a["nom_servicio"].ToString(),
+                servicio_dependiente = a["servicio_dependiente"].ToString(),
+                nom_dependiente = a["nom_dependiente"].ToString(),
+                notas = a["notas"].ToString()
+            }).SingleOrDefault();
+
+            return servicio;
+        }
+        //traer servicios dependientes
+        public List<ServicioDep> TraerServiciosDep()
+        {
+            List<ServicioDep>dependientes = new List<ServicioDep>();
+            try
+            {
+                SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_DatosServicios", this.ConnectionString);
+                sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sda.SelectCommand.Parameters.AddWithValue("@oper", "DS");
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                dependientes = dt.AsEnumerable().Select(a =>
+                new ServicioDep
+                {
+                    servicio = a["servicio"].ToString(),
+                    nom_servicio = a["nom_servicio"].ToString(),
+                    servicio_dependiente = a["servicio_dependiente"].ToString(),
+                    nom_dependiente = a["nom_dependiente"].ToString(),
+                    notas = a["notas"].ToString()
+
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+            return dependientes;
+        }
+        //traer sistema equipos
+        public List<SistemasEquipos> TraerSistemaEquipos()
+        {
+            List<SistemasEquipos> sistemas = new List<SistemasEquipos>();
+            try
+            {
+                SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_DatosServicios", this.ConnectionString);
+                sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sda.SelectCommand.Parameters.AddWithValue("@oper", "SM");
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                sistemas = dt.AsEnumerable().Select(a =>
+                new SistemasEquipos
+                {
+                    sistema_equipos = a["sistema_equipo"].ToString(),
+                    nombre = a["nombre"].ToString(),
+                    status = a["status"].ToString()
+
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+            return sistemas;
+        }
+        //traer conceptos servicios
+        public List<ConceptosSServ> TraerConceptosS()
+        {
+            List<ConceptosSServ> conceptos = new List<ConceptosSServ>();
+            try
+            {
+                SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_DatosServicios", this.ConnectionString);
+                sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sda.SelectCommand.Parameters.AddWithValue("@oper", "CS");
                 DataTable dt = new DataTable();
                 sda.Fill(dt);
                 conceptos = dt.AsEnumerable().Select(a =>
-                new ConceptosGTalleres
+                new ConceptosSServ
+                {
+                    concepto_servicio = a["concepto_servicio"].ToString(),
+                    nombre = a["nombre"].ToString()
+
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+            return conceptos;
+        }
+        //traer conceptos gastos
+        public List<ConceptosGServ> TraerConceptosG()
+        {
+            List<ConceptosGServ> conceptos = new List<ConceptosGServ>();
+            try
+            {
+                SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_DatosServicios", this.ConnectionString);
+                sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sda.SelectCommand.Parameters.AddWithValue("@oper", "CG");
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                conceptos = dt.AsEnumerable().Select(a =>
+                new ConceptosGServ
                 {
                     concepto_gastos = a["concepto_gatos"].ToString(),
                     nombre = a["nombre"].ToString()
@@ -533,22 +664,52 @@ namespace Demo.Data
             }
             return conceptos;
         }
-        //traer talleres
-        public List<Talleres> TraerTalleres()
+        //traer sercvicio
+        public ServiciosModelView TraerServicio(string serv)
         {
-            List<Talleres> talleres = new List<Talleres>();
+            ServiciosModelView servicio = new ServiciosModelView();
+
+            SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_Taller", this.ConnectionString);
+            sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            sda.SelectCommand.Parameters.AddWithValue("@oper", "R");
+            sda.SelectCommand.Parameters.AddWithValue("@servicio", serv);
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            servicio = dt.AsEnumerable().Select(a =>
+            new ServiciosModelView
+            {
+                servicio = a["servicio"].ToString(),
+                nombre = a["nombre"].ToString(),
+                status = a["status"].ToString(),
+                concepto_gastos = a["concepto_gastos"].ToString(),
+                horas_mecanico = Convert.ToInt32(a["horas_mecanico"]),
+                minutos_mecanico = Convert.ToInt32(a["minutos_mecanico"]),
+                orden_mostrar = Convert.ToInt32(a["orden_mostrar"]),
+                concepto_servicio = a["concepto_servicio"].ToString(),
+                sistema_equipos = a["sistema_equipos"].ToString(),
+                dias = Convert.ToDateTime(a["dias"]),
+                precio = Convert.ToDecimal(a["precio"])
+            }).SingleOrDefault();
+
+            return servicio;
+        }
+        //traer servicios
+        public List<Servicios> TraerServicios()
+        {
+            List<Servicios> talleres = new List<Servicios>();
             try
             {
-                SqlDataAdapter sda = new SqlDataAdapter("dbo.", this.ConnectionString);
+                SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_Taller", this.ConnectionString);
                 sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
                 sda.SelectCommand.Parameters.AddWithValue("@oper", "R");
                 DataTable dt = new DataTable();
                 sda.Fill(dt);
                 talleres = dt.AsEnumerable().Select(a =>
-                new Talleres
+                new Servicios
                 {
                     servicio = a["servicio"].ToString(),
                     nombre = a["nombre"].ToString(),
+                    tipo_servicio = a["tipo_servicio"].ToString(),
                     status = a["status"].ToString(),
                     concepto_gastos = a["concepto_gastos"].ToString(),
                     horas_mecanico = Convert.ToInt32(a["horas_mecanico"]),
@@ -655,6 +816,97 @@ namespace Demo.Data
             }).SingleOrDefault();
 
             return equipos;
+        }
+        //guardar servicio dependiente
+        public bool GuardarServicioDep(ServicioDep servicio, string operacion)
+        {
+            SqlTransaction sqlTransaction = null;
+            SqlConnection cnn = new SqlConnection(this.ConnectionString);
+            try
+            {
+                cnn.Open();
+                sqlTransaction = cnn.BeginTransaction();
+                SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_Taller", cnn);
+                sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sda.SelectCommand.Transaction = sqlTransaction;
+                sda.SelectCommand.Parameters.AddWithValue("@oper", operacion);
+                sda.SelectCommand.Parameters.AddWithValue("@servicio", servicio.servicio);
+                sda.SelectCommand.Parameters.AddWithValue("@servicio_dependiente", servicio.servicio_dependiente);
+                sda.SelectCommand.Parameters.AddWithValue("@notas", servicio.notas);
+                sda.SelectCommand.Parameters.Add(new SqlParameter("@Msg", SqlDbType.VarChar, 500, ParameterDirection.InputOutput, false, 0, 0, "", DataRowVersion.Current, ""));
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                if (!string.IsNullOrEmpty(sda.SelectCommand.Parameters["@Msg"].Value.ToString()))
+                {
+                    throw new Exception(sda.SelectCommand.Parameters["@Msg"].Value.ToString());
+                }
+                sqlTransaction.Commit();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                sqlTransaction.Rollback();
+                throw new Exception(ex.Message);
+
+            }
+            finally
+            {
+                if (cnn.State != ConnectionState.Closed)
+                {
+                    cnn.Close();
+                }
+            }
+
+        }
+        //guardar servicio
+        public bool GuardarServicio(Servicios servicio, string operacion)
+        {
+            SqlTransaction sqlTransaction = null;
+            SqlConnection cnn = new SqlConnection(this.ConnectionString);
+            try
+            {
+                cnn.Open();
+                sqlTransaction = cnn.BeginTransaction();
+                SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_Taller", cnn);
+                sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sda.SelectCommand.Transaction = sqlTransaction;
+                sda.SelectCommand.Parameters.AddWithValue("@oper", operacion);
+                sda.SelectCommand.Parameters.AddWithValue("@servicio", servicio.servicio);
+                sda.SelectCommand.Parameters.AddWithValue("@nombre", servicio.nombre);
+                sda.SelectCommand.Parameters.AddWithValue("@tipo_servicio", servicio.tipo_servicio);
+                sda.SelectCommand.Parameters.AddWithValue("@status", servicio.status);
+                sda.SelectCommand.Parameters.AddWithValue("@concepto_gastos", servicio.concepto_gastos);
+                sda.SelectCommand.Parameters.AddWithValue("@horas_mecanico", servicio.horas_mecanico);
+                sda.SelectCommand.Parameters.AddWithValue("@minutos_mecanico", servicio.minutos_mecanico);
+                sda.SelectCommand.Parameters.AddWithValue("@orden_mostrar", servicio.orden_mostrar);
+                sda.SelectCommand.Parameters.AddWithValue("@concepto_servicio", servicio.concepto_servicio);
+                sda.SelectCommand.Parameters.AddWithValue("@sistema_equipos", servicio.sistema_equipos);
+                sda.SelectCommand.Parameters.AddWithValue("@dias", servicio.dias);
+                sda.SelectCommand.Parameters.AddWithValue("@precio", servicio.precio);
+                sda.SelectCommand.Parameters.Add(new SqlParameter("@Msg", SqlDbType.VarChar, 500, ParameterDirection.InputOutput, false, 0, 0, "", DataRowVersion.Current, ""));
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                if (!string.IsNullOrEmpty(sda.SelectCommand.Parameters["@Msg"].Value.ToString()))
+                {
+                    throw new Exception(sda.SelectCommand.Parameters["@Msg"].Value.ToString());
+                }
+                sqlTransaction.Commit();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                sqlTransaction.Rollback();
+                throw new Exception(ex.Message);
+
+            }
+            finally
+            {
+                if (cnn.State != ConnectionState.Closed)
+                {
+                    cnn.Close();
+                }
+            }
+
         }
 
         //guardar equipo

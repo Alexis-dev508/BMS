@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace Demo.Models
 {
-    public class ConceptosGTalleres
+    public class TipoServ
     {
-        public string concepto_gastos { get; set; }
-        public string nombre { get; set; }
+        public string Tipo_servicio { get; set; }
+        public string Nombre { get; set; }
     }
 }
