@@ -36,14 +36,14 @@ namespace Demo.Data
             sda.Fill(dt);
             aromas = dt.AsEnumerable().Select(a =>
             new Aromas {
-                aroma = a["aroma"].ToString(),
-                nombre = a["nombre"].ToString(),
-                abreviatura = a["abreviatura"].ToString(),
-                status = a["status"].ToString()
+                aroma = a["aroma"].ToString().Trim(),
+                nombre = a["nombre"].ToString().Trim(),
+                abreviatura = a["abreviatura"].ToString().Trim(),
+                status = a["status"].ToString().Trim()
             }).ToList();
             //foreach (var reg in dt.Rows)
             //{
-            //    aromas.Add(new Aromas { aroma = reg["aroma"].ToString() }).Tolist();
+            //    aromas.Add(new Aromas { aroma = reg["aroma"].ToString().Trim() }).Tolist();
             //}
 
             return aromas;
@@ -61,8 +61,8 @@ namespace Demo.Data
             marcas = dt.AsEnumerable().Select(a =>
             new MarcasEquipos
             {
-                marca_equipo = a["marca_equipos"].ToString(),
-                nombre = a["nombre"].ToString()
+                marca_equipo = a["marca_equipos"].ToString().Trim(),
+                nombre = a["nombre"].ToString().Trim()
             }).ToList();
             return marcas;
         }
@@ -79,9 +79,9 @@ namespace Demo.Data
             modelos = dt.AsEnumerable().Select(a =>
             new ModelosEquipos
             {
-                marca_equipos = a["marca_equipos"].ToString(),
-                modelo_equipos = a["modelo_equipos"].ToString(),
-                nombre = a["nombre"].ToString()
+                marca_equipos = a["marca_equipos"].ToString().Trim(),
+                modelo_equipos = a["modelo_equipos"].ToString().Trim(),
+                nombre = a["nombre"].ToString().Trim()
             }).ToList();
             return modelos;
         }
@@ -98,10 +98,10 @@ namespace Demo.Data
             versiones = dt.AsEnumerable().Select(a =>
             new VersionesEquipos
             {
-                version_equipos = a["version_equipos"].ToString(),
-                nombre = a["nombre"].ToString(),
-                modelo_equipos = a["modelo_equipos"].ToString(),
-                marca_equipos = a["marca_equipos"].ToString()
+                version_equipos = a["version_equipos"].ToString().Trim(),
+                nombre = a["nombre"].ToString().Trim(),
+                modelo_equipos = a["modelo_equipos"].ToString().Trim(),
+                marca_equipos = a["marca_equipos"].ToString().Trim()
 
             }).ToList();
             return versiones;
@@ -119,7 +119,7 @@ namespace Demo.Data
             annios = dt.AsEnumerable().Select(a =>
             new AnniosEquipos
             {
-                año_equipos=a["año_equipos"].ToString()
+                año_equipos=a["año_equipos"].ToString().Trim()
 
             }).ToList();
             return annios;
@@ -139,8 +139,8 @@ namespace Demo.Data
             tiposE = dt.AsEnumerable().Select(a =>
             new TiposEquipos
             {
-                tipo_equipo = a["tipo_equipo"].ToString(),
-                nombre = a["nombre"].ToString()
+                tipo_equipo = a["tipo_equipo"].ToString().Trim(),
+                nombre = a["nombre"].ToString().Trim()
 
             }).ToList();
             return tiposE;
@@ -158,8 +158,8 @@ namespace Demo.Data
             usos = dt.AsEnumerable().Select(a =>
             new UsosEquipos
             {
-                uso_equipos = a["uso_equipos"].ToString(),
-                nombre = a["nombre"].ToString()
+                uso_equipos = a["uso_equipos"].ToString().Trim(),
+                nombre = a["nombre"].ToString().Trim()
 
             }).ToList();
             return usos;
@@ -177,8 +177,8 @@ namespace Demo.Data
             establecimientos = dt.AsEnumerable().Select(a =>
             new EstablecimientosEquipos
             {
-                cod_estab = a["cod_estab"].ToString(),
-                nombre = a["nombre"].ToString()
+                cod_estab = a["cod_estab"].ToString().Trim(),
+                nombre = a["nombre"].ToString().Trim()
 
             }).ToList();
             return establecimientos;
@@ -196,8 +196,8 @@ namespace Demo.Data
             odometros = dt.AsEnumerable().Select(a =>
             new OdometrosEquipos
             {
-                odometro = a["odometro"].ToString(),
-                nombre = a["nombre"].ToString()
+                odometro = a["odometro"].ToString().Trim(),
+                nombre = a["nombre"].ToString().Trim()
 
             }).ToList();
             return odometros;
@@ -215,9 +215,9 @@ namespace Demo.Data
             colores = dt.AsEnumerable().Select(a =>
             new ColoresEquipos
             {
-                color = a["color"].ToString(),
-                nombre = a["nombre"].ToString(),
-                status = a["status"].ToString()
+                color = a["color"].ToString().Trim(),
+                nombre = a["nombre"].ToString().Trim(),
+                status = a["status"].ToString().Trim()
 
             }).ToList();
             return colores;
@@ -235,8 +235,8 @@ namespace Demo.Data
             frecuencias = dt.AsEnumerable().Select(a =>
             new FrecuenciasEquipos
             {
-                frecuencia_servicio_equipos = a["frecuencia_servicio_equipos"].ToString(),
-                nombre = a["nombre"].ToString()
+                frecuencia_servicio_equipos = a["frecuencia_servicio_equipos"].ToString().Trim(),
+                nombre = a["nombre"].ToString().Trim()
 
             }).ToList();
             return frecuencias;
@@ -255,10 +255,10 @@ namespace Demo.Data
                 areas = dt.AsEnumerable().Select(a =>
                 new AreasEquipos
                 {
-                    area = a["area"].ToString(),
-                    nombre = a["nombre"].ToString(),
-                    abreviatura = a["abreviatura"].ToString(),
-                    status = a["status"].ToString(),
+                    area = a["area"].ToString().Trim(),
+                    nombre = a["nombre"].ToString().Trim(),
+                    abreviatura = a["abreviatura"].ToString().Trim(),
+                    status = a["status"].ToString().Trim(),
 
                 }).ToList();
             }
@@ -282,10 +282,10 @@ namespace Demo.Data
                 departamentos = dt.AsEnumerable().Select(a =>
                 new DepartamentosEquipos
                 {
-                    departamento = a["departamento"].ToString(),
-                    nombre = a["nombre"].ToString(),
-                    abreviatura = a["abreviatura"].ToString(),
-                    status = a["status"].ToString(),
+                    departamento = a["departamento"].ToString().Trim(),
+                    nombre = a["nombre"].ToString().Trim(),
+                    abreviatura = a["abreviatura"].ToString().Trim(),
+                    status = a["status"].ToString().Trim(),
 
                 }).ToList();
             }
@@ -310,26 +310,26 @@ namespace Demo.Data
                 activosFi = dt.AsEnumerable().Select(a =>
                 new ActivosFiEquipos
                 {
-                    activo_fijo = a["activo_fijo"].ToString(),
+                    activo_fijo = a["activo_fijo"].ToString().Trim(),
                     fecha = Convert.ToDateTime(a["fecha"]),
-                    descripcion = a["descripcion"].ToString(),
-                    marca = a["marca"].ToString(),
-                    modelo = a["modelo"].ToString(),
-                    talla = a["talla"].ToString(),
-                    color = a["color"].ToString(),
-                    serie = a["serie"].ToString(),
-                    motor = a["motor"].ToString(),
-                    tipo_activo_fijo = a["tipo_activo_fijo"].ToString(),
-                    transaccion = a["transaccion"].ToString(),
-                    cod_estab = a["cod_estab"].ToString(),
-                    ubicacion = a["ubicacion"].ToString(),
+                    descripcion = a["descripcion"].ToString().Trim(),
+                    marca = a["marca"].ToString().Trim(),
+                    modelo = a["modelo"].ToString().Trim(),
+                    talla = a["talla"].ToString().Trim(),
+                    color = a["color"].ToString().Trim(),
+                    serie = a["serie"].ToString().Trim(),
+                    motor = a["motor"].ToString().Trim(),
+                    tipo_activo_fijo = a["tipo_activo_fijo"].ToString().Trim(),
+                    transaccion = a["transaccion"].ToString().Trim(),
+                    cod_estab = a["cod_estab"].ToString().Trim(),
+                    ubicacion = a["ubicacion"].ToString().Trim(),
                     fecha_adquisicion = Convert.ToDateTime(a["fecha_adquisicion"]),
                     monto_original_inversion = Convert.ToDecimal(a["monto_original_inversion"]),
-                    usuario = a["usuario"].ToString(),
-                    usuario_baja = a["usuario_baja"].ToString(),
+                    usuario = a["usuario"].ToString().Trim(),
+                    usuario_baja = a["usuario_baja"].ToString().Trim(),
                     fecha_baja = Convert.ToDateTime(a["fecha_baja"]),
-                    status = a["status"].ToString(),
-                    empleado = a["empleado"].ToString(),
+                    status = a["status"].ToString().Trim(),
+                    empleado = a["empleado"].ToString().Trim(),
 
                 }).ToList();
             }
@@ -354,8 +354,8 @@ namespace Demo.Data
                 tiposVe = dt.AsEnumerable().Select(a =>
                 new TiposVeEquipos
                 {
-                    tipo_vehiculo = a["tipo_vehiculo"].ToString(),
-                    nombre = a["nombre"].ToString()
+                    tipo_vehiculo = a["tipo_vehiculo"].ToString().Trim(),
+                    nombre = a["nombre"].ToString().Trim()
 
                 }).ToList();
             }
@@ -379,8 +379,8 @@ namespace Demo.Data
             chofer = dt.AsEnumerable().Select(a =>
             new ChoferEquipos
             {
-                chofer_ayudante = a["chofer_ayudante"].ToString(),
-                nombre = a["nombre"].ToString()
+                chofer_ayudante = a["chofer_ayudante"].ToString().Trim(),
+                nombre = a["nombre"].ToString().Trim()
 
             }).ToList();
             return chofer;
@@ -398,8 +398,8 @@ namespace Demo.Data
             empleados = dt.AsEnumerable().Select(a =>
             new EmpleadosEquipos
             {
-                empleado = a["empleado"].ToString(),
-                nombre_completo = a["nombre_completo"].ToString()
+                empleado = a["empleado"].ToString().Trim(),
+                nombre_completo = a["nombre_completo"].ToString().Trim()
 
             }).ToList();
             return empleados;
@@ -417,8 +417,8 @@ namespace Demo.Data
             cargasEst = dt.AsEnumerable().Select(a =>
             new CargasEstEquipos
             {
-                folio = a["folio"].ToString(),
-                nombre = a["nombre"].ToString()
+                folio = a["folio"].ToString().Trim(),
+                nombre = a["nombre"].ToString().Trim()
 
             }).ToList();
             return cargasEst;
@@ -436,13 +436,13 @@ namespace Demo.Data
             accesorios = dt.AsEnumerable().Select(a =>
             new AccesoriosEquipos
             {
-                equipo = a["equipo"].ToString(),
-                accesorio = a["accesorio"].ToString(),
+                equipo = a["equipo"].ToString().Trim(),
+                accesorio = a["accesorio"].ToString().Trim(),
                 cantidad = Convert.ToDecimal(a["cantidad"]),
                 valor = Convert.ToDecimal(a["valor"]),
                 fecha = Convert.ToDateTime(a["fecha"]),
-                nombre = a["nombre"].ToString(),
-                Tipo_equipo = a["Tipo_equipo"].ToString()
+                nombre = a["nombre"].ToString().Trim(),
+                Tipo_equipo = a["Tipo_equipo"].ToString().Trim()
 
             }).ToList();
             return accesorios;
@@ -460,8 +460,8 @@ namespace Demo.Data
             combustibles = dt.AsEnumerable().Select(a =>
             new CombustiblesEquipos
             {
-                cod_prod = a["cod_prod"].ToString(),
-                descripcion_completa = a["descripcion_completa"].ToString()
+                cod_prod = a["cod_prod"].ToString().Trim(),
+                descripcion_completa = a["descripcion_completa"].ToString().Trim()
 
             }).ToList();
             return combustibles;
@@ -479,8 +479,8 @@ namespace Demo.Data
             ayudantes = dt.AsEnumerable().Select(a =>
             new AyudantesEquipos
             {
-                chofer_ayudante = a["chofer_ayudante"].ToString(),
-                nombre = a["nombre"].ToString()
+                chofer_ayudante = a["chofer_ayudante"].ToString().Trim(),
+                nombre = a["nombre"].ToString().Trim()
 
             }).ToList();
             return ayudantes;
@@ -498,12 +498,12 @@ namespace Demo.Data
             equipos = dt.AsEnumerable().Select(a =>
             new Equipos
             {
-                equipo = a["equipo"].ToString(),
-                nombre = a["nombre"].ToString(),
-                abreviatura = a["abreviatura"].ToString(),
-                empleado = a["empleado"].ToString(),
-                status = a["status"].ToString(),
-                serie = a["serie"].ToString()
+                equipo = a["equipo"].ToString().Trim(),
+                nombre = a["nombre"].ToString().Trim(),
+                abreviatura = a["abreviatura"].ToString().Trim(),
+                empleado = a["empleado"].ToString().Trim(),
+                status = a["status"].ToString().Trim(),
+                serie = a["serie"].ToString().Trim()
             }).ToList();
             return equipos;
         }
@@ -521,8 +521,8 @@ namespace Demo.Data
                 tipoServs = dt.AsEnumerable().Select(a =>
                 new TipoServ
                 {
-                    Tipo_servicio = a["Tipo_servicio"].ToString(),
-                    Nombre = a["Nombre"].ToString()
+                    Tipo_servicio = a["Tipo_servicio"].ToString().Trim(),
+                    Nombre = a["Nombre"].ToString().Trim()
 
                 }).ToList();
             }
@@ -547,11 +547,11 @@ namespace Demo.Data
             servicio = dt.AsEnumerable().Select(a =>
             new ServicioDep
             {
-                servicio = a["servicio"].ToString(),
-                nom_servicio = a["nom_servicio"].ToString(),
-                servicio_dependiente = a["servicio_dependiente"].ToString(),
-                nom_dependiente = a["nom_dependiente"].ToString(),
-                notas = a["notas"].ToString()
+                servicio = a["servicio"].ToString().Trim(),
+                nom_servicio = a["nom_servicio"].ToString().Trim(),
+                servicio_dependiente = a["servicio_dependiente"].ToString().Trim(),
+                nom_dependiente = a["nom_dependiente"].ToString().Trim(),
+                notas = a["notas"].ToString().Trim()
             }).SingleOrDefault();
 
             return servicio;
@@ -570,11 +570,11 @@ namespace Demo.Data
                 dependientes = dt.AsEnumerable().Select(a =>
                 new ServicioDep
                 {
-                    servicio = a["servicio"].ToString(),
-                    nom_servicio = a["nom_servicio"].ToString(),
-                    servicio_dependiente = a["servicio_dependiente"].ToString(),
-                    nom_dependiente = a["nom_dependiente"].ToString(),
-                    notas = a["notas"].ToString()
+                    servicio = a["servicio"].ToString().Trim(),
+                    nom_servicio = a["nom_servicio"].ToString().Trim(),
+                    servicio_dependiente = a["servicio_dependiente"].ToString().Trim(),
+                    nom_dependiente = a["nom_dependiente"].ToString().Trim(),
+                    notas = a["notas"].ToString().Trim()
 
                 }).ToList();
             }
@@ -599,9 +599,9 @@ namespace Demo.Data
                 sistemas = dt.AsEnumerable().Select(a =>
                 new SistemasEquipos
                 {
-                    sistema_equipos = a["sistema_equipos"].ToString(),
-                    nombre = a["nombre"].ToString(),
-                    status = a["status"].ToString()
+                    sistema_equipos = a["sistema_equipos"].ToString().Trim(),
+                    nombre = a["nombre"].ToString().Trim(),
+                    status = a["status"].ToString().Trim()
 
                 }).ToList();
             }
@@ -626,8 +626,8 @@ namespace Demo.Data
                 conceptos = dt.AsEnumerable().Select(a =>
                 new ConceptosSServ
                 {
-                    concepto_servicio = a["concepto_servicio"].ToString(),
-                    nombre = a["nombre"].ToString()
+                    concepto_servicio = a["concepto_servicio"].ToString().Trim(),
+                    nombre = a["nombre"].ToString().Trim()
 
                 }).ToList();
             }
@@ -652,8 +652,8 @@ namespace Demo.Data
                 conceptos = dt.AsEnumerable().Select(a =>
                 new ConceptosGServ
                 {
-                    concepto_gastos = a["concepto_gastos"].ToString(),
-                    nombre = a["nombre"].ToString()
+                    concepto_gastos = a["concepto_gastos"].ToString().Trim(),
+                    nombre = a["nombre"].ToString().Trim()
 
                 }).ToList();
             }
@@ -679,16 +679,16 @@ namespace Demo.Data
                 servicio = dt.AsEnumerable().Select(a =>
                 new ServiciosModelView
                 {
-                    servicio = a["servicio"].ToString(),
-                    nombre = a["nombre"].ToString(),
-                    status = a["status"].ToString(),
-                    tipo_servicio=a["tipo_servicio"].ToString(),
-                    concepto_gastos = a["concepto_gastos"].ToString(),
+                    servicio = a["servicio"].ToString().Trim(),
+                    nombre = a["nombre"].ToString().Trim(),
+                    status = a["status"].ToString().Trim(),
+                    tipo_servicio=a["tipo_servicio"].ToString().Trim(),
+                    concepto_gastos = a["concepto_gastos"].ToString().Trim(),
                     horas_mecanico = Convert.ToInt32(a["horas_mecanico"]),
                     minutos_mecanico = Convert.ToInt32(a["minutos_mecanico"]),
                     orden_mostrar = Convert.ToInt32(a["orden_mostrar"]),
-                    concepto_servicio = a["concepto_servicio"].ToString(),
-                    sistema_equipos = a["sistema_equipos"].ToString(),
+                    concepto_servicio = a["concepto_servicio"].ToString().Trim(),
+                    sistema_equipos = a["sistema_equipos"].ToString().Trim(),
                     dias = Convert.ToInt16(a["dias"]),
                     precio = Convert.ToDecimal(a["precio"])
                 }).SingleOrDefault();
@@ -714,13 +714,13 @@ namespace Demo.Data
                 talleres = dt.AsEnumerable().Select(a =>
                 new Servicios
                 {
-                    servicio = a["servicio"].ToString(),
-                    nombre = a["nombre"].ToString(),
-                    tipo_servicio = a["tipo_servicio"].ToString(),
-                    status = a["status"].ToString(),
+                    servicio = a["servicio"].ToString().Trim(),
+                    nombre = a["nombre"].ToString().Trim(),
+                    tipo_servicio = a["tipo_servicio"].ToString().Trim(),
+                    status = a["status"].ToString().Trim(),
                     horas_mecanico = Convert.ToInt32(a["horas_mecanico"]),
                     minutos_mecanico = Convert.ToInt32(a["minutos_mecanico"]),
-                    concepto_servicio = a["concepto_servicio"].ToString(),
+                    concepto_servicio = a["concepto_servicio"].ToString().Trim(),
                     orden_mostrar = Convert.ToInt32(a["orden_mostrar"]),
                     dias = Convert.ToInt16(a["dias"]),
                     precio = Convert.ToDecimal(a["precio"])
@@ -748,65 +748,65 @@ namespace Demo.Data
             equipos = dt.AsEnumerable().Select(a =>
             new EquiposModelView
             {
-                equipo = a["equipo"].ToString(),
-                nombre = a["nombre"].ToString(),
-                abreviatura = a["abreviatura"].ToString(),
-                tipo_equipo = a["tipo_equipo"].ToString(),
-                tipo_vehiculo = a["tipo_vehiculo"].ToString(),
-                marca = a["marca"].ToString(),
-                modelo = a["modelo"].ToString(),
-                año = a["año"].ToString(),
-                serie = a["serie"].ToString(),
-                motor = a["motor"].ToString(),
-                caracteristicas = a["caracteristicas"].ToString(),
-                placas = a["placas"].ToString(),
+                equipo = a["equipo"].ToString().Trim(),
+                nombre = a["nombre"].ToString().Trim(),
+                abreviatura = a["abreviatura"].ToString().Trim(),
+                tipo_equipo = a["tipo_equipo"].ToString().Trim(),
+                tipo_vehiculo = a["tipo_vehiculo"].ToString().Trim(),
+                marca = a["marca"].ToString().Trim(),
+                modelo = a["modelo"].ToString().Trim(),
+                año = a["año"].ToString().Trim(),
+                serie = a["serie"].ToString().Trim(),
+                motor = a["motor"].ToString().Trim().Trim(),
+                caracteristicas = a["caracteristicas"].ToString().Trim(),
+                placas = a["placas"].ToString().Trim(),
                 ultima_lectura = Convert.ToInt64(a["ultima_lectura"]),
                 seguro = Convert.ToDecimal(a["seguro"]),
                 tenencia = Convert.ToDecimal(a["tenencia"]),
-                chofer = a["chofer"].ToString(),
-                status = a["status"].ToString(),
-                activo_fijo = a["activo_fijo"].ToString(),
+                chofer = a["chofer"].ToString().Trim(),
+                status = a["status"].ToString().Trim(),
+                activo_fijo = a["activo_fijo"].ToString().Trim(),
                 fecha_alta = Convert.ToDateTime(a["fecha_alta"]),
-                cod_estab = a["cod_estab"].ToString(),
-                uso_equipos = a["uso_equipos"].ToString(),
-                codigo_economico = a["codigo_economico"].ToString(),
-                empleado = a["empleado"].ToString(),
+                cod_estab = a["cod_estab"].ToString().Trim(),
+                uso_equipos = a["uso_equipos"].ToString().Trim(),
+                codigo_economico = a["codigo_economico"].ToString().Trim(),
+                empleado = a["empleado"].ToString().Trim(),
                 fecha_compra = Convert.ToDateTime(a["fecha_compra"]),
                 costo = Convert.ToDecimal(a["costo"]),
                 valor_comercial = Convert.ToDecimal(a["costo"]),
                 abono_mensual = Convert.ToDecimal(a["abono_mensual"]),
-                carga_estandar = a["carga_estandar"].ToString(),
-                equipo_depende = a["equipo_depende"].ToString(),
+                carga_estandar = a["carga_estandar"].ToString().Trim(),
+                equipo_depende = a["equipo_depende"].ToString().Trim(),
                 vida_util = Convert.ToInt32(a["vida_util"]),
-                medida_vida_util = a["medida_vida_util"].ToString(),
+                medida_vida_util = a["medida_vida_util"].ToString().Trim(),
                 garantia = Convert.ToInt32(a["garantia"]),
-                medida_garantia = a["medida_garantia"].ToString(),
-                lote = a["lote"].ToString(),
+                medida_garantia = a["medida_garantia"].ToString().Trim(),
+                lote = a["lote"].ToString().Trim(),
                 tanque1 = Convert.ToInt32(a["tanque1"]),
                 tanque2 = Convert.ToInt32(a["tanque2"]),
                 tanque3 = Convert.ToInt32(a["tanque3"]),
-                combustible1 = a["combustible1"].ToString(),
-                combustible2 = a["combustible2"].ToString(),
-                combustible3 = a["combustible3"].ToString(),
+                combustible1 = a["combustible1"].ToString().Trim(),
+                combustible2 = a["combustible2"].ToString().Trim(),
+                combustible3 = a["combustible3"].ToString().Trim(),
                 nivel_licencia = Convert.ToInt32(a["nivel_licencia"]),
                 nivel_licencia_empresa = Convert.ToInt32(a["nivel_licencia_empresa"]),
                 usa_lubricante = Convert.ToBoolean(a["usa_lubricante"]),
                 vigencia_placas = Convert.ToDateTime(a["vigencia_placas"]),
                 vigencia_circulacion = Convert.ToDateTime(a["vigencia_circulacion"]),
                 vida_util2 = Convert.ToInt32(a["vida_util2"]),
-                medida_vida_util2 = a["medida_vida_util2"].ToString(),
+                medida_vida_util2 = a["medida_vida_util2"].ToString().Trim(),
                 garantia2 = Convert.ToInt32(a["garantia2"]),
-                medida_garantia2 = a["medida_garantia2"].ToString(),
-                area = a["area"].ToString(),
-                departamento = a["departamento"].ToString(),
-                tarjeta = a["tarjeta"].ToString(),
-                ayudante = a["ayudante"].ToString(),
+                medida_garantia2 = a["medida_garantia2"].ToString().Trim(),
+                area = a["area"].ToString().Trim(),
+                departamento = a["departamento"].ToString().Trim(),
+                tarjeta = a["tarjeta"].ToString().Trim(),
+                ayudante = a["ayudante"].ToString().Trim(),
                 RENDIMIENTO1 = Convert.ToDecimal(a["RENDIMIENTO1"]),
                 RENDIMIENTO2 = Convert.ToDecimal(a["RENDIMIENTO2"]),
                 RENDIMIENTO3 = Convert.ToDecimal(a["RENDIMIENTO3"]),
                 recorrido_maximo = Convert.ToInt32(a["recorrido_maximo"]),
-                version = a["version"].ToString(),
-                odometro = a["odometro"].ToString(),
+                version = a["version"].ToString().Trim(),
+                odometro = a["odometro"].ToString().Trim(),
                 llantas = Convert.ToInt32(a["llantas"]),
                 llantas_extras = Convert.ToInt32(a["llantas_extras"]),
                 llantas_eje1 = Convert.ToInt32(a["llantas_eje1"]),
@@ -815,8 +815,8 @@ namespace Demo.Data
                 llantas_eje4 = Convert.ToInt32(a["llantas_eje4"]),
                 llantas_eje5 = Convert.ToInt32(a["llantas_eje5"]),
                 llantas_eje6 = Convert.ToInt32(a["llantas_eje6"]),
-                color = a["color"].ToString(),
-                ayudante2 = a["ayudante2"].ToString(),
+                color = a["color"].ToString().Trim(),
+                ayudante2 = a["ayudante2"].ToString().Trim(),
                 sirve_odometro = Convert.ToBoolean(a["sirve_odometro"])
             }).SingleOrDefault();
 
@@ -841,9 +841,9 @@ namespace Demo.Data
                 sda.SelectCommand.Parameters.Add(new SqlParameter("@Msg", SqlDbType.VarChar, 500, ParameterDirection.InputOutput, false, 0, 0, "", DataRowVersion.Current, ""));
                 DataTable dt = new DataTable();
                 sda.Fill(dt);
-                if (!string.IsNullOrEmpty(sda.SelectCommand.Parameters["@Msg"].Value.ToString()))
+                if (!string.IsNullOrEmpty(sda.SelectCommand.Parameters["@Msg"].Value.ToString().Trim()))
                 {
-                    throw new Exception(sda.SelectCommand.Parameters["@Msg"].Value.ToString());
+                    throw new Exception(sda.SelectCommand.Parameters["@Msg"].Value.ToString().Trim());
                 }
                 sqlTransaction.Commit();
                 return true;
@@ -891,9 +891,9 @@ namespace Demo.Data
                 sda.SelectCommand.Parameters.Add(new SqlParameter("@Msg", SqlDbType.VarChar, 500, ParameterDirection.InputOutput, false, 0, 0, "", DataRowVersion.Current, ""));
                 DataTable dt = new DataTable();
                 sda.Fill(dt);
-                if (!string.IsNullOrEmpty(sda.SelectCommand.Parameters["@Msg"].Value.ToString()))
+                if (!string.IsNullOrEmpty(sda.SelectCommand.Parameters["@Msg"].Value.ToString().Trim()))
                 {
-                    throw new Exception(sda.SelectCommand.Parameters["@Msg"].Value.ToString());
+                    throw new Exception(sda.SelectCommand.Parameters["@Msg"].Value.ToString().Trim());
                 }
                 sqlTransaction.Commit();
                 return true;
@@ -1004,9 +1004,9 @@ namespace Demo.Data
                 sda.SelectCommand.Parameters.Add(new SqlParameter("@Msg", SqlDbType.VarChar, 500, ParameterDirection.InputOutput, false, 0, 0, "", DataRowVersion.Current, ""));
                 DataTable dt = new DataTable();
                 sda.Fill(dt);
-                if (!string.IsNullOrEmpty(sda.SelectCommand.Parameters["@Msg"].Value.ToString()))
+                if (!string.IsNullOrEmpty(sda.SelectCommand.Parameters["@Msg"].Value.ToString().Trim()))
                 {
-                    throw new Exception(sda.SelectCommand.Parameters["@Msg"].Value.ToString());
+                    throw new Exception(sda.SelectCommand.Parameters["@Msg"].Value.ToString().Trim());
                 }
                 else
                 {
@@ -1044,10 +1044,10 @@ namespace Demo.Data
             sabores = dt.AsEnumerable().Select(a =>
             new Sabores
             {
-                sabor = a["sabor"].ToString(),
-                nombre = a["nombre"].ToString(),
-                abreviatura = a["abreviatura"].ToString(),
-                status = a["status"].ToString()
+                sabor = a["sabor"].ToString().Trim(),
+                nombre = a["nombre"].ToString().Trim(),
+                abreviatura = a["abreviatura"].ToString().Trim(),
+                status = a["status"].ToString().Trim()
             }).ToList();
 
             return sabores;
@@ -1077,10 +1077,10 @@ namespace Demo.Data
             aromas = dt.AsEnumerable().Select(a =>
             new Aromas
             {
-                aroma = a["aroma"].ToString(),
-                nombre = a["nombre"].ToString(),
-                abreviatura = a["abreviatura"].ToString(),
-                status = a["status"].ToString()
+                aroma = a["aroma"].ToString().Trim(),
+                nombre = a["nombre"].ToString().Trim(),
+                abreviatura = a["abreviatura"].ToString().Trim(),
+                status = a["status"].ToString().Trim()
             }).SingleOrDefault();
 
             return aromas;
@@ -1099,10 +1099,10 @@ namespace Demo.Data
             sabores = dt.AsEnumerable().Select(a =>
             new Sabores
             {
-                sabor = a["sabor"].ToString(),
-                nombre = a["nombre"].ToString(),
-                abreviatura = a["abreviatura"].ToString(),
-                status = a["status"].ToString()
+                sabor = a["sabor"].ToString().Trim(),
+                nombre = a["nombre"].ToString().Trim(),
+                abreviatura = a["abreviatura"].ToString().Trim(),
+                status = a["status"].ToString().Trim()
             }).SingleOrDefault();
 
             return sabores;
@@ -1127,9 +1127,9 @@ namespace Demo.Data
                 sda.SelectCommand.Parameters.Add(new SqlParameter("@Msg", SqlDbType.VarChar, 500, ParameterDirection.InputOutput, false, 0, 0,"", DataRowVersion.Current, ""));
                 DataTable dt = new DataTable();
                 sda.Fill(dt);
-                if (!string.IsNullOrEmpty(sda.SelectCommand.Parameters["@Msg"].Value.ToString()))
+                if (!string.IsNullOrEmpty(sda.SelectCommand.Parameters["@Msg"].Value.ToString().Trim()))
                 {
-                    throw new Exception(sda.SelectCommand.Parameters["@Msg"].Value.ToString());
+                    throw new Exception(sda.SelectCommand.Parameters["@Msg"].Value.ToString().Trim());
                 }
                 sqlTransaction.Commit();
                 return true;
@@ -1167,9 +1167,9 @@ namespace Demo.Data
                 sda.SelectCommand.Parameters.Add(new SqlParameter("@Msg", SqlDbType.VarChar, 500, ParameterDirection.InputOutput, false, 0, 0, "", DataRowVersion.Current, ""));
                 DataTable dt = new DataTable();
                 sda.Fill(dt);
-                if (!string.IsNullOrEmpty(sda.SelectCommand.Parameters["@Msg"].Value.ToString()))
+                if (!string.IsNullOrEmpty(sda.SelectCommand.Parameters["@Msg"].Value.ToString().Trim()))
                 {
-                    throw new Exception(sda.SelectCommand.Parameters["@Msg"].Value.ToString());
+                    throw new Exception(sda.SelectCommand.Parameters["@Msg"].Value.ToString().Trim());
                 }
                 sqlTransaction.Commit();
                 return true;
