@@ -526,6 +526,21 @@ namespace Demo.Controllers
             return PartialView("_ActivosFijos", detalle);
         }
         [HttpGet]
+        public IActionResult EquipoDepende()
+        {
+            List<Equipos> detalle = new List<Equipos>();
+            try
+            {
+                detalle = datos.TraerEquipos();
+            }
+            catch (Exception ex)
+            {
+
+                ViewBag.ErroresM = ex.Message;
+            }
+            return PartialView("_DependeEquipo", detalle);
+        }
+        [HttpGet]
         public IActionResult ServiciosDepende()
         {
             List<ServicioDep> detalle = new List<ServicioDep>();
