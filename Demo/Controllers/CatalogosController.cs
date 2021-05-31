@@ -450,12 +450,12 @@ namespace Demo.Controllers
             }
         }
 
-
         [HttpPost]
         public IActionResult NuevoEquipo(EquiposModelView model)
         {
             try
             {
+                //validarEquipo(model);
                 var res = datos.GuardarEquipo(model, "N");
                 if (res == true)
                 {
@@ -506,6 +506,7 @@ namespace Demo.Controllers
             {
 
                 ViewBag.Errores = ex.Message;
+                model = combos("");
                 return View(model);
             }
         }
@@ -811,5 +812,19 @@ namespace Demo.Controllers
             }
 
         }
+        //public EquiposModelView validarEquipo(EquiposModelView model)
+        //{
+        //    if (model.nombre == null)
+        //    {
+        //        if (model.abreviatura == null)
+        //        {
+        //            TempData["mensajeNULL"] = "La abreviatura es obligatoria";
+        //            combos("");
+        //        }
+        //        TempData["mensajeNULL"] = "El nombre es obligatorio";
+        //        combos("");
+        //    }
+        //    return model;
+        //}
     }
 }
