@@ -267,12 +267,12 @@
                                  <label asp-for="chofer" class="control-label">Chofer</label>
                                  @Html.DropDownList("chofer",Model.ChoferList, new {@class="form-control"})
                                  &nbsp;&nbsp;&nbsp;&nbsp;
-                                 <b>Fecha @Html.TextBoxFor(model=> model.fecha_alta,new {@class="my-4",@name="dtpfecha_alta", @id="calendario2", @style="width:80%;",@required="true"})</b>
+                                 <b>Fecha @Html.TextBoxFor(model=> model.fecha_alta,new {@class="js--datePicker", @id="calendario2", @style="width:80%;",@required="true"})</b>
                                 
                             </div>
                             <div class="col-3">
-                                 @Html.TextBoxFor(model=> model.vigencia_placas,new {@class="my-4",@name="vigencia_placas", @id="calendario3", @style="width:80%;",@required="true"})<br>
-                                 <b>Tarjeta circulación @Html.TextBoxFor(model=> model.vigencia_circulacion,new {@class="my-4",@name="vigencia_circulacion", @id="calendario4", @style="width:80%;",@required="true"})</b>
+                                 @Html.TextBoxFor(model=> model.vigencia_placas,new {@class="js--datePicker",@name="dtpfecha_compra", @id="calendario3", @style="width:80%;",@required="true"})<br>
+                                 <b>Tarjeta circulación @Html.TextBoxFor(model=> model.vigencia_circulacion,new {@class="js--datePicker", @id="calendario4", @style="width:80%;",@required="true"})</b>
                                  <div>
                                  </div>
 
@@ -379,10 +379,13 @@
   </div>
 </div>
 <script>
-    $("#calendario").datepicker({ uiLibrary: 'bootstrap4'});
+$(function(){
+    $("#calendario").datepicker();
     $("#calendario2").datepicker();
     $("#calendario3").datepicker();
     $("#calendario4").datepicker();
+});
+    
 function buscar()
         {
             const tableReg = document.getElementById('tabla');
