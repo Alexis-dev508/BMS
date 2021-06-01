@@ -104,4 +104,74 @@
         </div>
     </div>
 </div>
+<strong> Dependencia de servicio </strong>
+         <br />
+<div class="row">
+    <div class="col-2">
+        
+         @Html.Label("servicio","Servicio",new {@class="control-label"})
+         &nbsp;&nbsp;&nbsp;&nbsp;
+         @Html.TextBoxFor(model=> model.precio,new {@class="form-control",@type="text"})
+      
+         @Html.Label("dependiente","Dependiente",new {@class="control-label"})
+         &nbsp;&nbsp;&nbsp;&nbsp;
+         @Html.TextBoxFor(model=> model.precio,new {@class="form-control",@type="text", @required= "true"})
+         
+    </div>
+    <div class="col-6">
+        <br />
+       
+        @Html.TextBoxFor(model=> model.precio,new {@class="form-control",@type="text"})
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <div class="form-group">
+            <input type="submit" value="Modificar" class="btn btn-primary "/>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="submit" value="Guardar" class="btn btn-success "/>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="submit" value="Regresar" class="btn btn-info "/>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="submit" value="Eliminar" class="btn btn-danger"/>
+            
+        </div>
+    </div>
 </div>
+<div class="row">
+
+    <div class="col-8 my-5 border">
+     
+        <table class="table table-hover" id="tabla">
+					<thead>
+					 <tr>
+					  <th>Servicio</th>
+					  <th>Servicio dependiente</th>
+					  <th>Notas</th>
+
+				  </tr>
+				 </thead>
+				 <tbody>
+					@* @foreach(var dat in Model)
+						{
+							<tr>
+					   <td>@dat.equipo</td>
+					   <td>@dat.nombre</td>
+					   <td>@dat.abreviatura</td>
+					   <td>@dat.empleado</td>
+					   <td>@dat.status</td>
+						<td>@dat.serie</td>
+						<td>
+							<a class="btn btn-outline-warning" href="@Url.Action("EditarEquipos","Catalogos", new {id = dat.equipo})" >
+							   <i class="fas fa-edit"></i>
+							   Editar
+							</a>
+						</td>
+				   </tr>
+						}*@
+				 </tbody>
+				</table>
+</div>
+</div>
+<script>
+$(document).ready( function () {
+    $('#tabla').DataTable();
+} );
+</script>
