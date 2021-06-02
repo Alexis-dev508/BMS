@@ -12,6 +12,10 @@
 						   <i class="fas fa-arrow-alt-circle-left"></i>
 						   Regresar
 					  </a>
+                      <a class="btn btn-outline-primary" data-toggle="Dependencia de Servicio" title="Dependencia de Servicio" href="@Url.Action("ServiciosDep","Catalogos")">
+						   <i class="far fa-address-card"></i>
+						   Dependencia de Servicio
+					  </a>
                     </form>
                 </nav>
                 @using (Html.BeginForm("NuevoServicio","Catalogos",FormMethod.Post)){
@@ -104,71 +108,23 @@
         </div>
     </div>
 </div>
-<strong> Dependencia de servicio </strong>
-         <br />
-<div class="row">
-    <div class="col-2">
+<div class="modal fade bd-example-modal-xl" id="modalDetalle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="datos">
         
-         @Html.Label("servicio","Servicio",new {@class="control-label"})
-         &nbsp;&nbsp;&nbsp;&nbsp;
-         @Html.TextBoxFor(model=> model.precio,new {@class="form-control",@type="text"})
-      
-         @Html.Label("dependiente","Dependiente",new {@class="control-label"})
-         &nbsp;&nbsp;&nbsp;&nbsp;
-         @Html.TextBoxFor(model=> model.precio,new {@class="form-control",@type="text", @required= "true"})
-         
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
     </div>
-    <div class="col-6">
-        <br />
-       
-        @Html.TextBoxFor(model=> model.precio,new {@class="form-control",@type="text"})
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <div class="form-group">
-            <input type="submit" value="Modificar" class="btn btn-primary "/>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="submit" value="Guardar" class="btn btn-success "/>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="submit" value="Regresar" class="btn btn-info "/>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="submit" value="Eliminar" class="btn btn-danger"/>
-            
-        </div>
-    </div>
-</div>
-<div class="row">
-
-    <div class="col-8 my-5 border">
-     
-        <table class="table table-hover" id="tabla">
-					<thead>
-					 <tr>
-					  <th>Servicio</th>
-					  <th>Servicio dependiente</th>
-					  <th>Notas</th>
-
-				  </tr>
-				 </thead>
-				 <tbody>
-					@* @foreach(var dat in Model)
-						{
-							<tr>
-					   <td>@dat.equipo</td>
-					   <td>@dat.nombre</td>
-					   <td>@dat.abreviatura</td>
-					   <td>@dat.empleado</td>
-					   <td>@dat.status</td>
-						<td>@dat.serie</td>
-						<td>
-							<a class="btn btn-outline-warning" href="@Url.Action("EditarEquipos","Catalogos", new {id = dat.equipo})" >
-							   <i class="fas fa-edit"></i>
-							   Editar
-							</a>
-						</td>
-				   </tr>
-						}*@
-				 </tbody>
-				</table>
-</div>
+  </div>
 </div>
 <script>
 $(document).ready( function () {

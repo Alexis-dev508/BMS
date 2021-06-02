@@ -1,0 +1,53 @@
+﻿@model List<Demo.Models.ServicioDep>
+<div class="container-fluid">
+    <div class="card-primary">
+		<div class="card-header">
+			<h2>Dependencia de servicio</h2>
+			 <a class="btn btn-info" data-toggle="Nuevo" title="Nuevo" href="@Url.Action("NuevoServicioDependiente","Catalogos")">
+						   <i class="far fa-address-card"></i>
+						   Nueva Dependencia
+					  </a>
+		</div>
+		<div class="row">
+
+    <div class="col-12">
+     
+        <table class="table table-hover" id="tabla">
+					<thead>
+					 <tr>
+					  <th>Servicio</th>
+					  <th>Servicio dependiente</th>
+					  <th>Notas</th>
+
+				  </tr>
+				 </thead>
+				 <tbody>
+					 @foreach(var dat in Model)
+						{
+							<tr>
+					   <td>@dat.nom_servicio</td>
+					   <td>@dat.nom_dependiente</td>
+					   <td>@dat.notas</td>
+						<td>
+							<a class="btn btn-outline-warning" href="@Url.Action("EditarServicioDepende","Catalogos", new {id = dat.servicio})" >
+							   <i class="fas fa-edit"></i>
+							   Editar
+							</a>
+						</td>
+				   </tr>
+						}
+				 </tbody>
+				</table>
+</div>
+</div>
+    </div>
+</div>
+</div>
+</div>
+
+
+<script>
+$(document).ready( function () {
+    $('#tabla').DataTable();
+} );
+</script>

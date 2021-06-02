@@ -325,6 +325,11 @@ namespace Demo.Controllers
             return View(combos(""));
         }
         [HttpGet]
+        public IActionResult NuevoServicioDependiente()
+        {
+            return View();
+        }
+        [HttpGet]
         public IActionResult NuevoServicio()
         {
             return View(combosServ(""));
@@ -333,6 +338,13 @@ namespace Demo.Controllers
         {
             var model = new List<Servicios>();
             model = datos.TraerServicios();
+            return View(model);
+        }
+        [HttpGet]
+        public IActionResult ServiciosDep()
+        {
+            var model = new List<ServicioDep>();
+            model = datos.TraerServiciosDep();
             return View(model);
         }
         [HttpGet]
@@ -348,7 +360,7 @@ namespace Demo.Controllers
 
                 ViewBag.ErroresM = ex.Message;
             }
-            return PartialView("_ServiciosDependientes", serv);
+            return PartialView("_DependenciaServicio", serv);
         }
         [HttpPost]
         public IActionResult NuevoServicioDependiente(ServicioDep model)
@@ -407,7 +419,7 @@ namespace Demo.Controllers
                 return BadRequest();
             }
             var serv = datos.TraerServicioDep(id);
-            var model = new ServicioDep() { servicio = serv.servicio, nom_servicio = serv.nom_servicio, servicio_dependiente = serv.servicio_dependiente};
+            var model = new ServicioDep() { servicio = serv.servicio, nom_servicio = serv.nom_servicio, servicio_dependiente = serv.servicio_dependiente,notas = serv.notas};
             return View(model);
         }
         //editar servicio

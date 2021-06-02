@@ -1,0 +1,36 @@
+﻿@model Demo.Models.ServicioDep
+<div class="container-fluid">
+<div class="row">
+<div class="col-sm-12">
+<div class="row">
+@using (Html.BeginForm("NuevoServicioDependiente","Catalogos",FormMethod.Post)){
+    <div class="col-12">
+        
+         @Html.Label("servicio","Servicio",new {@class="control-label"})
+         &nbsp;&nbsp;&nbsp;&nbsp;
+         @Html.TextBoxFor(model=> model.servicio,new {@class="form-control",@type="text"})
+      
+         
+         &nbsp;&nbsp;&nbsp;&nbsp;
+         @Html.TextBoxFor(model=> model.nom_servicio,new {@class="form-control",@type="text", @required= "true"})
+         
+      </div>
+    <div class="col-12">
+        <br />
+       @Html.Label("servicio_dependiente","Dependiente",new {@class="control-label"})
+        @Html.TextBoxFor(model=> model.nom_dependiente,new {@class="form-control",@type="text"})
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <div class="form-group">
+            <input type="submit" value="Guardar" class="btn btn-success "/>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="@Url.Action("ServiciosDep","Catalogos")" class="btn btn-outline-info" data-toggle="Regresar" title="Regresar">
+						   <i class="fas fa-arrow-alt-circle-left"></i>
+						   Regresar
+					  </a>
+        </div>
+    </div>
+    }
+</div>
+</div>
+</div>
+</div>
