@@ -360,7 +360,7 @@ namespace Demo.Controllers
 
                 ViewBag.ErroresM = ex.Message;
             }
-            return PartialView("_DependenciaServicio", serv);
+            return RedirectToAction("ServiciosDep", serv);
         }
         [HttpPost]
         public IActionResult NuevoServicioDependiente(ServicioDep model)
@@ -370,12 +370,12 @@ namespace Demo.Controllers
                 var res = datos.GuardarServicioDep(model, "N");
                 if (res == true)
                 {
-                    TempData["mensajeSAVE"] = "Equipo guardado exitosamente";
+                    TempData["mensajeSAVE"] = "Servicio dependiente guardado exitosamente";
                     return RedirectToAction("servicioDependiente");
                 }
                 else
                 {
-                    TempData["mensajeINF"] = "Error al guardar Equipo";
+                    TempData["mensajeINF"] = "Error al guardar servicio";
                     return RedirectToAction("Servicios");
                 }
             }
@@ -386,6 +386,56 @@ namespace Demo.Controllers
                 return View(model);
             }
         }
+        [HttpPost]
+        public IActionResult EditarServicioDepende(ServicioDep model)
+        {
+            try
+            {
+                var res = datos.GuardarServicioDep(model, "M");
+                if (res == true)
+                {
+                    TempData["mensajeEDIT"] = "Servicio editado exitosamente";
+                    return RedirectToAction("ServiciosDep");
+                }
+                else
+                {
+                    TempData["mensajeINF"] = "Error al guardar servicio";
+                    return RedirectToAction("ServiciosDep");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ViewBag.Errores = ex.Message;
+                return View(model);
+            }
+        }
+        //eliminaer servicio depende
+        [HttpPost]
+        public IActionResult EliminarServicioDepende(ServicioDep model)
+        {
+            try
+            {
+                var res = datos.GuardarServicioDep(model, "E");
+                if (res == true)
+                {
+                    TempData["mensajeDEL"] = "Servicio Eliminado exitosamente";
+                    return RedirectToAction("ServiciosDep");
+                }
+                else
+                {
+                    TempData["mensajeINF"] = "Error al guardar servicio";
+                    return RedirectToAction("ServiciosDep");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ViewBag.Errores = ex.Message;
+                return View(model);
+            }
+        }
+
         [HttpPost]
         public IActionResult NuevoServicio(ServiciosModelView model)
         {
@@ -556,17 +606,32 @@ namespace Demo.Controllers
         [HttpGet]
         public IActionResult ServiciosDepende()
         {
-            List<ServicioDep> detalle = new List<ServicioDep>();
+            List<Servicios> detalle = new List<Servicios>();
             try
             {
-                detalle = datos.TraerServiciosDep();
+                detalle = datos.TraerServicios();
             }
             catch (Exception ex)
             {
 
                 ViewBag.ErroresM = ex.Message;
             }
-            return PartialView("_DependenciaServicio", detalle);
+            return PartialView("_ServiciosDep", detalle);
+        }
+        [HttpGet]
+        public IActionResult Serv()
+        {
+            List<Servicios> detalle = new List<Servicios>();
+            try
+            {
+                detalle = datos.TraerServicios();
+            }
+            catch (Exception ex)
+            {
+
+                ViewBag.ErroresM = ex.Message;
+            }
+            return PartialView("_Servicios", detalle);
         }
         [HttpGet]
         public IActionResult Areas()
@@ -582,6 +647,21 @@ namespace Demo.Controllers
                 ViewBag.ErroresM = ex.Message;
             }
             return PartialView("_Areas", detalle);
+        }
+        [HttpGet]
+        public IActionResult Dependencias()
+        {
+            List<Servicios> detalle = new List<Servicios>();
+            try
+            {
+                detalle = datos.TraerServicios();
+            }
+            catch (Exception ex)
+            {
+
+                ViewBag.ErroresM = ex.Message;
+            }
+            return PartialView("_ServiciosDep", detalle);
         }
         [HttpGet]
         public IActionResult Departamentos()

@@ -537,23 +537,29 @@ namespace Demo.Data
         public ServicioDep TraerServicioDep(string serv)
         {
             ServicioDep servicio = new ServicioDep();
-
-            SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_Taller", this.ConnectionString);
-            sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            sda.SelectCommand.Parameters.AddWithValue("@oper", "DS");
-            sda.SelectCommand.Parameters.AddWithValue("@servicio", serv);
-            DataTable dt = new DataTable();
-            sda.Fill(dt);
-            servicio = dt.AsEnumerable().Select(a =>
-            new ServicioDep
+            try
             {
-                servicio = a["servicio"].ToString(),
-                nom_servicio = a["nom_servicio"].ToString(),
-                servicio_dependiente = a["servicio_dependiente"].ToString(),
-                nom_dependiente = a["nom_dependiente"].ToString(),
-                notas = a["notas"].ToString()
-            }).SingleOrDefault();
+                SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_DatosServicios", this.ConnectionString);
+                sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sda.SelectCommand.Parameters.AddWithValue("@oper", "DS");
+                sda.SelectCommand.Parameters.AddWithValue("@servicio", serv);
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                servicio = dt.AsEnumerable().Select(a =>
+                new ServicioDep
+                {
+                    servicio = a["servicio"].ToString(),
+                    nom_servicio = a["nom_servicio"].ToString(),
+                    servicio_dependiente = a["servicio_dependiente"].ToString(),
+                    nom_dependiente = a["nom_dependiente"].ToString(),
+                    notas = a["notas"].ToString()
+                }).FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
 
+                throw new Exception(ex.Message);
+            }
             return servicio;
         }
         //traer servicios dependientes
@@ -830,20 +836,15 @@ namespace Demo.Data
             {
                 cnn.Open();
                 sqlTransaction = cnn.BeginTransaction();
-                SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_Taller", cnn);
+                SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_DatosServicios", cnn);
                 sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
                 sda.SelectCommand.Transaction = sqlTransaction;
                 sda.SelectCommand.Parameters.AddWithValue("@oper", operacion);
                 sda.SelectCommand.Parameters.AddWithValue("@servicio", servicio.servicio);
-                sda.SelectCommand.Parameters.AddWithValue("@servicio_dependiente", servicio.servicio_dependiente);
                 sda.SelectCommand.Parameters.AddWithValue("@notas", servicio.notas);
-                sda.SelectCommand.Parameters.Add(new SqlParameter("@Msg", SqlDbType.VarChar, 500, ParameterDirection.InputOutput, false, 0, 0, "", DataRowVersion.Current, ""));
+                sda.SelectCommand.Parameters.AddWithValue("@servicio_dependiente", servicio.servicio_dependiente);
                 DataTable dt = new DataTable();
                 sda.Fill(dt);
-                if (!string.IsNullOrEmpty(sda.SelectCommand.Parameters["@Msg"].Value.ToString()))
-                {
-                    throw new Exception(sda.SelectCommand.Parameters["@Msg"].Value.ToString());
-                }
                 sqlTransaction.Commit();
                 return true;
             }

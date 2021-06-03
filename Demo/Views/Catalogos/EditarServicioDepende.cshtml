@@ -8,7 +8,7 @@
         
          @Html.Label("servicio","Servicio",new {@class="control-label"})
          &nbsp;&nbsp;&nbsp;&nbsp;
-         @Html.TextBoxFor(model=> model.servicio,new {@class="form-control",@type="text",@onkeydown="onKeyDownServ1(event);",@id="servicio",@required="true"})
+         @Html.TextBoxFor(model=> model.servicio,new {@class="form-control",@type="text",@onkeydown="onKeyDownServ1(event)",@id="servicio",@required="true"})
       
          
          &nbsp;&nbsp;&nbsp;&nbsp;
@@ -18,8 +18,7 @@
     <div class="col-12">
         <br />
        @Html.Label("servicio_dependiente","Dependiente",new {@class="control-label"})
-        @Html.TextBoxFor(model=> model.servicio_dependiente,new {@class="form-control",@type="text",@onkeydown="onKeyDownServ(event);",@id="depende",@required="true"})
-        @Html.Label("notas","Notas",new {@class="control-label"})
+        @Html.TextBoxFor(model=> model.servicio_dependiente,new {@class="form-control",@type="text",@onkeydown="onKeyDownServ(event)",@id="depende",@required="true"})
         @Html.TextAreaFor(model=> model.notas,new {@class="form-control",@type="text",@required="true"})
         &nbsp;&nbsp;&nbsp;&nbsp;
         <div class="form-group">

@@ -3,21 +3,22 @@
     <div class="card-primary">
 		<div class="card-header">
 			<h2>Dependencia de servicio</h2>
-			 <a class="btn btn-info" data-toggle="Nuevo" title="Nuevo" href="@Url.Action("NuevoServicioDependiente","Catalogos")">
-						   <i class="far fa-address-card"></i>
-						   Nueva Dependencia
-					  </a>
 		</div>
+		<a href="@Url.Action("NuevoServicioDependiente","Catalogos")" class="btn btn-info" data-toggle="Regresar" title="Regresar">
+						   <i class="fas fa-save-alt-circle-left"></i>
+						   Nuevo Servicio Depende
+					  </a>
 		<div class="row">
 
     <div class="col-12">
      
-        <table class="table table-hover" id="tabla">
+        <table class="table table-bordered" id="tabla">
 					<thead>
 					 <tr>
 					  <th>Servicio</th>
 					  <th>Servicio dependiente</th>
 					  <th>Notas</th>
+					  <th>Acciones</th>
 
 				  </tr>
 				 </thead>
@@ -32,6 +33,10 @@
 							<a class="btn btn-outline-warning" href="@Url.Action("EditarServicioDepende","Catalogos", new {id = dat.servicio})" >
 							   <i class="fas fa-edit"></i>
 							   Editar
+							</a>
+							<a class="btn btn-danger" href="@Url.Action("EliminarServicioDepende","Catalogos", new {id = dat.servicio})" >
+							   <i class="fas fa-trash-alt"></i>
+							   Eliminar
 							</a>
 						</td>
 				   </tr>

@@ -1,0 +1,59 @@
+﻿@model List<Demo.Models.Servicios>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="card-primary">
+				<div class="card-header">
+				   <h3>Servicios para Equipos </h3>
+			   </div>
+				<table class="table table-bordered" id="tabla">
+					<thead>
+					 <tr>
+					  <th>Servicio</th>
+					  <th>Nombre</th>
+					  <th>Conc. Servicio</th>
+					  <th>Hrs. Mecánico</th>
+					  <th>Min. Mecánico</th>
+					  <th>Precio</th>
+					  <th>Orden Mostrar</th>
+					  <th>Días</th>
+					  <th>Status</th>
+					  <th>Acciones</ht>
+				  </tr>
+				 </thead>
+				 <tbody>
+					 @foreach(var dat in Model)
+						{
+							<tr>
+					   <td>@dat.servicio</td>
+					   <td>@dat.nombre</td>
+					   <td>@dat.concepto_servicio</td>
+					   <td>@dat.horas_mecanico</td>
+					   <td>@dat.minutos_mecanico</td>
+						<td>@dat.precio</td>
+						<td>@dat.orden_mostrar</td>
+						<td>@dat.dias</td>
+						<td>@dat.status</td>
+						<td>
+							<form class="form-inline my-2 my-lg-0">
+                                      <a  onclick="serv1('@dat.servicio.Trim()','@dat.nombre.Trim()')"class="btn btn-success" data-toggle="Seleccionar" title="Seleccionar">
+						                   <i class="fas fa-check"></i>
+					                  </a>
+                                    </form>
+						</td>
+				   </tr>
+						}
+				 </tbody>
+				</table>
+			</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+$(document).ready( function () {
+    $('#tabla').DataTable();
+} );
+</script>
+
+
