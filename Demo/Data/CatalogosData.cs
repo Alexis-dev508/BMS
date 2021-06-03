@@ -953,7 +953,7 @@ namespace Demo.Data
                 sda.SelectCommand.Parameters.AddWithValue("@cod_estab", equipo.cod_estab);
                 sda.SelectCommand.Parameters.AddWithValue("@uso_equipos", equipo.uso_equipos);
                 sda.SelectCommand.Parameters.AddWithValue("@codigo_economico", equipo.codigo_economico);
-                sda.SelectCommand.Parameters.AddWithValue("@empleado", 1); //este no
+                //sda.SelectCommand.Parameters.AddWithValue("@empleado", 1); //este no
                 sda.SelectCommand.Parameters.AddWithValue("@fecha_compra", equipo.fecha_compra);
                 sda.SelectCommand.Parameters.AddWithValue("@costo", equipo.costo);
                 sda.SelectCommand.Parameters.AddWithValue("@valor_comercial", equipo.valor_comercial);
@@ -982,7 +982,7 @@ namespace Demo.Data
                 sda.SelectCommand.Parameters.AddWithValue("@medida_garantia2", equipo.medida_garantia2);
                 sda.SelectCommand.Parameters.AddWithValue("@area", equipo.area);
                 sda.SelectCommand.Parameters.AddWithValue("@departamento", equipo.departamento);
-                sda.SelectCommand.Parameters.AddWithValue("@tarjeta", 1);//este no
+                //sda.SelectCommand.Parameters.AddWithValue("@tarjeta", 1);//este no
                 sda.SelectCommand.Parameters.AddWithValue("@ayudante", equipo.ayudante);
                 sda.SelectCommand.Parameters.AddWithValue("@RENDIMIENTO1", equipo.RENDIMIENTO1);
                 sda.SelectCommand.Parameters.AddWithValue("@RENDIMIENTO2", equipo.RENDIMIENTO2);
