@@ -31,6 +31,7 @@ namespace Demo.Models
             this.ChoferList = new List<SelectListItem>();
             this.CargaEstList = new List<SelectListItem>();
             this.AyudanteList = new List<SelectListItem>();
+            this.Ayudante2List = new List<SelectListItem>();
             this.Tanque1List = new List<SelectListItem>();
             this.Tanque2List = new List<SelectListItem>();
             this.Tanque3List = new List<SelectListItem>();
@@ -57,6 +58,7 @@ namespace Demo.Models
         public IList<SelectListItem> ChoferList { get; set; }
         public IList<SelectListItem> CargaEstList { get; set; }
         public IList<SelectListItem> AyudanteList { get; set; }
+        public IList<SelectListItem> Ayudante2List { get; set; }
         public IList<SelectListItem> Tanque1List { get; set; }
         public IList<SelectListItem> Tanque2List { get; set; }
         public IList<SelectListItem> Tanque3List { get; set; }

@@ -25,7 +25,7 @@ namespace Demo.Controllers
             return View();
         }
         [HttpGet]
-        public ServiciosModelView combosServ(string? id)
+        public ServiciosModelView combosServ(string id)
         {
             var model = new ServiciosModelView();
             var tipo = datos.TraerTiposServ();
@@ -94,7 +94,7 @@ namespace Demo.Controllers
             return model;
         }
         [HttpGet]
-        public EquiposModelView combos(string? id)
+        public EquiposModelView combos(string id)
         {
             var model = new EquiposModelView();
             var marc = datos.TraerMarcas();
@@ -127,52 +127,100 @@ namespace Demo.Controllers
                 }
                 foreach (var st in marc)
                 {
+                    if (model.marca.Trim() == null || model.marca.Trim() == "")
+                    {
+                        model.MarcasList.Add(new SelectListItem { Text = "No aplica", Value = "DEFAULT", Selected = true });
+                    }
                     model.MarcasList.Add(new SelectListItem { Value = st.marca_equipo, Text = st.nombre, Selected = st.marca_equipo.Trim() == model.marca.Trim()  });
                 }
                 foreach (var st in vers)
                 {
+                    if (model.version.Trim() == null || model.version.Trim() == "")
+                    {
+                        model.VersionList.Add(new SelectListItem { Text = "No aplica", Value = "DEFAULT", Selected = true });
+                    }
                     model.VersionList.Add(new SelectListItem { Value = st.version_equipos, Text = st.nombre, Selected = model.version.Trim() == st.version_equipos.Trim() });
 
                 }
                 foreach (var st in mode)
                 {
+                    if (model.modelo.Trim() == null|| model.modelo.Trim()=="")
+                    {
+                        model.ModelosList.Add(new SelectListItem { Text = "No aplica", Value = "DEFAULT", Selected = true });
+                    }
                     model.ModelosList.Add(new SelectListItem { Value = st.modelo_equipos, Text = st.nombre, Selected = model.modelo.Trim() == st.modelo_equipos.Trim() });
 
                 }
                 foreach (var st in annios)
                 {
+                    if (model.año.Trim() == null || model.año.Trim() == "")
+                    {
+                        model.AnniosList.Add(new SelectListItem { Text = "No aplica", Value = "DEFAULT", Selected = true });
+                    }
                     model.AnniosList.Add(new SelectListItem { Value = st.año_equipos, Text = st.año_equipos, Selected = model.año.Trim() == st.año_equipos.Trim() });
                 }
                 foreach (var st in tipoE)
                 {
+                    if (model.tipo_equipo.Trim() == null || model.tipo_equipo.Trim() == "")
+                    {
+                        model.TipoEquipoList.Add(new SelectListItem { Text = "No aplica", Value = "DEFAULT", Selected = true });
+                    }
                     model.TipoEquipoList.Add(new SelectListItem { Value = st.tipo_equipo, Text = st.nombre, Selected = model.tipo_equipo.Trim() == st.tipo_equipo.Trim() });
                 }
                 foreach (var st in usos)
                 {
+                    if (model.uso_equipos.Trim() == null || model.uso_equipos.Trim() == "")
+                    {
+                        model.UsosList.Add(new SelectListItem { Text = "No aplica", Value = "DEFAULT", Selected = true });
+                    }
                     model.UsosList.Add(new SelectListItem { Value = st.uso_equipos, Text = st.nombre, Selected = model.uso_equipos.Trim() == st.uso_equipos.Trim() });
                 }
                 foreach (var st in estab)
                 {
+                    if (model.cod_estab.Trim() == null || model.cod_estab.Trim() == "")
+                    {
+                        model.EstabList.Add(new SelectListItem { Text = "No aplica", Value = "DEFAULT", Selected = true });
+                    }
                     model.EstabList.Add(new SelectListItem { Value = st.cod_estab, Text = st.nombre, Selected = model.cod_estab.Trim() == st.cod_estab.Trim() });
                 }
                 foreach (var st in color)
                 {
+                    if (model.color.Trim() == null || model.color.Trim() == "")
+                    {
+                        model.ColorList.Add(new SelectListItem { Text = "No aplica", Value = "DEFAULT", Selected = true });
+                    }
                     model.ColorList.Add(new SelectListItem { Value = st.color, Text = st.nombre, Selected = model.color.Trim() == st.color.Trim() });
                 }
                 foreach (var st in fre)
                 {
+                    if (model.medida_garantia.Trim() == null || model.medida_garantia.Trim() == "")
+                    {
+                        model.MedidaGarantiaList.Add(new SelectListItem { Text = "No aplica", Value = "DEFAULT", Selected = true });
+                    }
                     model.MedidaGarantiaList.Add(new SelectListItem { Value = st.frecuencia_servicio_equipos, Text = st.nombre, Selected = model.medida_garantia.Trim() == st.frecuencia_servicio_equipos.Trim() });
                 }
                 foreach (var st in fre)
                 {
+                    if (model.medida_garantia2.Trim() == null || model.medida_garantia2.Trim() == "")
+                    {
+                        model.MedidaGarantia2List.Add(new SelectListItem { Text = "No aplica", Value = "DEFAULT", Selected = true });
+                    }
                     model.MedidaGarantia2List.Add(new SelectListItem { Value = st.frecuencia_servicio_equipos, Text = st.nombre, Selected = model.medida_garantia2.Trim() == st.frecuencia_servicio_equipos.Trim() });
                 }
                 foreach (var st in fre)
                 {
+                    if (model.medida_vida_util.Trim() == null || model.medida_vida_util.Trim() == "")
+                    {
+                        model.MedidaVidaUtilList.Add(new SelectListItem { Text = "No aplica", Value = "DEFAULT", Selected = true });
+                    }
                     model.MedidaVidaUtilList.Add(new SelectListItem { Value = st.frecuencia_servicio_equipos, Text = st.nombre, Selected = model.medida_vida_util.Trim() == st.frecuencia_servicio_equipos.Trim() });
                 }
                 foreach (var st in fre)
                 {
+                    if (model.medida_vida_util2.Trim() == null || model.medida_vida_util2.Trim() == "")
+                    {
+                        model.MedidaVidaUtil2List.Add(new SelectListItem { Text = "No aplica", Value = "DEFAULT", Selected = true });
+                    }
                     model.MedidaVidaUtil2List.Add(new SelectListItem { Value = st.frecuencia_servicio_equipos, Text = st.nombre, Selected = model.medida_vida_util2.Trim() == st.frecuencia_servicio_equipos.Trim() });
                 }
                 foreach (var st in sts)
@@ -182,41 +230,123 @@ namespace Demo.Controllers
                 }
                 foreach (var st in odo)
                 {
-                    model.OdometroList.Add(new SelectListItem { Value = st.odometro, Text = st.nombre });
+                    if (model.odometro.Trim() == null || model.odometro.Trim() == "")
+                    {
+                        model.OdometroList.Add(new SelectListItem { Text = "No aplica", Value = "DEFAULT", Selected = true });
+                    }
+                    model.OdometroList.Add(new SelectListItem { Value = st.odometro, Text = st.nombre,Selected = model.odometro.Trim() == st.odometro });
                 }
 
                 foreach (var st in vehi)
                 {
+                    if (model.tipo_vehiculo.Trim() == null || model.tipo_vehiculo.Trim() == "")
+                    {
+                        model.TipoVehicList.Add(new SelectListItem { Text = "No aplica", Value = "DEFAULT", Selected = true });
+                    }
                     model.TipoVehicList.Add(new SelectListItem { Value = st.tipo_vehiculo, Text = st.nombre, Selected = model.tipo_vehiculo.Trim() == st.tipo_vehiculo });
                 }
                 foreach (var st in chof)
                 {
+                    if (model.chofer.Trim() == null || model.chofer.Trim() == "")
+                    {
+                        model.ChoferList.Add(new SelectListItem { Text = "No aplica", Value = "DEFAULT", Selected = true });
+                    }
                     model.ChoferList.Add(new SelectListItem { Value = st.chofer_ayudante, Text = st.nombre, Selected = model.chofer.Trim()== st.chofer_ayudante });
                 }
                 foreach (var st in carga)
                 {
+                    if (model.carga_estandar.Trim() == null || model.carga_estandar.Trim() == "")
+                    {
+                        model.CargaEstList.Add(new SelectListItem { Text = "No aplica", Value = "DEFAULT", Selected = true });
+                    }
                     model.CargaEstList.Add(new SelectListItem { Value = st.folio, Text = st.nombre,Selected = model.carga_estandar.Trim() == st.folio });
                 }
-                foreach (var st in ayudant)
+                
+                model.Ayudante2List.Add(new SelectListItem { Text = "No aplica", Value = "DEFAULT" });
+                if(model.ayudante.Trim() ==null || model.ayudante.Trim() == "")
                 {
-                    model.AyudanteList.Add(new SelectListItem { Value = st.chofer_ayudante, Text = st.nombre,Selected = model.ayudante.Trim() == st.chofer_ayudante });
+                    model.AyudanteList.Add(new SelectListItem { Text = "No aplica", Value = "DEFAULT" });
+                    model.ayudante = "DEFAULT";
+                    foreach (var st in ayudant)
+                    {
+                        model.AyudanteList.Add(new SelectListItem { Value = st.chofer_ayudante, Text = st.nombre, Selected = model.ayudante.Trim() == st.chofer_ayudante });
+                    }
                 }
-                foreach (var st in ayudant)
+                else
                 {
-                    model.AyudanteList.Add(new SelectListItem { Value = st.chofer_ayudante, Text = st.nombre, Selected = model.ayudante2.Trim() == st.chofer_ayudante });
+                    foreach (var st in ayudant)
+                    {
+                        model.AyudanteList.Add(new SelectListItem { Value = st.chofer_ayudante, Text = st.nombre, Selected = model.ayudante.Trim() == st.chofer_ayudante });
+                    }
                 }
-                foreach (var st in comb)
+                if (model.ayudante2.Trim() == null || model.ayudante2.Trim() == "")
                 {
-                    model.Tanque1List.Add(new SelectListItem { Value = st.cod_prod, Text = st.descripcion_completa,Selected = model.combustible1.Trim()==st.cod_prod });
+                    model.Ayudante2List.Add(new SelectListItem { Text = "No aplica", Value = "DEFAULT" });
+                    model.ayudante2 = "DEAFULT";
+                    foreach (var st in ayudant)
+                    {
+                        model.Ayudante2List.Add(new SelectListItem { Value = st.chofer_ayudante, Text = st.nombre, Selected = model.ayudante2.Trim() == st.chofer_ayudante });
+                    }
                 }
-                foreach (var st in comb)
+                else
                 {
-                    model.Tanque2List.Add(new SelectListItem { Value = st.cod_prod, Text = st.descripcion_completa, Selected = model.combustible2.Trim() == st.cod_prod });
+                    foreach (var st in ayudant)
+                    {
+                        model.Ayudante2List.Add(new SelectListItem { Value = st.chofer_ayudante, Text = st.nombre, Selected = model.ayudante2.Trim() == st.chofer_ayudante });
+                    }
                 }
-                foreach (var st in comb)
+                
+                if (model.combustible2.Trim() == null || model.combustible2 == "")
                 {
-                    model.Tanque3List.Add(new SelectListItem { Value = st.cod_prod, Text = st.descripcion_completa, Selected = model.combustible3.Trim() == st.cod_prod });
+                    model.Tanque2List.Add(new SelectListItem { Text = "No aplica", Value = "DEFAULT" });
+                    model.combustible2 = "DEFAULT";
+                    foreach (var st in comb)
+                    {
+                        model.Tanque2List.Add(new SelectListItem { Value = st.cod_prod, Text = st.descripcion_completa, Selected = model.combustible2.Trim() == st.cod_prod });
+                    }
                 }
+                else
+                {
+                    foreach (var st in comb)
+                    {
+                        model.Tanque2List.Add(new SelectListItem { Value = st.cod_prod, Text = st.descripcion_completa, Selected = model.combustible2.Trim() == st.cod_prod });
+                    }
+                }
+                if (model.combustible1.Trim() == null || model.combustible1.Trim() == "")
+                {
+                    model.Tanque1List.Add(new SelectListItem { Text = "No aplica", Value = "DEFAULT" });
+                    model.combustible1 = "DEFAULT";
+                    foreach (var st in comb)
+                    {
+                        model.Tanque1List.Add(new SelectListItem { Value = st.cod_prod, Text = st.descripcion_completa, Selected = model.combustible1.Trim() == st.cod_prod });
+                    }
+                }
+                else
+                {
+                    foreach (var st in comb)
+                    {
+                        model.Tanque1List.Add(new SelectListItem { Value = st.cod_prod, Text = st.descripcion_completa, Selected = model.combustible1.Trim() == st.cod_prod });
+                    }
+                }
+                if (model.combustible3.Trim() == null || model.combustible3.Trim() == "")
+                {
+                    model.Tanque3List.Add(new SelectListItem { Text = "No aplica", Value = "DEFAULT" });
+                    model.combustible3 = "DEFAULT";
+                    foreach (var st in comb)
+                    {
+                        model.Tanque3List.Add(new SelectListItem { Value = st.cod_prod, Text = st.descripcion_completa, Selected = model.combustible3 == st.cod_prod });
+                    }
+                }
+                else
+                {
+                    foreach (var st in comb)
+                    {
+                        model.Tanque3List.Add(new SelectListItem { Value = st.cod_prod, Text = st.descripcion_completa, Selected = model.combustible3.Trim() == st.cod_prod });
+                    }
+                }
+                
+                
+                
             }
             else
             {
