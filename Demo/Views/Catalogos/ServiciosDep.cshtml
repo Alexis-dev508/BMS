@@ -1,8 +1,26 @@
 ﻿@model List<Demo.Models.ServicioDep>
 <div class="container-fluid">
-    <div class="card-primary">
+    <div class="card-info">
 		<div class="card-header">
 			<h2>Dependencia de servicio</h2>
+			@if (TempData["mensajeSAVE"] != null)
+						{
+							<div class="alert alert-success alert-dismissible fade show" role="alert">
+								@TempData["mensajeSAVE"]
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+						}
+			@if (TempData["mensajeDEL"] != null)
+						{
+							<div class="alert alert-danger alert-dismissible fade show" role="alert">
+								@TempData["mensajeDEL"]
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+						}
 		</div>
 		<a href="@Url.Action("NuevoServicioDependiente","Catalogos")" class="btn btn-info" data-toggle="Regresar" title="Regresar">
 						   <i class="fas fa-save-alt-circle-left"></i>
@@ -30,11 +48,11 @@
 					   <td>@dat.nom_dependiente</td>
 					   <td>@dat.notas</td>
 						<td>
-							<a class="btn btn-outline-warning" href="@Url.Action("EditarServicioDepende","Catalogos", new {id = dat.servicio})" >
+							<a class="btn btn-outline-warning" onclick="detalleEdit('@dat.servicio.Trim()','@dat.servicio_dependiente.Trim()','@dat.notas')" >
 							   <i class="fas fa-edit"></i>
 							   Editar
 							</a>
-							<a class="btn btn-danger" href="@Url.Action("EliminarServicioDepende","Catalogos", new {id = dat.servicio})" >
+							<a class="btn btn-danger" onclick="detalleDelete('@dat.servicio.Trim()','@dat.servicio_dependiente.Trim()','@dat.notas')" >
 							   <i class="fas fa-trash-alt"></i>
 							   Eliminar
 							</a>
@@ -43,16 +61,72 @@
 						}
 				 </tbody>
 				</table>
+				
 </div>
 </div>
     </div>
 </div>
 </div>
 </div>
+<div class="modal fade bd-example-modal-lg" id="modalDetalle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="datos">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <script>
-$(document).ready( function () {
-    $('#tabla').DataTable();
-} );
-</script>
+        function detalleEdit(s,sd,n){
+			var serv = s;
+			var servd = sd;
+			var not = n;
+        $("#datos").empty();
+        $.ajax({
+            type:"GET",
+            url:"@Url.Action("detalleEdit","Catalogos")",
+            success:function(data){
+                $("#datos").append(data);
+                $('#modalDetalle').modal('show');
+				$('#servicio').val(serv);
+				$('#servicio_dep').val(servd);
+				$('#notas').val(not);
+				$('#notas_original').val(not);
+				$('#serviciodep_original').val(servd);
+            },
+            error: function (xhr,ajaxOptions,thrownError){alert(xhr.responseText);}
+        });
+    }
+	function detalleDelete(s,sd,n){
+			var serv = s;
+			var servd = sd;
+			var not = n;
+        $("#datos").empty();
+        $.ajax({
+            type:"GET",
+            url:"@Url.Action("detalleDelete","Catalogos")",
+            success:function(data){
+                $("#datos").append(data);
+                $('#modalDetalle').modal('show');
+				$('#servicio').val(serv);
+				$('#servicio_dep').val(servd);
+				$('#notas').val(not);
+            },
+            error: function (xhr,ajaxOptions,thrownError){alert(xhr.responseText);}
+        });
+    }
+
+    </script>
+

@@ -1,0 +1,19 @@
+﻿@model Demo.Models.ServicioDep
+<dic class="container">
+	<div class="row">
+		@using (Html.BeginForm("EditarServicioDependiente","Catalogos",FormMethod.Post)){
+			<h2>¿Desea editar estos datos?</h2>
+			<label class="control-label">Servicio:</label>
+			@Html.TextBoxFor(model=> model.servicio,new {@class="form-control",@readonly="readonly",@id="servicio"})
+			<label class="control-label">Servicio dependiente:</label>
+			@Html.TextBoxFor(model=> model.servicio_dependiente,new {@class="form-control",@id="servicio_dep"})
+			<label class="control-label">Notas:</label>
+			@Html.TextAreaFor(model=> model.notas,new {@class="form-control",@id="notas"})
+			@Html.TextBoxFor(model=> model.servicio_dependiente_original,new {@class="form-control",@readonly="readonly",@id="serviciodep_original",@type="hidden"})
+			@Html.TextBoxFor(model=> model.notas_original,new {@class="form-control",@readonly="readonly",@id="notas_original",@type="hidden"})
+			<div class="form-group">
+                <input type="submit" value="Editar!" class="btn btn-success"/>
+            </div>
+		}
+	</div>
+</div>

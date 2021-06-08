@@ -343,10 +343,7 @@ namespace Demo.Controllers
                     {
                         model.Tanque3List.Add(new SelectListItem { Value = st.cod_prod, Text = st.descripcion_completa, Selected = model.combustible3.Trim() == st.cod_prod });
                     }
-                }
-                
-                
-                
+                }  
             }
             else
             {
@@ -501,30 +498,6 @@ namespace Demo.Controllers
                 if (res == true)
                 {
                     TempData["mensajeSAVE"] = "Servicio dependiente guardado exitosamente";
-                    return RedirectToAction("servicioDependiente");
-                }
-                else
-                {
-                    TempData["mensajeINF"] = "Error al guardar servicio";
-                    return RedirectToAction("Servicios");
-                }
-            }
-            catch (Exception ex)
-            {
-
-                ViewBag.Errores = ex.Message;
-                return View(model);
-            }
-        }
-        [HttpPost]
-        public IActionResult EditarServicioDepende(ServicioDep model)
-        {
-            try
-            {
-                var res = datos.GuardarServicioDep(model, "M");
-                if (res == true)
-                {
-                    TempData["mensajeEDIT"] = "Servicio editado exitosamente";
                     return RedirectToAction("ServiciosDep");
                 }
                 else
@@ -542,10 +515,11 @@ namespace Demo.Controllers
         }
         //eliminaer servicio depende
         [HttpPost]
-        public IActionResult EliminarServicioDepende(ServicioDep model)
+        public IActionResult EliminarServicioDependiente(ServicioDep model)
         {
             try
             {
+                //metodo de guardar pero operacion Eliminar
                 var res = datos.GuardarServicioDep(model, "E");
                 if (res == true)
                 {
@@ -591,16 +565,41 @@ namespace Demo.Controllers
             }
         }
         //editar servicio dependiente
-        [HttpGet]
-        public IActionResult EditarServicioDepende(string id)
+        [HttpPost]
+        public IActionResult EditarServicioDependiente(ServicioDep model)
         {
-            if (id == null)
+            try
             {
-                return BadRequest();
+                var serv = datos.GuardarServicioDep(model, "M");
+                if (serv)
+                {
+                    TempData["mensajeSAVE"] = "Servicio guardado exitosamente";
+                    return RedirectToAction("ServiciosDep");
+                }
+                else
+                {
+                    TempData["mensajeINF"] = "Error al guardar Servicio";
+                    return RedirectToAction("ServiciosDep");
+                }
             }
-            var serv = datos.TraerServicioDep(id);
-            var model = new ServicioDep() { servicio = serv.servicio, nom_servicio = serv.nom_servicio, servicio_dependiente = serv.servicio_dependiente,notas = serv.notas};
-            return View(model);
+            catch (Exception ex)
+            {
+                ViewBag.Errores = ex.Message;
+                return View(model);
+            }
+            
+        }
+        //editar servicio dependiente
+        [HttpGet]
+        public IActionResult detalleEdit()
+        {
+            return PartialView("_edit",null);
+        }
+        //eliminar servicio dependiente
+        [HttpGet]
+        public IActionResult detalleDelete()
+        {
+            return PartialView("_delete", null);
         }
         //editar servicio
         [HttpGet]

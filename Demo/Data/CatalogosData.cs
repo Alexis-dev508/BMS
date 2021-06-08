@@ -533,35 +533,37 @@ namespace Demo.Data
             }
             return tipoServs;
         }
-        //traer sercvicio depende
-        public ServicioDep TraerServicioDep(string serv)
-        {
-            ServicioDep servicio = new ServicioDep();
-            try
-            {
-                SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_DatosServicios", this.ConnectionString);
-                sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
-                sda.SelectCommand.Parameters.AddWithValue("@oper", "DS");
-                sda.SelectCommand.Parameters.AddWithValue("@servicio", serv);
-                DataTable dt = new DataTable();
-                sda.Fill(dt);
-                servicio = dt.AsEnumerable().Select(a =>
-                new ServicioDep
-                {
-                    servicio = a["servicio"].ToString(),
-                    nom_servicio = a["nom_servicio"].ToString(),
-                    servicio_dependiente = a["servicio_dependiente"].ToString(),
-                    nom_dependiente = a["nom_dependiente"].ToString(),
-                    notas = a["notas"].ToString()
-                }).FirstOrDefault();
-            }
-            catch (Exception ex)
-            {
+        ////traer sercvicio depende
+        //public ServicioDep TraerServicioDep(ServicioDep model)
+        //{
+        //    ServicioDep servicio = new ServicioDep();
+        //    try
+        //    {
+        //        SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_DatosServicios", this.ConnectionString);
+        //        sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+        //        sda.SelectCommand.Parameters.AddWithValue("@oper", "DS");
+        //        sda.SelectCommand.Parameters.AddWithValue("@servicio", model.servicio);
+        //        sda.SelectCommand.Parameters.AddWithValue("@servicio_dependiente", model.servicio_dependiente);
+        //        sda.SelectCommand.Parameters.AddWithValue("@notas", model.notas);
+        //        DataTable dt = new DataTable();
+        //        sda.Fill(dt);
+        //        servicio = dt.AsEnumerable().Select(a =>
+        //        new ServicioDep
+        //        {
+        //            servicio = a["servicio"].ToString(),
+        //            nom_servicio = a["nom_servicio"].ToString(),
+        //            servicio_dependiente = a["servicio_dependiente"].ToString(),
+        //            nom_dependiente = a["nom_dependiente"].ToString(),
+        //            notas = a["notas"].ToString()
+        //        }).FirstOrDefault();
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                throw new Exception(ex.Message);
-            }
-            return servicio;
-        }
+        //        throw new Exception(ex.Message);
+        //    }
+        //    return servicio;
+        //}
         //traer servicios dependientes
         public List<ServicioDep> TraerServiciosDep()
         {
@@ -842,7 +844,9 @@ namespace Demo.Data
                 sda.SelectCommand.Parameters.AddWithValue("@oper", operacion);
                 sda.SelectCommand.Parameters.AddWithValue("@servicio", servicio.servicio);
                 sda.SelectCommand.Parameters.AddWithValue("@notas", servicio.notas);
+                sda.SelectCommand.Parameters.AddWithValue("@notas_original", servicio.notas_original);
                 sda.SelectCommand.Parameters.AddWithValue("@servicio_dependiente", servicio.servicio_dependiente);
+                sda.SelectCommand.Parameters.AddWithValue("@servicio_dependiente_original", servicio.servicio_dependiente_original);
                 DataTable dt = new DataTable();
                 sda.Fill(dt);
                 sqlTransaction.Commit();

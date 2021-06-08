@@ -1,0 +1,17 @@
+﻿@model Demo.Models.ServicioDep
+<dic class="container">
+	<div class="row">
+		@using (Html.BeginForm("EliminarServicioDependiente","Catalogos",FormMethod.Post)){
+			<h2>¿Desea Eliminar estos datos?</h2>
+			<label class="control-label">Servicio:</label>
+			@Html.TextBoxFor(model=> model.servicio,new {@class="form-control",@readonly="readonly",@id="servicio"})
+			<label class="control-label">Servicio dependiente:</label>
+			@Html.TextBoxFor(model=> model.servicio_dependiente,new {@class="form-control",@id="servicio_dep",@readonly="readonly"})
+			<label class="control-label">Notas:</label>
+			@Html.TextAreaFor(model=> model.notas,new {@class="form-control",@id="notas",@readonly="readonly"})
+			<div class="form-group">
+                <input type="submit" value="Eliminar!" class="btn btn-danger"/>
+            </div>
+		}
+	</div>
+</div>
