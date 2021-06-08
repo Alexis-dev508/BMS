@@ -22,7 +22,7 @@
 							</div>
 						}
 		</div>
-		<a href="@Url.Action("NuevoServicioDependiente","Catalogos")" class="btn btn-info" data-toggle="Regresar" title="Regresar">
+		<a href="@Url.Action("NuevoServicioDependiente","Catalogos")" class="btn btn-primary" data-toggle="Regresar" title="Regresar">
 						   <i class="fas fa-save-alt-circle-left"></i>
 						   Nuevo Servicio Depende
 					  </a>
@@ -48,7 +48,7 @@
 					   <td>@dat.nom_dependiente</td>
 					   <td>@dat.notas</td>
 						<td>
-							<a class="btn btn-outline-warning" onclick="detalleEdit('@dat.servicio.Trim()','@dat.servicio_dependiente.Trim()','@dat.notas')" >
+							<a class="btn btn-outline-warning" onclick="detalleEdit('@dat.servicio.Trim()','@dat.servicio_dependiente.Trim()','@dat.notas','@dat.nom_servicio.Trim()','@dat.nom_dependiente.Trim()')" >
 							   <i class="fas fa-edit"></i>
 							   Editar
 							</a>
@@ -89,10 +89,12 @@
 
 
 <script>
-        function detalleEdit(s,sd,n){
+        function detalleEdit(s,sd,n,nom,nomd){
 			var serv = s;
 			var servd = sd;
 			var not = n;
+			var nombre = nom;
+			var nombred = nomd
         $("#datos").empty();
         $.ajax({
             type:"GET",
@@ -105,6 +107,8 @@
 				$('#notas').val(not);
 				$('#notas_original').val(not);
 				$('#serviciodep_original').val(servd);
+				$('#nombre').val(nombre);
+				$('#nombreD').val(nombred);
             },
             error: function (xhr,ajaxOptions,thrownError){alert(xhr.responseText);}
         });
@@ -127,6 +131,11 @@
             error: function (xhr,ajaxOptions,thrownError){alert(xhr.responseText);}
         });
     }
+	function serv(s,n){
+		$('#servicio_dep').val(s);
+		$('#nombreD').val(n);
+		$('#modalServ').modal('hide');
+	}
 
     </script>
 

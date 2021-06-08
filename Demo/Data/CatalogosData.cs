@@ -856,7 +856,6 @@ namespace Demo.Data
             {
                 sqlTransaction.Rollback();
                 throw new Exception(ex.Message);
-
             }
             finally
             {

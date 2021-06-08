@@ -4,9 +4,18 @@
 		@using (Html.BeginForm("EditarServicioDependiente","Catalogos",FormMethod.Post)){
 			<h2>¿Desea editar estos datos?</h2>
 			<label class="control-label">Servicio:</label>
-			@Html.TextBoxFor(model=> model.servicio,new {@class="form-control",@readonly="readonly",@id="servicio"})
+			<div class="form-inline">
+			@Html.TextBoxFor(model=> model.servicio,new {@class="form-control",@readonly="readonly",@id="servicio",@style ="width: 20%;"})
+			&nbsp;&nbsp;&nbsp;&nbsp;
+            @Html.TextBoxFor(model=>model.nom_servicio,new {@class="form-control",@readonly="readonly",@id="nombre"})
+			</div>
 			<label class="control-label">Servicio dependiente:</label>
-			@Html.TextBoxFor(model=> model.servicio_dependiente,new {@class="form-control",@id="servicio_dep"})
+			<div class="form-inline">
+			@Html.TextBoxFor(model=> model.servicio_dependiente,new {@class="form-control",@id="servicio_dep",@onkeydown="onKeyDownServ(event);",@style ="width: 20%;"})
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			@Html.TextBoxFor(model=>model.nom_dependiente,new {@class="form-control",@readonly="readonly",@id="nombreD"})
+			</div>
+			
 			<label class="control-label">Notas:</label>
 			@Html.TextAreaFor(model=> model.notas,new {@class="form-control",@id="notas"})
 			@Html.TextBoxFor(model=> model.servicio_dependiente_original,new {@class="form-control",@readonly="readonly",@id="serviciodep_original",@type="hidden"})
@@ -17,3 +26,47 @@
 		}
 	</div>
 </div>
+<div class="modal hide fade-modal-xl" id="modalServ" data-backdrop="static" data-focus-on="input:first">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"></h5>
+        <button type="button" class="close" onclick="modal1();" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="datos1">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="modal1();">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+	function modalServ(){
+        $("#datos1").empty();
+        $.ajax({
+            type:"GET",
+            url:"@Url.Action("ServiciosDepende","Catalogos")",
+            success:function(data){
+                $("#datos1").append(data);
+                $('#modalServ').modal('show');
+            },
+            error: function (xhr,ajaxOptions,thrownError){alert(xhr.responseText);}
+        });
+    }
+    function onKeyDownServ(event) {
+
+    var codigo = event.which || event.keyCode;
+     
+    if(codigo === 113){
+      modalServ();
+    }
+ 
+}
+function modal1(){
+    $('#modalServ').modal('hide');
+}
+</script>
