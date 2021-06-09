@@ -24,6 +24,7 @@ namespace Demo.Controllers
         {
             return View();
         }
+        //combos de Taller/Servicios
         [HttpGet]
         public ServiciosModelView combosServ(string id)
         {
@@ -93,6 +94,7 @@ namespace Demo.Controllers
             }
             return model;
         }
+        //combos Equipos/Equipos
         [HttpGet]
         public EquiposModelView combos(string id)
         {
@@ -446,27 +448,33 @@ namespace Demo.Controllers
             
             return model;
         }
+        //vista de Nuevo equipo
         [HttpGet]
         public IActionResult NuevoEquipo()
         {
+            //llenar combos
             return View(combos(""));
         }
+        //vista Nuevo servicio dependiente
         [HttpGet]
         public IActionResult NuevoServicioDependiente()
         {
             return View();
         }
+        //vista nuevo servicio
         [HttpGet]
         public IActionResult NuevoServicio()
         {
             return View(combosServ(""));
         }
+        //vista de Servicios
         public IActionResult Servicios()
         {
             var model = new List<Servicios>();
             model = datos.TraerServicios();
             return View(model);
         }
+        //vista de servicios dependientes
         [HttpGet]
         public IActionResult ServiciosDep()
         {
@@ -474,21 +482,24 @@ namespace Demo.Controllers
             model = datos.TraerServiciosDep();
             return View(model);
         }
-        [HttpGet]
-        public IActionResult servicioDependiente()
-        {
-            List<ServicioDep> serv = new List<ServicioDep>();
-            try
-            {
-                serv = datos.TraerServiciosDep();
-            }
-            catch (Exception ex)
-            {
+        ////
+        //[HttpGet]
+        //public IActionResult servicioDependiente()
+        //{
+        //    List<ServicioDep> serv = new List<ServicioDep>();
+        //    try
+        //    {
+        //        serv = datos.TraerServiciosDep();
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                ViewBag.ErroresM = ex.Message;
-            }
-            return RedirectToAction("ServiciosDep", serv);
-        }
+        //        ViewBag.ErroresM = ex.Message;
+        //    }
+        //    return RedirectToAction("ServiciosDep", serv);
+        //}
+
+        //Guardar servicio dependiente
         [HttpPost]
         public IActionResult NuevoServicioDependiente(ServicioDep model)
         {
@@ -513,13 +524,13 @@ namespace Demo.Controllers
                 return View(model);
             }
         }
-        //eliminaer servicio depende
+        //eliminar servicio dependiente
         [HttpPost]
         public IActionResult EliminarServicioDependiente(ServicioDep model)
         {
             try
             {
-                //metodo de guardar pero operacion Eliminar
+                //metodo de guardar pero operacion Eliminar (E)
                 var res = datos.GuardarServicioDep(model, "E");
                 if (res == true)
                 {
@@ -539,7 +550,7 @@ namespace Demo.Controllers
                 return View(model);
             }
         }
-
+        //guardar servicio
         [HttpPost]
         public IActionResult NuevoServicio(ServiciosModelView model)
         {
@@ -589,19 +600,19 @@ namespace Demo.Controllers
             }
             
         }
-        //editar servicio dependiente
+        //editar servicio dependiente Vista
         [HttpGet]
         public IActionResult detalleEdit()
         {
             return PartialView("_edit",null);
         }
-        //eliminar servicio dependiente
+        //eliminar servicio dependiente vista
         [HttpGet]
         public IActionResult detalleDelete()
         {
             return PartialView("_delete", null);
         }
-        //editar servicio
+        //editar servicio Vista
         [HttpGet]
         public IActionResult EditarServicio(string id)
         {
@@ -614,7 +625,7 @@ namespace Demo.Controllers
             return View(model);
         }
 
-        //editar servicio
+        //editar servicio Guardar
         [HttpPost]
         public IActionResult EditarServicio(ServiciosModelView model)
         {
@@ -640,7 +651,7 @@ namespace Demo.Controllers
                 return View(model);
             }
         }
-
+        //guardar equipo
         [HttpPost]
         public IActionResult NuevoEquipo(EquiposModelView model)
         {
@@ -666,7 +677,7 @@ namespace Demo.Controllers
                 return View(model);
             }
         }
-
+        //traer datos de equipo para editar (Vista)
         [HttpGet]
         public IActionResult EditarEquipos(string id)
         {
@@ -676,6 +687,7 @@ namespace Demo.Controllers
             }
             return View(combos(id));
         }
+        //Guardar equipo editado
         [HttpPost]
         public IActionResult EditarEquipos(EquiposModelView model)
         {
@@ -701,7 +713,7 @@ namespace Demo.Controllers
                 return View(model);
             }
         }
-
+        //Vista de activos fijos
         [HttpGet]
         public IActionResult detalleActivos()
         {
@@ -717,6 +729,7 @@ namespace Demo.Controllers
             }
             return PartialView("_ActivosFijos", detalle);
         }
+        //vista de equipos depende
         [HttpGet]
         public IActionResult EquipoDepende()
         {
@@ -732,6 +745,7 @@ namespace Demo.Controllers
             }
             return PartialView("_DependeEquipo", detalle);
         }
+        //vista de servicios depende
         [HttpGet]
         public IActionResult ServiciosDepende()
         {
@@ -747,6 +761,7 @@ namespace Demo.Controllers
             }
             return PartialView("_ServiciosDep", detalle);
         }
+        //vista de servicios F2
         [HttpGet]
         public IActionResult Serv()
         {
@@ -762,6 +777,7 @@ namespace Demo.Controllers
             }
             return PartialView("_Servicios", detalle);
         }
+        //vista de areas F2
         [HttpGet]
         public IActionResult Areas()
         {
@@ -777,21 +793,24 @@ namespace Demo.Controllers
             }
             return PartialView("_Areas", detalle);
         }
-        [HttpGet]
-        public IActionResult Dependencias()
-        {
-            List<Servicios> detalle = new List<Servicios>();
-            try
-            {
-                detalle = datos.TraerServicios();
-            }
-            catch (Exception ex)
-            {
+        //vista de servicio depenede
+        //[HttpGet]
+        //public IActionResult Dependencias()
+        //{
+        //    List<Servicios> detalle = new List<Servicios>();
+        //    try
+        //    {
+        //        detalle = datos.TraerServicios();
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                ViewBag.ErroresM = ex.Message;
-            }
-            return PartialView("_ServiciosDep", detalle);
-        }
+        //        ViewBag.ErroresM = ex.Message;
+        //    }
+        //    return PartialView("_ServiciosDep", detalle);
+        //}
+
+        //vista de departamentos F2 
         [HttpGet]
         public IActionResult Departamentos()
         {
@@ -807,7 +826,7 @@ namespace Demo.Controllers
             }
             return PartialView("_Departamentos", detalle);
         }
-        //Equipos
+        //Equipos Vista
         public IActionResult Equipos()
         {
             var model = new List<Equipos>();

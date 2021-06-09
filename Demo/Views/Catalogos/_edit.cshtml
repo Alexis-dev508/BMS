@@ -46,7 +46,7 @@
 </div>
 <script>
 	function modalServ(){
-        $("#datos1").empty();
+        $("#datos1").empty(); /*mostrar modal y llenar su tabla*/
         $.ajax({
             type:"GET",
             url:"@Url.Action("ServiciosDepende","Catalogos")",
@@ -66,6 +66,7 @@
     }
  
 }
+//ocultar modal de la tabla
 function modal1(){
     $('#modalServ').modal('hide');
 }

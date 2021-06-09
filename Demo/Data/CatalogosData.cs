@@ -269,6 +269,7 @@ namespace Demo.Data
             }
             return areas;
         }
+        //traer departamento
         public List<DepartamentosEquipos> TraerDepart()
         {
             List<DepartamentosEquipos> departamentos = new List<DepartamentosEquipos>();
@@ -423,7 +424,7 @@ namespace Demo.Data
             }).ToList();
             return cargasEst;
         }
-        //traer accesorios
+        //traer accesorios (Este metodo no se ha usado)
         public List<AccesoriosEquipos> TraerAccesorios()
         {
             List<AccesoriosEquipos> accesorios = new List<AccesoriosEquipos>();
@@ -564,6 +565,7 @@ namespace Demo.Data
         //    }
         //    return servicio;
         //}
+
         //traer servicios dependientes
         public List<ServicioDep> TraerServiciosDep()
         {
@@ -672,7 +674,7 @@ namespace Demo.Data
             }
             return conceptos;
         }
-        //traer sercvicio
+        //traer servicio Editar
         public ServiciosModelView TraerServicio(string serv)
         {
             ServiciosModelView servicio = new ServiciosModelView();
@@ -742,7 +744,7 @@ namespace Demo.Data
             }
             return talleres;
         }
-
+        //traer equipo Editar
         public EquiposModelView TraerEquipo(string equipo)
         {
             EquiposModelView equipos = new EquiposModelView();
@@ -1056,7 +1058,7 @@ namespace Demo.Data
             return sabores;
         }
 
-        //NUEVO!!!!!!
+        //lista de status
         public List<Status> TraerStatus()
         {
             List<Status> sts = new List<Status>();

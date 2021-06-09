@@ -89,6 +89,7 @@
 
 
 <script>
+//manda los datos de la tabla al modal de editar
         function detalleEdit(s,sd,n,nom,nomd){
 			var serv = s;
 			var servd = sd;
@@ -113,6 +114,7 @@
             error: function (xhr,ajaxOptions,thrownError){alert(xhr.responseText);}
         });
     }
+	//manda los datos de la tabla al modal de eliminar
 	function detalleDelete(s,sd,n){
 			var serv = s;
 			var servd = sd;
@@ -131,6 +133,7 @@
             error: function (xhr,ajaxOptions,thrownError){alert(xhr.responseText);}
         });
     }
+	//asigna valores a los campos y esconde modal
 	function serv(s,n){
 		$('#servicio_dep').val(s);
 		$('#nombreD').val(n);

@@ -55,6 +55,7 @@
   </div>
 </div>
 <script>
+//muestra modal de servicios depende
     function servicioDepende(){
         $("#datos").empty();
         $.ajax({
@@ -67,6 +68,7 @@
             error: function (xhr,ajaxOptions,thrownError){alert(xhr.responseText);}
         });
     }
+    //muestra modal de servicios
         function servicio(){
         $("#datos").empty();
         $.ajax({
@@ -79,6 +81,7 @@
             error: function (xhr,ajaxOptions,thrownError){alert(xhr.responseText);}
         });
     }
+    //valida F2
  function onKeyDownServ(event) {
 
     var codigo = event.which || event.keyCode;
@@ -97,6 +100,7 @@ function onKeyDownServ1(event) {
     }
  
 }
+//asigna valores seleccionados y cierra el modal
 function serv(servicio,n){
     var n = n; //quitarlo
     $('#depende').val(servicio);
