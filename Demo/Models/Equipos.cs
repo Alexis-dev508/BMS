@@ -101,5 +101,12 @@ namespace Demo.Models
         //sirve odometro
         public Boolean sirve_odometro { get; set; }
 
+        //nombre activo fijo
+        public string NombreAF { get; set; }
+        //nombre area
+        public string NombreAR { get; set; }
+        //nombre departamento
+        public string NombreDE { get; set; }
+
     }
 }
