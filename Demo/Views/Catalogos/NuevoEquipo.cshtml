@@ -66,7 +66,7 @@
 
                                 <div class="form-group m-2">
                                     @Html.Label("activo_fijo", "Activo Fijo", new { @class = "control-label" })
-                                    <input asp-for="activo_nombre" id="anombre" data-toggle="Nombre Activo fijo" title="Nombre Activo fijo" class="form-control" />
+                                    @Html.TextBoxFor(model => model.activo_fijo, new { @class = "form-control", @onkeydown = "onKeyDownActivo(event);", @id = "activo", @required = "true" })
                                 </div>
 
                                 <div class="form-group m-2">
@@ -125,7 +125,7 @@
 
                                 <div class="form-group ">
                                     <div class="row">
-                                        <div class="col-6"> @Html.TextBoxFor(model => model.activo_fijo, new { @class = "form-control", @onkeydown = "onKeyDownActivo(event);", @id = "activo", @required = "true" })</div>
+                                        <div class="col-6"> <input asp-for="activo_nombre" id="anombre" data-toggle="Nombre Activo fijo" title="Nombre Activo fijo" class="form-control" /></div>
                                         <div class="col-6">
                                             <div class="checkbox ">
                                                 <div class="checkbox  align-middle">
