@@ -129,7 +129,7 @@ namespace Demo.Controllers
                 }
                 foreach (var st in marc)
                 {
-                    if (model.marca.Trim() == null || model.marca.Trim() == "")
+                    if (model.marca == null || model.marca.Trim() == "")
                     {
                         model.MarcasList.Add(new SelectListItem { Text = "No aplica", Value = "DEFAULT", Selected = true });
                     }
@@ -298,7 +298,7 @@ namespace Demo.Controllers
                     }
                 }
                 
-                if (model.combustible2.Trim() == null || model.combustible2 == "")
+                if (model.combustible2.Trim() == null || model.combustible2.Trim() == "")
                 {
                     model.Tanque2List.Add(new SelectListItem { Text = "No aplica", Value = "DEFAULT" });
                     model.combustible2 = "DEFAULT";

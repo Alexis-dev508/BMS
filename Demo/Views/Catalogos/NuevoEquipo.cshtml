@@ -23,9 +23,10 @@
 						}
                     </form>
                 </nav>
-                <div class="container-fluid">
-                    @using (Html.BeginForm("NuevoEquipo", "Catalogos", FormMethod.Post))
+                @using (Html.BeginForm("NuevoEquipo", "Catalogos", FormMethod.Post))
                     {
+                <div class="container-fluid">
+                    
                         <div class="row">
                             @*  ////////////////////REFACTOR/////////////////////*@
 
@@ -148,8 +149,8 @@
                                         <div class="col-7"> @Html.DropDownList("medida_vida_util", Model.FrecuenciaList, new { @class = "form-control" }) </div>
                                         <div class="col-5">
 
-
-                                            @Html.TextBoxFor(model => model.garantia, new { @class = "form-control", @required = "true", @type = "number" })
+                                            <b>Garantía: @Html.TextBoxFor(model => model.garantia, new { @class = "form-control", @required = "true", @type = "number" })</b>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -158,7 +159,7 @@
                                     <div class="row">
                                         <div class="col-7"> @Html.DropDownList("medida_vida_util2", Model.FrecuenciaList, new { @class = "form-control" })</div>
                                         <div class="col-5">
-                                            @Html.TextBoxFor(model => model.garantia2, new { @class = "form-control", @required = "true", @type = "number" })
+                                            <b>Garantía 2: @Html.TextBoxFor(model => model.garantia2, new { @class = "form-control", @required = "true", @type = "number" })</b>
                                         </div>
                                     </div>
                                 </div>
@@ -264,7 +265,7 @@
                         <div class="form-group">
                             <input type="submit" value="Guardar" class="btn btn-success" />
                         </div>
-                    }
+                    
 
                 </div>
                

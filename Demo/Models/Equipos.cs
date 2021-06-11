@@ -105,8 +105,9 @@ namespace Demo.Models
         public string NombreAF { get; set; }
         //nombre area
         public string NombreAR { get; set; }
-        //nombre departamento
+        //nombre departamento 
         public string NombreDE { get; set; }
+        public string NombreDD { get; set; }
 
     }
 }

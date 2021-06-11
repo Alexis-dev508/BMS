@@ -780,7 +780,7 @@ namespace Demo.Data
                 cod_estab = a["cod_estab"].ToString(),
                 uso_equipos = a["uso_equipos"].ToString(),
                 codigo_economico = a["codigo_economico"].ToString(),
-                empleado = a["empleado"].ToString(),
+                //empleado = a["empleado"].ToString(),
                 fecha_compra = Convert.ToDateTime(a["fecha_compra"]),
                 costo = Convert.ToDecimal(a["costo"]),
                 valor_comercial = Convert.ToDecimal(a["costo"]),
@@ -827,6 +827,10 @@ namespace Demo.Data
                 llantas_eje6 = Convert.ToInt32(a["llantas_eje6"]),
                 color = a["color"].ToString(),
                 ayudante2 = a["ayudante2"].ToString(),
+                NombreAF = a["NombreAF"].ToString(),
+                NombreAR = a["NombreAR"].ToString(),
+                NombreDE = a["NombreDE"].ToString(),
+                NombreDD = a["NombreDepende"].ToString(),
                 sirve_odometro = Convert.ToBoolean(a["sirve_odometro"])
             }).SingleOrDefault();
             return equipos;
