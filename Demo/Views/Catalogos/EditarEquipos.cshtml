@@ -148,7 +148,7 @@
 
                                 <div class="form-group m-2">
                                     <div class="row">
-                                        <div class="col-7"> @Html.DropDownList("medida_vida_util", Model.FrecuenciaList, new { @class = "form-control" }) </div>
+                                        <div class="col-7"> @Html.DropDownList("medida_vida_util", Model.MedidaVidaUtilList, new { @class = "form-control" }) </div>
                                         <div class="col-5">
 
                                             <b>Garantía: @Html.TextBoxFor(model => model.garantia, new { @class = "form-control", @required = "true", @type = "number" })</b>
@@ -159,7 +159,7 @@
                                 &nbsp;&nbsp;&nbsp;&nbsp;
                                 <div class="form-group my-2">
                                     <div class="row">
-                                        <div class="col-7"> @Html.DropDownList("medida_vida_util2", Model.FrecuenciaList, new { @class = "form-control" })</div>
+                                        <div class="col-7"> @Html.DropDownList("medida_vida_util2", Model.MedidaVidaUtil2List, new { @class = "form-control" })</div>
                                         <div class="col-5">
                                             <b>Garantía 2: @Html.TextBoxFor(model => model.garantia2, new { @class = "form-control", @required = "true", @type = "number" })</b>
                                         </div>
@@ -216,10 +216,10 @@
                                 <br />
                                 <br />
                                 &nbsp;&nbsp;&nbsp;
-                                @Html.DropDownList("medida_garantia", Model.FrecuenciaList, new { @class = "form-control" })
+                                @Html.DropDownList("medida_garantia", Model.MedidaGarantiaList, new { @class = "form-control" })
                                 &nbsp;&nbsp;&nbsp;&nbsp;
 
-                                @Html.DropDownList("medida_garantia2", Model.FrecuenciaList, new { @class = "form-control" })
+                                @Html.DropDownList("medida_garantia2", Model.MedidaGarantia2List, new { @class = "form-control" })
                                 &nbsp;&nbsp;&nbsp;&nbsp;
 
                                 <div class="form-group m-2">
@@ -283,7 +283,8 @@
                         <div class="form-group m-3">
                              @Html.Label("compra","Compra",new {@class="control-label"})
                              &nbsp;&nbsp;&nbsp;&nbsp;
-                             @Html.TextBoxFor(model=> model.fecha_compra,new {@class="my-4",@name="dtpfecha_compra", @type="date", @style="width:80%;",@id="calendario",@required="true"})           
+                             
+                             @Html.TextBoxFor(model=> model.fecha_compra,new {@class="js--datePicker",@name="dtpfecha_compra", @style="width:80%;",@id="calendario",@required="true"})           
                          </div>
                          <div class="form-group m-3">
                              <b>Costo @Html.TextBoxFor(model=> model.costo,new {@class="form-control", @type="number", @style ="width: 80%;",@required="true"})</b>
@@ -314,12 +315,12 @@
                                  <label asp-for="chofer" class="control-label">Chofer</label>
                                  @Html.DropDownList("chofer",Model.ChoferList, new {@class="form-control"})
                                  &nbsp;&nbsp;&nbsp;&nbsp;
-                                 <b>Fecha @Html.TextBoxFor(model=> model.fecha_alta,new {@class="form-control", @type="date", @name="fecha", @style ="width: 80%;",@required="true"})</b>
+                                 <b>Fecha @Html.TextBoxFor(model=> model.fecha_alta,new {@class="js--datePicker",@name="dtpfecha_alta", @id="calendario2", @style="width:80%;",@required="true"})</b>
                                 
                             </div>
                             <div class="col-3">
-                                 @Html.TextBoxFor(model=> model.vigencia_placas,new {@class="my-4",@name="dtpPlacas", @style="width:80%;", @type="date",@required="true"})<br>
-                                 <b>Tarjeta circulación @Html.TextBoxFor(model=> model.vigencia_circulacion,new {@class="form-control", @type="date", @name="fecha", @style ="width: 80%;",@required="true"})</b>
+                                 @Html.TextBoxFor(model=> model.vigencia_placas,new {@class="js--datePicker",@name="dtpfecha_vigencia_placa", @id="calendario3", @style="width:80%;",@required="true"})<br>
+                                 <b>Tarjeta circulación @Html.TextBoxFor(model=> model.vigencia_circulacion,new {@class="js--datePicker",@name="dtpfecha_vigencia_circulacion", @id="calendario4", @style="width:80%;",@required="true"})</b>
                                  <div>
                                  </div>
 
@@ -435,6 +436,12 @@
   </div>
 </div>
 <script>
+$(function(){
+    $("#calendario").datepicker();
+    $("#calendario2").datepicker();
+    $("#calendario3").datepicker();
+    $("#calendario4").datepicker();
+});
 function buscar()
         {
             const tableReg = document.getElementById('tabla');
