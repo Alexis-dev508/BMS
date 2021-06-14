@@ -2,7 +2,7 @@
 <dic class="container">
 	<div class="row">
 		@using (Html.BeginForm("EditarServicioDependiente","Catalogos",FormMethod.Post)){
-			<h2>¿Desea editar estos datos?</h2>
+			<h2>Modifique los datos</h2>
 			<label class="control-label">Servicio:</label>
 			<div class="form-inline">
 			@Html.TextBoxFor(model=> model.servicio,new {@class="form-control",@readonly="readonly",@id="servicio",@style ="width: 20%;"})
