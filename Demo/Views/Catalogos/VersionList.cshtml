@@ -1,0 +1,13 @@
+﻿@model Demo.Models.EquiposModelView
+<option value="">--Seleccionar Version--</option>
+@if (ViewBag.VersionList != null && ViewBag.VersionCount != 0)
+{
+	foreach(var item in ViewBag.VersionList)
+	{
+		<option value="@item.Value">@item.Text</option>
+	}
+}
+else
+{
+	<option value="" selected="selected">No aplica</option>
+}

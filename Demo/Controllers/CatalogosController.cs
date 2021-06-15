@@ -24,6 +24,29 @@ namespace Demo.Controllers
         {
             return View();
         }
+        //COMBOS MARCA.MODELO,VERSION
+        public IActionResult modelo(string id)
+        {
+            var Mod = datos.TraerModelos(id);
+            if (Mod.Count <= 0)
+            {
+                ViewBag.ModelCount = 0;
+                return PartialView("ModelList");
+            }
+            ViewBag.ModelList = new SelectList(Mod, "modelo_equipos", "nombre");
+            return PartialView("ModelList");
+        }
+        public IActionResult version(string id)
+        {
+            var Mod = datos.TraerVersiones(id);
+            if (Mod.Count <= 0)
+            {
+                ViewBag.VersionCount = 0;
+                return PartialView("VersionList");
+            }
+            ViewBag.VersionList = new SelectList(Mod, "version_equipos", "nombre");
+            return PartialView("VersionList");
+        }
         //combos de Taller/Servicios
         [HttpGet]
         public ServiciosModelView combosServ(string id)
@@ -100,8 +123,8 @@ namespace Demo.Controllers
         {
             var model = new EquiposModelView();
             var marc = datos.TraerMarcas();
-            var vers = datos.TraerVersiones();
-            var mode = datos.TraerModelos();
+            var vers = datos.TraerVersiones("");
+            var mode = datos.TraerModelos("");
             var annios = datos.TraerAnnios();
             var tipoE = datos.TraerTipoEquipo();
             var usos = datos.TraerUsos();

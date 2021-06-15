@@ -68,32 +68,40 @@ namespace Demo.Data
             return marcas;
         }
         //tarer modelos
-        public List<ModelosEquipos> TraerModelos()
+        public List<ModelosEquipos> TraerModelos(string id)
         {
             List<ModelosEquipos> modelos = new List<ModelosEquipos>();
-
-            SqlDataAdapter sda = new SqlDataAdapter("dbo.DEMO_DATOSEQUIPOS", this.ConnectionString);
-            sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            sda.SelectCommand.Parameters.AddWithValue("@oper", "MO");
-            DataTable dt = new DataTable();
-            sda.Fill(dt);
-            modelos = dt.AsEnumerable().Select(a =>
-            new ModelosEquipos
+            try
             {
-                marca_equipos = a["marca_equipos"].ToString(),
-                modelo_equipos = a["modelo_equipos"].ToString(),
-                nombre = a["nombre"].ToString()
-            }).ToList();
+                SqlDataAdapter sda = new SqlDataAdapter("dbo.DEMO_DATOSEQUIPOS", this.ConnectionString);
+                sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sda.SelectCommand.Parameters.AddWithValue("@oper", "MO");
+                sda.SelectCommand.Parameters.AddWithValue("@marca", id);
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                modelos = dt.AsEnumerable().Select(a =>
+                new ModelosEquipos
+                {
+                    marca_equipos = a["marca_equipos"].ToString(),
+                    modelo_equipos = a["modelo_equipos"].ToString(),
+                    nombre = a["nombre"].ToString()
+                }).ToList();
+            }
+            catch(Exception e)
+            {
+                throw new Exception(e.Message);
+            }
             return modelos;
         }
         //traer versiones
-        public List<VersionesEquipos> TraerVersiones()
+        public List<VersionesEquipos> TraerVersiones(string id)
         {
             List<VersionesEquipos> versiones = new List<VersionesEquipos>();
 
             SqlDataAdapter sda = new SqlDataAdapter("dbo.DEMO_DATOSEQUIPOS", this.ConnectionString);
             sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
             sda.SelectCommand.Parameters.AddWithValue("@oper", "VE");
+            sda.SelectCommand.Parameters.AddWithValue("@modelo", id);
             DataTable dt = new DataTable();
             sda.Fill(dt);
             versiones = dt.AsEnumerable().Select(a =>
@@ -1064,7 +1072,7 @@ namespace Demo.Data
             catch (Exception ex)
             {
                 sqlTransaction.Rollback();
-                //return false;//probando
+                return false;//probando
                 throw new Exception(ex.Message);
                 
             }

@@ -1,0 +1,13 @@
+﻿@model Demo.Models.EquiposModelView
+<option value="">--Seleccionar Modelo--</option>
+@if (ViewBag.ModelList != null && ViewBag.Count != 0)
+{
+	foreach(var item in ViewBag.ModelList)
+	{
+		<option value="@item.Value">@item.Text</option>
+	}
+}
+else
+{
+	<option value="" selected="selected">No aplica</option>
+}
