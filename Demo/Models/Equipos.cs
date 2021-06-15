@@ -28,6 +28,7 @@ namespace Demo.Models
         public string chofer { get; set; }
         public string status { get; set; }
         public string activo_fijo { get; set; }
+        public Boolean es_activo_fijo { get; set; }
         //fecha alta
         [DataType(DataType.Date)]
         public DateTime fecha_alta { get; set; }
@@ -35,6 +36,7 @@ namespace Demo.Models
         public string uso_equipos { get; set; }
         public string codigo_economico { get; set; }
         public string empleado { get; set; }
+        public string nombre_empleado { get; set; }
         //fecha compra
         [DataType(DataType.Date)]
         public DateTime fecha_compra { get; set; }

@@ -67,29 +67,29 @@
 
                                 <div class="form-group m-2">
                                     @Html.Label("activo_fijo", "Activo Fijo", new { @class = "control-label" })
-                                    @Html.TextBoxFor(model => model.activo_fijo, new { @class = "form-control", @onkeydown = "onKeyDownActivo(event);", @id = "activo", @required = "true" })
+                                    @Html.TextBoxFor(model => model.activo_fijo, new { @class = "form-control", @onkeydown = "onKeyDownActivo(event);", @id = "activo" ,@readonly="readonly"})
                                 </div>
 
                                 <div class="form-group m-2">
                                     @Html.Label("equipo_depende", "Depende", new { @class = "control-label" })
                                     &nbsp;&nbsp;&nbsp;&nbsp;
-                                    @Html.TextBoxFor(model => model.equipo_depende, new { @class = "form-control", @onkeydown = "onKeyDownDepende(event);", @id = "depende", @required = "true" })
+                                    @Html.TextBoxFor(model => model.equipo_depende, new { @class = "form-control", @onkeydown = "onKeyDownDepende(event);", @id = "depende" })
                                 </div>
 
                                 <div class="form-group m-2">
-                                    <b>Vida útil 1: @Html.TextBoxFor(model => model.vida_util, new { @class = "form-control", @required = "true", @type = "number" })</b>
+                                    <b>Vida útil 1: @Html.TextBoxFor(model => model.vida_util, new { @class = "form-control", @type = "number" })</b>
                                 </div>
 
                                 <div class="form-group m-2">
-                                    <b>Vida útil 2: @Html.TextBoxFor(model => model.vida_util2, new { @class = "form-control", @required = "true", @type = "number" })</b>
+                                    <b>Vida útil 2: @Html.TextBoxFor(model => model.vida_util2, new { @class = "form-control", @type = "number" })</b>
                                 </div>
 
                                 <div class="form-group m-2">
-                                    <b>Área @Html.TextBoxFor(model => model.area, new { @class = "form-control", @id = "area", @onkeydown = "onKeyDownArea(event);", @required = "true" })</b>
+                                    <b>Área @Html.TextBoxFor(model => model.area, new { @class = "form-control", @id = "area", @onkeydown = "onKeyDownArea(event);" })</b>
                                 </div>
 
                                 <div class="form-group m-2">
-                                    <b>Depto. @Html.TextBoxFor(model => model.departamento, new { @class = "form-control", @onkeydown = "onKeyDownDepart(event);", @id = "departamento", @required = "true" })</b>
+                                    <b>Depto. @Html.TextBoxFor(model => model.departamento, new { @class = "form-control", @onkeydown = "onKeyDownDepart(event);", @id = "departamento" })</b>
                                 </div>
 
                             </div>
@@ -97,24 +97,23 @@
                             <div class="col-3">
                                 <br />
                                 <div class="form-group mt-3">
-                                    @Html.TextBoxFor(model => model.nombre, new { @class = "form-control", @toggle = "Nombre", @title = "Nombre", @required = "true" })
+                                    @Html.TextBoxFor(model => model.nombre, new { @class = "form-control", @toggle = "Nombre", @title = "Nombre",@required="true" })
                                 </div>
                                 <div class="form-group m-2">
                                     @Html.Label("modelo", "Modelo", new { @class = "control-label" })
-
                                     @Html.DropDownList("modelo", Model.ModelosList, new { @class = "form-control" })
                                 </div>
 
                                 <div class="form-group m-2">
                                     @Html.Label("serie", "Serie", new { @class = "control-label" })
                                     &nbsp;&nbsp;&nbsp;&nbsp;
-                                    @Html.TextBoxFor(model => model.serie, new { @class = "form-control", @required = "true" })
+                                    @Html.TextBoxFor(model => model.serie, new { @class = "form-control" })
                                 </div>
 
                                 <div class="form-group m-2">
                                     @Html.Label("codigo_economico", "Cód Eco", new { @class = "control-label" })
                                     &nbsp;&nbsp;&nbsp;&nbsp;
-                                    @Html.TextBoxFor(model => model.codigo_economico, new { @class = "form-control", @required = "true" })
+                                    @Html.TextBoxFor(model => model.codigo_economico, new { @class = "form-control" })
                                 </div>
 
                                 <div class="form-group m-2">
@@ -127,13 +126,13 @@
                                 <div class="form-group ">
                                     <div class="row">
                                         <div class="col-6">
-                                        @Html.TextBoxFor(model => model.NombreAF, new { @class = "form-control", @toggle = "Nombre Activo fijo", @title = "Nombre Activo fijo", @id="anombre"})
+                                        @Html.TextBoxFor(model => model.NombreAF, new { @class = "form-control", @toggle = "Nombre Activo fijo", @title = "Nombre Activo fijo", @id="anombre",@readonly="readonly"})
                                     </div>
                                         <div class="col-6">
                                             <div class="checkbox ">
                                                 <div class="checkbox  align-middle">
                                                     <label>
-                                                        <input type="checkbox" id="cbFijo" value="option1"> Activo Fijo
+                                                        @Html.CheckBoxFor(model=> model.es_activo_fijo,new {@class="form-control",@disabled="true"}) Activo Fijo
                                                     </label>
                                                 </div>
                                             </div>
@@ -151,7 +150,7 @@
                                         <div class="col-7"> @Html.DropDownList("medida_vida_util", Model.MedidaVidaUtilList, new { @class = "form-control" }) </div>
                                         <div class="col-5">
 
-                                            <b>Garantía: @Html.TextBoxFor(model => model.garantia, new { @class = "form-control", @required = "true", @type = "number" })</b>
+                                            <b>Garantía: @Html.TextBoxFor(model => model.garantia, new { @class = "form-control", @type = "number" })</b>
                                             
                                         </div>
                                     </div>
@@ -161,7 +160,7 @@
                                     <div class="row">
                                         <div class="col-7"> @Html.DropDownList("medida_vida_util2", Model.MedidaVidaUtil2List, new { @class = "form-control" })</div>
                                         <div class="col-5">
-                                            <b>Garantía 2: @Html.TextBoxFor(model => model.garantia2, new { @class = "form-control", @required = "true", @type = "number" })</b>
+                                            <b>Garantía 2: @Html.TextBoxFor(model => model.garantia2, new { @class = "form-control", @type = "number" })</b>
                                         </div>
                                     </div>
                                 </div>
@@ -182,7 +181,7 @@
                                 <div class="form-group m-2">
                                     @Html.Label("abreviatura", "Abrev", new { @class = "control-label" })
                                     &nbsp;&nbsp;&nbsp;&nbsp;
-                                    @Html.TextBoxFor(model => model.abreviatura, new { @class = "form-control", @required = "true" })
+                                    @Html.TextBoxFor(model => model.abreviatura, new { @class = "form-control" })
                                 </div>
 
                                 <div class="form-group m-2">
@@ -206,7 +205,7 @@
                                 <div class="form-group mt-2 mb-1">
                                     @Html.Label("caracteristicas", "Características", new { @class = "control-label" })
                                     &nbsp;&nbsp;&nbsp;&nbsp;
-                                    @Html.TextAreaFor(model => model.caracteristicas, new { @class = "form-control", @required = "true" })
+                                    @Html.TextAreaFor(model => model.caracteristicas, new { @class = "form-control" })
                                 </div>
 
                                 <br />
@@ -223,7 +222,7 @@
                                 &nbsp;&nbsp;&nbsp;&nbsp;
 
                                 <div class="form-group m-2">
-                                    <b>Recorrido máximo: @Html.TextBoxFor(model => model.recorrido_maximo, new { @class = "form-control", @required = "true" })</b>
+                                    <b>Recorrido máximo: @Html.TextBoxFor(model => model.recorrido_maximo, new { @class = "form-control" })</b>
                                 </div>
                             </div>
 
@@ -257,7 +256,7 @@
                                 <div class="form-group m-2">
                                     @Html.Label("lote", "Lote", new { @class = "control-label" })
                                     &nbsp;&nbsp;&nbsp;&nbsp;
-                                    @Html.TextBoxFor(model => model.lote, new { @class = "form-control", @required = "true" })
+                                    @Html.TextBoxFor(model => model.lote, new { @class = "form-control" })
                                 </div>
 
                             </div>

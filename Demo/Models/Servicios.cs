@@ -20,5 +20,6 @@ namespace Demo.Models
         public string sistema_equipos { get; set; }
         public Int16 dias { get; set; }
         public decimal precio { get; set; }
+        public string cs_nombre { get; set; }
     }
 }

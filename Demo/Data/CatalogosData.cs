@@ -503,6 +503,7 @@ namespace Demo.Data
                 nombre = a["nombre"].ToString(),
                 abreviatura = a["abreviatura"].ToString(),
                 empleado = a["empleado"].ToString(),
+                nombre_empleado=a["nombre_empleado"].ToString(),
                 status = a["status"].ToString(),
                 serie = a["serie"].ToString()
             }).ToList();
@@ -733,7 +734,8 @@ namespace Demo.Data
                     concepto_servicio = a["concepto_servicio"].ToString(),
                     orden_mostrar = Convert.ToInt32(a["orden_mostrar"]),
                     dias = Convert.ToInt16(a["dias"]),
-                    precio = Convert.ToDecimal(a["precio"])
+                    precio = Convert.ToDecimal(a["precio"]),
+                    cs_nombre = a["cs_nombre"].ToString()
 
                 }).ToList();
             }
@@ -910,7 +912,7 @@ namespace Demo.Data
             catch (Exception ex)
             {
                 sqlTransaction.Rollback();
-                return false;
+                //return false;
                 throw new Exception(ex.Message);
                 
                 
@@ -930,6 +932,10 @@ namespace Demo.Data
         //guardar equipo
         public bool GuardarEquipo(Equipos equipo, string operacion)
         {
+            if(equipo.es_activo_fijo != false)
+            {
+                operacion = "A";
+            }
             SqlTransaction sqlTransaction = null;
             SqlConnection cnn = new SqlConnection(this.ConnectionString);
             try
@@ -1010,6 +1016,18 @@ namespace Demo.Data
                 sda.SelectCommand.Parameters.AddWithValue("@color", equipo.color);
                 sda.SelectCommand.Parameters.AddWithValue("@ayudante2", equipo.ayudante2);
                 sda.SelectCommand.Parameters.AddWithValue("@sirve_odometro", equipo.sirve_odometro);
+                //activo fijo
+                sda.SelectCommand.Parameters.AddWithValue("@descripcion", equipo.nombre);
+                sda.SelectCommand.Parameters.AddWithValue("@fecha",DateTime.Now);
+                sda.SelectCommand.Parameters.AddWithValue("@fecha_adquisicion", DateTime.Now);
+                sda.SelectCommand.Parameters.AddWithValue("@monto_original_inversion", 0);
+                sda.SelectCommand.Parameters.AddWithValue("@usuario", 1);//MG usuario
+                //sda.SelectCommand.Parameters.AddWithValue("@usuario_baja", );
+                sda.SelectCommand.Parameters.AddWithValue("@fecha_modificacion", DateTime.Now);
+                sda.SelectCommand.Parameters.AddWithValue("@talla", "");
+                sda.SelectCommand.Parameters.AddWithValue("@tipo_activo_fijo", "");
+                sda.SelectCommand.Parameters.AddWithValue("@transaccion", "57");
+                sda.SelectCommand.Parameters.AddWithValue("@ubicacion", "");
                 sda.SelectCommand.Parameters.Add(new SqlParameter("@Msg", SqlDbType.VarChar, 500, ParameterDirection.InputOutput, false, 0, 0, "", DataRowVersion.Current, ""));
                 DataTable dt = new DataTable();
                 sda.Fill(dt);
@@ -1027,7 +1045,7 @@ namespace Demo.Data
             catch (Exception ex)
             {
                 sqlTransaction.Rollback();
-                return false;//probando
+                //return false;//probando
                 throw new Exception(ex.Message);
                 
             }
