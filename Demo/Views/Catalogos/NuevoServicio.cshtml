@@ -18,89 +18,60 @@
 					  </a>
                     </form>
                 </nav>
-                @using (Html.BeginForm("NuevoServicio","Catalogos",FormMethod.Post)){
-                    <div class="form-inline">
-                        <div class="form-group">
-                            <div class="form-group m-2">
-                                @Html.Label("servicio","Servicio",new {@class="control-label"})
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                                @Html.TextBoxFor(model=> model.servicio,new {@class="form-control",@readonly="readonly"})
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                            </div>
-                            <div class="form-group m-2">
-                                @Html.TextBoxFor(model=> model.nombre,new {@class="form-control",@required="true"})
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                            </div>
-                            <div class="form-group m-2">
-                                @Html.Label("status","Status",new {@class="control-label"})
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                                @Html.DropDownList("status",Model.StatusList,new {@class="form-control"})
-                            </div>
-                        </div>
+         @using (Html.BeginForm("NuevoServicio","Catalogos",FormMethod.Post)){
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg">
+                        @Html.Label("servicio", "Servicio", new { @class = "control-label" })
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.TextBoxFor(model => model.servicio, new { @class = "form-control", @readonly = "readonly" })
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.TextBoxFor(model => model.nombre, new { @class = "form-control", @required = "true" })
+
+                        @Html.Label("tipo_servicio", "Tipo", new { @class = "control-label" })
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.DropDownList("tipo_servicio", Model.TipoServList, new { @class = "form-control" })                   
+
+                        @Html.Label("concepto_servicio", "Conc. Serv.", new { @class = "control-label" })
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.DropDownList("concepto_servicio", Model.ConceptoServList, new { @class = "form-control" })                       
+
+                        @Html.Label("horas_mecanico", "Hrs. Mecánico", new { @class = "control-label" })
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.TextBoxFor(model => model.horas_mecanico, new { @class = "form-control", @type = "number" })                      
+
+                        @Html.Label("status", "Status", new { @class = "control-label" })                       
+                        @Html.DropDownList("status", Model.StatusList, new { @class = "form-control" })
+
+                        @Html.Label("concepto_gastos", "Concepto de gastos", new { @class = "control-label" })
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.DropDownList("concepto_gastos", Model.ConceptoGList, new { @class = "form-control" })
+                        &nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
-                        <div class="form-inline">
-                            <div class="form-group">
-                                <div class="form-group m-2">
-                                    @Html.Label("tipo_servicio","Tipo",new {@class="control-label"})
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                    @Html.DropDownList("tipo_servicio",Model.TipoServList,new {@class="form-control"})
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                </div>
-                                <div class="form-group m-2">
-                                    @Html.Label("concepto_gastos","Concepto de gastos",new {@class="control-label"})
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                    @Html.DropDownList("concepto_gastos",Model.ConceptoGList,new {@class="form-control"})
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                </div>
-                                <div class="form-group m-2">
-                                    @Html.Label("orden_mostrar","Orden mostrar",new {@class="control-label"})
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                    @Html.TextBoxFor(model=> model.orden_mostrar,new {@class="form-control",@type="number"})
-                                </div>
-                            </div>
+                    <div class="col-lg">
+                        @Html.Label("sistema_equipos", "Sistemas", new { @class = "control-label" })
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.DropDownList("sistema_equipos", Model.SistemasList, new { @class = "form-control" })
+                       
+                        @Html.Label("minutos_mecanico", "Min. Mecánico", new { @class = "control-label" })
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.TextBoxFor(model => model.minutos_mecanico, new { @class = "form-control", @type = "number" })                       
+
+                        @Html.Label("orden_mostrar", "Orden mostrar", new { @class = "control-label" })
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.TextBoxFor(model => model.orden_mostrar, new { @class = "form-control", @type = "number" })
+
+                        @Html.Label("dias", "Días", new { @class = "control-label" })
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.TextBoxFor(model => model.dias, new { @class = "form-control", @type = "number" })
+
+                        @Html.Label("precio", "Precio", new { @class = "control-label" })
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.TextBoxFor(model => model.precio, new { @class = "form-control", @type = "number" })
                     </div>
-                    <div class="form-inline">
-                        <div class="form-group">
-                            <div class="form-group m-2">
-                                @Html.Label("concepto_servicio","Conc. Serv.",new {@class="control-label"})
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                                @Html.DropDownList("concepto_servicio",Model.ConceptoServList,new {@class="form-control"})
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                            </div>
-                            <div class="form-group m-2">
-                                @Html.Label("sistema_equipos","Sistemas",new {@class="control-label"})
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                                @Html.DropDownList("sistema_equipos",Model.SistemasList,new {@class="form-control"})
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                            </div>
-                            <div class="form-group m-2">
-                                @Html.Label("dias","Días",new {@class="control-label"})
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                                @Html.TextBoxFor(model=> model.dias,new {@class="form-control",@type="number"})
-                            </div>
-                        </div>
                 </div>
-                <div class="form-inline">
-                    <div class="form-group">
-                        <div class="form-group m-2">
-                            @Html.Label("horas_mecanico","Hrs. Mecánico",new {@class="control-label"})
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.TextBoxFor(model=> model.horas_mecanico,new {@class="form-control",@type="number"})
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                        </div>
-                        <div class="form-group m-2">
-                            @Html.Label("minutos_mecanico","Min. Mecánico",new {@class="control-label"})
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.TextBoxFor(model=> model.minutos_mecanico,new {@class="form-control",@type="number"})
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                        </div>
-                        <div class="form-group m-2">
-                            @Html.Label("precio","Precio",new {@class="control-label"})
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            @Html.TextBoxFor(model=> model.precio,new {@class="form-control",@type="number"})
-                        </div>
-                    </div>
             </div>
+                                                                      
             <div class="form-group">
                 <input type="submit" value="Guardar" class="btn btn-success"/>
             </div>

@@ -34,39 +34,39 @@
 		<div class="row">
 
     <div class="col-12">
-     
-        <table class="table table-bordered" id="tabla">
-					<thead>
-					 <tr>
-					  <th>Servicio</th>
-					  <th>Servicio dependiente</th>
-					  <th>Notas</th>
-					  <th>Acciones</th>
+        <div class="table-responsive">
+            <table class="table table-bordered" id="tabla">
+                <thead>
+                    <tr>
+                        <th>Servicio</th>
+                        <th>Servicio dependiente</th>
+                        <th>Notas</th>
+                        <th>Acciones</th>
 
-				  </tr>
-				 </thead>
-				 <tbody>
-					 @foreach(var dat in Model)
-						{
-							<tr>
-					   <td>@dat.nom_servicio</td>
-					   <td>@dat.nom_dependiente</td>
-					   <td>@dat.notas</td>
-						<td>
-							<a class="btn btn-outline-warning" onclick="detalleEdit('@dat.servicio.Trim()','@dat.servicio_dependiente.Trim()','@dat.notas','@dat.nom_servicio.Trim()','@dat.nom_dependiente.Trim()')" >
-							   <i class="fas fa-edit"></i>
-							   Editar
-							</a>
-							<a class="btn btn-danger" onclick="detalleDelete('@dat.servicio.Trim()','@dat.servicio_dependiente.Trim()','@dat.notas')" >
-							   <i class="fas fa-trash-alt"></i>
-							   Eliminar
-							</a>
-						</td>
-				   </tr>
-						}
-				 </tbody>
-				</table>
-				
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var dat in Model)
+                    {
+                        <tr>
+                            <td>@dat.nom_servicio</td>
+                            <td>@dat.nom_dependiente</td>
+                            <td>@dat.notas</td>
+                            <td>
+                                <a class="btn btn-outline-warning" onclick="detalleEdit('@dat.servicio.Trim()','@dat.servicio_dependiente.Trim()','@dat.notas','@dat.nom_servicio.Trim()','@dat.nom_dependiente.Trim()')">
+                                    <i class="fas fa-edit"></i>
+                                    Editar
+                                </a>
+                                <a class="btn btn-danger" onclick="detalleDelete('@dat.servicio.Trim()','@dat.servicio_dependiente.Trim()','@dat.notas')">
+                                    <i class="fas fa-trash-alt"></i>
+                                    Eliminar
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
 </div>
 </div>
     </div>

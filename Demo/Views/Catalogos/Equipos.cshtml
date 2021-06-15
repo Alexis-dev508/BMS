@@ -45,38 +45,40 @@
 					</form>
 
                 </nav>
-				<table class="table table-hover" id="tabla">
-					<thead>
-					 <tr>
-					  <th>Equipo</th>
-					  <th>Nombre</th>
-					  <th>Abreviatura</th>
-					  <th>Empleado</th>
-					  <th>Status</th>
-					  <th>Serie</th>
-					  <th></th>
-				  </tr>
-				 </thead>
-				 <tbody>
-					 @foreach(var dat in Model)
-						{
-							<tr>
-					   <td>@dat.equipo</td>
-					   <td>@dat.nombre</td>
-					   <td>@dat.abreviatura</td>
-					   <td>@dat.nombre_empleado</td>
-					   <td>@dat.status</td>
-						<td>@dat.serie</td>
-						<td>
-							<a class="btn btn-outline-warning" href="@Url.Action("EditarEquipos","Catalogos", new {id = dat.equipo})" >
-							   <i class="fas fa-edit"></i>
-							   Editar
-							</a>
-						</td>
-				   </tr>
-						}
-				 </tbody>
-				</table>
+                <div class="table-responsive">
+                    <table class="table table-hover" id="tabla">
+                        <thead>
+                            <tr>
+                                <th>Equipo</th>
+                                <th>Nombre</th>
+                                <th>Abreviatura</th>
+                                <th>Empleado</th>
+                                <th>Status</th>
+                                <th>Serie</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var dat in Model)
+                            {
+                                <tr>
+                                    <td>@dat.equipo</td>
+                                    <td>@dat.nombre</td>
+                                    <td>@dat.abreviatura</td>
+                                    <td>@dat.nombre_empleado</td>
+                                    <td>@dat.status</td>
+                                    <td>@dat.serie</td>
+                                    <td>
+                                        <a class="btn btn-outline-warning" href="@Url.Action("EditarEquipos","Catalogos", new {id = dat.equipo})">
+                                            <i class="fas fa-edit"></i>
+                                            Editar
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
 			</div>
 			</div>
 		</div>
