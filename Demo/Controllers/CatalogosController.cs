@@ -20,6 +20,14 @@ namespace Demo.Controllers
             _configuration = configuration;
             this.datos = new CatalogosData(_configuration);
         }
+        public IActionResult AlimentacionGastosServicios()
+        {
+            return View();
+        }
+        public IActionResult NuevoGastoServicios()
+        {
+            return View();
+        }
         public IActionResult Index()
         {
             return View();
