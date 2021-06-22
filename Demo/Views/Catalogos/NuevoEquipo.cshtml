@@ -45,10 +45,10 @@
                                 <div class="form-group m-2">
                                     @Html.Label("marca", "Marca", new { @class = "control-label" })
                                     &nbsp;&nbsp;&nbsp;&nbsp;
-                                    @Html.DropDownList("marca", Model.MarcasList, new { @class = "form-control" })
+                                    @Html.DropDownList("marca", Model.MarcasList, new { @class = "form-control",@id="marcalist" })
                                   
                                     @Html.Label("modelo", "Modelo", new { @class = "control-label" })
-                                    @Html.DropDownList("modelo", Model.ModelosList, new { @class = "form-control" })
+                                    @Html.DropDownListFor(model=> model.modelo,new SelectList(""),"--Seleccionar Modelo--", new { @class = "form-control",@id="Dropmodelo" })
                                 </div>
 
                                 <div class="form-group m-2">
@@ -161,7 +161,7 @@
                             <div class="form-group m-2">
                                 @Html.Label("version", "Version", new { @class = "control-label" })
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                                @Html.DropDownList("version", Model.VersionList, new { @class = "form-control" })
+                                @Html.DropDownListFor(model=> model.version,new SelectList(""),"--Seleccionar Version--", new { @class = "form-control",@id="VersionList" })
                                  
                                 @Html.Label("uso_equipos", "Uso", new { @class = "control-label" })
                                 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -397,8 +397,38 @@ function buscar()
                 lastTR.classList.add("hide");
             }
         }
+        //cambio de los combos
 $(document).ready( function () {
     $('#tabla').DataTable();
+    $("#marcalist").change(function(){
+        $("#VersionList").empty();
+        var marca = $(this).val();
+        debugger
+        $.ajax({
+            type:"post",
+            url:"@Url.Action("modelo","Catalogos")" + "?id=" + marca,
+            contentType:"html",
+            success:function(respon){
+                debugger
+                $("#Dropmodelo").empty();
+                $("#Dropmodelo").append(respon);
+            }
+        })
+    })
+    $("#Dropmodelo").change(function(){
+        var modelo = $(this).val();
+        debugger
+        $.ajax({
+            type:"post",
+            url:"@Url.Action("version","Catalogos")" + "?id=" + modelo,
+            contentType:"html",
+            success:function(respon){
+                debugger
+                $("#VersionList").empty();
+                $("#VersionList").append(respon);
+            }
+        })
+    })
 } );
 
 function detalleActivo(){

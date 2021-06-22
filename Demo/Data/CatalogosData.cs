@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.Operations;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -67,32 +68,40 @@ namespace Demo.Data
             return marcas;
         }
         //tarer modelos
-        public List<ModelosEquipos> TraerModelos()
+        public List<ModelosEquipos> TraerModelos(string id)
         {
             List<ModelosEquipos> modelos = new List<ModelosEquipos>();
-
-            SqlDataAdapter sda = new SqlDataAdapter("dbo.DEMO_DATOSEQUIPOS", this.ConnectionString);
-            sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            sda.SelectCommand.Parameters.AddWithValue("@oper", "MO");
-            DataTable dt = new DataTable();
-            sda.Fill(dt);
-            modelos = dt.AsEnumerable().Select(a =>
-            new ModelosEquipos
+            try
             {
-                marca_equipos = a["marca_equipos"].ToString(),
-                modelo_equipos = a["modelo_equipos"].ToString(),
-                nombre = a["nombre"].ToString()
-            }).ToList();
+                SqlDataAdapter sda = new SqlDataAdapter("dbo.DEMO_DATOSEQUIPOS", this.ConnectionString);
+                sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sda.SelectCommand.Parameters.AddWithValue("@oper", "MO");
+                sda.SelectCommand.Parameters.AddWithValue("@marca", id);
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                modelos = dt.AsEnumerable().Select(a =>
+                new ModelosEquipos
+                {
+                    marca_equipos = a["marca_equipos"].ToString(),
+                    modelo_equipos = a["modelo_equipos"].ToString(),
+                    nombre = a["nombre"].ToString()
+                }).ToList();
+            }
+            catch(Exception e)
+            {
+                throw new Exception(e.Message);
+            }
             return modelos;
         }
         //traer versiones
-        public List<VersionesEquipos> TraerVersiones()
+        public List<VersionesEquipos> TraerVersiones(string id)
         {
             List<VersionesEquipos> versiones = new List<VersionesEquipos>();
 
             SqlDataAdapter sda = new SqlDataAdapter("dbo.DEMO_DATOSEQUIPOS", this.ConnectionString);
             sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
             sda.SelectCommand.Parameters.AddWithValue("@oper", "VE");
+            sda.SelectCommand.Parameters.AddWithValue("@modelo", id);
             DataTable dt = new DataTable();
             sda.Fill(dt);
             versiones = dt.AsEnumerable().Select(a =>
@@ -932,9 +941,27 @@ namespace Demo.Data
         //guardar equipo
         public bool GuardarEquipo(Equipos equipo, string operacion)
         {
-            if(equipo.es_activo_fijo != false)
+            DateTime fecha1 = Convert.ToDateTime("01/01/1773");
+            DateTime fecha2 = Convert.ToDateTime("31/12/9999");
+            string fecha = DateTime.Today.ToString("dd-MM-yyyy");
+            if (equipo.es_activo_fijo != false)
             {
                 operacion = "A";
+            }
+            if(equipo.fecha_alta <= fecha1 || equipo.fecha_alta >= fecha2){
+                equipo.fecha_alta = DateTime.Today;
+            }
+            if (equipo.fecha_compra <= fecha1 || equipo.fecha_compra >= fecha2)
+            {
+                equipo.fecha_compra = DateTime.Today;
+            }
+            if (equipo.vigencia_circulacion <= fecha1 || equipo.vigencia_circulacion >= fecha2)
+            {
+                equipo.vigencia_circulacion = DateTime.Today;
+            }
+            if (equipo.vigencia_placas <= fecha1 || equipo.vigencia_placas >= fecha2)
+            {
+                equipo.vigencia_placas = DateTime.Today;
             }
             SqlTransaction sqlTransaction = null;
             SqlConnection cnn = new SqlConnection(this.ConnectionString);
@@ -1018,12 +1045,12 @@ namespace Demo.Data
                 sda.SelectCommand.Parameters.AddWithValue("@sirve_odometro", equipo.sirve_odometro);
                 //activo fijo
                 sda.SelectCommand.Parameters.AddWithValue("@descripcion", equipo.nombre);
-                sda.SelectCommand.Parameters.AddWithValue("@fecha",DateTime.Now);
-                sda.SelectCommand.Parameters.AddWithValue("@fecha_adquisicion", DateTime.Now);
+                sda.SelectCommand.Parameters.AddWithValue("@fecha",Convert.ToDateTime(fecha));
+                sda.SelectCommand.Parameters.AddWithValue("@fecha_adquisicion", Convert.ToDateTime(fecha));
                 sda.SelectCommand.Parameters.AddWithValue("@monto_original_inversion", 0);
                 sda.SelectCommand.Parameters.AddWithValue("@usuario", 1);//MG usuario
                 //sda.SelectCommand.Parameters.AddWithValue("@usuario_baja", );
-                sda.SelectCommand.Parameters.AddWithValue("@fecha_modificacion", DateTime.Now);
+                sda.SelectCommand.Parameters.AddWithValue("@fecha_modificacion", Convert.ToDateTime(fecha));
                 sda.SelectCommand.Parameters.AddWithValue("@talla", "");
                 sda.SelectCommand.Parameters.AddWithValue("@tipo_activo_fijo", "");
                 sda.SelectCommand.Parameters.AddWithValue("@transaccion", "57");
@@ -1045,7 +1072,7 @@ namespace Demo.Data
             catch (Exception ex)
             {
                 sqlTransaction.Rollback();
-                //return false;//probando
+                return false;//probando
                 throw new Exception(ex.Message);
                 
             }
