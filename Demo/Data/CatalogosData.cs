@@ -597,38 +597,6 @@ namespace Demo.Data
             }
             return tipoServs;
         }
-        ////traer sercvicio depende
-        //public ServicioDep TraerServicioDep(ServicioDep model)
-        //{
-        //    ServicioDep servicio = new ServicioDep();
-        //    try
-        //    {
-        //        SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_DatosServicios", this.ConnectionString);
-        //        sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
-        //        sda.SelectCommand.Parameters.AddWithValue("@oper", "DS");
-        //        sda.SelectCommand.Parameters.AddWithValue("@servicio", model.servicio);
-        //        sda.SelectCommand.Parameters.AddWithValue("@servicio_dependiente", model.servicio_dependiente);
-        //        sda.SelectCommand.Parameters.AddWithValue("@notas", model.notas);
-        //        DataTable dt = new DataTable();
-        //        sda.Fill(dt);
-        //        servicio = dt.AsEnumerable().Select(a =>
-        //        new ServicioDep
-        //        {
-        //            servicio = a["servicio"].ToString(),
-        //            nom_servicio = a["nom_servicio"].ToString(),
-        //            servicio_dependiente = a["servicio_dependiente"].ToString(),
-        //            nom_dependiente = a["nom_dependiente"].ToString(),
-        //            notas = a["notas"].ToString()
-        //        }).FirstOrDefault();
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        throw new Exception(ex.Message);
-        //    }
-        //    return servicio;
-        //}
-
         //traer servicios dependientes
         public List<ServicioDep> TraerServiciosDep()
         {
@@ -993,6 +961,10 @@ namespace Demo.Data
         //guardar servicio
         public bool GuardarGastosServicios(AlimentacionGastosEquipos GS)
         {
+            if(GS.usuario == null)
+            {
+                GS.usuario = "1";
+            }
             SqlTransaction sqlTransaction = null;
             SqlConnection cnn = new SqlConnection(this.ConnectionString);
             try
@@ -1002,34 +974,34 @@ namespace Demo.Data
                 SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_alimentacionGS_equipos", cnn);
                 sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
                 sda.SelectCommand.Transaction = sqlTransaction;
-                sda.SelectCommand.Parameters.AddWithValue("@trasaccion", GS.transaccion);
+                sda.SelectCommand.Parameters.AddWithValue("@trasaccion", "273");
                 sda.SelectCommand.Parameters.AddWithValue("@servicio", GS.servicio);
                 sda.SelectCommand.Parameters.AddWithValue("@fecha_servicio", GS.fecha_servicio);
                 sda.SelectCommand.Parameters.AddWithValue("@equipo", GS.equipo);
-                sda.SelectCommand.Parameters.AddWithValue("@status", GS.status);
+                sda.SelectCommand.Parameters.AddWithValue("@status", "V");
                 sda.SelectCommand.Parameters.AddWithValue("@usuario", GS.usuario);
-                sda.SelectCommand.Parameters.AddWithValue("@usuario_cancelacion", GS.usuario_cancelacion);
+                sda.SelectCommand.Parameters.AddWithValue("@usuario_cancelacion", "");
                 sda.SelectCommand.Parameters.AddWithValue("@fecha_cancelacion", GS.fecha_cancelacion);
                 sda.SelectCommand.Parameters.AddWithValue("@cod_estab", GS.cod_estab);
                 sda.SelectCommand.Parameters.AddWithValue("@notas", GS.notas);
                 sda.SelectCommand.Parameters.AddWithValue("@cod_prv", GS.cod_prv);
                 sda.SelectCommand.Parameters.AddWithValue("@fecha_elaboracion", GS.fecha_elaboracion);
                 sda.SelectCommand.Parameters.AddWithValue("@cod_cte", GS.cod_cte);
-                sda.SelectCommand.Parameters.AddWithValue("@recepcionista", GS.recepcionista);
+                sda.SelectCommand.Parameters.AddWithValue("@recepcionista", "");
                 sda.SelectCommand.Parameters.AddWithValue("@fecha_recepcion", GS.fecha_recepcion);
-                sda.SelectCommand.Parameters.AddWithValue("@torreta", GS.torreta);
+                sda.SelectCommand.Parameters.AddWithValue("@torreta", "");
                 sda.SelectCommand.Parameters.AddWithValue("@fecha_entrega", GS.fecha_entrega);
-                sda.SelectCommand.Parameters.AddWithValue("@factura_proveedor", GS.factura_proveedor);
-                sda.SelectCommand.Parameters.AddWithValue("@mecanico", GS.mecanico);
-                sda.SelectCommand.Parameters.AddWithValue("@refacciones", GS.refacciones);
-                sda.SelectCommand.Parameters.AddWithValue("@mano_obra_mecanico", GS.mano_obra_mecanico);
-                sda.SelectCommand.Parameters.AddWithValue("@mano_obra_total", GS.mano_obra_total);
+                sda.SelectCommand.Parameters.AddWithValue("@factura_proveedor", GS.factura_proveedor.Trim());
+                sda.SelectCommand.Parameters.AddWithValue("@mecanico", "");
+                sda.SelectCommand.Parameters.AddWithValue("@refacciones", 0);
+                sda.SelectCommand.Parameters.AddWithValue("@mano_obra_mecanico", 0);
+                sda.SelectCommand.Parameters.AddWithValue("@mano_obra_total", 0);
                 sda.SelectCommand.Parameters.AddWithValue("@trabajos_otros_talleres", GS.trabajos_otros_talleres);
-                sda.SelectCommand.Parameters.AddWithValue("@otros_gastos", GS.otros_gastos);
+                sda.SelectCommand.Parameters.AddWithValue("@otros_gastos", 0);
                 sda.SelectCommand.Parameters.AddWithValue("@lectura", GS.lectura);
                 sda.SelectCommand.Parameters.AddWithValue("@cantidad", GS.cantidad);
                 sda.SelectCommand.Parameters.AddWithValue("@total", GS.total);
-                sda.SelectCommand.Parameters.AddWithValue("@operador", GS.operador);
+                sda.SelectCommand.Parameters.AddWithValue("@operador", "");
 
                 DataTable dt = new DataTable();
                 sda.Fill(dt);

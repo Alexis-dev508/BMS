@@ -570,22 +570,12 @@ namespace Demo.Controllers
             model = datos.TraerServiciosDep();
             return View(model);
         }
-        ////
-        //[HttpGet]
-        //public IActionResult servicioDependiente()
-        //{
-        //    List<ServicioDep> serv = new List<ServicioDep>();
-        //    try
-        //    {
-        //        serv = datos.TraerServiciosDep();
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        ViewBag.ErroresM = ex.Message;
-        //    }
-        //    return RedirectToAction("ServiciosDep", serv);
-        //}
+        // gastos de servicio
+        [HttpGet]
+        public IActionResult GastosServicio()
+        {
+            return View();
+        }
 
         //Guardar servicio dependiente
         [HttpPost]
