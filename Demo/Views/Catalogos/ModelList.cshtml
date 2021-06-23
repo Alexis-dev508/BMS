@@ -5,6 +5,10 @@
 	foreach(var item in ViewBag.ModelList)
 	{
 		<option value="@item.Value">@item.Text</option>
+}
+	if (ViewBag.modelo != null && ViewBag.nombremodelo != null)
+	{
+		<option value="@ViewBag.modelo" selected="selected">@ViewBag.nombremodelo</option>
 	}
 }
 else

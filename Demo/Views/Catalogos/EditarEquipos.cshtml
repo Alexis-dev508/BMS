@@ -1,9 +1,9 @@
 ﻿@model Demo.Models.EquiposModelView
 <div class="container-fluid">
     <div class="row">
-            <div class="card-info">
+            <div class="card-warning">
 				<div class="card-header">
-				   <h3>Nuevo Equipo</h3>
+				   <h3>Editar Equipo</h3>
 			   </div>
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                     <form class="form-inline my-2 my-lg-0">
@@ -31,134 +31,102 @@
                             @*  ////////////////////REFACTOR/////////////////////*@
 
                             @* COLUMNA 1*@
-                            <div class="col-3">
+                            <div class="col-lg">
 
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                                 <div class="form-group m-2">
                                     @Html.Label("equipo", "Equipo", new { @class = "control-label" })
                                     @Html.TextBoxFor(model => model.equipo, new { @class = "form-control", @readonly = "readonly" })
-
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    @Html.TextBoxFor(model => model.nombre, new { @class = "form-control", @toggle = "Nombre", @title = "Nombre", @required = "true" })
                                 </div>
 
                                 <div class="form-group m-2">
                                     @Html.Label("marca", "Marca", new { @class = "control-label" })
                                     &nbsp;&nbsp;&nbsp;&nbsp;
-                                    @Html.DropDownList("marca", Model.MarcasList, new { @class = "form-control" })
+                                    @Html.DropDownList("marca", Model.MarcasList, new { @class = "form-control",@id="marcalist",@onchange="marcaV()"})
+                                    @Html.TextBoxFor(model => model.version, new { @class = "form-control",@readonly="readonly",@id="versionV",@type="hidden"})
+                                  
+                                    @Html.Label("modelo", "Modelo", new { @class = "control-label" })
+                                    @Html.DropDownListFor(model=> model.modelo,new SelectList(""),"--Seleccionar Modelo--", new { @class = "form-control",@id="Dropmodelo",@onchange="modeloV()"})
+                                    @Html.TextBoxFor(model => model.modelo, new { @class = "form-control",@readonly="readonly",@id="modeloVer",@type="hidden"})
                                 </div>
 
                                 <div class="form-group m-2">
                                     @Html.Label("año", "Año", new { @class = "control-label" })
                                     &nbsp;&nbsp;&nbsp;&nbsp;
                                     @Html.DropDownList("año", Model.AnniosList, new { @class = "form-control" })
-                                </div>
-
-                                <div class="form-group m-2">
-                                    @Html.Label("cod_estab", "Estab.", new { @class = "control-label" })
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                    @Html.DropDownList("cod_estab", Model.EstabList, new { @class = "form-control" })
-                                </div>
-
-                                <div class="form-group m-2">
-                                    @Html.Label("odometro", "Odómetro", new { @class = "control-label" })
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                    @Html.DropDownList("odometro", Model.OdometroList, new { @class = "form-control" })
-                                </div>
-
-                                <div class="form-group m-2">
-                                    @Html.Label("activo_fijo", "Activo Fijo", new { @class = "control-label" })
-                                    @Html.TextBoxFor(model => model.activo_fijo, new { @class = "form-control", @onkeydown = "onKeyDownActivo(event);", @id = "activo" ,@readonly="readonly"})
-                                </div>
-
-                                <div class="form-group m-2">
-                                    @Html.Label("equipo_depende", "Depende", new { @class = "control-label" })
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                    @Html.TextBoxFor(model => model.equipo_depende, new { @class = "form-control", @onkeydown = "onKeyDownDepende(event);", @id = "depende" })
-                                </div>
-
-                                <div class="form-group m-2">
-                                    <b>Vida útil 1: @Html.TextBoxFor(model => model.vida_util, new { @class = "form-control", @type = "number" })</b>
-                                </div>
-
-                                <div class="form-group m-2">
-                                    <b>Vida útil 2: @Html.TextBoxFor(model => model.vida_util2, new { @class = "form-control", @type = "number" })</b>
-                                </div>
-
-                                <div class="form-group m-2">
-                                    <b>Área @Html.TextBoxFor(model => model.area, new { @class = "form-control", @id = "area", @onkeydown = "onKeyDownArea(event);" })</b>
-                                </div>
-
-                                <div class="form-group m-2">
-                                    <b>Depto. @Html.TextBoxFor(model => model.departamento, new { @class = "form-control", @onkeydown = "onKeyDownDepart(event);", @id = "departamento" })</b>
-                                </div>
-
-                            </div>
-                            @* COLUMNA 2*@
-                            <div class="col-3">
-                                <br />
-                                <div class="form-group mt-3">
-                                    @Html.TextBoxFor(model => model.nombre, new { @class = "form-control", @toggle = "Nombre", @title = "Nombre",@required="true" })
-                                </div>
-                                <div class="form-group m-2">
-                                    @Html.Label("modelo", "Modelo", new { @class = "control-label" })
-                                    @Html.DropDownList("modelo", Model.ModelosList, new { @class = "form-control" })
-                                </div>
-
-                                <div class="form-group m-2">
+                                    
                                     @Html.Label("serie", "Serie", new { @class = "control-label" })
                                     &nbsp;&nbsp;&nbsp;&nbsp;
                                     @Html.TextBoxFor(model => model.serie, new { @class = "form-control" })
                                 </div>
 
                                 <div class="form-group m-2">
+                                    @Html.Label("cod_estab", "Estab.", new { @class = "control-label" })
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    @Html.DropDownList("cod_estab", Model.EstabList, new { @class = "form-control" })
+                               
                                     @Html.Label("codigo_economico", "Cód Eco", new { @class = "control-label" })
                                     &nbsp;&nbsp;&nbsp;&nbsp;
                                     @Html.TextBoxFor(model => model.codigo_economico, new { @class = "form-control" })
                                 </div>
 
                                 <div class="form-group m-2">
+                                    @Html.Label("odometro", "Odómetro", new { @class = "control-label" })
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    @Html.DropDownList("odometro", Model.OdometroList, new { @class = "form-control" })
+                                    
                                     @Html.Label("sirve_odometro", "Sirve odómetro", new { @class = "control-label" })
-
                                     @Html.CheckBoxFor(model => model.sirve_odometro, new { @class = "form-control" })
                                 </div>
-                                <br />
 
-                                <div class="form-group ">
+                                <div class="form-group m-2">
+                                    @Html.Label("activo_fijo", "Activo Fijo", new { @class = "control-label" })
+                                    @Html.TextBoxFor(model => model.activo_fijo, new { @class = "form-control", @onkeydown = "onKeyDownActivo(event);", @id = "activo" })
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
                                     <div class="row">
-                                        <div class="col-6">
-                                        @Html.TextBoxFor(model => model.NombreAF, new { @class = "form-control", @toggle = "Nombre Activo fijo", @title = "Nombre Activo fijo", @id="anombre",@readonly="readonly"})
-                                    </div>
+                                        <div class="col-6"> <input asp-for="activo_nombre" id="anombre" data-toggle="Nombre Activo fijo" title="Nombre Activo fijo" class="form-control" /></div>
                                         <div class="col-6">
                                             <div class="checkbox ">
                                                 <div class="checkbox  align-middle">
                                                     <label>
-                                                        @Html.CheckBoxFor(model=> model.es_activo_fijo,new {@class="form-control",@disabled="true"}) Activo Fijo
+                                                        @Html.CheckBoxFor(model => model.es_activo_fijo, new { @class = "form-control" }) Activo Fijo
                                                     </label>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <br />
-                                <div class="form-group mb-2">
-                                    @Html.TextBoxFor(model => model.NombreDD, new { @class = "form-control", @toggle = "Nombre Depende", @title = "Nombre Depende",@id="dnombre"})
+
+                                <div class="form-group m-2">
+                                    @Html.Label("equipo_depende", "Depende", new { @class = "control-label" })
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    @Html.TextBoxFor(model => model.equipo_depende, new { @class = "form-control", @onkeydown = "onKeyDownDepende(event);", @id = "depende" })
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input asp-for="depende" class="form-control" id="dnombre" data-toggle="Depende Equipo" title="Depende Equipo" />
                                     &nbsp;&nbsp;&nbsp;&nbsp;
                                 </div>
 
                                 <div class="form-group m-2">
+                                    <b>Vida útil 1: @Html.TextBoxFor(model => model.vida_util, new { @class = "form-control", @type = "number" })</b>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
                                     <div class="row">
-                                        <div class="col-7"> @Html.DropDownList("medida_vida_util", Model.MedidaVidaUtilList, new { @class = "form-control" }) </div>
+                                        <div class="col-7"> @Html.DropDownList("medida_vida_util", Model.FrecuenciaList, new { @class = "form-control" }) </div>
                                         <div class="col-5">
 
-                                            <b>Garantía: @Html.TextBoxFor(model => model.garantia, new { @class = "form-control", @type = "number" })</b>
-                                            
+                                            <b>Garantía 1: @Html.TextBoxFor(model => model.garantia, new { @class = "form-control", @type = "number" })</b>
+
                                         </div>
                                     </div>
                                 </div>
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                                <div class="form-group my-2">
+
+                                <div class="form-group m-2">
+                                    <b>Vida útil 2: @Html.TextBoxFor(model => model.vida_util2, new { @class = "form-control", @type = "number" })</b>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
                                     <div class="row">
-                                        <div class="col-7"> @Html.DropDownList("medida_vida_util2", Model.MedidaVidaUtil2List, new { @class = "form-control" })</div>
+                                        <div class="col-7"> @Html.DropDownList("medida_vida_util2", Model.FrecuenciaList, new { @class = "form-control" })</div>
                                         <div class="col-5">
                                             <b>Garantía 2: @Html.TextBoxFor(model => model.garantia2, new { @class = "form-control", @type = "number" })</b>
                                         </div>
@@ -166,101 +134,83 @@
                                 </div>
 
                                 <div class="form-group m-2">
+                                    <b>Área @Html.TextBoxFor(model => model.area, new { @class = "form-control", @id = "area", @onkeydown = "onKeyDownArea(event);" })</b>
                                     &nbsp;&nbsp;&nbsp;&nbsp;
-                                    @Html.TextBoxFor(model => model.NombreAR, new { @class = "form-control", @toggle = "Area", @title = "Area",@id="areanombre"})
+                                    <input id="areanombre" data-toggle="Area" title="Area" class="form-control">
                                     &nbsp;&nbsp;&nbsp;&nbsp;
                                 </div>
 
                                 <div class="form-group m-2">
-                                    @Html.TextBoxFor(model => model.NombreDE, new { @class = "form-control", @toggle = "Departamento", @title = "Departamento",@id="departnombre"})
+                                    <b>Depto. @Html.TextBoxFor(model => model.departamento, new { @class = "form-control", @onkeydown = "onKeyDownDepart(event);", @id = "departamento" })</b>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input id="departnombre" data-toggle="Nombre Departamento" title="Nombre Departamento" class="form-control">
                                 </div>
 
                             </div>
-                            @* COLUMNA 3*@
-                            <div class="col-3">
-                                <div class="form-group m-2">
-                                    @Html.Label("abreviatura", "Abrev", new { @class = "control-label" })
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                    @Html.TextBoxFor(model => model.abreviatura, new { @class = "form-control" })
-                                </div>
 
-                                <div class="form-group m-2">
-                                    @Html.Label("version", "Version", new { @class = "control-label" })
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                    @Html.DropDownList("version", Model.VersionList, new { @class = "form-control" })
-                                </div>
-
-                                <div class="form-group m-2">
-                                    @Html.Label("tipo_equipo", "Tipo", new { @class = "control-label" })
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                    @Html.DropDownList("tipo_equipo", Model.TipoEquipoList, new { @class = "form-control" })
-                                </div>
-
-                                <div class="form-group m-2">
-                                    @Html.Label("color", "Color", new { @class = "control-label" })
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                    @Html.DropDownList("color", Model.ColorList, new { @class = "form-control" })
-                                </div>
-
-                                <div class="form-group mt-2 mb-1">
-                                    @Html.Label("caracteristicas", "Características", new { @class = "control-label" })
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                    @Html.TextAreaFor(model => model.caracteristicas, new { @class = "form-control" })
-                                </div>
-
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                &nbsp;&nbsp;&nbsp;
-                                @Html.DropDownList("medida_garantia", Model.MedidaGarantiaList, new { @class = "form-control" })
+                            @* COLUMNA 2*@                                                 
+                        <div class="col-lg">
+                            <div class="form-group m-2">
+                                @Html.Label("abreviatura", "Abrev", new { @class = "control-label" })
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-
-                                @Html.DropDownList("medida_garantia2", Model.MedidaGarantia2List, new { @class = "form-control" })
+                                @Html.TextBoxFor(model => model.abreviatura, new { @class = "form-control" })
+                                
+                                @Html.Label("status", "Status", new { @class = "control-label" })
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-
-                                <div class="form-group m-2">
-                                    <b>Recorrido máximo: @Html.TextBoxFor(model => model.recorrido_maximo, new { @class = "form-control" })</b>
-                                </div>
+                                @Html.DropDownList("status", Model.StatusList, new { @class = "form-control" })
                             </div>
 
-                            @* COLUMNA 4*@
-                            <div class="col-3">
-                                <div class="row">
-                                    <div class="col-8">
-                                        <div class="form-group m-2">
-                                            @Html.Label("status", "Status", new { @class = "control-label" })
-                                            &nbsp;&nbsp;&nbsp;&nbsp;
-                                            @Html.DropDownList("status", Model.StatusList, new { @class = "form-control" })
-                                        </div>
-                                    </div>
-                                    <div class="col-3">
-                                        <div class="form-group m-2">
-                                            <button class="btn btn-outline-primary my-2 my-sm-0 align-middle" href="#">
-                                                <span class="far fa-image"></span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group m-2">
-                                    <div class="form-group m-1">
-                                        @Html.Label("uso_equipos", "Uso", new { @class = "control-label" })
-                                        &nbsp;&nbsp;&nbsp;&nbsp;
-                                        @Html.DropDownList("uso_equipos", Model.UsosList, new { @class = "form-control" })
-                                    </div>
-                                </div>
-
-                                <div class="form-group m-2">
-                                    @Html.Label("lote", "Lote", new { @class = "control-label" })
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                    @Html.TextBoxFor(model => model.lote, new { @class = "form-control" })
-                                </div>
-
+                            <div class="form-group m-2">
+                                @Html.Label("version", "Version", new { @class = "control-label" })
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                @Html.DropDownListFor(model=> model.version,new SelectList(""),"--Seleccionar Version--", new { @class = "form-control",@id="VersionList" })
+                                 
+                                @Html.Label("uso_equipos", "Uso", new { @class = "control-label" })
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                @Html.DropDownList("uso_equipos", Model.UsosList, new { @class = "form-control" })
                             </div>
-                            @*  ////////////////////REFACTOR END/////////////////////*@
+
+                            <div class="form-group m-2">
+                                @Html.Label("tipo_equipo", "Tipo", new { @class = "control-label" })
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                @Html.DropDownList("tipo_equipo", Model.TipoEquipoList, new { @class = "form-control" })
+                                
+                                @Html.Label("lote", "Lote", new { @class = "control-label" })
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                @Html.TextBoxFor(model => model.lote, new { @class = "form-control" })
+                            </div>
+
+                            <div class="form-group m-2">
+                                @Html.Label("color", "Color", new { @class = "control-label" })
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                @Html.DropDownList("color", Model.ColorList, new { @class = "form-control" })
+                            </div>
+
+                            <div class="form-group mt-2 mb-1">
+                                @Html.Label("caracteristicas", "Características", new { @class = "control-label" })
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                @Html.TextAreaFor(model => model.caracteristicas, new { @class = "form-control" })
+                            </div>
+
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+
+                            
+                            @Html.DropDownList("medida_garantia", Model.FrecuenciaList, new { @class = "form-control" })
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.DropDownList("medida_garantia2", Model.FrecuenciaList, new { @class = "form-control" })
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+
+                            <div class="form-group m-2">
+                                <b>Recorrido máximo: @Html.TextBoxFor(model => model.recorrido_maximo, new { @class = "form-control" })</b>
+                            </div>
+                        </div>
+
+                            
                         </div>
                         <div class="form-group">
                             <input type="submit" value="Guardar" class="btn btn-success" />
@@ -271,134 +221,117 @@
                
             
 
-
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark" content></nav>
             @*Formualrio de datos adicionales*@
 
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-4 border">
+                    <div class="col-lg border">
+                        @*///////////////////VALORES//////////////////////*@
                         Valores
                         <div class="form-group m-3">
-                             @Html.Label("compra","Compra",new {@class="control-label"})
-                             &nbsp;&nbsp;&nbsp;&nbsp;
-                             
-                             @Html.TextBoxFor(model=> model.fecha_compra,new {@class="js--datePicker",@name="dtpfecha_compra", @style="width:80%;",@id="calendario",@required="true"})           
-                         </div>
-                         <div class="form-group m-3">
-                             <b>Costo @Html.TextBoxFor(model=> model.costo,new {@class="form-control", @type="number", @style ="width: 80%;",@required="true"})</b>
-                                 <b>Valor @Html.TextBoxFor(model=> model.valor_comercial,new {@class="form-control", @type="number", @style ="width: 80%;",@required="true"})</b>
-                                 <b>Seguro @Html.TextBoxFor(model=> model.seguro,new {@class="form-control", @type="number", @style ="width: 80%;",@required="true"})</b>
-                                 <b>Abono mensual @Html.TextBoxFor(model=> model.abono_mensual,new {@class="form-control", @type="number", @style ="width: 80%;",@required="true"})</b>
-                         </div>
-                    </div>
-                    <div class="col-8 border">
-                          Vehículo
-                        <div class ="row"> @*comienzo de la segunda parte de detalles adicionales*@
-                            
-                            <div class="col-3">
-                                 <label asp-for="placas" class="control-label">Placas</label>
-                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                                 @Html.TextBoxFor(model=> model.placas,new {@class="form-control",@required="true"})
-                                 
-
-                                 <label asp-for="motor" class="control-label">Motor</label>
-                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                                 @Html.TextBoxFor(model=> model.motor,new {@class="form-control",@required="true"})
-                                 
-
-                                 <label asp-for="tipo_vehiculo" class="control-label">Tipo</label>
-                                 @Html.DropDownList("tipo_vehiculo",Model.TipoVehicList, new {@class="form-control"})
-                              
-
-                                 <label asp-for="chofer" class="control-label">Chofer</label>
-                                 @Html.DropDownList("chofer",Model.ChoferList, new {@class="form-control"})
-                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                                 <b>Fecha @Html.TextBoxFor(model=> model.fecha_alta,new {@class="js--datePicker",@name="dtpfecha_alta", @id="calendario2", @style="width:80%;",@required="true"})</b>
-                                
-                            </div>
-                            <div class="col-3">
-                                 @Html.TextBoxFor(model=> model.vigencia_placas,new {@class="js--datePicker",@name="dtpfecha_vigencia_placa", @id="calendario3", @style="width:80%;",@required="true"})<br>
-                                 <b>Tarjeta circulación @Html.TextBoxFor(model=> model.vigencia_circulacion,new {@class="js--datePicker",@name="dtpfecha_vigencia_circulacion", @id="calendario4", @style="width:80%;",@required="true"})</b>
-                                 <div>
-                                 </div>
-
-
-                            </div>
-                            <div class="col-3">
-                                 @Html.Label("tenencia","Tenencia",new {@class="control-label"})
-                                 @Html.TextBoxFor(model=> model.tenencia,new {@class="form-control", @type="number",@required="true"})
-                                 &nbsp;&nbsp;&nbsp;&nbsp;
-
-                                 @Html.Label("ultima_lectura","Últ. Lectura",new {@class="control-label"})
-                                 @Html.TextBoxFor(model=> model.ultima_lectura,new {@class="form-control", @type="number",@required="true"})
-                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                                 
-                                 @Html.Label("carga_estandar","Carga Estándar",new {@class="control-label"})
-                                 @Html.DropDownList("carga_estandar",Model.CargaEstList, new {@class="form-control"})
-                                 &nbsp;&nbsp;&nbsp;&nbsp;
-
-                                 @Html.Label("ayudante","Ayudante 1",new {@class="control-label"})
-                                 @Html.DropDownList("ayudante",Model.AyudanteList, new {@class="form-control"})
-                                 &nbsp;&nbsp;&nbsp;&nbsp;
-
-                                 @Html.Label("ayudante2","Ayudante 2",new {@class="control-label"})
-                                  @Html.DropDownList("ayudante2",Model.Ayudante2List, new {@class="form-control"})
-                                &nbsp;&nbsp;&nbsp;&nbsp;   
-
-                            </div>
-                            <div class="col-3">
-                                @Html.Label("usa_lubricante","Lubricantes",new {@class="control-label"})
-                                @Html.CheckBoxFor(model=> model.usa_lubricante,new {@class="form-control"})
-                            </div>
+                            @Html.Label("compra", "Compra", new { @class = "control-label" })
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.TextBoxFor(model => model.fecha_compra, new { @class = "my-4", @name = "dtpfecha_compra", @type = "date", @style = "width:80%;", @id = "calendario" })
                         </div>
-                         
-                            @* Tercera parte de detalles adicionales*@
-                          <div class="row">
-                                <div class="col-3  p-2">
-                                 <b>Tanque 1 @Html.TextBoxFor(model=> model.tanque1,new {@class="form-control", @type="number", @style ="width: 80%; ",@required="true"})</b>
-                                 <b>Tanque 2 @Html.TextBoxFor(model=> model.tanque2,new {@class="form-control", @type="number", @style ="width: 80%;",@required="true"})</b>
-                                 <b>Tanque 3 @Html.TextBoxFor(model=> model.tanque3,new {@class="form-control", @type="number", @style ="width: 80%;",@required="true"})</b>
-                                 <b>Llantas @Html.TextBoxFor(model=> model.llantas,new {@class="form-control", @type="number", @style ="width: 80%;",@required="true"})</b>
-                                     
-                                </div>
-                                <div class="col-3 p-2">
-                                    @Html.DropDownList("combustible1",Model.Tanque1List, new {@class="form-control my-3 ",@toggle="Combustible 1",@title="Combustible 1"})
-                                    @Html.DropDownList("combustible2",Model.Tanque2List, new {@class="form-control my-3",@toggle="Combustible 2",@title="Combustible 2"})
-                                    @Html.DropDownList("combustible3",Model.Tanque3List, new {@class="form-control my-3",@toggle="Combustible 3",@title="Combustible 3"})    
-                                </div>
-                                <div class="col-3  p-2">
-                                    @Html.TextBoxFor(model=> model.RENDIMIENTO1,new {@class="form-control my-3", @type="number", @style ="width: 80%;",@toggle="Rendimiento 1",@title="Rendimiento 1",@required="true"})
-                                    @Html.TextBoxFor(model=> model.RENDIMIENTO2,new {@class="form-control my-3", @type="number", @style ="width: 80%;",@toggle="Rendimiento 2",@title="Rendimiento 2",@required="true"})
-                                    @Html.TextBoxFor(model=> model.RENDIMIENTO3,new {@class="form-control my-3", @type="number", @style ="width: 80%;",@toggle="Rendimiento 3",@title="Rendimiento 3",@required="true"})
-                                    
-                                </div>
-                                <div class="col-3">
-                                    <strong>Nivel Licencia @Html.TextBoxFor(model=> model.nivel_licencia,new {@class="form-control", @type="number", @style ="width: 80%;",@required="true"})</strong>
-                                    <strong>Nivel Licencia epm. @Html.TextBoxFor(model=> model.nivel_licencia_empresa,new {@class="form-control", @type="number", @style ="width: 80%;",@required="true"})</strong>
-                                    <strong>Llantas extra<br>@Html.TextBoxFor(model=> model.llantas_extras,new {@class="form-control", @type="number", @style ="width: 80%;",@required="true"})</strong>
-                                </div>
-                        </div> @*se cierra la parte 3*@
-                        <div class="row"> @*cuarta parte de detalles adicionales*@
-                            <div class="col-2">
-                                <b>Eje 1 @Html.TextBoxFor(model=> model.llantas_eje1,new {@class="form-control my-3", @type="number", @style ="width: 80%;",@required="true"})</b>
-                            </div>
-                            <div class="col-2">
-                               <b>Eje 2 @Html.TextBoxFor(model=> model.llantas_eje2,new {@class="form-control my-3", @type="number", @style ="width: 80%;",@required="true"})</b>
-                            </div>
-                            <div class="col-2">
-                               <b>Eje 3 @Html.TextBoxFor(model=> model.llantas_eje3,new {@class="form-control my-3", @type="number", @style ="width: 80%;",@required="true"})</b>
-                            </div>
-                            <div class="col-2">
-                              <b>Eje 4  @Html.TextBoxFor(model=> model.llantas_eje4,new {@class="form-control my-3", @type="number", @style ="width: 80%;",@required="true"})</b>
-                            </div>
-                            <div class="col-2">
-                               <b>Eje 5 @Html.TextBoxFor(model=> model.llantas_eje5,new {@class="form-control my-3", @type="number", @style ="width: 80%;",@required="true"})</b>
-                            </div>
-                            <div class="col-2">
-                               <b>Eje 6 @Html.TextBoxFor(model=> model.llantas_eje6,new {@class="form-control my-3", @type="number", @style ="width: 80%;",@required="true"})</b>
-                            </div>
-                        </div> @*se cierra la parte cuatro*@
+                        <div class="form-group m-3">
+                            <b>Costo @Html.TextBoxFor(model => model.costo, new { @class = "form-control", @type = "number", @style = "width: 80%;" })</b>
+                            <b>Valor @Html.TextBoxFor(model => model.valor_comercial, new { @class = "form-control", @type = "number", @style = "width: 80%;" })</b>
+                            <b>Seguro @Html.TextBoxFor(model => model.seguro, new { @class = "form-control", @type = "number", @style = "width: 80%;" })</b>
+                            <b>Abono mensual @Html.TextBoxFor(model => model.abono_mensual, new { @class = "form-control", @type = "number", @style = "width: 80%;" })</b>
+                        </div>
+
+                        Vehículo
+                        <br />
+                        @*///////////////////VEHICULO//////////////////////*@
+                        <label asp-for="placas" class="control-label">Placas</label>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.TextBoxFor(model => model.placas, new { @class = "form-control" })
+
+                        @Html.TextBoxFor(model => model.vigencia_placas, new { @class = "my-4", @name = "dtpPlacas", @style = "width:80%;", @type = "date" })<br>
+
+                        <label asp-for="motor" class="control-label">Motor</label>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.TextBoxFor(model => model.motor, new { @class = "form-control" })
+
+                        <b>Tarjeta circulación @Html.TextBoxFor(model => model.vigencia_circulacion, new { @class = "form-control", @type = "date", @name = "fecha" })</b>
+                        <div>
+                        </div>
+
+                        <label asp-for="tipo_vehiculo" class="control-label">Tipo</label>
+                        @Html.DropDownList("tipo_vehiculo", Model.TipoVehicList, new { @class = "form-control" })
+
+                        <label asp-for="chofer" class="control-label">Chofer</label>
+                        @Html.DropDownList("chofer", Model.ChoferList, new { @class = "form-control" })
+
+                        <b>Fecha @Html.TextBoxFor(model => model.fecha_alta, new { @class = "form-control", @type = "date", @name = "fecha" })</b>
+
+                        <b>Tanque 1 @Html.TextBoxFor(model => model.tanque1, new { @class = "form-control", @type = "number", })</b>
+                        @Html.DropDownList("combustible1", Model.Tanque1List, new { @class = "form-control my-3 ", @toggle = "Combustible 1", @title = "Combustible 1" })
+                        @Html.TextBoxFor(model => model.RENDIMIENTO1, new { @class = "form-control my-3", @type = "number", @toggle = "Rendimiento 1", @title = "Rendimiento 1" })
+                        <strong>Nivel Licencia @Html.TextBoxFor(model => model.nivel_licencia, new { @class = "form-control", @type = "number" })</strong>
+
+                        <b>Tanque 2 @Html.TextBoxFor(model => model.tanque2, new { @class = "form-control", @type = "number" })</b>
+                        @Html.DropDownList("combustible2", Model.Tanque2List, new { @class = "form-control my-3", @toggle = "Combustible 2", @title = "Combustible 2" })
+                        @Html.TextBoxFor(model => model.RENDIMIENTO2, new { @class = "form-control my-3", @type = "number", @toggle = "Rendimiento 2", @title = "Rendimiento 2" })
+                        <strong>Nivel Licencia epm. @Html.TextBoxFor(model => model.nivel_licencia_empresa, new { @class = "form-control", @type = "number" })</strong>
+
+                        <b>Tanque 3 @Html.TextBoxFor(model => model.tanque3, new { @class = "form-control", @type = "number" })</b>
+                        @Html.DropDownList("combustible3", Model.Tanque3List, new { @class = "form-control my-3", @toggle = "Combustible 3", @title = "Combustible 3" })
+                        @Html.TextBoxFor(model => model.RENDIMIENTO3, new { @class = "form-control my-3", @type = "number", @toggle = "Rendimiento 3", @title = "Rendimiento 3" })
+
+                        <b>Llantas @Html.TextBoxFor(model => model.llantas, new { @class = "form-control", @type = "number" })</b>
+                        <strong>Llantas extra<br>@Html.TextBoxFor(model => model.llantas_extras, new { @class = "form-control", @type = "number" })</strong>
+
+
+
+
+                    </div>
+                    <div class="col-lg border">
+                        Vehículo
+                        @Html.Label("tenencia", "Tenencia", new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.tenencia, new { @class = "form-control", @type = "number" })
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.Label("usa_lubricante", "Lubricantes", new { @class = "control-label" })
+                        @Html.CheckBoxFor(model => model.usa_lubricante, new { @class = "form-control" })
+
+                        @Html.Label("ultima_lectura", "Últ. Lectura", new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.ultima_lectura, new { @class = "form-control", @type = "number" })
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+
+                        @Html.Label("carga_estandar", "Carga Estándar", new { @class = "control-label" })
+                        @Html.DropDownList("carga_estandar", Model.CargaEstList, new { @class = "form-control" })
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+
+                        @Html.Label("ayudante", "Ayudante 1", new { @class = "control-label" })
+                        @Html.DropDownList("ayudante", Model.AyudanteList, new { @class = "form-control" })
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+
+                        @Html.Label("ayudante2", "Ayudante 2", new { @class = "control-label" })
+                        @Html.DropDownList("ayudante2", Model.Ayudante2List, new { @class = "form-control" })
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+
+                        <div class="form-group">
+                            <b>Eje 1 @Html.TextBoxFor(model => model.llantas_eje1, new { @class = "form-control my-3", @type = "number", @style = "width: 80%;" })</b>
+                        </div>
+                        <div class="form-group">
+                            <b>Eje 2 @Html.TextBoxFor(model => model.llantas_eje2, new { @class = "form-control my-3", @type = "number", @style = "width: 80%;" })</b>
+                        </div>
+                        <div class="form-group">
+                            <b>Eje 3 @Html.TextBoxFor(model => model.llantas_eje3, new { @class = "form-control my-3", @type = "number", @style = "width: 80%;" })</b>
+                        </div>
+                        <div class="form-group">
+                            <b>Eje 4  @Html.TextBoxFor(model => model.llantas_eje4, new { @class = "form-control my-3", @type = "number", @style = "width: 80%;" })</b>
+                        </div>
+                        <div class="form-group">
+                            <b>Eje 5 @Html.TextBoxFor(model => model.llantas_eje5, new { @class = "form-control my-3", @type = "number", @style = "width: 80%;" })</b>
+                        </div>
+                        <div class="form-group">
+                            <b>Eje 6 @Html.TextBoxFor(model => model.llantas_eje6, new { @class = "form-control my-3", @type = "number", @style = "width: 80%;" })</b>
+                        </div>
+
+
                     </div> 
                     
                    
@@ -435,12 +368,6 @@
   </div>
 </div>
 <script>
-$(function(){
-    $("#calendario").datepicker();
-    $("#calendario2").datepicker();
-    $("#calendario3").datepicker();
-    $("#calendario4").datepicker();
-});
 function buscar()
         {
             const tableReg = document.getElementById('tabla');
@@ -472,8 +399,65 @@ function buscar()
                 lastTR.classList.add("hide");
             }
         }
+        //cambio de los combos
 $(document).ready( function () {
     $('#tabla').DataTable();
+    $("#VersionList").empty();
+        var marca = $("#marcalist").val();
+        
+        debugger
+        $.ajax({
+            type:"post",
+            url:"@Url.Action("modelo","Catalogos")" + "?id=" + marca,
+            contentType:"html",
+            success:function(respon){
+                debugger
+                $("#Dropmodelo").empty();
+                $("#Dropmodelo").append(respon);
+            }
+        })
+        var modelo = $("#modeloVer").val();
+        debugger
+        $.ajax({
+            type:"post",
+            url:"@Url.Action("version","Catalogos")" + "?id=" + modelo,
+            contentType:"html",
+            success:function(respon){
+                debugger
+                $("#VersionList").empty();
+                $("#VersionList").append(respon);
+            }
+        })
+    $("#marcalist").change(function(){
+        $("#VersionList").empty();
+        var marca = $("#marcalist").val();
+        debugger
+        $.ajax({
+            type:"post",
+            url:"@Url.Action("modelo","Catalogos")" + "?id=" + marca,
+            contentType:"html",
+            success:function(respon){
+                debugger
+                $("#Dropmodelo").empty();
+                $("#Dropmodelo").append(respon);
+            }
+        })
+    })
+        $("#Dropmodelo").change(function(){
+            var modelo = $("#Dropmodelo").val();
+        debugger
+        $.ajax({
+            type:"post",
+            url:"@Url.Action("version","Catalogos")" + "?id=" + modelo,
+            contentType:"html",
+            success:function(respon){
+                debugger
+                $("#VersionList").empty();
+                $("#VersionList").append(respon);
+            }
+        })
+        })
+        
 } );
 
 function detalleActivo(){

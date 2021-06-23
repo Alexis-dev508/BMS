@@ -406,7 +406,7 @@ $(document).ready( function () {
         debugger
         $.ajax({
             type:"post",
-            url:"@Url.Action("modelo","Catalogos")" + "?id=" + marca,
+            url:"@Url.Action("modeloNuevoEquipo","Catalogos")" + "?id=" + marca,
             contentType:"html",
             success:function(respon){
                 debugger
@@ -420,7 +420,7 @@ $(document).ready( function () {
         debugger
         $.ajax({
             type:"post",
-            url:"@Url.Action("version","Catalogos")" + "?id=" + modelo,
+            url:"@Url.Action("versionNuevoEquipo","Catalogos")" + "?id=" + modelo,
             contentType:"html",
             success:function(respon){
                 debugger

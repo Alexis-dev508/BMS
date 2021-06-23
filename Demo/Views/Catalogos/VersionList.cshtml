@@ -6,6 +6,10 @@
 	{
 		<option value="@item.Value">@item.Text</option>
 	}
+	if (ViewBag.version != null && ViewBag.nombreversion != null)
+	{
+		<option value="@ViewBag.version" selected="selected">@ViewBag.nombreversion</option>
+	}
 }
 else
 {

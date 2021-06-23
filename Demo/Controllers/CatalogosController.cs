@@ -3,6 +3,7 @@ using Demo.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -13,19 +14,20 @@ namespace Demo.Controllers
 {
     public class CatalogosController : Controller
     {
+        private IMemoryCache _cache;
         private readonly IConfiguration _configuration;
         private CatalogosData datos;
-        public CatalogosController(IConfiguration configuration)
+        public CatalogosController(IConfiguration configuration,IMemoryCache memoryCache)
         {
             _configuration = configuration;
             this.datos = new CatalogosData(_configuration);
+            _cache = memoryCache;
         }
         public IActionResult Index()
         {
             return View();
         }
-        //COMBOS MARCA.MODELO,VERSION
-        public IActionResult modelo(string id)
+        public IActionResult modeloNuevoEquipo(string id)
         {
             var Mod = datos.TraerModelos(id);
             if (Mod.Count <= 0)
@@ -36,7 +38,70 @@ namespace Demo.Controllers
             ViewBag.ModelList = new SelectList(Mod, "modelo_equipos", "nombre");
             return PartialView("ModelList");
         }
+        //COMBOS MARCA.MODELO,VERSION
+        public IActionResult modelo(string id)
+        {
+            var Mod = datos.TraerModelos(id);
+            if (_cache.Get("equipo").ToString() != null)
+            {
+                Equipos e = new Equipos();
+                e = datos.TraerEquipo(_cache.Get("equipo").ToString());
+                ModelosEquipos mo = new ModelosEquipos();
+                mo = datos.TraermodeloCombo(e.modelo.ToString().Trim());
+                if (mo != null)
+                {
+                    ViewBag.modelo = e.modelo;
+                    ViewBag.nombremodelo = mo.nombre.ToString();
+                }
+                else
+                {
+                    ViewBag.modelo = null;
+                    ViewBag.nombremodelo = null;
+                }
+               
+            }
+            
+            if (Mod.Count <= 0)
+            {
+                ViewBag.ModelCount = 0;
+                return PartialView("ModelList");
+            }
+            ViewBag.ModelList = new SelectList(Mod, "modelo_equipos", "nombre");
+            return PartialView("ModelList");
+        }
         public IActionResult version(string id)
+        {
+            var Mod = datos.TraerVersiones(id);
+            if (_cache.Get("equipo").ToString() != null)
+            {
+                Equipos e = new Equipos();
+                var eq = _cache.Get("equipo").ToString();
+                e = datos.TraerEquipo(eq);
+                var version = e.version.ToString().Trim();
+                VersionesEquipos ve = new VersionesEquipos();
+                ve = datos.TraerversionCombo(version);
+                
+                if(ve != null)
+                {
+                    ViewBag.version = e.version;
+                    ViewBag.nombreversion = ve.nombre.ToString();
+                }
+                else
+                {
+                    ViewBag.version = null;
+                    ViewBag.nombreversion = null;
+                }
+                
+            }
+            if (Mod.Count <= 0)
+            {
+                ViewBag.VersionCount = 0;
+                return PartialView("VersionList");
+            }
+            ViewBag.VersionList = new SelectList(Mod, "version_equipos", "nombre");
+            return PartialView("VersionList");
+        }
+        public IActionResult versionNuevoEquipo(string id)
         {
             var Mod = datos.TraerVersiones(id);
             if (Mod.Count <= 0)
@@ -704,6 +769,10 @@ namespace Demo.Controllers
         [HttpGet]
         public IActionResult EditarEquipos(string id)
         {
+            MemoryCacheEntryOptions cacheExpirationOption = new MemoryCacheEntryOptions();
+            cacheExpirationOption.AbsoluteExpiration = DateTime.Now.AddMinutes(30);
+            cacheExpirationOption.Priority = CacheItemPriority.Normal;
+            _cache.Set("equipo", id,cacheExpirationOption);
             if (id == null)
             {
                 return BadRequest();
