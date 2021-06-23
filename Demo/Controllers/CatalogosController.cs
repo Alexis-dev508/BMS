@@ -23,6 +23,14 @@ namespace Demo.Controllers
             this.datos = new CatalogosData(_configuration);
             _cache = memoryCache;
         }
+        public IActionResult AlimentacionGastosServicios()
+        {
+            return View();
+        }
+        public IActionResult NuevoGastoServicios()
+        {
+            return View();
+        }
         public IActionResult Index()
         {
             return View();

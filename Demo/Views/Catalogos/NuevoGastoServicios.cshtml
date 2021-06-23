@@ -1,0 +1,124 @@
+﻿@model Demo.Models.EquiposModelView
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-info">
+                <div class="card-header">
+                    <h3>Nuevo Servicio</h3>
+                </div>
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <form class="form-inline my-2 my-lg-0">
+                        <a href="@Url.Action("AlimentacionGastosServicios","Catalogos")" class="btn btn-outline-info" data-toggle="Regresar" title="Regresar">
+                            <i class="fas fa-arrow-alt-circle-left"></i>
+                            Regresar
+                        </a>
+                        
+                    </form>
+                </nav>
+                @using (Html.BeginForm("NuevoGastoServicios", "Catalogos", FormMethod.Post))
+                {
+                    <div class="container-fluid">
+                        <div class="row">
+                            @*----COLUMNA NUMERO 1*@
+                            <div class="col-lg">
+                                @Html.Label("fecha", "Fecha", new { @class = "control-label my-2" })
+                                <br />
+                                @Html.TextBoxFor(model => model.vigencia_placas, new { @class = "my-2", @name = "dtpFecha", @type = "date" })<br>
+
+                                @Html.Label("estab", "Estab", new { @class = "control-label my-2" })
+                                @Html.DropDownListFor(model => model.modelo, new SelectList(""), "--Seleccionar Modelo--", new { @class = "form-control", @id = "Dropmodelo" })
+
+                                @Html.Label("equipo", "Equipo", new { @class = "control-label my-2" })
+                                @Html.TextBoxFor(model => model.serie, new { @class = "form-control my-2" })
+                                @Html.TextBoxFor(model => model.serie, new { @class = "form-control my-2" })
+
+                                @Html.Label("modelo", "Modelo", new { @class = "control-label my-2" })
+                                @Html.TextBoxFor(model => model.serie, new { @class = "form-control my-2" })
+
+                                @Html.Label("marca", "Marca", new { @class = "control-label my-2" })
+                                @Html.TextBoxFor(model => model.serie, new { @class = "form-control my-2" })
+
+                                @Html.Label("anho", "Año", new { @class = "control-label my-2" })
+                                @Html.TextBoxFor(model => model.serie, new { @class = "form-control my-2" })
+
+                                @Html.Label("motor", "Motor", new { @class = "control-label my-2" })
+                                @Html.TextBoxFor(model => model.serie, new { @class = "form-control my-2" })
+
+                                @Html.Label("notas", "Notas", new { @class = "control-label" })
+                                @Html.TextAreaFor(model => model.caracteristicas, new { @class = "form-control" })
+
+                                @Html.Label("factura", "Factura", new { @class = "control-label" })
+                                @Html.TextBoxFor(model => model.serie, new { @class = "form-control my-2" })
+
+                                @Html.Label("proveedor", "Proveedor", new { @class = "control-label" })
+                                @Html.TextBoxFor(model => model.serie, new { @class = "form-control my-2" })
+                                @Html.TextBoxFor(model => model.serie, new { @class = "form-control my-2" })
+
+                                @Html.Label("neto", "Neto", new { @class = "control-label" })
+                                @Html.TextBoxFor(model => model.valor_comercial, new { @class = "form-control", @type = "number" })
+
+                                @Html.Label("iva", "IVA", new { @class = "control-label" })
+                                @Html.TextBoxFor(model => model.valor_comercial, new { @class = "form-control", @type = "number" })
+
+                                @Html.Label("ivaret", "IVA Ret", new { @class = "control-label" })
+                                @Html.TextBoxFor(model => model.valor_comercial, new { @class = "form-control", @type = "number" })
+
+                                @Html.Label("isrret", "ISR Ret", new { @class = "control-label" })
+                                @Html.TextBoxFor(model => model.valor_comercial, new { @class = "form-control", @type = "number" })
+
+                                @Html.Label("total", "Total", new { @class = "control-label" })
+                                @Html.TextBoxFor(model => model.valor_comercial, new { @class = "form-control", @type = "number" })
+
+
+                            </div>
+                            @*----COLUMNA NUMERO 2*@
+                        <div class="col-lg">
+                            @Html.Label("folio", "Folio", new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.serie, new { @class = "form-control my-2" })
+
+                            @Html.Label("chofer", "Chofer", new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.serie, new { @class = "form-control my-2" })
+                            @Html.TextBoxFor(model => model.serie, new { @class = "form-control my-2" })
+
+                            @Html.Label("serie", "Serie", new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.serie, new { @class = "form-control my-2" })
+
+                            @Html.Label("lectura", "Lectura", new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.valor_comercial, new { @class = "form-control my-2", @type = "number" })
+
+                            @Html.Label("placas", "Placas", new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.serie, new { @class = "form-control my-2" })
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Guardar" class="btn btn-success my-2" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="modal fade bd-example-modal-xl" id="modalDetalle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="datos">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+$(document).ready( function () {
+    $('#tabla').DataTable();
+} );
+    </script>

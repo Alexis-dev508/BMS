@@ -1,0 +1,93 @@
+﻿@*@model List<Demo.Models.Equipos>*@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-primary">
+                <div class="card-header">
+                    <h3>Alimentacion de gastos y servicios de equipos</h3>
+                </div>
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <form class="form-inline my-2 my-lg-0">
+                        <a class="btn btn-outline-primary" href="@Url.Action("NuevoGastoServicios","Catalogos")">
+                            <i class="fas fa-file"></i>
+                            Nuevo gasto
+                        </a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        @if (TempData["mensajeINF"] != null)
+                        {
+                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                @TempData["mensajeINF"]
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        }
+                        @if (TempData["mensajeSAVE"] != null)
+                        {
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                @TempData["mensajeSAVE"]
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        }
+                        @if (TempData["mensajeEDIT"] != null)
+                        {
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                @TempData["mensajeEDIT"]
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        }
+
+
+                    </form>
+
+                </nav>
+                <div class="table-responsive">
+                    <table class="table table-hover" id="tabla">
+                        <thead>
+                            <tr>
+                                <th>Servicio</th>
+                                <th>Nombre</th>
+                                <th>Cantidad</th>
+                                <th>Importe</th>
+                                <th>% Descuento</th>
+                                <th>Lectura</th>
+                                <th>Neto</th>
+                                <th>Notas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @*@foreach (var dat in Model)
+                            {
+                                <tr>
+                                    <td>@dat.equipo</td>
+                                    <td>@dat.nombre</td>
+                                    <td>@dat.abreviatura</td>
+                                    <td>@dat.nombre_empleado</td>
+                                    <td>@dat.status</td>
+                                    <td>@dat.serie</td>
+                                    <td>
+                                        <a class="btn btn-outline-warning" href="@Url.Action("EditarEquipos","Catalogos", new {id = dat.equipo})">
+                                            <i class="fas fa-edit"></i>
+                                            Editar
+                                        </a>
+                                    </td>
+                                </tr>
+                            }*@
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+$(document).ready( function () {
+    $('#tabla').DataTable();
+} );
+</script>
+
