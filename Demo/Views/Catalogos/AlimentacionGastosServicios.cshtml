@@ -32,32 +32,34 @@
                             </div>
                         }
                     </form>
-
+                    
                 </nav>
                 <div class="table-responsive">
                     <table class="table table-hover" id="tabla">
                         <thead>
                             <tr>
+                                <th>Folio</th>
+                                <th>Equipo</th>
+                                <th>Fecha</th>
                                 <th>Servicio</th>
-                                <th>Nombre</th>
-                                <th>Cantidad</th>
-                                <th>Importe</th>
-                                <th>% Descuento</th>
-                                <th>Lectura</th>
-                                <th>Neto</th>
+                                <th>Código de Establecimiento</th>
+                                <th>Refacciones</th>
+                                <th>Total</th>
                                 <th>Notas</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @*@foreach (var dat in Model)
+                            @foreach (var dat in Model)
                             {
                                 <tr>
                                     <td>@dat.equipo</td>
-                                    <td>@dat.nombre</td>
-                                    <td>@dat.abreviatura</td>
-                                    <td>@dat.nombre_empleado</td>
-                                    <td>@dat.status</td>
-                                    <td>@dat.serie</td>
+                                    <td>@dat.eNombre</td>
+                                    <td>@dat.fecha_servicio</td>
+                                    <td>@dat.sNombre</td>
+                                    <td>@dat.cod_estab</td>
+                                    <td>@dat.refacciones</td>
+                                    <td>@dat.total</td>
+                                    <td>@dat.notas</td>
                                     <td>
                                         <a class="btn btn-outline-warning" href="@Url.Action("EditarEquipos","Catalogos", new {id = dat.equipo})">
                                             <i class="fas fa-edit"></i>
@@ -65,7 +67,7 @@
                                         </a>
                                     </td>
                                 </tr>
-                            }*@
+                            }
                         </tbody>
                     </table>
                 </div>

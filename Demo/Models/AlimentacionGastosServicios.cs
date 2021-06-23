@@ -12,7 +12,7 @@ namespace Demo.Models
         public string transaccion { get; set; }
         [DataType(DataType.Date)]
         public DateTime fecha_servicio { get; set; }
-        public string equipo { get; set; }
+        public string equipo{ get; set; }
         public string usuario { get; set; }
         public string usuario_cancelacion { get; set; }
         [DataType(DataType.Date)]
@@ -41,6 +41,10 @@ namespace Demo.Models
         public decimal cantidad { get; set; }
         public decimal total { get; set; }
         public string operador { get; set; }
+        public string tNombre { get; set; }
+        public string sNombre { get; set; }
+        public string eNombre { get; set; }
+        public string pNombre { get; set; }
 
 
 
