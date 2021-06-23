@@ -26,7 +26,8 @@ namespace Demo.Controllers
         //gastos de servicio
         public IActionResult AlimentacionGastosServicios()
         {
-            return View();
+            var model = datos.TraerGS();
+            return View(model);
         }
         public IActionResult NuevoGastoServicios()
         {

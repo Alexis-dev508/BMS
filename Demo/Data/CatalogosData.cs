@@ -961,35 +961,49 @@ namespace Demo.Data
         //traer informacion de gasto de servicio
         public List<AlimentacionGastosServicios> TraerGS()
         {
-            List<AlimentacionGastosServicios> equipos = new List<AlimentacionGastosServicios>();
-
-            SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_alimentacionGS_equipos", this.ConnectionString);
-            sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            sda.SelectCommand.Parameters.AddWithValue("@oper", "C");
-            DataTable dt = new DataTable();
-            sda.Fill(dt);
-            equipos = dt.AsEnumerable().Select(a =>
-            new AlimentacionGastosServicios
+            List<AlimentacionGastosServicios> GS = new List<AlimentacionGastosServicios>();
+            try {
+                SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_alimentacionGS_equipos", this.ConnectionString);
+                sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sda.SelectCommand.Parameters.AddWithValue("@oper", "C");
+                sda.SelectCommand.Parameters.AddWithValue("@folio", "");
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                GS = dt.AsEnumerable().Select(a =>
+                new AlimentacionGastosServicios
+                {
+                    folio = a["folio"].ToString(),
+                    transaccion = a["transaccion"].ToString(),
+                    fecha_servicio = Convert.ToDateTime(a["fecha_servicio"]),
+                    equipo = a["equipo"].ToString(),
+                    servicio = a["servicio"].ToString(),
+                    status = a["status"].ToString(),
+                    cod_estab = a["cod_estab"].ToString(),
+                    cod_prv = a["cod_prv"].ToString(),
+                    mecanico = a["mecanico"].ToString(),
+                    refacciones = Convert.ToDecimal(a["refacciones"]),
+                    mano_obra_mecanico = Convert.ToDecimal(a["mano_obra_mecanico"]),
+                    mano_obra_total = Convert.ToDecimal(a["mano_obra_total"]),
+                    trabajos_otros_talleres = Convert.ToDecimal(a["trabajos_otros_talleres"]),
+                    otros_gastos = Convert.ToDecimal(a["otros_gastos"]),
+                    lectura = Convert.ToInt32(a["lectura"]),
+                    cantidad = Convert.ToDecimal(a["cantidad"]),
+                    total = Convert.ToDecimal(a["total"]),
+                    operador = a["operador"].ToString(),
+                    notas = a["notas"].ToString(),
+                    tNombre = a["tNombre"].ToString(),
+                    sNombre = a["sNombre"].ToString(),
+                    eNombre = a["eNombre"].ToString(),
+                    pNombre = a["pNombre"].ToString(),
+                    eqNombre = a["eqNombre"].ToString()
+                }).ToList();
+            }
+            catch (Exception ex)
             {
-                folio = a["folio"].ToString(),
-                transaccion = a["transaccion"].ToString(),
-                fecha_servicio = Convert.ToDateTime(a["fecha_servicio"]),
-                equipo = a["equipo"].ToString(),
-                servicio = a["servicio"].ToString(),
-                status = a["status"].ToString(),
-                cod_estab = a["cod_estab"].ToString(),
-                cod_prv = a["cod_prv"].ToString(),
-                mecanico = a["mecanico"].ToString(),
-                refacciones = Convert.ToDecimal(a["refacciones"]),
-                mano_obra_mecanico = Convert.ToDecimal(a["mano_obra_mecanico"]),
-                mano_obra_total = Convert.ToDecimal(a["mano_obra_total"]),
-                trabajos_otros_talleres = Convert.ToDecimal(a["trabajos_otros_talleres"]),
-                otros_gastos = Convert.ToDecimal(a["otros_gastos"]),
-                lectura = Convert.ToInt32(a["lectura"]),
 
-
-            }).ToList();
-            return equipos;
+                throw new Exception(ex.Message);
+            }
+            return GS;
         }
         //guardar servicio
         public bool GuardarGastosServicios(AlimentacionGastosServicios GS)
