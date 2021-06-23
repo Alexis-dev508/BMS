@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Demo.Models
 {
-    public class AlimentacionGastosEquipos
+    public class AlimentacionGastosServicios
     {
+        public string folio { get; set; }
         public string transaccion { get; set; }
         [DataType(DataType.Date)]
         public DateTime fecha_servicio { get; set; }

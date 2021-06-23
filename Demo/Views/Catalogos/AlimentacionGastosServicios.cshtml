@@ -1,4 +1,4 @@
-﻿@*@model List<Demo.Models.Equipos>*@
+﻿@model List<Demo.Models.AlimentacionGastosServicios>
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12">
@@ -31,17 +31,6 @@
                                 </button>
                             </div>
                         }
-                        @if (TempData["mensajeEDIT"] != null)
-                        {
-                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                @TempData["mensajeEDIT"]
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        }
-
-
                     </form>
 
                 </nav>

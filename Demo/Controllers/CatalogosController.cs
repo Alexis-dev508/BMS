@@ -23,6 +23,7 @@ namespace Demo.Controllers
             this.datos = new CatalogosData(_configuration);
             _cache = memoryCache;
         }
+        //gastos de servicio
         public IActionResult AlimentacionGastosServicios()
         {
             return View();
@@ -578,12 +579,7 @@ namespace Demo.Controllers
             model = datos.TraerServiciosDep();
             return View(model);
         }
-        // gastos de servicio
-        [HttpGet]
-        public IActionResult GastosServicio()
-        {
-            return View();
-        }
+        
 
         //Guardar servicio dependiente
         [HttpPost]
