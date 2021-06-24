@@ -1,4 +1,4 @@
-﻿@model Demo.Models.EquiposModelView
+﻿@model Demo.Models.AlimentacionGastosServicios
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12">
@@ -23,71 +23,90 @@
                             <div class="col-lg">
                                 @Html.Label("fecha", "Fecha", new { @class = "control-label my-2" })
                                 <br />
-                                @Html.TextBoxFor(model => model.vigencia_placas, new { @class = "my-2", @name = "dtpFecha", @type = "date" })<br>
+                                @Html.TextBoxFor(model => model.fecha_servicio, new { @class = "my-2", @name = "dtpFecha", @type = "date" })<br>
 
                                 @Html.Label("estab", "Estab", new { @class = "control-label my-2" })
-                                @Html.DropDownListFor(model => model.modelo, new SelectList(""), "--Seleccionar Modelo--", new { @class = "form-control", @id = "Dropmodelo" })
+                                @Html.DropDownListFor(model => model.cod_estab, new SelectList(""), new { @class = "form-control"})
 
                                 @Html.Label("equipo", "Equipo", new { @class = "control-label my-2" })
-                                @Html.TextBoxFor(model => model.serie, new { @class = "form-control my-2" })
-                                @Html.TextBoxFor(model => model.serie, new { @class = "form-control my-2" })
+                                @Html.TextBoxFor(model => model.equipo, new { @class = "form-control my-2" })
+                                <input class="form-control" id="EquipoN" data-toggle="Equipo" title="Equipo" readonly="true" />
 
                                 @Html.Label("modelo", "Modelo", new { @class = "control-label my-2" })
-                                @Html.TextBoxFor(model => model.serie, new { @class = "form-control my-2" })
+                                <input class="form-control" id="Modelo" data-toggle="Modelo" title="Modelo" readonly="true" />
 
                                 @Html.Label("marca", "Marca", new { @class = "control-label my-2" })
-                                @Html.TextBoxFor(model => model.serie, new { @class = "form-control my-2" })
+                                <input class="form-control" id="Marca" data-toggle="Marca" title="Marca" readonly="true" />
 
-                                @Html.Label("anho", "Año", new { @class = "control-label my-2" })
-                                @Html.TextBoxFor(model => model.serie, new { @class = "form-control my-2" })
+                                @Html.Label("año", "Año", new { @class = "control-label my-2" })
+                                <input class="form-control" id="Annio" data-toggle="Año" title="Año" readonly="true"/>
 
                                 @Html.Label("motor", "Motor", new { @class = "control-label my-2" })
-                                @Html.TextBoxFor(model => model.serie, new { @class = "form-control my-2" })
+                                <input class="form-control" id="Motor" data-toggle="Motor" title="Motor" readonly="true"/>
 
                                 @Html.Label("notas", "Notas", new { @class = "control-label" })
-                                @Html.TextAreaFor(model => model.caracteristicas, new { @class = "form-control" })
+                                <textarea id="notas" rows="5" class="form-control my-2" disabled="true"></textarea>
 
                                 @Html.Label("factura", "Factura", new { @class = "control-label" })
-                                @Html.TextBoxFor(model => model.serie, new { @class = "form-control my-2" })
+                                @Html.TextBoxFor(model => model.factura_proveedor, new { @class = "form-control my-2"})
 
                                 @Html.Label("proveedor", "Proveedor", new { @class = "control-label" })
-                                @Html.TextBoxFor(model => model.serie, new { @class = "form-control my-2" })
-                                @Html.TextBoxFor(model => model.serie, new { @class = "form-control my-2" })
+                                @Html.TextBoxFor(model => model.cod_prv, new { @class = "form-control my-2",@id="Proveedor"})
+                                <input class="form-control" id="ProveedorN" data-toggle="Proveedor" title="Proveedor" readonly="true" />
 
                                 @Html.Label("neto", "Neto", new { @class = "control-label" })
-                                @Html.TextBoxFor(model => model.valor_comercial, new { @class = "form-control", @type = "number" })
+                                <input type="number" class="form-control" id="Neto" data-toggle="Neto" title="Neto" readonly="true" />
 
                                 @Html.Label("iva", "IVA", new { @class = "control-label" })
-                                @Html.TextBoxFor(model => model.valor_comercial, new { @class = "form-control", @type = "number" })
+                                <input type="number" class="form-control" id="IVA" data-toggle="IVA" title="IVA" readonly="true" />
 
                                 @Html.Label("ivaret", "IVA Ret", new { @class = "control-label" })
-                                @Html.TextBoxFor(model => model.valor_comercial, new { @class = "form-control", @type = "number" })
+                                <input type="number" class="form-control" id="IVARet" data-toggle="IVA Ret" title="IVA Ret" readonly="true"/>
 
                                 @Html.Label("isrret", "ISR Ret", new { @class = "control-label" })
-                                @Html.TextBoxFor(model => model.valor_comercial, new { @class = "form-control", @type = "number" })
+                                <input type="number" class="form-control" id="ISRRet" data-toggle="ISR Ret" title="ISR Ret" readonly="true"/>
 
                                 @Html.Label("total", "Total", new { @class = "control-label" })
-                                @Html.TextBoxFor(model => model.valor_comercial, new { @class = "form-control", @type = "number" })
+                                @Html.TextBoxFor(model => model.total, new { @class = "form-control", @type = "number",@id="total",@readonly="readonly" })
 
 
                             </div>
                             @*----COLUMNA NUMERO 2*@
                         <div class="col-lg">
                             @Html.Label("folio", "Folio", new { @class = "control-label" })
-                            @Html.TextBoxFor(model => model.serie, new { @class = "form-control my-2" })
+                            @Html.TextBoxFor(model => model.folio, new { @class = "form-control my-2" })
 
                             @Html.Label("chofer", "Chofer", new { @class = "control-label" })
-                            @Html.TextBoxFor(model => model.serie, new { @class = "form-control my-2" })
-                            @Html.TextBoxFor(model => model.serie, new { @class = "form-control my-2" })
+                            <input class="form-control" id="Chofer" data-toggle="Chofer" title="Chofer" readonly="true" />
+                            <input class="form-control" id="ChoferN" data-toggle="Chofer" title="Chofer" readonly="true"/>
 
                             @Html.Label("serie", "Serie", new { @class = "control-label" })
-                            @Html.TextBoxFor(model => model.serie, new { @class = "form-control my-2" })
+                            <input class="form-control" id="Serie" data-toggle="Serie" title="Serie" readonly="true"/>
 
                             @Html.Label("lectura", "Lectura", new { @class = "control-label" })
-                            @Html.TextBoxFor(model => model.valor_comercial, new { @class = "form-control my-2", @type = "number" })
+                            <input class="form-control" id="Lectura" data-toggle="Lectura" title="Lectura" readonly="true" />
 
                             @Html.Label("placas", "Placas", new { @class = "control-label" })
-                            @Html.TextBoxFor(model => model.serie, new { @class = "form-control my-2" })
+                            <input class="form-control" id="Placas" data-toggle="Placas" title="Placas" readonly="true"/>
+
+                            @Html.Label("servicio", "Servicio", new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.servicio, new { @class = "form-control",@id="servicio" })
+                            <input class="form-control" id="ServicioN" data-toggle="Servicio" title="Servicio" readonly="true"/>
+                            @Html.Label("cantidad", "Cantidad", new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.cantidad, new { @class = "form-control", @type = "number",@id="Cantidad" })
+                            @Html.Label("importe", "Importe", new { @class = "control-label" })
+                            <input type="number" class="form-control" id="Importe" data-toggle="Importe" title="Importe"/>
+                            @Html.Label("descuento", "%Descuento", new { @class = "control-label" })
+                            <input type="number" class="form-control" id="DescuentoPorc" data-toggle="Descuento %" title="Descuento %"/>
+                            @Html.Label("descuento", "$Descuento", new { @class = "control-label" })
+                            <input type="number" class="form-control" id="DescuentoUnidad" data-toggle="Descuento $" title="Descuento $"/>
+                            @Html.Label("lectura", "Lectura", new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.lectura, new { @class = "form-control", @type = "number",@id="Lectura" })
+                            @Html.Label("neto", "Neto", new { @class = "control-label" })
+                            <input type="number" class="form-control" id="Neto" data-toggle="Neto" title="Neto"/>
+                            @Html.Label("notas", "Notas", new { @class = "control-label" })
+                            @Html.TextAreaFor(model => model.notas, new { @class = "form-control my-2",@rows="5"})
+
                         </div>
                         </div>
                     </div>
