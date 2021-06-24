@@ -62,12 +62,7 @@
                                     <td>@dat.cantidad.ToString("#,##0.00")</td>
                                     <td>@dat.total.ToString("#,##0.00")</td>
                                     <td>@dat.notas</td>
-                                    <td>
-                                        <a class="btn btn-outline-warning" href="@Url.Action("EditarEquipos","Catalogos", new {id = dat.equipo})">
-                                            <i class="fas fa-edit"></i>
-                                            Editar
-                                        </a>
-                                    </td>
+                               
                                 </tr>
                             }
                         </tbody>
@@ -76,7 +71,6 @@
             </div>
         </div>
     </div>
-</div>
 </div>
 <script>
 $(document).ready( function () {
