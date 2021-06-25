@@ -1,4 +1,4 @@
-﻿@model Demo.Models.AlimentacionGastosServicios
+﻿@model Demo.Models.AlimentacionGSModelView
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12">
@@ -12,7 +12,9 @@
                             <i class="fas fa-arrow-alt-circle-left"></i>
                             Regresar
                         </a>
-                        
+                            <div class="alert alert-warning alert-dismissible fade show" id="alert" role="alert" style="margin-left: 10px;">
+								Error al generar el folio, este establecimiento no esta disponible o el folio ya existe.
+							</div>
                     </form>
                 </nav>
                 @using (Html.BeginForm("NuevoGastoServicios", "Catalogos", FormMethod.Post))
@@ -26,10 +28,10 @@
                                 @Html.TextBoxFor(model => model.fecha_servicio, new { @class = "my-2", @name = "dtpFecha", @type = "date" })<br>
 
                                 @Html.Label("estab", "Estab", new { @class = "control-label my-2" })
-                                @Html.DropDownListFor(model => model.cod_estab, new SelectList(""), new { @class = "form-control"})
+                                @Html.DropDownListFor(model => model.cod_estab, Model.EstabList, new { @class = "form-control",@id="estab_list"})
 
                                 @Html.Label("equipo", "Equipo", new { @class = "control-label my-2" })
-                                @Html.TextBoxFor(model => model.equipo, new { @class = "form-control my-2" })
+                                @Html.TextBoxFor(model => model.equipo, new { @class = "form-control my-2",@onkeydown="onKeyDownEquipo(event)",@id="Equipo"})
                                 <input class="form-control" id="EquipoN" data-toggle="Equipo" title="Equipo" readonly="true" />
 
                                 @Html.Label("modelo", "Modelo", new { @class = "control-label my-2" })
@@ -74,7 +76,7 @@
                             @*----COLUMNA NUMERO 2*@
                         <div class="col-lg">
                             @Html.Label("folio", "Folio", new { @class = "control-label" })
-                            @Html.TextBoxFor(model => model.folio, new { @class = "form-control my-2" })
+                            @Html.TextBoxFor(model => model.folio, new { @class = "form-control my-2",@id="Folio",@readonly="readonly"})
 
                             @Html.Label("chofer", "Chofer", new { @class = "control-label" })
                             <input class="form-control" id="Chofer" data-toggle="Chofer" title="Chofer" readonly="true" />
@@ -138,6 +140,61 @@
     </div>
     <script>
 $(document).ready( function () {
+    $("#alert").hide();
     $('#tabla').DataTable();
+    $("#estab_list").change(function(){
+        var estab = $(this).val();
+        debugger
+        $.ajax({
+            type:"post",
+            url:"@Url.Action("FolioGastoServicio","Catalogos")" + "?id=" + estab,
+            contentType:"html",
+            success:function(respond){
+                debugger
+                $("#Folio").val(respond);
+                var a = $("#Folio").val();
+                if(a == null || a ==""){
+                    $("#alert").show(500);
+                }else{
+                    $("#alert").hide();
+                }
+            }
+        })
+    })
 } );
-    </script>
+function equipo(){
+        $("#datos").empty();
+        $.ajax({
+            type:"GET",
+            url:"@Url.Action("EquipoGastoServicio","Catalogos")",
+            success:function(data){
+                $("#datos").append(data);
+                $('#modalDetalle').modal('show');
+            },
+            error: function (xhr,ajaxOptions,thrownError){alert(xhr.responseText);}
+        });
+}
+
+function onKeyDownEquipo(event) {
+
+    var codigo = event.which || event.keyCode;
+     
+    if(codigo === 113){
+      equipo();
+    }
+}
+function equipoGS(equipo,nombre,chofer,nombreCh,modelo,marca,serie,lectura,año,motor,placas){
+    $('#Equipo').val(equipo);
+    $('#EquipoN').val(nombre);
+    $('#Chofer').val(chofer);
+    $('#ChoferN').val(nombreCh);
+    $('#Modelo').val(modelo);
+    $('#Marca').val(marca);
+    $('#Serie').val(serie);
+    $('#Lectura').val(lectura);
+    $('#Annio').val(año);
+    $('#Motor').val(motor);
+    $('#Placas').val(placas);
+    $('#modalDetalle').modal('hide');
+}
+</script>

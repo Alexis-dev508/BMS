@@ -29,9 +29,42 @@ namespace Demo.Controllers
             var model = datos.TraerGS();
             return View(model);
         }
+        //gastos de servicios a equipos
+        [HttpGet]
         public IActionResult NuevoGastoServicios()
         {
-            return View();
+            var model = new AlimentacionGSModelView();
+            var estab = datos.TraerEstablecimientos();
+            foreach (var st in estab)
+            {
+                model.EstabList.Add(new SelectListItem { Value = st.cod_estab, Text = st.nombre});
+            }
+            return View(model);
+        }
+        //guardar gasto servicio
+        [HttpPost]
+        public IActionResult NuevoGastoServicios(AlimentacionGSModelView model)
+        {
+            try
+            {
+                var res = datos.GuardarGastosServicios(model);
+                if (res == true)
+                {
+                    TempData["mensajeSAVE"] = "Guardado exitosamente";
+                    return RedirectToAction("AlimentacionGastosServicios");
+                }
+                else
+                {
+                    TempData["mensajeINF"] = "Ha ocurrido un error.";
+                    return RedirectToAction("AlimentacionGastosServicios");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ViewBag.Errores = ex.Message;
+                return View(model);
+            }
         }
         public IActionResult Index()
         {
@@ -823,7 +856,7 @@ namespace Demo.Controllers
             List<Equipos> detalle = new List<Equipos>();
             try
             {
-                detalle = datos.TraerEquipos();
+                detalle = datos.TraerEquipos("");
             }
             catch (Exception ex)
             {
@@ -831,6 +864,34 @@ namespace Demo.Controllers
                 ViewBag.ErroresM = ex.Message;
             }
             return PartialView("_DependeEquipo", detalle);
+        }
+        //traer equipo gasto servicio
+        [HttpGet]
+        public IActionResult EquipoGastoServicio()
+        {
+            List<Equipos> detalle = new List<Equipos>();
+            try
+            {
+                detalle = datos.TraerEquipos("GS");
+            }
+            catch (Exception ex)
+            {
+
+                ViewBag.ErroresM = ex.Message;
+            }
+            return PartialView("_EquipoGS", detalle);
+        }
+        //folio gastos servicios
+        public IActionResult FolioGastoServicio(string id)
+        {
+            AlimentacionGSModelView fol = new AlimentacionGSModelView();
+            fol = datos.TraerFolio(id);
+            if (fol.folio.Trim() == "Error")
+            {
+                return PartialView("_FolioGS"); ;
+            }
+            ViewBag.folio = fol.folio.Trim();
+            return PartialView("_FolioGS");
         }
         //vista de servicios depende
         [HttpGet]
@@ -917,7 +978,7 @@ namespace Demo.Controllers
         public IActionResult Equipos()
         {
             var model = new List<Equipos>();
-            model = datos.TraerEquipos();
+            model = datos.TraerEquipos("");
             return View(model);
         }
         ////guardar equipo

@@ -1,0 +1,51 @@
+﻿@model List<Demo.Models.Equipos>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="card-primary">
+				<div class="card-header">
+					<h2>Equipos</h2>
+                     <input class="form-control mr-sm-2" id="busqueda" type="search" onkeyup="buscar()" placeholder="Buscar" aria-label="Search"/> 
+				</div>
+				<table class="table table-hover" id="tabla">
+                    <thead>
+                        <tr>
+                            <th>Equipo</th>
+                            <th>Nombre</th>
+                            <th>Chofer</th>
+                            <th>Modelo</th>
+                            <th>Marca</th>
+                            <th>Serie</th>
+                            <th>Lectura</th>
+                            <th>Año</th>
+                            <th>Placas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var dat in Model){
+                            <tr>
+                                <td>@dat.equipo</td>
+                                <td>@dat.nombre</td>
+                                <td>@dat.chofer</td>
+                                <td>@dat.modelo</td>
+                                <td>@dat.marca</td>
+                                <td>@dat.serie</td>
+                                <td>@dat.ultima_lectura</td>
+                                <td>@dat.año</td>
+                                <td>@dat.placas</td>
+                                <td>
+                                    <form class="form-inline my-2 my-lg-0">
+                                      <a  onclick="equipoGS('@dat.equipo.Trim()','@dat.nombre.Trim()','@dat.chofer.Trim()','@dat.Nombre_Chofer.Trim()','@dat.modelo.Trim()','@dat.marca.Trim()','@dat.serie.Trim()','@dat.ultima_lectura','@dat.año.Trim()','@dat.motor.Trim()','@dat.placas.Trim()')" class="btn btn-success" data-toggle="Seleccionar" title="Seleccionar">
+						                   <i class="fas fa-check"></i>
+					                  </a>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+

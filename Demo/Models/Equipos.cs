@@ -110,6 +110,8 @@ namespace Demo.Models
         //nombre departamento 
         public string NombreDE { get; set; }
         public string NombreDD { get; set; }
+        public string Nombre_Chofer { get; set; }
+
 
     }
 }

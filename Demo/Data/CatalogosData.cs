@@ -548,27 +548,86 @@ namespace Demo.Data
             }).ToList();
             return ayudantes;
         }
+        //folios
+        public AlimentacionGSModelView TraerFolio(string id)
+        {
+            AlimentacionGSModelView GS = new AlimentacionGSModelView();
+            try
+            {
+                SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_alimentacionGS_equipos", this.ConnectionString);
+                sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sda.SelectCommand.Parameters.AddWithValue("@folio", "");
+                sda.SelectCommand.Parameters.AddWithValue("@oper", "F");
+                sda.SelectCommand.Parameters.AddWithValue("@cod_estab", id);
+                
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                GS = dt.AsEnumerable().Select(a =>
+                new AlimentacionGSModelView
+                {
+                    folio = a["folio"].ToString()
+                }).SingleOrDefault();
+            }
+            catch(Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return GS;
+        }
         //traer informacion de equipos
-        public List<Equipos> TraerEquipos()
+        public List<Equipos> TraerEquipos(string oper)
         {
             List<Equipos> equipos = new List<Equipos>();
-
-            SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_Equipos", this.ConnectionString);
-            sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            sda.SelectCommand.Parameters.AddWithValue("@oper", "R");
-            DataTable dt = new DataTable();
-            sda.Fill(dt);
-            equipos = dt.AsEnumerable().Select(a =>
-            new Equipos
+            if(oper == "GS" || oper !="")
             {
-                equipo = a["equipo"].ToString(),
-                nombre = a["nombre"].ToString(),
-                abreviatura = a["abreviatura"].ToString(),
-                empleado = a["empleado"].ToString(),
-                nombre_empleado=a["nombre_empleado"].ToString(),
-                status = a["status"].ToString(),
-                serie = a["serie"].ToString()
-            }).ToList();
+                try
+                {
+                    SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_Equipos", this.ConnectionString);
+                    sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                    sda.SelectCommand.Parameters.AddWithValue("@oper", "G");
+                    DataTable dt = new DataTable();
+                    sda.Fill(dt);
+                    equipos = dt.AsEnumerable().Select(a =>
+                    new Equipos
+                    {
+                        equipo = a["equipo"].ToString(),
+                        nombre = a["nombre"].ToString(),
+                        marca = a["marca"].ToString(),
+                        modelo = a["modelo"].ToString(),
+                        año = a["año"].ToString(),
+                        serie = a["serie"].ToString(),
+                        motor = a["motor"].ToString().Trim(),
+                        placas = a["placas"].ToString(),
+                        ultima_lectura = Convert.ToInt64(a["ultima_lectura"]),
+                        chofer = a["chofer"].ToString(),
+                        Nombre_Chofer = a["NombreCh"].ToString(),
+                    }).ToList();
+                }
+                catch(Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
+            }
+            else
+            {
+                SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_Equipos", this.ConnectionString);
+                sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sda.SelectCommand.Parameters.AddWithValue("@oper", "R");
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                equipos = dt.AsEnumerable().Select(a =>
+                new Equipos
+                {
+                    equipo = a["equipo"].ToString(),
+                    nombre = a["nombre"].ToString(),
+                    abreviatura = a["abreviatura"].ToString(),
+                    empleado = a["empleado"].ToString(),
+                    nombre_empleado = a["nombre_empleado"].ToString(),
+                    status = a["status"].ToString(),
+                    serie = a["serie"].ToString()
+                }).ToList();
+            }
+            
             return equipos;
         }
         //traer tipos servicio
