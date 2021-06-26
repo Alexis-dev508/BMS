@@ -835,6 +835,35 @@ namespace Demo.Data
             }
             return talleres;
         }
+        //traer proveedores
+        public List<Proveedores> TraerProveedores()
+        {
+            List<Proveedores> proveedores = new List<Proveedores>();
+            try
+            {
+                SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_alimentacionGS_equipos", this.ConnectionString);
+                sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sda.SelectCommand.Parameters.AddWithValue("@oper", "P");
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                proveedores = dt.AsEnumerable().Select(a =>
+                new Proveedores
+                {
+                    razon_social=a["razon_social"].ToString(),
+                    calle = a["calle"].ToString(),
+                    cod_estab = a["cod_estab"].ToString(),
+                    cod_prv = a["cos_prv"].ToString(),
+                    status_proveedor = a["status_proveedor"].ToString()
+
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+            return proveedores;
+        }
         //traer equipo Editar
         public EquiposModelView TraerEquipo(string equipo)
         {
@@ -1067,7 +1096,30 @@ namespace Demo.Data
         //guardar servicio
         public bool GuardarGastosServicios(AlimentacionGastosServicios GS)
         {
-            if(GS.usuario == null)
+            DateTime fecha1 = Convert.ToDateTime("01/01/1773");
+            DateTime fecha2 = Convert.ToDateTime("31/12/9999");
+            string fecha = DateTime.Today.ToString("dd-MM-yyyy");
+            if(GS.fecha_cancelacion <= fecha1 || GS.fecha_cancelacion >= fecha2)
+            {
+                //GS.fecha_cancelacion =
+            }
+            if (GS.fecha_elaboracion <= fecha1 || GS.fecha_elaboracion >= fecha2)
+            {
+                GS.fecha_elaboracion = Convert.ToDateTime(fecha);
+            }
+            if (GS.fecha_entrega <= fecha1 || GS.fecha_entrega >= fecha2)
+            {
+                GS.fecha_entrega = Convert.ToDateTime(fecha);
+            }
+            if (GS.fecha_servicio <= fecha1 || GS.fecha_servicio >= fecha2)
+            {
+                GS.fecha_servicio = Convert.ToDateTime(fecha);
+            }
+            if (GS.fecha_recepcion <= fecha1 || GS.fecha_recepcion>= fecha2)
+            {
+                GS.fecha_recepcion = Convert.ToDateTime(fecha);
+            }
+            if (GS.usuario == null)
             {
                 GS.usuario = "1";
             }

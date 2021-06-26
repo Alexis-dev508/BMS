@@ -5,9 +5,11 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
+using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Threading.Tasks;
 
 namespace Demo.Controllers
@@ -47,6 +49,11 @@ namespace Demo.Controllers
         {
             try
             {
+                if(model.cod_prv == null)
+                {
+                    TempData["proveedor"] = "V";
+                    return View(model);
+                }
                 var res = datos.GuardarGastosServicios(model);
                 if (res == true)
                 {
@@ -880,6 +887,22 @@ namespace Demo.Controllers
                 ViewBag.ErroresM = ex.Message;
             }
             return PartialView("_EquipoGS", detalle);
+        }
+        //traer proveedor
+        [HttpGet]
+        public IActionResult Proveedor()
+        {
+            List<Proveedores> detalle = new List<Proveedores>();
+            try
+            {
+                detalle = datos.TraerProveedores();
+            }
+            catch (Exception ex)
+            {
+
+                ViewBag.ErroresM = ex.Message;
+            }
+            return PartialView("_Proveedores");
         }
         //folio gastos servicios
         public IActionResult FolioGastoServicio(string id)
