@@ -1128,6 +1128,10 @@ namespace Demo.Data
             {
                 GS.factura_proveedor = "";
             }
+            if(GS.cod_cte == null)
+            {
+                GS.cod_cte = "";
+            }
             SqlTransaction sqlTransaction = null;
             SqlConnection cnn = new SqlConnection(this.ConnectionString);
             try
@@ -1137,14 +1141,16 @@ namespace Demo.Data
                 SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_alimentacionGS_equipos", cnn);
                 sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
                 sda.SelectCommand.Transaction = sqlTransaction;
-                sda.SelectCommand.Parameters.AddWithValue("@trasaccion", "273");
+                sda.SelectCommand.Parameters.AddWithValue("@folio", GS.folio.Trim());
+                sda.SelectCommand.Parameters.AddWithValue("@oper", "G");
+                sda.SelectCommand.Parameters.AddWithValue("@transaccion", "273");
                 sda.SelectCommand.Parameters.AddWithValue("@servicio", GS.servicio);
                 sda.SelectCommand.Parameters.AddWithValue("@fecha_servicio", GS.fecha_servicio);
                 sda.SelectCommand.Parameters.AddWithValue("@equipo", GS.equipo);
                 sda.SelectCommand.Parameters.AddWithValue("@status", "V");
                 sda.SelectCommand.Parameters.AddWithValue("@usuario", GS.usuario);
                 sda.SelectCommand.Parameters.AddWithValue("@usuario_cancelacion", "");
-                sda.SelectCommand.Parameters.AddWithValue("@fecha_cancelacion", GS.fecha_cancelacion);
+                sda.SelectCommand.Parameters.AddWithValue("@fecha_cancelacion", "");
                 sda.SelectCommand.Parameters.AddWithValue("@cod_estab", GS.cod_estab);
                 sda.SelectCommand.Parameters.AddWithValue("@notas", GS.notas);
                 sda.SelectCommand.Parameters.AddWithValue("@cod_prv", GS.cod_prv);

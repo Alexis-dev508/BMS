@@ -36,7 +36,7 @@
                                 @Html.DropDownListFor(model => model.cod_estab, Model.EstabList, new { @class = "form-control",@id="estab_list"})
 
                                 @Html.Label("equipo", "Equipo", new { @class = "control-label my-2" })
-                                @Html.TextBoxFor(model => model.equipo, new { @class = "form-control my-2",@onkeydown="onKeyDownEquipo(event)",@id="Equipo",@required="true"})
+                                @Html.TextBoxFor(model => model.equipo, new { @class = "form-control my-2",@onkeydown="onKeyDownEquipo(event)",@id="Equipo",@required="required"})
                                 <input class="form-control" id="EquipoN" data-toggle="Equipo" title="Equipo" readonly="readonly" />
 
                                 @Html.Label("modelo", "Modelo", new { @class = "control-label my-2" })
@@ -81,7 +81,7 @@
                             @*----COLUMNA NUMERO 2*@
                         <div class="col-lg">
                             @Html.Label("folio", "Folio", new { @class = "control-label" })
-                            @Html.TextBoxFor(model => model.folio, new { @class = "form-control my-2",@id="Folio",@readonly="readonly",@required="true"})
+                            @Html.TextBoxFor(model => model.folio, new { @class = "form-control my-2",@id="Folio",@readonly="readonly",@required="required"})
 
                             @Html.Label("chofer", "Chofer", new { @class = "control-label" })
                             <input class="form-control" id="Chofer" data-toggle="Chofer" title="Chofer" readonly="readonly" />
@@ -91,7 +91,7 @@
                             <input class="form-control" id="Serie" data-toggle="Serie" title="Serie" readonly="readonly"/>
 
                             @Html.Label("lectura", "Lectura", new { @class = "control-label" })
-                            <input class="form-control" id="Lectura" data-toggle="Lectura" title="Lectura" readonly="readonly" />
+                             @Html.TextBoxFor(model => model.lectura, new { @class = "form-control my-2",@id="Lectura",@readonly="readonly"})
 
                             @Html.Label("placas", "Placas", new { @class = "control-label" })
                             <input class="form-control" id="Placas" data-toggle="Placas" title="Placas" readonly="readonly"/>
