@@ -22,7 +22,7 @@
                             }*@
                     </form>
                 </nav>
-                @using (Html.BeginForm("NuevoGastoServicios", "Catalogos", FormMethod.Post,new { enctype = "multipart/form-data", onsubmit = "cerrar()", id="form"}))
+                @using (Html.BeginForm("NuevoGastoServicios", "Catalogos", FormMethod.Post,new { enctype = "multipart/form-data", id="forma"}))
                 {
                     <div class="container-fluid">
                         <div class="row">
@@ -52,7 +52,7 @@
                                 <input class="form-control" id="Motor" data-toggle="Motor" title="Motor" readonly="readonly"/>
 
                                 @Html.Label("notas", "Notas", new { @class = "control-label" })
-                                <textarea id="notas" rows="5" class="form-control my-2" disabled="disabled"></textarea>
+                                <textarea id="notas1" rows="5" class="form-control my-2" disabled="disabled"></textarea>
 
                                 @Html.Label("factura", "Factura", new { @class = "control-label" })
                                 @Html.TextBoxFor(model => model.factura_proveedor, new { @class = "form-control my-2"})
@@ -81,7 +81,7 @@
                             @*----COLUMNA NUMERO 2*@
                         <div class="col-lg">
                             @Html.Label("folio", "Folio", new { @class = "control-label" })
-                            @Html.TextBoxFor(model => model.folio, new { @class = "form-control my-2",@id="Folio",@readonly="readonly",@required="required"})
+                            @Html.TextBoxFor(model => model.folio, new { @class = "form-control my-2",@id="Folio",@readonly="readonly"})
 
                             @Html.Label("chofer", "Chofer", new { @class = "control-label" })
                             <input class="form-control" id="Chofer" data-toggle="Chofer" title="Chofer" readonly="readonly" />
@@ -91,7 +91,7 @@
                             <input class="form-control" id="Serie" data-toggle="Serie" title="Serie" readonly="readonly"/>
 
                             @Html.Label("lectura", "Lectura", new { @class = "control-label" })
-                             @Html.TextBoxFor(model => model.lectura, new { @class = "form-control my-2",@id="Lectura",@readonly="readonly"})
+                             <input class="form-control" id="Lectura1" data-toggle="Lectura" title="Lectura" readonly="readonly"/>
 
                             @Html.Label("placas", "Placas", new { @class = "control-label" })
                             <input class="form-control" id="Placas" data-toggle="Placas" title="Placas" readonly="readonly"/>
@@ -135,7 +135,7 @@
                       </div>
                       <div class="modal-footer">
                           
-                          <input type="submit" value="Aceptar" class="btn btn-success my-2" onclick="aceptar()"/>
+                          <input type="button" value="Aceptar" class="btn btn-success my-2" onclick="aceptar();"/>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                       </div>
                     </div>
@@ -304,14 +304,14 @@ function confirm(){
     if(prv == "" || prv == null){
         $('#modalConfirm').modal('show');
     }else{
-        $("#form").submit();
+        $("#forma").submit();
     }
 }
 function cerrar(){
     $('#modalConfirm').modal('hide');
     }
 function aceptar() {
-     $('#modalConfirm').modal('hide');
+     $("#forma").submit();
     }
     </script>
 
