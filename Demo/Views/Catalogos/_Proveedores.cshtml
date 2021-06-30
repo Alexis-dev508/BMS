@@ -5,7 +5,7 @@
 			<div class="card-primary">
 				<div class="card-header">
 					<h2>Proveedores</h2>
-                     <input class="form-control mr-sm-2" id="busqueda" type="search" onkeyup="buscar()" placeholder="Buscar" aria-label="Search"/> 
+                    
 				</div>
 				<table class="table table-hover" id="tabla">
                     <thead>
@@ -28,7 +28,7 @@
                                 <td>@dat.cod_estab</td>
                                 <td>
                                     <form class="form-inline my-2 my-lg-0">
-                                      <a  onclick="equipoGS('@dat.cod_prv.Trim()','@dat.razon_social.Trim()')" class="btn btn-success" data-toggle="Seleccionar" title="Seleccionar">
+                                      <a  onclick="proveedor('@dat.cod_prv.Trim()','@dat.razon_social.Trim()')" class="btn btn-success" data-toggle="Seleccionar" title="Seleccionar">
 						                   <i class="fas fa-check"></i>
 					                  </a>
                                     </form>
@@ -41,4 +41,9 @@
 		</div>
 	</div>
 </div>
+<script>
+$(document).ready( function () {
+    $('#tabla').DataTable();
+} );
+</script>
 

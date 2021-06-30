@@ -902,7 +902,7 @@ namespace Demo.Controllers
 
                 ViewBag.ErroresM = ex.Message;
             }
-            return PartialView("_Proveedores");
+            return PartialView("_Proveedores",detalle);
         }
         //folio gastos servicios
         public IActionResult FolioGastoServicio(string id)

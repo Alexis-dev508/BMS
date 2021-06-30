@@ -37,41 +37,41 @@
 
                                 @Html.Label("equipo", "Equipo", new { @class = "control-label my-2" })
                                 @Html.TextBoxFor(model => model.equipo, new { @class = "form-control my-2",@onkeydown="onKeyDownEquipo(event)",@id="Equipo",@required="true"})
-                                <input class="form-control" id="EquipoN" data-toggle="Equipo" title="Equipo" readonly="true" />
+                                <input class="form-control" id="EquipoN" data-toggle="Equipo" title="Equipo" readonly="readonly" />
 
                                 @Html.Label("modelo", "Modelo", new { @class = "control-label my-2" })
-                                <input class="form-control" id="Modelo" data-toggle="Modelo" title="Modelo" readonly="true" />
+                                <input class="form-control" id="Modelo" data-toggle="Modelo" title="Modelo" readonly="readonly" />
 
                                 @Html.Label("marca", "Marca", new { @class = "control-label my-2" })
-                                <input class="form-control" id="Marca" data-toggle="Marca" title="Marca" readonly="true" />
+                                <input class="form-control" id="Marca" data-toggle="Marca" title="Marca" readonly="readonly" />
 
                                 @Html.Label("año", "Año", new { @class = "control-label my-2" })
-                                <input class="form-control" id="Annio" data-toggle="Año" title="Año" readonly="true"/>
+                                <input class="form-control" id="Annio" data-toggle="Año" title="Año" readonly="readonly"/>
 
                                 @Html.Label("motor", "Motor", new { @class = "control-label my-2" })
-                                <input class="form-control" id="Motor" data-toggle="Motor" title="Motor" readonly="true"/>
+                                <input class="form-control" id="Motor" data-toggle="Motor" title="Motor" readonly="readonly"/>
 
                                 @Html.Label("notas", "Notas", new { @class = "control-label" })
-                                <textarea id="notas" rows="5" class="form-control my-2" disabled="true"></textarea>
+                                <textarea id="notas" rows="5" class="form-control my-2" disabled="disabled"></textarea>
 
                                 @Html.Label("factura", "Factura", new { @class = "control-label" })
                                 @Html.TextBoxFor(model => model.factura_proveedor, new { @class = "form-control my-2"})
 
                                 @Html.Label("proveedor", "Proveedor", new { @class = "control-label" })
                                 @Html.TextBoxFor(model => model.cod_prv, new { @class = "form-control my-2",@id="Proveedor",@onkeydown="onKeyDownPrv(event)"})
-                                <input class="form-control" id="ProveedorN" data-toggle="Proveedor" title="Proveedor" readonly="true" />
+                                <input class="form-control" id="ProveedorN" data-toggle="Proveedor" title="Proveedor" readonly="readonly" />
 
                                 @Html.Label("neto", "Neto", new { @class = "control-label" })
-                                <input type="number" class="form-control" id="Neto" data-toggle="Neto" title="Neto" readonly="true" />
+                                <input type="number" class="form-control" id="Neto" data-toggle="Neto" title="Neto" readonly="readonly" />
 
                                 @Html.Label("iva", "IVA", new { @class = "control-label" })
-                                <input type="number" class="form-control" id="IVA" data-toggle="IVA" title="IVA" readonly="true" />
+                                <input type="number" class="form-control" id="IVA" data-toggle="IVA" title="IVA" readonly="readonly" />
 
                                 @Html.Label("ivaret", "IVA Ret", new { @class = "control-label" })
-                                <input type="number" class="form-control" id="IVARet" data-toggle="IVA Ret" title="IVA Ret" readonly="true"/>
+                                <input type="number" class="form-control" id="IVARet" data-toggle="IVA Ret" title="IVA Ret" readonly="readonly"/>
 
                                 @Html.Label("isrret", "ISR Ret", new { @class = "control-label" })
-                                <input type="number" class="form-control" id="ISRRet" data-toggle="ISR Ret" title="ISR Ret" readonly="true"/>
+                                <input type="number" class="form-control" id="ISRRet" data-toggle="ISR Ret" title="ISR Ret" readonly="readonly"/>
 
                                 @Html.Label("total", "Total", new { @class = "control-label" })
                                 @Html.TextBoxFor(model => model.total, new { @class = "form-control", @type = "number",@id="total",@readonly="readonly" })
@@ -84,21 +84,21 @@
                             @Html.TextBoxFor(model => model.folio, new { @class = "form-control my-2",@id="Folio",@readonly="readonly",@required="true"})
 
                             @Html.Label("chofer", "Chofer", new { @class = "control-label" })
-                            <input class="form-control" id="Chofer" data-toggle="Chofer" title="Chofer" readonly="true" />
-                            <input class="form-control" id="ChoferN" data-toggle="Chofer" title="Chofer" readonly="true"/>
+                            <input class="form-control" id="Chofer" data-toggle="Chofer" title="Chofer" readonly="readonly" />
+                            <input class="form-control" id="ChoferN" data-toggle="Chofer" title="Chofer" readonly="readonly"/>
 
                             @Html.Label("serie", "Serie", new { @class = "control-label" })
-                            <input class="form-control" id="Serie" data-toggle="Serie" title="Serie" readonly="true"/>
+                            <input class="form-control" id="Serie" data-toggle="Serie" title="Serie" readonly="readonly"/>
 
                             @Html.Label("lectura", "Lectura", new { @class = "control-label" })
-                            <input class="form-control" id="Lectura" data-toggle="Lectura" title="Lectura" readonly="true" />
+                            <input class="form-control" id="Lectura" data-toggle="Lectura" title="Lectura" readonly="readonly" />
 
                             @Html.Label("placas", "Placas", new { @class = "control-label" })
-                            <input class="form-control" id="Placas" data-toggle="Placas" title="Placas" readonly="true"/>
+                            <input class="form-control" id="Placas" data-toggle="Placas" title="Placas" readonly="readonly"/>
 
                             @Html.Label("servicio", "Servicio", new { @class = "control-label" })
                             @Html.TextBoxFor(model => model.servicio, new { @class = "form-control",@id="servicio",@onkeydown="onKeyDownServicio(event)"})
-                            <input class="form-control" id="ServicioN" data-toggle="Servicio" title="Servicio" readonly="true"/>
+                            <input class="form-control" id="ServicioN" data-toggle="Servicio" title="Servicio" readonly="readonly"/>
                             @Html.Label("cantidad", "Cantidad", new { @class = "control-label" })
                             @Html.TextBoxFor(model => model.cantidad, new { @class = "form-control", @type = "number",@id="Cantidad" })
                             @Html.Label("importe", "Importe", new { @class = "control-label" })
@@ -144,6 +144,7 @@
             </div>
         </div>
     </div>
+</div>
     <div class="modal fade bd-example-modal-xl" id="modalDetalle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
@@ -164,7 +165,7 @@
     <script>
 $(document).ready( function () {
     $("#alert").hide();
-    $('#tabla').DataTable();
+    $("").DataTable();
     $("#estab_list").change(function(){
         var estab = $(this).val();
         debugger

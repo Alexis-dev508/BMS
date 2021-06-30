@@ -843,6 +843,7 @@ namespace Demo.Data
             {
                 SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_alimentacionGS_equipos", this.ConnectionString);
                 sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sda.SelectCommand.Parameters.AddWithValue("@folio", "");
                 sda.SelectCommand.Parameters.AddWithValue("@oper", "P");
                 DataTable dt = new DataTable();
                 sda.Fill(dt);
@@ -852,7 +853,7 @@ namespace Demo.Data
                     razon_social=a["razon_social"].ToString(),
                     calle = a["calle"].ToString(),
                     cod_estab = a["cod_estab"].ToString(),
-                    cod_prv = a["cos_prv"].ToString(),
+                    cod_prv = a["cod_prv"].ToString(),
                     status_proveedor = a["status_proveedor"].ToString()
 
                 }).ToList();
@@ -1122,6 +1123,10 @@ namespace Demo.Data
             if (GS.usuario == null)
             {
                 GS.usuario = "1";
+            }
+            if(GS.factura_proveedor == null)
+            {
+                GS.factura_proveedor = "";
             }
             SqlTransaction sqlTransaction = null;
             SqlConnection cnn = new SqlConnection(this.ConnectionString);
