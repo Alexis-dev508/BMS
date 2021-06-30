@@ -134,7 +134,8 @@
                         <label>No ha seleccionado un proveedor.</label>
                       </div>
                       <div class="modal-footer">
-                          <input type="submit" value="Aceptar" class="btn btn-success my-2"/>
+                          
+                          <input type="submit" value="Aceptar" class="btn btn-success my-2" onclick="aceptar()"/>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                       </div>
                     </div>
@@ -185,7 +186,12 @@ $(document).ready( function () {
             }
         })
     })
-} );
+});
+        function cod_prv(p, nom) {
+            $("#Proveedor").val(p);
+            $("#ProveedorN").val(nom);
+            $("#modalDetalle").modal('hide');
+        }
 function equipo(){
         $("#datos").empty();
         $.ajax({
@@ -214,7 +220,7 @@ function prv(){
 function onKeyDownEquipo(event) {
 
     var codigo = event.which || event.keyCode;
-     
+
     if(codigo === 113){
       equipo();
     }
@@ -222,7 +228,7 @@ function onKeyDownEquipo(event) {
 function onKeyDownPrv(event) {
 
     var codigo = event.which || event.keyCode;
-     
+
     if(codigo === 113){
       prv();
     }
@@ -230,7 +236,7 @@ function onKeyDownPrv(event) {
 function onKeyDownServicio(event) {
 
     var codigo = event.which || event.keyCode;
-     
+
     if(codigo === 113){
       servicio();
     }
@@ -303,5 +309,9 @@ function confirm(){
 }
 function cerrar(){
     $('#modalConfirm').modal('hide');
-}
-</script>
+    }
+function aceptar() {
+     $('#modalConfirm').modal('hide');
+    }
+    </script>
+
