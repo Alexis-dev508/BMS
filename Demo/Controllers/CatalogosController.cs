@@ -49,11 +49,11 @@ namespace Demo.Controllers
         {
             try
             {
-                if(model.cod_prv == null)
-                {
-                    TempData["proveedor"] = "V";
-                    return View(model);
-                }
+                //if(model.cod_prv == null)
+                //{
+                //    TempData["proveedor"] = "V";
+                //    return View(model);
+                //}
                 var res = datos.GuardarGastosServicios(model);
                 if (res == true)
                 {

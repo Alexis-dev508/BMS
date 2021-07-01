@@ -130,13 +130,12 @@
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
-                      <div class="modal-body">
-                        <label>No ha seleccionado un proveedor.</label>
+                      <div class="modal-body" id="datos1">
+                        
                       </div>
-                      <div class="modal-footer">
+                      <div class="modal-footer" id="footer">
                           
-                          <input type="button" value="Aceptar" class="btn btn-success my-2" onclick="aceptar();"/>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                          
                       </div>
                     </div>
                   </div>
@@ -167,6 +166,16 @@
 $(document).ready( function () {
     $("#alert").hide();
     $("").DataTable();
+    $.ajax({
+            type:"post",
+            url:"@Url.Action("FolioGastoServicio","Catalogos")" + "?id=" + "1",
+            contentType:"html",
+            success:function(respond){
+                debugger
+                $("#Folio").val(respond);
+                var a = $("#Folio").val();
+            }
+        })
     $("#estab_list").change(function(){
         var estab = $(this).val();
         debugger
@@ -272,11 +281,6 @@ function serv1(servicio,nombre){
     $('#ServicioN').val(nombre);
     $('#modalDetalle').modal('hide');
 }
-/*function cod_prv(p,n){
-    $("#Proveedor").val(p);
-    $("#ProveedorN").val.(n);
-    $('#modalDetalle').modal('hide');
-}*/
 function calculos(){
     var importe = $("#Importe").val();
     var descporcent = $("#DescuentoPorc").val();
@@ -301,14 +305,39 @@ function calculos(){
 }
 function confirm(){
     var prv = $("#Proveedor").val();
-    if(prv == "" || prv == null){
-        $('#modalConfirm').modal('show');
+    var fol = $("#Folio").val();
+    var eq = $("#Equipo").val();
+    if(fol == null || fol == ""){
+        var data="<label>Seleccione un establecimiento.</label>";
+            var dat ='<button type="button" class="btn btn-secondary" onclick="cerrar()">Cerrar</button>';
+            $("#datos1").append(data);
+            $("#footer").append(dat);
+            $("#modalConfirm").modal('show');
     }else{
-        $("#forma").submit();
+        if(prv == null || prv ==""){
+             var data="<label>No ha seleccionado un proveedor. ¿Desea continuar?.</label>";
+            var dat ='<input type="submit" value="Aceptar" class="btn btn-success my-2"/> <button type="button" class="btn btn-secondary" onclick="cerrar()">Cancelar</button>';
+            $("#datos1").append(data);
+            $("#footer").append(dat);
+        $('#modalConfirm').modal('show');
+        }else{
+            if ( eq == null || eq == ""){
+                var data="<label>Seleccione un Equipo.</label>";
+                var dat ='<button type="button" class="btn btn-secondary" onclick="cerrar()">Cerrar</button>';
+                $("#datos1").append(data);
+                $("#footer").append(dat);
+                $("#modalConfirm").modal('show');
+            }else{
+                $("#forma").submit();
+            }
+            
+        }
     }
 }
 function cerrar(){
     $('#modalConfirm').modal('hide');
+    $("#datos1").empty();
+    $("#footer").empty();
     }
 function aceptar() {
      $("#forma").submit();

@@ -1132,6 +1132,10 @@ namespace Demo.Data
             {
                 GS.cod_cte = "";
             }
+            if(GS.cod_prv == null)
+            {
+                GS.cod_prv = "";
+            }
             SqlTransaction sqlTransaction = null;
             SqlConnection cnn = new SqlConnection(this.ConnectionString);
             try
@@ -1150,10 +1154,18 @@ namespace Demo.Data
                 sda.SelectCommand.Parameters.AddWithValue("@status", "V");
                 sda.SelectCommand.Parameters.AddWithValue("@usuario", GS.usuario);
                 sda.SelectCommand.Parameters.AddWithValue("@usuario_cancelacion", "");
-                sda.SelectCommand.Parameters.AddWithValue("@fecha_cancelacion", GS.fecha_cancelacion);
+               
                 sda.SelectCommand.Parameters.AddWithValue("@cod_estab", GS.cod_estab);
                 sda.SelectCommand.Parameters.AddWithValue("@notas", GS.notas);
                 sda.SelectCommand.Parameters.AddWithValue("@cod_prv", GS.cod_prv);
+                if (GS.fecha_cancelacion <= fecha1 || GS.fecha_cancelacion >= fecha2)
+                {
+                    sda.SelectCommand.Parameters.AddWithValue("@fecha_cancelacion", null);
+                }
+                else
+                {
+                    sda.SelectCommand.Parameters.AddWithValue("@fecha_cancelacion", GS.fecha_cancelacion);
+                }
                 sda.SelectCommand.Parameters.AddWithValue("@fecha_elaboracion", GS.fecha_elaboracion);
                 sda.SelectCommand.Parameters.AddWithValue("@cod_cte", GS.cod_cte);
                 sda.SelectCommand.Parameters.AddWithValue("@recepcionista", "");
