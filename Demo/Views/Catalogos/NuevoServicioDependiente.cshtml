@@ -8,7 +8,14 @@
         
          @Html.Label("servicio","Servicio",new {@class="control-label"})
          &nbsp;&nbsp;&nbsp;&nbsp;
-         @Html.TextBoxFor(model=> model.servicio,new {@class="form-control",@type="text",@onkeydown="onKeyDownServ1(event);",@id="servicio",@required="true"})
+         <div class="input-group">
+           @Html.TextBoxFor(model=> model.servicio,new {@class="form-control",@type="text",@onkeydown="onKeyDownServ1(event)",@id="servicio",@required="true"})
+            <span class="input-group-btn">
+                <a class="btn btn-primary" onclick="servicio()" data-toggle="Buscar" title="Buscar">
+                    <i class="fas fa-search"></i>
+			    </a>
+            </span>
+         </div>
       
          
          &nbsp;&nbsp;&nbsp;&nbsp;
@@ -18,7 +25,14 @@
     <div class="col-12">
         <br />
        @Html.Label("servicio_dependiente","Dependiente",new {@class="control-label"})
-        @Html.TextBoxFor(model=> model.servicio_dependiente,new {@class="form-control",@type="text",@onkeydown="onKeyDownServ(event);",@id="depende",@required="true"})
+         <div class="input-group">
+            @Html.TextBoxFor(model=> model.servicio_dependiente,new {@class="form-control",@type="text",@onkeydown="onKeyDownServ(event)",@id="depende",@required="true"})
+            <span class="input-group-btn">
+                <a class="btn btn-primary" onclick="servicioDepende()" data-toggle="Buscar" title="Buscar">
+                    <i class="fas fa-search"></i>
+			    </a>
+            </span>
+         </div>
         @Html.Label("notas","Notas",new {@class="control-label"})
         @Html.TextAreaFor(model=> model.notas,new {@class="form-control",@type="text",@required="true"})
         &nbsp;&nbsp;&nbsp;&nbsp;

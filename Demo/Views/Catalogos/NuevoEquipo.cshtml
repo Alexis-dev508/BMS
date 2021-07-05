@@ -82,7 +82,14 @@
 
                                 <div class="form-group m-2">
                                     @Html.Label("activo_fijo", "Activo Fijo", new { @class = "control-label" })
-                                    @Html.TextBoxFor(model => model.activo_fijo, new { @class = "form-control", @onkeydown = "onKeyDownActivo(event);", @id = "activo" })
+                                   <div class="input-group">
+                                     @Html.TextBoxFor(model => model.activo_fijo, new { @class = "form-control", @onkeydown = "onKeyDownActivo(event);", @id = "activo" })
+                                    <span class="input-group-btn">
+                                        <a class="btn btn-primary" onclick="detalleActivo()" data-toggle="Buscar" title="Buscar">
+                                           <i class="fas fa-search"></i>
+					                  </a>
+                                    </span>
+                                </div>
                                     &nbsp;&nbsp;&nbsp;&nbsp;
                                     <div class="row">
                                         <div class="col-6"> <input asp-for="activo_nombre" id="anombre" data-toggle="Nombre Activo fijo" title="Nombre Activo fijo" class="form-control" /></div>
@@ -101,7 +108,14 @@
                                 <div class="form-group m-2">
                                     @Html.Label("equipo_depende", "Depende", new { @class = "control-label" })
                                     &nbsp;&nbsp;&nbsp;&nbsp;
-                                    @Html.TextBoxFor(model => model.equipo_depende, new { @class = "form-control", @onkeydown = "onKeyDownDepende(event);", @id = "depende" })
+                                    <div class="input-group">
+                                     @Html.TextBoxFor(model => model.equipo_depende, new { @class = "form-control", @onkeydown = "onKeyDownDepende(event);", @id = "depende" })
+                                    <span class="input-group-btn">
+                                        <a class="btn btn-primary" onclick="equipoDepende()" data-toggle="Buscar" title="Buscar">
+                                           <i class="fas fa-search"></i>
+					                  </a>
+                                    </span>
+                                    </div>
                                     &nbsp;&nbsp;&nbsp;&nbsp;
                                     <input asp-for="depende" class="form-control" id="dnombre" data-toggle="Depende Equipo" title="Depende Equipo" />
                                     &nbsp;&nbsp;&nbsp;&nbsp;
@@ -132,14 +146,28 @@
                                 </div>
 
                                 <div class="form-group m-2">
-                                    <b>Área @Html.TextBoxFor(model => model.area, new { @class = "form-control", @id = "area", @onkeydown = "onKeyDownArea(event);" })</b>
+                                    <div class="input-group">
+                                     <b>Área @Html.TextBoxFor(model => model.area, new { @class = "form-control", @id = "area", @onkeydown = "onKeyDownArea(event);" })</b>
+                                    <span class="input-group-btn">
+                                        <a class="btn btn-primary" onclick="areaEquipo()" data-toggle="Buscar" title="Buscar">
+                                           <i class="fas fa-search"></i>
+					                  </a>
+                                    </span>
+                                    </div>
                                     &nbsp;&nbsp;&nbsp;&nbsp;
                                     <input id="areanombre" data-toggle="Area" title="Area" class="form-control">
                                     &nbsp;&nbsp;&nbsp;&nbsp;
                                 </div>
 
                                 <div class="form-group m-2">
-                                    <b>Depto. @Html.TextBoxFor(model => model.departamento, new { @class = "form-control", @onkeydown = "onKeyDownDepart(event);", @id = "departamento" })</b>
+                                    <div class="input-group">
+                                     <b>Depto. @Html.TextBoxFor(model => model.departamento, new { @class = "form-control", @onkeydown = "onKeyDownDepart(event);", @id = "departamento" })</b>
+                                    <span class="input-group-btn">
+                                        <a class="btn btn-primary" onclick="departEquipos()" data-toggle="Buscar" title="Buscar">
+                                           <i class="fas fa-search"></i>
+					                  </a>
+                                    </span>
+                                    </div>
                                     &nbsp;&nbsp;&nbsp;&nbsp;
                                     <input id="departnombre" data-toggle="Nombre Departamento" title="Nombre Departamento" class="form-control">
                                 </div>
