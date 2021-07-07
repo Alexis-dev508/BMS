@@ -1136,60 +1136,291 @@ namespace Demo.Data
             {
                 GS.cod_prv = "";
             }
+            if(GS.notas == null)
+            {
+                GS.notas = "";
+            }
+            if(GS.notas2 == null)
+            {
+                GS.notas2 = "";
+            }
             SqlTransaction sqlTransaction = null;
             SqlConnection cnn = new SqlConnection(this.ConnectionString);
+            
             try
             {
-                cnn.Open();
-                sqlTransaction = cnn.BeginTransaction();
-                SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_alimentacionGS_equipos", cnn);
-                sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
-                sda.SelectCommand.Transaction = sqlTransaction;
-                sda.SelectCommand.Parameters.AddWithValue("@folio", GS.folio.Trim());
-                sda.SelectCommand.Parameters.AddWithValue("@oper", "G");
-                sda.SelectCommand.Parameters.AddWithValue("@transaccion", "273");
-                sda.SelectCommand.Parameters.AddWithValue("@servicio", GS.servicio);
-                sda.SelectCommand.Parameters.AddWithValue("@fecha_servicio", GS.fecha_servicio);
-                sda.SelectCommand.Parameters.AddWithValue("@equipo", GS.equipo);
-                sda.SelectCommand.Parameters.AddWithValue("@status", "V");
-                sda.SelectCommand.Parameters.AddWithValue("@usuario", GS.usuario);
-                sda.SelectCommand.Parameters.AddWithValue("@usuario_cancelacion", "");
-               
-                sda.SelectCommand.Parameters.AddWithValue("@cod_estab", GS.cod_estab);
-                sda.SelectCommand.Parameters.AddWithValue("@notas", GS.notas);
-                sda.SelectCommand.Parameters.AddWithValue("@notas2", GS.notas2);
-                sda.SelectCommand.Parameters.AddWithValue("@cod_prv", GS.cod_prv);
-                if (GS.fecha_cancelacion <= fecha1 || GS.fecha_cancelacion >= fecha2)
+                if (GS.servicio != null)
                 {
-                    sda.SelectCommand.Parameters.AddWithValue("@fecha_cancelacion", null);
-                }
-                else
-                {
-                    sda.SelectCommand.Parameters.AddWithValue("@fecha_cancelacion", GS.fecha_cancelacion);
-                }
-                sda.SelectCommand.Parameters.AddWithValue("@fecha_elaboracion", GS.fecha_elaboracion);
-                sda.SelectCommand.Parameters.AddWithValue("@cod_cte", GS.cod_cte);
-                sda.SelectCommand.Parameters.AddWithValue("@recepcionista", "");
-                sda.SelectCommand.Parameters.AddWithValue("@fecha_recepcion", GS.fecha_recepcion);
-                sda.SelectCommand.Parameters.AddWithValue("@torreta", "");
-                sda.SelectCommand.Parameters.AddWithValue("@fecha_entrega", GS.fecha_entrega);
-                sda.SelectCommand.Parameters.AddWithValue("@factura_proveedor", GS.factura_proveedor.Trim());
-                sda.SelectCommand.Parameters.AddWithValue("@mecanico", "");
-                sda.SelectCommand.Parameters.AddWithValue("@refacciones", 0);
-                sda.SelectCommand.Parameters.AddWithValue("@mano_obra_mecanico", 0);
-                sda.SelectCommand.Parameters.AddWithValue("@mano_obra_total", 0);
-                sda.SelectCommand.Parameters.AddWithValue("@trabajos_otros_talleres", GS.trabajos_otros_talleres);
-                sda.SelectCommand.Parameters.AddWithValue("@otros_gastos", 0);
-                sda.SelectCommand.Parameters.AddWithValue("@lectura", GS.lectura);
-                sda.SelectCommand.Parameters.AddWithValue("@cantidad", GS.cantidad);
-                sda.SelectCommand.Parameters.AddWithValue("@total", GS.total);
-                sda.SelectCommand.Parameters.AddWithValue("@operador", "");
+                    cnn.Open();
+                    sqlTransaction = cnn.BeginTransaction();
+                    SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_alimentacionGS_equipos", cnn);
+                    sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                    sda.SelectCommand.Transaction = sqlTransaction;
+                    sda.SelectCommand.Parameters.AddWithValue("@folio", GS.folio.Trim());
+                    sda.SelectCommand.Parameters.AddWithValue("@oper", "G");
+                    sda.SelectCommand.Parameters.AddWithValue("@transaccion", "273");
+                    sda.SelectCommand.Parameters.AddWithValue("@servicio", GS.servicio);
+                    sda.SelectCommand.Parameters.AddWithValue("@fecha_servicio", GS.fecha_servicio);
+                    sda.SelectCommand.Parameters.AddWithValue("@equipo", GS.equipo);
+                    sda.SelectCommand.Parameters.AddWithValue("@status", "V");
+                    sda.SelectCommand.Parameters.AddWithValue("@usuario", GS.usuario);
+                    sda.SelectCommand.Parameters.AddWithValue("@usuario_cancelacion", "");
 
-                DataTable dt = new DataTable();
-                sda.Fill(dt);
-               
-                sqlTransaction.Commit();
+                    sda.SelectCommand.Parameters.AddWithValue("@cod_estab", GS.cod_estab);
+                    sda.SelectCommand.Parameters.AddWithValue("@notas", GS.notas);
+                    sda.SelectCommand.Parameters.AddWithValue("@notas2", GS.notas2);
+                    sda.SelectCommand.Parameters.AddWithValue("@cod_prv", GS.cod_prv);
+                    if (GS.fecha_cancelacion <= fecha1 || GS.fecha_cancelacion >= fecha2)
+                    {
+                        sda.SelectCommand.Parameters.AddWithValue("@fecha_cancelacion", null);
+                    }
+                    else
+                    {
+                        sda.SelectCommand.Parameters.AddWithValue("@fecha_cancelacion", GS.fecha_cancelacion);
+                    }
+                    sda.SelectCommand.Parameters.AddWithValue("@fecha_elaboracion", GS.fecha_elaboracion);
+                    sda.SelectCommand.Parameters.AddWithValue("@cod_cte", GS.cod_cte);
+                    sda.SelectCommand.Parameters.AddWithValue("@recepcionista", "");
+                    sda.SelectCommand.Parameters.AddWithValue("@fecha_recepcion", GS.fecha_recepcion);
+                    sda.SelectCommand.Parameters.AddWithValue("@torreta", "");
+                    sda.SelectCommand.Parameters.AddWithValue("@fecha_entrega", GS.fecha_entrega);
+                    sda.SelectCommand.Parameters.AddWithValue("@factura_proveedor", GS.factura_proveedor.Trim());
+                    sda.SelectCommand.Parameters.AddWithValue("@mecanico", "");
+                    sda.SelectCommand.Parameters.AddWithValue("@refacciones", 0);
+                    sda.SelectCommand.Parameters.AddWithValue("@mano_obra_mecanico", 0);
+                    sda.SelectCommand.Parameters.AddWithValue("@mano_obra_total", 0);
+                    sda.SelectCommand.Parameters.AddWithValue("@trabajos_otros_talleres", GS.total);
+                    sda.SelectCommand.Parameters.AddWithValue("@otros_gastos", 0);
+                    sda.SelectCommand.Parameters.AddWithValue("@lectura", GS.lectura);
+                    sda.SelectCommand.Parameters.AddWithValue("@cantidad", GS.cantidad);
+                    sda.SelectCommand.Parameters.AddWithValue("@total", GS.total);
+                    sda.SelectCommand.Parameters.AddWithValue("@operador", "");
+
+                    DataTable dt = new DataTable();
+                    sda.Fill(dt);
+
+                    sqlTransaction.Commit();
+                    cnn.Close();
+                    //return true;
+                }
+                if (GS.servicio2 != null)
+                {
+                    cnn.Open();
+                    sqlTransaction = cnn.BeginTransaction();
+                    SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_alimentacionGS_equipos", cnn);
+                    sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                    sda.SelectCommand.Transaction = sqlTransaction;
+                    sda.SelectCommand.Parameters.AddWithValue("@folio", GS.folio.Trim());
+                    sda.SelectCommand.Parameters.AddWithValue("@oper", "G");
+                    sda.SelectCommand.Parameters.AddWithValue("@transaccion", "273");
+                    sda.SelectCommand.Parameters.AddWithValue("@servicio2", GS.servicio2);
+                    sda.SelectCommand.Parameters.AddWithValue("@fecha_servicio", GS.fecha_servicio);
+                    sda.SelectCommand.Parameters.AddWithValue("@equipo", GS.equipo);
+                    sda.SelectCommand.Parameters.AddWithValue("@status", "V");
+                    sda.SelectCommand.Parameters.AddWithValue("@usuario", GS.usuario);
+                    sda.SelectCommand.Parameters.AddWithValue("@usuario_cancelacion", "");
+
+                    sda.SelectCommand.Parameters.AddWithValue("@cod_estab", GS.cod_estab);
+                    sda.SelectCommand.Parameters.AddWithValue("@notas", GS.notas);
+                    sda.SelectCommand.Parameters.AddWithValue("@notas2", GS.notasserv2);
+                    sda.SelectCommand.Parameters.AddWithValue("@cod_prv", GS.cod_prv);
+                    if (GS.fecha_cancelacion <= fecha1 || GS.fecha_cancelacion >= fecha2)
+                    {
+                        sda.SelectCommand.Parameters.AddWithValue("@fecha_cancelacion", null);
+                    }
+                    else
+                    {
+                        sda.SelectCommand.Parameters.AddWithValue("@fecha_cancelacion", GS.fecha_cancelacion);
+                    }
+                    sda.SelectCommand.Parameters.AddWithValue("@fecha_elaboracion", GS.fecha_elaboracion);
+                    sda.SelectCommand.Parameters.AddWithValue("@cod_cte", GS.cod_cte);
+                    sda.SelectCommand.Parameters.AddWithValue("@recepcionista", "");
+                    sda.SelectCommand.Parameters.AddWithValue("@fecha_recepcion", GS.fecha_recepcion);
+                    sda.SelectCommand.Parameters.AddWithValue("@torreta", "");
+                    sda.SelectCommand.Parameters.AddWithValue("@fecha_entrega", GS.fecha_entrega);
+                    sda.SelectCommand.Parameters.AddWithValue("@factura_proveedor", GS.factura_proveedor.Trim());
+                    sda.SelectCommand.Parameters.AddWithValue("@mecanico", "");
+                    sda.SelectCommand.Parameters.AddWithValue("@refacciones", 0);
+                    sda.SelectCommand.Parameters.AddWithValue("@mano_obra_mecanico", 0);
+                    sda.SelectCommand.Parameters.AddWithValue("@mano_obra_total", 0);
+                    sda.SelectCommand.Parameters.AddWithValue("@trabajos_otros_talleres", GS.total2);
+                    sda.SelectCommand.Parameters.AddWithValue("@otros_gastos", 0);
+                    sda.SelectCommand.Parameters.AddWithValue("@lectura", GS.lectura2);
+                    sda.SelectCommand.Parameters.AddWithValue("@cantidad", GS.cantidad2);
+                    sda.SelectCommand.Parameters.AddWithValue("@total", GS.total2);
+                    sda.SelectCommand.Parameters.AddWithValue("@operador", "");
+
+                    DataTable dt = new DataTable();
+                    sda.Fill(dt);
+
+                    sqlTransaction.Commit();
+                    cnn.Close();
+                    //return true;
+                }
+                if (GS.servicio3 != null)
+                {
+                    cnn.Open();
+                    sqlTransaction = cnn.BeginTransaction();
+                    SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_alimentacionGS_equipos", cnn);
+                    sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                    sda.SelectCommand.Transaction = sqlTransaction;
+                    sda.SelectCommand.Parameters.AddWithValue("@folio", GS.folio.Trim());
+                    sda.SelectCommand.Parameters.AddWithValue("@oper", "G");
+                    sda.SelectCommand.Parameters.AddWithValue("@transaccion", "273");
+                    sda.SelectCommand.Parameters.AddWithValue("@servicio3", GS.servicio3);
+                    sda.SelectCommand.Parameters.AddWithValue("@fecha_servicio", GS.fecha_servicio);
+                    sda.SelectCommand.Parameters.AddWithValue("@equipo", GS.equipo);
+                    sda.SelectCommand.Parameters.AddWithValue("@status", "V");
+                    sda.SelectCommand.Parameters.AddWithValue("@usuario", GS.usuario);
+                    sda.SelectCommand.Parameters.AddWithValue("@usuario_cancelacion", "");
+
+                    sda.SelectCommand.Parameters.AddWithValue("@cod_estab", GS.cod_estab);
+                    sda.SelectCommand.Parameters.AddWithValue("@notas", GS.notas);
+                    sda.SelectCommand.Parameters.AddWithValue("@notas2", GS.notasserv3);
+                    sda.SelectCommand.Parameters.AddWithValue("@cod_prv", GS.cod_prv);
+                    if (GS.fecha_cancelacion <= fecha1 || GS.fecha_cancelacion >= fecha2)
+                    {
+                        sda.SelectCommand.Parameters.AddWithValue("@fecha_cancelacion", null);
+                    }
+                    else
+                    {
+                        sda.SelectCommand.Parameters.AddWithValue("@fecha_cancelacion", GS.fecha_cancelacion);
+                    }
+                    sda.SelectCommand.Parameters.AddWithValue("@fecha_elaboracion", GS.fecha_elaboracion);
+                    sda.SelectCommand.Parameters.AddWithValue("@cod_cte", GS.cod_cte);
+                    sda.SelectCommand.Parameters.AddWithValue("@recepcionista", "");
+                    sda.SelectCommand.Parameters.AddWithValue("@fecha_recepcion", GS.fecha_recepcion);
+                    sda.SelectCommand.Parameters.AddWithValue("@torreta", "");
+                    sda.SelectCommand.Parameters.AddWithValue("@fecha_entrega", GS.fecha_entrega);
+                    sda.SelectCommand.Parameters.AddWithValue("@factura_proveedor", GS.factura_proveedor.Trim());
+                    sda.SelectCommand.Parameters.AddWithValue("@mecanico", "");
+                    sda.SelectCommand.Parameters.AddWithValue("@refacciones", 0);
+                    sda.SelectCommand.Parameters.AddWithValue("@mano_obra_mecanico", 0);
+                    sda.SelectCommand.Parameters.AddWithValue("@mano_obra_total", 0);
+                    sda.SelectCommand.Parameters.AddWithValue("@trabajos_otros_talleres", GS.total3);
+                    sda.SelectCommand.Parameters.AddWithValue("@otros_gastos", 0);
+                    sda.SelectCommand.Parameters.AddWithValue("@lectura", GS.lectura3);
+                    sda.SelectCommand.Parameters.AddWithValue("@cantidad", GS.cantidad3);
+                    sda.SelectCommand.Parameters.AddWithValue("@total", GS.total3);
+                    sda.SelectCommand.Parameters.AddWithValue("@operador", "");
+
+                    DataTable dt = new DataTable();
+                    sda.Fill(dt);
+
+                    sqlTransaction.Commit();
+                    cnn.Close();
+                    //return true;
+                }
+                if (GS.servicio4 != null)
+                {
+                    cnn.Open();
+                    sqlTransaction = cnn.BeginTransaction();
+                    SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_alimentacionGS_equipos", cnn);
+                    sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                    sda.SelectCommand.Transaction = sqlTransaction;
+                    sda.SelectCommand.Parameters.AddWithValue("@folio", GS.folio.Trim());
+                    sda.SelectCommand.Parameters.AddWithValue("@oper", "G");
+                    sda.SelectCommand.Parameters.AddWithValue("@transaccion", "273");
+                    sda.SelectCommand.Parameters.AddWithValue("@servicio4", GS.servicio4);
+                    sda.SelectCommand.Parameters.AddWithValue("@fecha_servicio", GS.fecha_servicio);
+                    sda.SelectCommand.Parameters.AddWithValue("@equipo", GS.equipo);
+                    sda.SelectCommand.Parameters.AddWithValue("@status", "V");
+                    sda.SelectCommand.Parameters.AddWithValue("@usuario", GS.usuario);
+                    sda.SelectCommand.Parameters.AddWithValue("@usuario_cancelacion", "");
+
+                    sda.SelectCommand.Parameters.AddWithValue("@cod_estab", GS.cod_estab);
+                    sda.SelectCommand.Parameters.AddWithValue("@notas", GS.notas);
+                    sda.SelectCommand.Parameters.AddWithValue("@notas2", GS.notasserv4);
+                    sda.SelectCommand.Parameters.AddWithValue("@cod_prv", GS.cod_prv);
+                    if (GS.fecha_cancelacion <= fecha1 || GS.fecha_cancelacion >= fecha2)
+                    {
+                        sda.SelectCommand.Parameters.AddWithValue("@fecha_cancelacion", null);
+                    }
+                    else
+                    {
+                        sda.SelectCommand.Parameters.AddWithValue("@fecha_cancelacion", GS.fecha_cancelacion);
+                    }
+                    sda.SelectCommand.Parameters.AddWithValue("@fecha_elaboracion", GS.fecha_elaboracion);
+                    sda.SelectCommand.Parameters.AddWithValue("@cod_cte", GS.cod_cte);
+                    sda.SelectCommand.Parameters.AddWithValue("@recepcionista", "");
+                    sda.SelectCommand.Parameters.AddWithValue("@fecha_recepcion", GS.fecha_recepcion);
+                    sda.SelectCommand.Parameters.AddWithValue("@torreta", "");
+                    sda.SelectCommand.Parameters.AddWithValue("@fecha_entrega", GS.fecha_entrega);
+                    sda.SelectCommand.Parameters.AddWithValue("@factura_proveedor", GS.factura_proveedor.Trim());
+                    sda.SelectCommand.Parameters.AddWithValue("@mecanico", "");
+                    sda.SelectCommand.Parameters.AddWithValue("@refacciones", 0);
+                    sda.SelectCommand.Parameters.AddWithValue("@mano_obra_mecanico", 0);
+                    sda.SelectCommand.Parameters.AddWithValue("@mano_obra_total", 0);
+                    sda.SelectCommand.Parameters.AddWithValue("@trabajos_otros_talleres", GS.total4);
+                    sda.SelectCommand.Parameters.AddWithValue("@otros_gastos", 0);
+                    sda.SelectCommand.Parameters.AddWithValue("@lectura", GS.lectura4);
+                    sda.SelectCommand.Parameters.AddWithValue("@cantidad", GS.cantidad4);
+                    sda.SelectCommand.Parameters.AddWithValue("@total", GS.total4);
+                    sda.SelectCommand.Parameters.AddWithValue("@operador", "");
+
+                    DataTable dt = new DataTable();
+                    sda.Fill(dt);
+
+                    sqlTransaction.Commit();
+                    cnn.Close();
+                    //return true;
+                }
+                if (GS.servicio5 != null)
+                {
+                    cnn.Open();
+                    sqlTransaction = cnn.BeginTransaction();
+                    SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_alimentacionGS_equipos", cnn);
+                    sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                    sda.SelectCommand.Transaction = sqlTransaction;
+                    sda.SelectCommand.Parameters.AddWithValue("@folio", GS.folio.Trim());
+                    sda.SelectCommand.Parameters.AddWithValue("@oper", "G");
+                    sda.SelectCommand.Parameters.AddWithValue("@transaccion", "273");
+                    sda.SelectCommand.Parameters.AddWithValue("@servicio5", GS.servicio5);
+                    sda.SelectCommand.Parameters.AddWithValue("@fecha_servicio", GS.fecha_servicio);
+                    sda.SelectCommand.Parameters.AddWithValue("@equipo", GS.equipo);
+                    sda.SelectCommand.Parameters.AddWithValue("@status", "V");
+                    sda.SelectCommand.Parameters.AddWithValue("@usuario", GS.usuario);
+                    sda.SelectCommand.Parameters.AddWithValue("@usuario_cancelacion", "");
+
+                    sda.SelectCommand.Parameters.AddWithValue("@cod_estab", GS.cod_estab);
+                    sda.SelectCommand.Parameters.AddWithValue("@notas", GS.notas);
+                    sda.SelectCommand.Parameters.AddWithValue("@notas2", GS.notasserv5);
+                    sda.SelectCommand.Parameters.AddWithValue("@cod_prv", GS.cod_prv);
+                    if (GS.fecha_cancelacion <= fecha1 || GS.fecha_cancelacion >= fecha2)
+                    {
+                        sda.SelectCommand.Parameters.AddWithValue("@fecha_cancelacion", null);
+                    }
+                    else
+                    {
+                        sda.SelectCommand.Parameters.AddWithValue("@fecha_cancelacion", GS.fecha_cancelacion);
+                    }
+                    sda.SelectCommand.Parameters.AddWithValue("@fecha_elaboracion", GS.fecha_elaboracion);
+                    sda.SelectCommand.Parameters.AddWithValue("@cod_cte", GS.cod_cte);
+                    sda.SelectCommand.Parameters.AddWithValue("@recepcionista", "");
+                    sda.SelectCommand.Parameters.AddWithValue("@fecha_recepcion", GS.fecha_recepcion);
+                    sda.SelectCommand.Parameters.AddWithValue("@torreta", "");
+                    sda.SelectCommand.Parameters.AddWithValue("@fecha_entrega", GS.fecha_entrega);
+                    sda.SelectCommand.Parameters.AddWithValue("@factura_proveedor", GS.factura_proveedor.Trim());
+                    sda.SelectCommand.Parameters.AddWithValue("@mecanico", "");
+                    sda.SelectCommand.Parameters.AddWithValue("@refacciones", 0);
+                    sda.SelectCommand.Parameters.AddWithValue("@mano_obra_mecanico", 0);
+                    sda.SelectCommand.Parameters.AddWithValue("@mano_obra_total", 0);
+                    sda.SelectCommand.Parameters.AddWithValue("@trabajos_otros_talleres", GS.total5);
+                    sda.SelectCommand.Parameters.AddWithValue("@otros_gastos", 0);
+                    sda.SelectCommand.Parameters.AddWithValue("@lectura", GS.lectura5);
+                    sda.SelectCommand.Parameters.AddWithValue("@cantidad", GS.cantidad5);
+                    sda.SelectCommand.Parameters.AddWithValue("@total", GS.total5);
+                    sda.SelectCommand.Parameters.AddWithValue("@operador", "");
+
+                    DataTable dt = new DataTable();
+                    sda.Fill(dt);
+
+                    sqlTransaction.Commit();
+                    cnn.Close();
+                    //return true;
+                }
                 return true;
+
             }
             catch (Exception ex)
             {
