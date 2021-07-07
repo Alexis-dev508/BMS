@@ -1157,6 +1157,7 @@ namespace Demo.Data
                
                 sda.SelectCommand.Parameters.AddWithValue("@cod_estab", GS.cod_estab);
                 sda.SelectCommand.Parameters.AddWithValue("@notas", GS.notas);
+                sda.SelectCommand.Parameters.AddWithValue("@notas2", GS.notas2);
                 sda.SelectCommand.Parameters.AddWithValue("@cod_prv", GS.cod_prv);
                 if (GS.fecha_cancelacion <= fecha1 || GS.fecha_cancelacion >= fecha2)
                 {

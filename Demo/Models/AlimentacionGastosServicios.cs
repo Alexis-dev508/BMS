@@ -19,6 +19,7 @@ namespace Demo.Models
         public DateTime fecha_cancelacion { get; set; }
         public string cod_estab { get; set; }
         public string notas { get; set; }
+        public string notas2 { get; set; }
         public string status { get; set; }
         public string cod_prv { get; set; }
         public DateTime fecha_elaboracion { get; set; }
@@ -46,6 +47,36 @@ namespace Demo.Models
         public string eNombre { get; set; }
         public string pNombre { get; set; }
         public string eqNombre { get; set; }
+
+        //servicio2
+        public string servicio2 { get; set; }
+        public int lectura2 { get; set; }
+        public decimal cantidad2 { get; set; }
+        public decimal total2 { get; set; }
+        public string notasserv2 { get; set; }
+
+        //servicio3
+        public string servicio3 { get; set; }
+        public int lectura3 { get; set; }
+        public decimal cantidad3 { get; set; }
+        public decimal total3 { get; set; }
+        public string notasserv3 { get; set; }
+
+        //servicio4
+        public string servicio4 { get; set; }
+        public int lectura4 { get; set; }
+        public decimal cantidad4 { get; set; }
+        public decimal total4 { get; set; }
+        public string notasserv4 { get; set; }
+
+        //servicio5
+        public string servicio5 { get; set; }
+        public int lectura5 { get; set; }
+        public decimal cantidad5 { get; set; }
+        public decimal total5 { get; set; }
+        public string notasserv5 { get; set; }
+
+
 
 
     }
