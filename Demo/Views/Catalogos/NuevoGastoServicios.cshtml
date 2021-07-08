@@ -4,7 +4,7 @@
         <div class="col-sm-12">
             <div class="card-info">
                 <div class="card-header">
-                    <h3>Nuevo Servicio</h3>
+                    <h3>Nuevo Gasto y servicio de equipo</h3>
                 </div>
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                     <form class="form-inline my-2 my-lg-0">
@@ -12,6 +12,10 @@
                             <i class="fas fa-arrow-alt-circle-left"></i>
                             Regresar
                         </a>
+                        <a class="btn btn-secondary" onclick="limPiar();" data-toggle="Limpiar" title="Limpiar" style="margin-left: 10px;">
+                              <i class="fas fa-trash-alt"></i>
+                              Limpiar todo
+					    </a>
                             <div class="alert alert-warning alert-dismissible fade show" id="alert" role="alert" style="margin-left: 10px;">
 								Error al generar el folio, este establecimiento no esta disponible o el folio ya existe.
 							</div>
@@ -107,22 +111,23 @@
                             @Html.Label("placas", "Placas", new { @class = "control-label" })
                             <input class="form-control" id="Placas" data-toggle="Placas" title="Placas" readonly="readonly"/>
                             <input type="hidden" id="serV" /> @*campo oculto*@
+                            <input type="hidden" id="proV" /> @*campo oculto*@
                             <div class="flex-column flex-row" style="background-color:#D1F7F8;">
                                 <div class="form-group">
                                     @Html.Label("servicio", "Servicio1:", new { @class = "control-label" })
                                     <div class="input-group">
                                          @Html.TextBoxFor(model => model.servicio, new { @class = "form-control",@id="servicio",@onkeydown="onKeyDownServicio(event,'1')"})
                                         <span class="input-group-btn">
-                                            <button class="btn btn-primary" onclick="servicioS('1');" data-toggle="Buscar" title="Buscar">
+                                            <a class="btn btn-primary" onclick="servicioS('1');" data-toggle="Buscar" title="Buscar">
                                                    <i class="fas fa-search"></i>
-					                          </button>
+					                          </a>
                                         </span>
                                     </div>
                                     <input class="form-control" id="ServicioN" data-toggle="Servicio" title="Servicio" readonly="readonly"/>
                                     @Html.Label("cantidad", "Cantidad", new { @class = "control-label" })
                                     @Html.TextBoxFor(model => model.cantidad, new { @class = "form-control", @type = "number",@id="Cantidad",@required ="required" })
                                     @Html.Label("importe", "Importe", new { @class = "control-label" })
-                                    <input type="number" class="form-control" id="Importe" data-toggle="Importe" title="Importe" onchange="calculos(this.value)" onkeyup="calculos(this.value)" required="required"/>
+                                    <input type="number" class="form-control" id="Importe" data-toggle="Importe" title="Importe" onchange="calculos(this.value)" onkeyup="calculos(this.value)"/>
                                     @Html.Label("descuento", "%Descuento", new { @class = "control-label"})
                                     <input type="number" class="form-control" id="DescuentoPorc" data-toggle="Descuento %" title="Descuento %" onchange="calculos(this.value)" onkeyup="calculos(this.value)"/>
                                     @Html.Label("descuento", "$Descuento", new { @class = "control-label" })
@@ -146,15 +151,15 @@
                                     </div>
                                     <input class="form-control" id="ServicioN2" data-toggle="Servicio" title="Servicio" readonly="readonly"/>
                                     @Html.Label("cantidad", "Cantidad", new { @class = "control-label" })
-                                    @Html.TextBoxFor(model => model.cantidad2, new { @class = "form-control", @type = "number",@id="Cantidad2",@required ="required" })
+                                    @Html.TextBoxFor(model => model.cantidad2, new { @class = "form-control", @type = "number",@id="Cantidad2"})
                                     @Html.Label("importe", "Importe", new { @class = "control-label" })
-                                    <input type="number" class="form-control" id="Importe2" data-toggle="Importe" title="Importe" onchange="calculos(this.value)" onkeyup="calculos(this.value)" required="required"/>
+                                    <input type="number" class="form-control" id="Importe2" data-toggle="Importe" title="Importe" onchange="calculos(this.value)" onkeyup="calculos(this.value)"/>
                                     @Html.Label("descuento", "%Descuento", new { @class = "control-label"})
                                     <input type="number" class="form-control" id="DescuentoPorc2" data-toggle="Descuento %" title="Descuento %" onchange="calculos(this.value)" onkeyup="calculos(this.value)"/>
                                     @Html.Label("descuento", "$Descuento", new { @class = "control-label" })
                                     <input type="number" class="form-control" id="DescuentoUnidad2" data-toggle="Descuento $" title="Descuento $" onchange="calculos(this.value)" onkeyup="calculos(this.value)"/>
                                     @Html.Label("lectura", "Lectura", new { @class = "control-label" })
-                                    @Html.TextBoxFor(model => model.lectura2, new { @class = "form-control", @type = "number",@id="Lectura2",@required="required" })
+                                    @Html.TextBoxFor(model => model.lectura2, new { @class = "form-control", @type = "number",@id="Lectura2"})
                                     @Html.Label("neto", "Neto", new { @class = "control-label" })
                                     @Html.TextBoxFor(model => model.total2, new { @class = "form-control", @type = "number",@id="Neto2"})
                                     @Html.Label("notas", "Notas", new { @class = "control-label" })
@@ -174,15 +179,15 @@
                                     </div>
                                     <input class="form-control" id="ServicioN3" data-toggle="Servicio" title="Servicio" readonly="readonly"/>
                                     @Html.Label("cantidad", "Cantidad", new { @class = "control-label" })
-                                    @Html.TextBoxFor(model => model.cantidad3, new { @class = "form-control", @type = "number",@id="Cantidad3",@required ="required" })
+                                    @Html.TextBoxFor(model => model.cantidad3, new { @class = "form-control", @type = "number",@id="Cantidad3"})
                                     @Html.Label("importe", "Importe", new { @class = "control-label" })
-                                    <input type="number" class="form-control" id="Importe3" data-toggle="Importe" title="Importe" onchange="calculos(this.value)" onkeyup="calculos(this.value)" required="required"/>
+                                    <input type="number" class="form-control" id="Importe3" data-toggle="Importe" title="Importe" onchange="calculos(this.value)" onkeyup="calculos(this.value)"/>
                                     @Html.Label("descuento", "%Descuento", new { @class = "control-label"})
                                     <input type="number" class="form-control" id="DescuentoPorc3" data-toggle="Descuento %" title="Descuento %" onchange="calculos(this.value)" onkeyup="calculos(this.value)"/>
                                     @Html.Label("descuento", "$Descuento", new { @class = "control-label" })
                                     <input type="number" class="form-control" id="DescuentoUnidad3" data-toggle="Descuento $" title="Descuento $" onchange="calculos(this.value)" onkeyup="calculos(this.value)"/>
                                     @Html.Label("lectura", "Lectura", new { @class = "control-label" })
-                                    @Html.TextBoxFor(model => model.lectura3, new { @class = "form-control", @type = "number",@id="Lectura3",@required="required" })
+                                    @Html.TextBoxFor(model => model.lectura3, new { @class = "form-control", @type = "number",@id="Lectura3"})
                                     @Html.Label("neto", "Neto", new { @class = "control-label" })
                                     @Html.TextBoxFor(model => model.total3, new { @class = "form-control", @type = "number",@id="Neto3"})
                                     @Html.Label("notas", "Notas", new { @class = "control-label" })
@@ -200,15 +205,15 @@
                                     </div>
                                     <input class="form-control" id="ServicioN4" data-toggle="Servicio" title="Servicio" readonly="readonly"/>
                                     @Html.Label("cantidad", "Cantidad", new { @class = "control-label" })
-                                    @Html.TextBoxFor(model => model.cantidad4, new { @class = "form-control", @type = "number",@id="Cantidad4",@required ="required" })
+                                    @Html.TextBoxFor(model => model.cantidad4, new { @class = "form-control", @type = "number",@id="Cantidad4"})
                                     @Html.Label("importe", "Importe", new { @class = "control-label" })
-                                    <input type="number" class="form-control" id="Importe4" data-toggle="Importe" title="Importe" onchange="calculos(this.value)" onkeyup="calculos(this.value)" required="required"/>
+                                    <input type="number" class="form-control" id="Importe4" data-toggle="Importe" title="Importe" onchange="calculos(this.value)" onkeyup="calculos(this.value)"/>
                                     @Html.Label("descuento", "%Descuento", new { @class = "control-label"})
                                     <input type="number" class="form-control" id="DescuentoPorc4" data-toggle="Descuento %" title="Descuento %" onchange="calculos(this.value)" onkeyup="calculos(this.value)"/>
                                     @Html.Label("descuento", "$Descuento", new { @class = "control-label" })
                                     <input type="number" class="form-control" id="DescuentoUnidad4" data-toggle="Descuento $" title="Descuento $" onchange="calculos(this.value)" onkeyup="calculos(this.value)"/>
                                     @Html.Label("lectura", "Lectura", new { @class = "control-label" })
-                                    @Html.TextBoxFor(model => model.lectura4, new { @class = "form-control", @type = "number",@id="Lectura4",@required="required" })
+                                    @Html.TextBoxFor(model => model.lectura4, new { @class = "form-control", @type = "number",@id="Lectura4"})
                                     @Html.Label("neto", "Neto", new { @class = "control-label" })
                                    @Html.TextBoxFor(model => model.total4, new { @class = "form-control", @type = "number",@id="Neto4"})
                                     @Html.Label("notas", "Notas", new { @class = "control-label" })
@@ -228,15 +233,15 @@
                                     </div>
                                     <input class="form-control" id="ServicioN5" data-toggle="Servicio" title="Servicio" readonly="readonly"/>
                                     @Html.Label("cantidad", "Cantidad", new { @class = "control-label" })
-                                    @Html.TextBoxFor(model => model.cantidad5, new { @class = "form-control", @type = "number",@id="Cantidad5",@required ="required" })
+                                    @Html.TextBoxFor(model => model.cantidad5, new { @class = "form-control", @type = "number",@id="Cantidad5"})
                                     @Html.Label("importe", "Importe", new { @class = "control-label" })
-                                    <input type="number" class="form-control" id="Importe5" data-toggle="Importe" title="Importe" onchange="calculos(this.value)" onkeyup="calculos(this.value)" required="required"/>
+                                    <input type="number" class="form-control" id="Importe5" data-toggle="Importe" title="Importe" onchange="calculos(this.value)" onkeyup="calculos(this.value)"/>
                                     @Html.Label("descuento", "%Descuento", new { @class = "control-label"})
                                     <input type="number" class="form-control" id="DescuentoPorc5" data-toggle="Descuento %" title="Descuento %" onchange="calculos(this.value)" onkeyup="calculos(this.value)"/>
                                     @Html.Label("descuento", "$Descuento", new { @class = "control-label" })
                                     <input type="number" class="form-control" id="DescuentoUnidad5" data-toggle="Descuento $" title="Descuento $" onchange="calculos(this.value)" onkeyup="calculos(this.value)"/>
                                     @Html.Label("lectura", "Lectura", new { @class = "control-label" })
-                                    @Html.TextBoxFor(model => model.lectura5, new { @class = "form-control", @type = "number",@id="Lectura5",@required="required" })
+                                    @Html.TextBoxFor(model => model.lectura5, new { @class = "form-control", @type = "number",@id="Lectura5"})
                                     @Html.Label("neto", "Neto", new { @class = "control-label" })
                                     @Html.TextBoxFor(model => model.total5, new { @class = "form-control", @type = "number",@id="Neto5"})
                                     @Html.Label("notas", "Notas", new { @class = "control-label" })
@@ -291,7 +296,7 @@
             </div>
         </div>
     </div>
-    <script>
+<script>
 $(document).ready( function () {
     $("#alert").hide();
     disabled();
@@ -560,6 +565,31 @@ function confirm(){
     var importe = $("#Importe").val();
     var fol = $("#Folio").val();
     var eq = $("#Equipo").val();
+
+    //validacion de servicio
+    var servicio2 = $("#servicio2").val();
+    var servicio3 = $("#servicio3").val();
+    var servicio4 = $("#servicio4").val();
+    var servicio5 = $("#servicio5").val();
+    var lectura = $("#Lectura").val();
+    var lectura2 = $("#Lectura2").val();
+    var lectura3 = $("#Lectura3").val();
+    var lectura4 = $("#Lectura4").val();
+    var lectura5 = $("#Lectura5").val();
+    var cantidad = $("#Cantidad").val();
+    var cantida2 = $("#Cantidad2").val();
+    var cantida3 = $("#Cantidad2").val();
+    var cantida4 = $("#Cantidad2").val();
+    var cantida5 = $("#Cantidad2").val();
+    var importe = $("#Importe").val();
+    var importe2 = $("#Importe2").val();
+    var importe2 = $("#Importe3").val();
+    var importe2 = $("#Importe4").val();
+    var importe2 = $("#Importe5").val();
+
+    var prov = $("#proV").val();
+
+    //limpiar modal
     $("#datos1").empty();
     $("#footer").empty();
     if(fol == null || fol == ""){
@@ -569,9 +599,9 @@ function confirm(){
             $("#footer").append(dat);
             $("#modalConfirm").modal('show');
     }else{
-        if(prv == null || prv ==""){
+        if(prv == null || prv =="" && prov == null || prov == ""){
              var data="<label>No ha seleccionado un proveedor. ¿Desea continuar?.</label>";
-            var dat ='<input type="submit" value="Aceptar" class="btn btn-success my-2"/> <button type="button" class="btn btn-secondary" onclick="cerrar()">Cancelar</button>';
+            var dat ='<button class="btn btn-success my-2" onclick="aceptar()">Aceptar</button> <button type="button" class="btn btn-secondary" onclick="cerrar()">Cancelar</button>';
             $("#datos1").append(data);
             $("#footer").append(dat);
         $('#modalConfirm').modal('show');
@@ -583,11 +613,103 @@ function confirm(){
                 $("#footer").append(dat);
                 $("#modalConfirm").modal('show');
             }else{
-                $("#forma").submit();
+                if(servicio != null && servicio != ""){
+                    if(lectura != '0'){
+                        if(cantidad != '0'){
+                            if(importe != '0'){
+                                if(servicio2 != null && servicio2 != ""){
+                                    if(lectura2 != '0'){
+                                        if(cantidad2 != '0'){
+                                            if(importe2 != '0'){
+                                                if(servicio3 == null || servicio3 == ""){
+                                                    $("#forma").submit();
+                                                }else{
+                                                    if(lectura3 != '0'){
+                                                        if(cantidad3 != '0'){
+                                                            if(importe3 != '0'){
+                                                                if(servicio4 == null || servicio4 == ""){
+                                                                    $("#forma").submit();
+                                                                }else{
+                                                                    if(lectura4 != '0'){
+                                                                        if(cantidad4 != '0'){
+                                                                            if(importe4 != '0'){
+                                                                                if(servicio5== null || servicio5 == ""){
+                                                                                    $("#forma").submit();
+                                                                                }else{
+                                                                                    if(cantidad5 != '0'){
+                                                                                        if(lectura5 != '0'){
+                                                                                            if(importe5 != '0'){
+                                                                                                $("#forma").submit();
+                                                                                            }else{
+                                                                                                 modalSubmit('servicio5 (Importe)');
+                                                                                            }
+                                                                                        }else{
+                                                                                            modalSubmit('servicio5 (Lectura)');
+                                                                                        }
+                                                                                    }else{
+                                                                                        modalSubmit('servicio5 (Cantidad)');
+                                                                                    }
+                                                                                }
+                                                                            }else{
+                                                                                modalSubmit('servicio4 (Importe)');
+                                                                            }
+                                                                        }else{
+                                                                            modalSubmit('servicio4 (Cantidad)');
+                                                                        }
+                                                                    }else{
+                                                                        modalSubmit('servicio4 (Lectura)');
+                                                                    }
+                                                                }
+                                                            }else{
+                                                                modalSubmit('servicio3 (Importe)');
+                                                            }
+                                                        }else{
+                                                            modalSubmit('servicio3 (Cantidad)');
+                                                        }
+                                                    }else{
+                                                        modalSubmit('servicio3 (Lectura)');
+                                                    }
+                                                }
+                                            }else{
+                                                modalSubmit('servicio2 (Importe)');
+                                            }
+                                        }else{
+                                            modalSubmit('servicio2 (Cantidad)');
+                                        }
+                                    }else{
+                                        modalSubmit('servicio2 (Lectura)');
+                                    }
+                                }else{
+                                    $("#forma").submit();
+                                }
+                            }else{
+                                modalSubmit('servicio 1 (Importe)');
+                            }
+                        }else{
+                            modalSubmit('servicio 1 (Cantidad)');
+                        }
+                    }else{
+                        modalSubmit('servicio 1 (Importe)');
+                    }
+                }else{
+                    var data="<label>Algunos campos obligatorios estan vacios Indique un servicio.</label>";
+                    var dat ='<button type="button" class="btn btn-secondary" onclick="cerrar()">Cerrar</button>';
+                    $("#datos1").append(data);
+                    $("#footer").append(dat);
+                    $("#modalConfirm").modal('show');
+                }
+                
             }
             
         }
     }
+}
+function modalSubmit(label){
+    var data="<label>Algunos campos obligatorios estan vacios en el " + label + " .</label>";
+    var dat ='<button type="button" class="btn btn-secondary" onclick="cerrar()">Cerrar</button>';
+    $("#datos1").append(data);
+    $("#footer").append(dat);
+    $("#modalConfirm").modal('show');
 }
 function cerrar(){
     $('#modalConfirm').modal('hide');
@@ -595,7 +717,8 @@ function cerrar(){
     $("#footer").empty();
     }
 function aceptar() {
-     $("#forma").submit();
+     $("#proV").val('2');
+     confirm();
 }
 function readon(){
     var servicio = $("#servicio").val();
@@ -703,5 +826,20 @@ function enabledS5(){
         $('#Neto5').prop('readonly', false);
         $('#notasserv5').prop('readonly', false);
 }
-    </script>
+function limPiar(){
+    var stab = $("#estab_list").val();
+    $.ajax({
+            type:"post",
+            url:"@Url.Action("FolioGastoServicio","Catalogos")" + "?id=" + stab,
+            contentType:"html",
+            success:function(respond){
+                debugger
+                $("#Folio").val(respond);
+                var a = $("#Folio").val();
+            }
+        })
+   $("#forma").reset();
+   disabled();
+}
+</script>
 
