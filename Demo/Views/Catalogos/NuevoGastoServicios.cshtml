@@ -34,9 +34,9 @@
                                 @Html.Label("estab", "Estab", new { @class = "control-label my-2" })
                                 @Html.DropDownListFor(model => model.cod_estab, Model.EstabList, new { @class = "form-control",@id="estab_list"})
 
-                                @Html.Label("equipo", "Equipo", new { @class = "control-label my-2" })
+                                @Html.Label("equipo", "Equipo", new { @class = "control-label" })
                                 <div class="input-group" >
-                                     @Html.TextBoxFor(model => model.equipo, new { @class = "form-control my-2",@onkeydown="onKeyDownEquipo(event)",@id="Equipo",@required="required"})
+                                     @Html.TextBoxFor(model => model.equipo, new { @class = "form-control", @onkeydown="onKeyDownEquipo(event)", @id="Equipo", @required="required"})
                                      <span class="input-group-btn">
                                       <a class="btn btn-primary" onclick="equipo()" data-toggle="Buscar" title="Buscar">
                                            <i class="fas fa-search"></i>
@@ -44,7 +44,7 @@
                                     </span>
                                 </div>
                                
-                                <input class="form-control" id="EquipoN" data-toggle="Equipo" title="Equipo" readonly="readonly" />
+                                <input class="form-control my-3" id="EquipoN" data-toggle="Equipo" title="Equipo" readonly="readonly" />
 
                                 @Html.Label("modelo", "Modelo", new { @class = "control-label my-2" })
                                 <input class="form-control" id="Modelo" data-toggle="Modelo" title="Modelo" readonly="readonly" />
@@ -65,7 +65,7 @@
                                 @Html.TextBoxFor(model => model.factura_proveedor, new { @class = "form-control my-2"})
                                 @Html.Label("proveedor", "Proveedor", new { @class = "control-label" })
                                 <div class="input-group">
-                                     @Html.TextBoxFor(model => model.cod_prv, new { @class = "form-control my-2",@id="Proveedor",@onkeydown="onKeyDownPrv(event)"})
+                                     @Html.TextBoxFor(model => model.cod_prv, new { @class = "form-control",@id="Proveedor",@onkeydown="onKeyDownPrv(event)"})
                                     <span class="input-group-btn">
                                         <a class="btn btn-primary" onclick="prv()" data-toggle="Buscar" title="Buscar">
                                            <i class="fas fa-search"></i>
@@ -74,7 +74,7 @@
                                 </div>
                                
                                 
-                                <input class="form-control" id="ProveedorN" data-toggle="Proveedor" title="Proveedor" readonly="readonly" />
+                                <input class="form-control my-3" id="ProveedorN" data-toggle="Proveedor" title="Proveedor" readonly="readonly" />
 
                                 @Html.Label("neto", "Neto", new { @class = "control-label" })
                                 <input type="number" class="form-control" id="Neto" data-toggle="Neto" title="Neto" readonly="readonly" />
@@ -114,7 +114,7 @@
                             <input type="hidden" id="proV" /> @*campo oculto*@
                             <div class="flex-column flex-row" style="background-color:#D1F7F8;">
                                 <div class="form-group">
-                                    @Html.Label("servicio", "Servicio1:", new { @class = "control-label" })
+                                    @Html.Label("servicio", "Servicio 1:", new { @class = "control-label" })
                                     <div class="input-group">
                                          @Html.TextBoxFor(model => model.servicio, new { @class = "form-control",@id="servicio",@onkeydown="onKeyDownServicio(event,'1')"})
                                         <span class="input-group-btn">
@@ -123,7 +123,7 @@
 					                          </a>
                                         </span>
                                     </div>
-                                    <input class="form-control" id="ServicioN" data-toggle="Servicio" title="Servicio" readonly="readonly"/>
+                                    <input class="form-control my-3" id="ServicioN" data-toggle="Servicio" title="Servicio" readonly="readonly"/>
                                     @Html.Label("cantidad", "Cantidad", new { @class = "control-label" })
                                     @Html.TextBoxFor(model => model.cantidad, new { @class = "form-control", @type = "number",@id="Cantidad",@required ="required" })
                                     @Html.Label("importe", "Importe", new { @class = "control-label" })
@@ -140,7 +140,7 @@
                                     @Html.TextAreaFor(model => model.notas2, new { @class = "form-control my-2",@rows="5"})
                               </div>
                               <div class="form-group">
-                                  @Html.Label("servicio", "Servicio2:", new { @class = "control-label" })
+                                  @Html.Label("servicio", "Servicio 2:", new { @class = "control-label" })
                                     <div class="input-group">
                                          @Html.TextBoxFor(model => model.servicio2, new { @class = "form-control",@id="servicio2",@onkeydown="onKeyDownServicio(event,'2')"})
                                         <span class="input-group-btn">
@@ -149,7 +149,7 @@
 					                          </button>
                                         </span>
                                     </div>
-                                    <input class="form-control" id="ServicioN2" data-toggle="Servicio" title="Servicio" readonly="readonly"/>
+                                    <input class="form-control my-3" id="ServicioN2" data-toggle="Servicio" title="Servicio" readonly="readonly"/>
                                     @Html.Label("cantidad", "Cantidad", new { @class = "control-label" })
                                     @Html.TextBoxFor(model => model.cantidad2, new { @class = "form-control", @type = "number",@id="Cantidad2"})
                                     @Html.Label("importe", "Importe", new { @class = "control-label" })
@@ -168,16 +168,16 @@
                             </div>
                             <div class="flex-column flex-row" style="background-color:#D1F7F8;">
                                 <div class="form-group">
-                                    @Html.Label("servicio", "Servicio3:", new { @class = "control-label" })
+                                    @Html.Label("servicio", "Servicio 3:", new { @class = "control-label" })
                                     <div class="input-group">
-                                         @Html.TextBoxFor(model => model.servicio3, new { @class = "form-control",@id="servicio3",@onkeydown="onKeyDownServicio(event,'3')"})
+                                         @Html.TextBoxFor(model => model.servicio3, new { @class = "form-control", @id="servicio3",@onkeydown="onKeyDownServicio(event,'3')"})
                                         <span class="input-group-btn">
                                             <button class="btn btn-primary" onclick="servicioS('3')" data-toggle="Buscar" title="Buscar" id="buscar3">
                                                    <i class="fas fa-search"></i>
 					                          </button>
                                         </span>
                                     </div>
-                                    <input class="form-control" id="ServicioN3" data-toggle="Servicio" title="Servicio" readonly="readonly"/>
+                                    <input class="form-control my-3" id="ServicioN3" data-toggle="Servicio" title="Servicio" readonly="readonly"/>
                                     @Html.Label("cantidad", "Cantidad", new { @class = "control-label" })
                                     @Html.TextBoxFor(model => model.cantidad3, new { @class = "form-control", @type = "number",@id="Cantidad3"})
                                     @Html.Label("importe", "Importe", new { @class = "control-label" })
@@ -194,16 +194,16 @@
                                     @Html.TextAreaFor(model => model.notasserv3, new { @class = "form-control my-2",@rows="5",@id="notasserv3"})
                                 </div>
                                 <div class="form-group">
-                                    @Html.Label("servicio", "Servicio4:", new { @class = "control-label" })
+                                    @Html.Label("servicio", "Servicio 4:", new { @class = "control-label" })
                                     <div class="input-group">
-                                         @Html.TextBoxFor(model => model.servicio4, new { @class = "form-control",@id="servicio4",@onkeydown="onKeyDownServicio(event,'4')"})
+                                         @Html.TextBoxFor(model => model.servicio4, new { @class = "form-control", @id="servicio4",@onkeydown="onKeyDownServicio(event,'4')"})
                                         <span class="input-group-btn">
                                             <button class="btn btn-primary" onclick="servicioS('4')" data-toggle="Buscar" title="Buscar" id="buscar4">
                                                    <i class="fas fa-search"></i>
 					                          </button>
                                         </span>
                                     </div>
-                                    <input class="form-control" id="ServicioN4" data-toggle="Servicio" title="Servicio" readonly="readonly"/>
+                                    <input class="form-control my-3" id="ServicioN4" data-toggle="Servicio" title="Servicio" readonly="readonly"/>
                                     @Html.Label("cantidad", "Cantidad", new { @class = "control-label" })
                                     @Html.TextBoxFor(model => model.cantidad4, new { @class = "form-control", @type = "number",@id="Cantidad4"})
                                     @Html.Label("importe", "Importe", new { @class = "control-label" })
@@ -222,16 +222,16 @@
                             </div>
                             <div class="flex-column flex-row" style="background-color:#D1F7F8;">
                                 <div class="form-group">
-                                    @Html.Label("servicio", "Servicio5:", new { @class = "control-label" })
+                                    @Html.Label("servicio", "Servicio 5:", new { @class = "control-label" })
                                     <div class="input-group">
-                                         @Html.TextBoxFor(model => model.servicio5, new { @class = "form-control",@id="servicio5",@onkeydown="onKeyDownServicio(event,'5')"})
+                                         @Html.TextBoxFor(model => model.servicio5, new { @class = "form-control", @id="servicio5",@onkeydown="onKeyDownServicio(event,'5')"})
                                         <span class="input-group-btn">
                                             <button class="btn btn-primary" onclick="servicioS('5')" data-toggle="Buscar" title="Buscar" id="buscar5">
                                                    <i class="fas fa-search"></i>
 					                          </button>
                                         </span>
                                     </div>
-                                    <input class="form-control" id="ServicioN5" data-toggle="Servicio" title="Servicio" readonly="readonly"/>
+                                    <input class="form-control my-3" id="ServicioN5" data-toggle="Servicio" title="Servicio" readonly="readonly"/>
                                     @Html.Label("cantidad", "Cantidad", new { @class = "control-label" })
                                     @Html.TextBoxFor(model => model.cantidad5, new { @class = "form-control", @type = "number",@id="Cantidad5"})
                                     @Html.Label("importe", "Importe", new { @class = "control-label" })
