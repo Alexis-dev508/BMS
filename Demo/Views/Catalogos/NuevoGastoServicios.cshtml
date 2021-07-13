@@ -135,7 +135,7 @@
                       </div>
                       <div class="modal-footer">
                           
-                          <input type="submit" value="Aceptar" class="btn btn-success my-2" onclick="aceptar()"/>
+                          <input type="button" value="Aceptar" class="btn btn-success my-2" onclick="aceptar()"/>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                       </div>
                     </div>
@@ -309,8 +309,10 @@ function confirm(){
 function cerrar(){
     $('#modalConfirm').modal('hide');
     }
-function aceptar() {
-     $('#modalConfirm').modal('hide');
+        function aceptar() {
+            $("#form").submit();
+    $('#modalConfirm').modal('hide');
+   
     }
     </script>
 
