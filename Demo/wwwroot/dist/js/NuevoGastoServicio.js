@@ -440,8 +440,8 @@ function readon(){
     }
 }
 function disabled(){
-    $('#servicio2').prop('readonly', true);
-        $('#buscar2').prop('disabled',true);
+        $('#servicio2').prop('readonly', true);
+        $('#buscar2').css('pointer-events', 'none');
         $('#Cantidad2').prop('readonly', true);
         $('#Importe2').prop('readonly', true);
         $('#DescuentoPorc2').prop('readonly', true);
@@ -450,7 +450,7 @@ function disabled(){
         $('#Neto2').prop('readonly', true);
         $('#notasserv2').prop('readonly', true);
         $('#servicio3').prop('readonly', true);
-        $('#buscar3').prop('disabled',true);
+        $('#buscar3').css('pointer-events', 'none');
         $('#Cantidad3').prop('readonly', true);
         $('#Importe3').prop('readonly', true);
         $('#DescuentoPorc3').prop('readonly', true);
@@ -459,7 +459,7 @@ function disabled(){
         $('#Neto3').prop('readonly', true);
         $('#notasserv3').prop('readonly', true);
         $('#servicio4').prop('readonly', true);
-        $('#buscar4').prop('disabled',true);
+        $('#buscar4').css('pointer-events', 'none');
         $('#Cantidad4').prop('readonly', true);
         $('#Importe4').prop('readonly', true);
         $('#DescuentoPorc4').prop('readonly', true);
@@ -468,7 +468,7 @@ function disabled(){
         $('#Neto4').prop('readonly', true);
         $('#notasserv4').prop('readonly', true);
         $('#servicio5').prop('readonly', true);
-        $('#buscar5').prop('disabled',true);
+        $('#buscar5').css('pointer-events', 'none');
         $('#Cantidad5').prop('readonly', true);
         $('#Importe5').prop('readonly', true);
         $('#DescuentoPorc5').prop('readonly', true);
@@ -480,7 +480,7 @@ function disabled(){
 function enabledS2(){
     //servicio2 
         $('#servicio2').prop('readonly', false);
-        $('#buscar2').prop('disabled',false);
+        $('#buscar2').css('pointer-events', '');
         $('#Cantidad2').prop('readonly', false);
         $('#Importe2').prop('readonly', false);
         $('#DescuentoPorc2').prop('readonly', false);
@@ -492,7 +492,7 @@ function enabledS2(){
 function enabledS3(){
     //servicio3
         $('#servicio3').prop('readonly', false);
-        $('#buscar3').prop('disabled',false);
+        $('#buscar3').css('pointer-events', '');
         $('#Cantidad3').prop('readonly', false);
         $('#Importe3').prop('readonly', false);
         $('#DescuentoPorc3').prop('readonly', false);
@@ -504,7 +504,7 @@ function enabledS3(){
 function enabledS4(){
     //servicio4
         $('#servicio4').prop('readonly', false);
-        $('#buscar4').prop('disabled',false);
+        $('#buscar4').css('pointer-events', '');
         $('#Cantidad4').prop('readonly', false);
         $('#Importe4').prop('readonly', false);
         $('#DescuentoPorc4').prop('readonly', false);
@@ -516,7 +516,7 @@ function enabledS4(){
 function enabledS5(){
     //servicio5
         $('#servicio5').prop('readonly', false);
-        $('#buscar5').prop('disabled',false);
+        $('#buscar5').css('pointer-events', '');
         $('#Cantidad5').prop('readonly', false);
         $('#Importe5').prop('readonly', false);
         $('#DescuentoPorc5').prop('readonly', false);
