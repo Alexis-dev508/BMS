@@ -35,7 +35,7 @@
                                 @Html.DropDownListFor(model => model.cod_estab, Model.EstabList, new { @class = "form-control",@id="estab_list"})
 
                                 @Html.Label("equipo", "Equipo", new { @class = "control-label" })
-                                <div class="input-group" >
+                                <div class="input-group" id="inputEquipo">
                                      @Html.TextBoxFor(model => model.equipo, new { @class = "form-control", @onkeydown="onKeyDownEquipo(event)", @id="Equipo", @required="required"})
                                      <span class="input-group-btn">
                                       <a class="btn btn-primary" onclick="equipo()" data-toggle="Buscar" title="Buscar">
@@ -59,12 +59,11 @@
                                 <input class="form-control" id="Motor" data-toggle="Motor" title="Motor" readonly="readonly"/>
 
                                 @Html.Label("notas", "Notas", new { @class = "control-label" })
-                                @Html.TextAreaFor(model => model.notas, new { @class = "form-control my-2",@rows="5"})
+                                @Html.TextAreaFor(model => model.notas, new { @class = "form-control my-2",@rows="5", @id="Notas"})
 
                                 @Html.Label("factura", "Factura", new { @class = "control-label" })
-                                @Html.TextBoxFor(model => model.factura_proveedor, new { @class = "form-control my-2"})
-                                @Html.Label("proveedor", "Proveedor", new { @class = "control-label" })
-
+                                @Html.TextBoxFor(model => model.factura_proveedor, new { @class = "form-control my-2",@id="Factura"})
+                                @Html.Label("proveedor", "Proveedor", new { @class = "control-label"})
                                 <div class="input-group">
                                      @Html.TextBoxFor(model => model.cod_prv, new { @class = "form-control",@id="Proveedor",@onkeydown="onKeyDownPrv(event)"})
                                     <span class="input-group-btn">
@@ -138,16 +137,16 @@
                                     @Html.Label("neto", "Neto", new { @class = "control-label" })
                                     @Html.TextBoxFor(model => model.total, new { @class = "form-control", @type = "number",@id="Neto1"})
                                     @Html.Label("notas", "Notas", new { @class = "control-label" })
-                                    @Html.TextAreaFor(model => model.notas2, new { @class = "form-control my-2",@rows="5"})
+                                    @Html.TextAreaFor(model => model.notas2, new { @class = "form-control my-2",@rows="5",@id="notasServicio1"})
                               </div>
                               <div class="form-group">
                                   @Html.Label("servicio", "Servicio 2:", new { @class = "control-label" })
                                     <div class="input-group">
                                          @Html.TextBoxFor(model => model.servicio2, new { @class = "form-control",@id="servicio2",@onkeydown="onKeyDownServicio(event,'2')"})
                                         <span class="input-group-btn">
-                                            <button class="btn btn-primary" onclick="servicioS('2')" data-toggle="Buscar" title="Buscar" id="buscar2">
+                                            <a class="btn btn-primary" onclick="servicioS('2')" data-toggle="Buscar" title="Buscar" id="buscar2">
                                                    <i class="fas fa-search"></i>
-					                          </button>
+					                          </a>
                                         </span>
                                     </div>
                                     <input class="form-control my-3" id="ServicioN2" data-toggle="Servicio" title="Servicio" readonly="readonly"/>
@@ -173,9 +172,9 @@
                                     <div class="input-group">
                                          @Html.TextBoxFor(model => model.servicio3, new { @class = "form-control", @id="servicio3",@onkeydown="onKeyDownServicio(event,'3')"})
                                         <span class="input-group-btn">
-                                            <button class="btn btn-primary" onclick="servicioS('3')" data-toggle="Buscar" title="Buscar" id="buscar3">
+                                            <a class="btn btn-primary" onclick="servicioS('3')" data-toggle="Buscar" title="Buscar" id="buscar3">
                                                    <i class="fas fa-search"></i>
-					                          </button>
+					                          </a>
                                         </span>
                                     </div>
                                     <input class="form-control my-3" id="ServicioN3" data-toggle="Servicio" title="Servicio" readonly="readonly"/>
@@ -199,9 +198,9 @@
                                     <div class="input-group">
                                          @Html.TextBoxFor(model => model.servicio4, new { @class = "form-control", @id="servicio4",@onkeydown="onKeyDownServicio(event,'4')"})
                                         <span class="input-group-btn">
-                                            <button class="btn btn-primary" onclick="servicioS('4')" data-toggle="Buscar" title="Buscar" id="buscar4">
+                                            <a class="btn btn-primary" onclick="servicioS('4')" data-toggle="Buscar" title="Buscar" id="buscar4">
                                                    <i class="fas fa-search"></i>
-					                          </button>
+					                          </a>
                                         </span>
                                     </div>
                                     <input class="form-control my-3" id="ServicioN4" data-toggle="Servicio" title="Servicio" readonly="readonly"/>
@@ -227,9 +226,9 @@
                                     <div class="input-group">
                                          @Html.TextBoxFor(model => model.servicio5, new { @class = "form-control", @id="servicio5",@onkeydown="onKeyDownServicio(event,'5')"})
                                         <span class="input-group-btn">
-                                            <button class="btn btn-primary" onclick="servicioS('5')" data-toggle="Buscar" title="Buscar" id="buscar5">
+                                            <a class="btn btn-primary" onclick="servicioS('5')" data-toggle="Buscar" title="Buscar" id="buscar5">
                                                    <i class="fas fa-search"></i>
-					                          </button>
+					                          </a>
                                         </span>
                                     </div>
                                     <input class="form-control my-3" id="ServicioN5" data-toggle="Servicio" title="Servicio" readonly="readonly"/>
@@ -600,12 +599,14 @@ function confirm(){
             $("#footer").append(dat);
             $("#modalConfirm").modal('show');
     }else{
-        if(prv == null || prv =="" && prov == null || prov == ""){
-             var data="<label>No ha seleccionado un proveedor. ¿Desea continuar?.</label>";
-            var dat ='<button class="btn btn-success my-2" onclick="aceptar()">Aceptar</button> <button type="button" class="btn btn-secondary" onclick="cerrar()">Cancelar</button>';
-            $("#datos1").append(data);
-            $("#footer").append(dat);
-        $('#modalConfirm').modal('show');
+        if((prv == null || prv =="") && (prov == null || prov == "")){
+                var data="<label>No ha seleccionado un proveedor. ¿Desea continuar?.</label>";
+                var dat ='<button class="btn btn-success my-2" onclick="aceptar()">Aceptar</button> <button type="button" class="btn btn-secondary" onclick="cerrar()">Cancelar</button>';
+                $("#datos1").append(data);
+                $("#footer").append(dat);
+                $('#modalConfirm').modal('show');
+            
+             
         }else{
             if ( eq == null || eq == ""){
                 var data="<label>Seleccione un Equipo.</label>";
@@ -827,8 +828,8 @@ function enabledS5(){
         $('#Neto5').prop('readonly', false);
         $('#notasserv5').prop('readonly', false);
 }
-function limpiar(){
-    var stab = $("#estab_list").val();
+function limPiar(){
+   /* var stab = $("#estab_list").val();
     $.ajax({
             type:"post",
             url:"@Url.Action("FolioGastoServicio","Catalogos")" + "?id=" + stab,
@@ -838,8 +839,81 @@ function limpiar(){
                 $("#Folio").val(respond);
                 var a = $("#Folio").val();
             }
-        })
-   $("#forma").reset();
+        });
+   $("#forma").reset(); */
+   $('#servicio2').val('');
+        $('#Cantidad2').val('');
+        $('#Importe2').val('');
+        $('#DescuentoPorc2').val('');
+        $('#DescuentoUnidad2').val('');
+        $('#Lectura2').val('');
+        $('#Neto2').val('');
+        $('#notasserv2').val('');
+        $('#servicio3').val('');
+        $('#Cantidad3').val('');
+        $('#Importe3').val('');
+        $('#DescuentoPorc3').val('');
+        $('#DescuentoUnidad3').val('');
+        $('#Lectura3').val('');
+        $('#Neto3').val('');
+        $('#notasserv3').val('');
+        $('#servicio4').val('');
+        $('#Cantidad4').val('');
+        $('#Importe4').val('');
+        $('#DescuentoPorc4').val('');
+        $('#DescuentoUnidad4').val('');
+        $('#Lectura4').val('');
+        $('#Neto4').val('');
+        $('#notasserv4').val('');
+        $('#servicio5').val('');
+        $('#Cantidad5').val('');
+        $('#Importe5').val('');
+        $('#DescuentoPorc5').val('');
+        $('#DescuentoUnidad5').val('');
+        $('#Lectura5').val('');
+        $('#Neto5').val('');
+        $('#notasserv5').val('');
+
+        $('#Equipo').val('');
+        $('#Modelo').val('');
+        $('#Marca').val('');
+        $('#Annio').val('');
+        $('#Motor').val('');
+        $('#Notas').val('');
+        $('#Factura').val('');
+        $('#Proveedor').val('');
+        $('#Neto').val('');
+        $('#IVA').val('');
+        $('#IVARet').val('');
+        $('#ISRRet').val('');
+        $('#total').val('');
+
+        $('#Chofer').val('');
+        $('#ChoferN').val('');
+        $('#Serie').val('');
+        $('#Lectura1').val('');
+        $('#Placas').val('');
+        $('#ServicioN').val('');
+        $('#ServicioN2').val('');
+        $('#ServicioN3').val('');
+        $('#ServicioN4').val('');
+        $('#ServicioN5').val('');
+        $('#servicio').val('');
+        $('#Cantidad').val('');
+        $('#Importe').val('');
+        $('#DescuentoPorc').val('');
+        $('#DescuentoUnidad').val('');
+        $('#Lectura').val('');
+        $('#Neto1').val('');
+        $('#notasServicio1').val('');
+        $('#EquipoN').val('');
+        $('#ProveedorN').val('');
+        $('#notasserv2').val('');
+        $('#notasserv3').val('');
+        $('#notasserv4').val('');
+        $('#notasserv5').val('');
+       
+        
    disabled();
 }
 </script>
