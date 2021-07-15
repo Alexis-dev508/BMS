@@ -12,7 +12,7 @@
                             <i class="fas fa-arrow-alt-circle-left"></i>
                             Regresar
                         </a>
-                        <a class="btn btn-secondary" onclick="limpiar();" data-toggle="Limpiar" title="Limpiar" style="margin-left: 10px;">
+                        <a class="btn btn-secondary" onclick="limPiar();" data-toggle="Limpiar" title="Limpiar" style="margin-left: 10px;">
                               <i class="fas fa-trash-alt"></i>
                               Limpiar todo
 					    </a>
@@ -577,10 +577,10 @@ function confirm(){
     var lectura4 = $("#Lectura4").val();
     var lectura5 = $("#Lectura5").val();
     var cantidad = $("#Cantidad").val();
-    var cantida2 = $("#Cantidad2").val();
-    var cantida3 = $("#Cantidad2").val();
-    var cantida4 = $("#Cantidad2").val();
-    var cantida5 = $("#Cantidad2").val();
+    var cantidad2 = $("#Cantidad2").val();
+    var cantidad3 = $("#Cantidad2").val();
+    var cantidad4 = $("#Cantidad2").val();
+    var cantidad5 = $("#Cantidad2").val();
     var importe = $("#Importe").val();
     var importe2 = $("#Importe2").val();
     var importe2 = $("#Importe3").val();
@@ -616,31 +616,31 @@ function confirm(){
                 $("#modalConfirm").modal('show');
             }else{
                 if(servicio != null && servicio != ""){
-                    if(lectura != '0'){
-                        if(cantidad != '0'){
-                            if(importe != '0'){
+                    if(lectura != '0' && lectura != ''){
+                        if(cantidad != '0' && cantidad != ''){
+                            if(importe != '0' && importe != ''){
                                 if(servicio2 != null && servicio2 != ""){
-                                    if(lectura2 != '0'){
-                                        if(cantidad2 != '0'){
-                                            if(importe2 != '0'){
+                                    if(lectura2 != '0' && lectura2 != ''){
+                                        if(cantidad2 != '0' && cantidad2 != ''){
+                                            if(importe2 != '0' && importe2 != ''){
                                                 if(servicio3 == null || servicio3 == ""){
                                                     $("#forma").submit();
                                                 }else{
-                                                    if(lectura3 != '0'){
-                                                        if(cantidad3 != '0'){
-                                                            if(importe3 != '0'){
+                                                    if(lectura3 != '0' && lectura3 != ''){
+                                                        if(cantidad3 != '0' && cantidad3 != ''){
+                                                            if(importe3 != '0' && importe3 != ''){
                                                                 if(servicio4 == null || servicio4 == ""){
                                                                     $("#forma").submit();
                                                                 }else{
-                                                                    if(lectura4 != '0'){
-                                                                        if(cantidad4 != '0'){
-                                                                            if(importe4 != '0'){
+                                                                    if(lectura4 != '0' && lectura4 != ''){
+                                                                        if(cantidad4 != '0' && cantidad4 != ''){
+                                                                            if(importe4 != '0' && importe != ''){
                                                                                 if(servicio5== null || servicio5 == ""){
                                                                                     $("#forma").submit();
                                                                                 }else{
-                                                                                    if(cantidad5 != '0'){
-                                                                                        if(lectura5 != '0'){
-                                                                                            if(importe5 != '0'){
+                                                                                    if(cantidad5 != '0' && cantidad5 != ''){
+                                                                                        if(lectura5 != '0' && lectura5 != ''){
+                                                                                            if(importe5 != '0' && importe5 != ''){
                                                                                                 $("#forma").submit();
                                                                                             }else{
                                                                                                  modalSubmit('servicio5 (Importe)');
