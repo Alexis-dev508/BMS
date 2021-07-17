@@ -114,7 +114,7 @@
                             <input type="hidden" id="proV" /> @*campo oculto*@
                             <div class="flex-column flex-row" style="background-color:#D1F7F8;">
                                 <div class="form-group">
-                                    @Html.Label("servicio", "Servicio 1:", new { @class = "control-label" })
+                                    @Html.Label("servicio", "Servicio 1:", new { @class = "control-label"})
                                     <div class="input-group">
                                          @Html.TextBoxFor(model => model.servicio, new { @class = "form-control",@id="servicio",@onkeydown="onKeyDownServicio(event,'1')"})
                                         <span class="input-group-btn">
@@ -548,6 +548,14 @@ function calculos(){
     if((iva / 3) > 0){
         Ivaret = (iva / 3) * 2;
     }
+    if(neto > 0){
+        neto = 0;
+        var data="<label>El descuento es mayor al importe ingresado.</label>";
+            var dat ='<button type="button" class="btn btn-secondary" onclick="cerrar()">Cerrar</button>';
+            $("#datos1").append(data);
+            $("#footer").append(dat);
+            $("#modalConfirm").modal('show');
+    }
     total = neto + iva ;
     total = total - ISR - Ivaret;
     $("#Neto").val(neto);
@@ -583,9 +591,9 @@ function confirm(){
     var cantidad5 = $("#Cantidad2").val();
     var importe = $("#Importe").val();
     var importe2 = $("#Importe2").val();
-    var importe2 = $("#Importe3").val();
-    var importe2 = $("#Importe4").val();
-    var importe2 = $("#Importe5").val();
+    var importe3 = $("#Importe3").val();
+    var importe4 = $("#Importe4").val();
+    var importe5 = $("#Importe5").val();
 
     var prov = $("#proV").val();
 
