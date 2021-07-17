@@ -499,41 +499,124 @@ function calculos(){
     var total = 0.0;
     
     //servicio1
-    subneto = importe - descUni;
+    if(descUni > importe){
+        var data="<label>El descuento $ es mayor al importe ingresado.</label>";
+            var dat ='<button type="button" class="btn btn-secondary" onclick="cerrar()">Cerrar</button>';
+            $("#datos1").append(data);
+            $("#footer").append(dat);
+            $("#modalConfirm").modal('show');
+    }else{
+        subneto = importe - descUni;
+    }
+    
     if(descporcent * importe != 0){
         descuento = (descporcent * importe)/100;
-        subneto = subneto - descuento;
+
+        if(descuento > importe){
+        var data="<label>El descuento % es mayor al importe ingresado.</label>";
+            var dat ='<button type="button" class="btn btn-secondary" onclick="cerrar()">Cerrar</button>';
+            $("#datos1").append(data);
+            $("#footer").append(dat);
+            $("#modalConfirm").modal('show');
+        }else{
+            subneto = subneto - descuento;
+        }
+        
     }
     
     $("#Neto1").val(subneto);
     //servicio 2
-    subneto2 = importe2 - descUni2;
+    if(descUni2 > importe2){
+        var data="<label>El descuento $ es mayor al importe ingresado en servicio 2.</label>";
+            var dat ='<button type="button" class="btn btn-secondary" onclick="cerrar()">Cerrar</button>';
+            $("#datos1").append(data);
+            $("#footer").append(dat);
+            $("#modalConfirm").modal('show');
+    }else{
+        subneto2 = importe2 - descUni2;
+    }
     if(descporcent2 * importe2 !=0){
         descuento2 =(descporcent2 * importe2)/100;
-        subneto2 = subneto2 - descuento2;
+        if(descuento2 > importe2){
+        var data="<label>El descuento % es mayor al importe ingresado en servicio 2.</label>";
+            var dat ='<button type="button" class="btn btn-secondary" onclick="cerrar()">Cerrar</button>';
+            $("#datos1").append(data);
+            $("#footer").append(dat);
+            $("#modalConfirm").modal('show');
+        }else{
+            subneto2 = subneto2 - descuento2;
+        }
     }
     $("#Neto2").val(subneto2);
     //servicio 3
-    subneto3 = importe3 - descUni3;
+    if(descUni3 > importe3){
+        var data="<label>El descuento $ es mayor al importe ingresado en servicio 3.</label>";
+            var dat ='<button type="button" class="btn btn-secondary" onclick="cerrar()">Cerrar</button>';
+            $("#datos1").append(data);
+            $("#footer").append(dat);
+            $("#modalConfirm").modal('show');
+    }else{
+        subneto3 = importe3 - descUni3;
+    }
     if(descporcent3 * importe3 !=0){
         descuento3 =(descporcent3 * importe3)/100;
-        subneto3 = subneto3 - descuento3;
+       if(descuento3 > importe3){
+        var data="<label>El descuento % es mayor al importe ingresado en servicio 3.</label>";
+            var dat ='<button type="button" class="btn btn-secondary" onclick="cerrar()">Cerrar</button>';
+            $("#datos1").append(data);
+            $("#footer").append(dat);
+            $("#modalConfirm").modal('show');
+        }else{
+            subneto3 = subneto3 - descuento3;
+        }
     }
     
     $("#Neto3").val(subneto3);
     //servicio 4
-    subneto4 = importe4 - descUni4;
+    if(descUni4 > importe4){
+        var data="<label>El descuento $ es mayor al importe ingresado en servicio 4.</label>";
+            var dat ='<button type="button" class="btn btn-secondary" onclick="cerrar()">Cerrar</button>';
+            $("#datos1").append(data);
+            $("#footer").append(dat);
+            $("#modalConfirm").modal('show');
+    }else{
+        subneto4 = importe4 - descUni4;
+    }
     if(descporcent4 * importe4 !=0){
         descuento4 =(descporcent4 * importe4)/100;
-        subneto4 = subneto4 - descuento4;
+        if(descuento4 > importe4){
+        var data="<label>El descuento % es mayor al importe ingresado en servicio 4.</label>";
+            var dat ='<button type="button" class="btn btn-secondary" onclick="cerrar()">Cerrar</button>';
+            $("#datos1").append(data);
+            $("#footer").append(dat);
+            $("#modalConfirm").modal('show');
+        }else{
+            subneto4 = subneto4 - descuento4;
+        }
     }
     
     $("#Neto4").val(subneto4);
     //servicio 5
-    subneto5 = importe5 - descUni5;
+    if(descUni5 > importe5){
+        var data="<label>El descuento $ es mayor al importe ingresado en servicio 5.</label>";
+            var dat ='<button type="button" class="btn btn-secondary" onclick="cerrar()">Cerrar</button>';
+            $("#datos1").append(data);
+            $("#footer").append(dat);
+            $("#modalConfirm").modal('show');
+    }else{
+        subneto5 = importe5 - descUni5;
+    }
     if(descporcent5 * importe5 !=0){
         descuento5 =(descporcent5 * importe5)/100;
-        subneto5 = subneto5 - descuento5;
+        if(descuento5 > importe5){
+        var data="<label>El descuento % es mayor al importe ingresado en servicio 5.</label>";
+            var dat ='<button type="button" class="btn btn-secondary" onclick="cerrar()">Cerrar</button>';
+            $("#datos1").append(data);
+            $("#footer").append(dat);
+            $("#modalConfirm").modal('show');
+        }else{
+            subneto5 = subneto5 - descuento5;
+        }
     }
     
     $("#Neto5").val(subneto5);
@@ -548,14 +631,7 @@ function calculos(){
     if((iva / 3) > 0){
         Ivaret = (iva / 3) * 2;
     }
-    if(neto > 0){
-        neto = 0;
-        var data="<label>El descuento es mayor al importe ingresado.</label>";
-            var dat ='<button type="button" class="btn btn-secondary" onclick="cerrar()">Cerrar</button>';
-            $("#datos1").append(data);
-            $("#footer").append(dat);
-            $("#modalConfirm").modal('show');
-    }
+
     total = neto + iva ;
     total = total - ISR - Ivaret;
     $("#Neto").val(neto);
