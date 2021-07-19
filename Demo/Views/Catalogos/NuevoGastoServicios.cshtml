@@ -335,6 +335,7 @@ $(document).ready( function () {
             $("#Proveedor").val(p);
             $("#ProveedorN").val(nom);
             $("#modalDetalle").modal('hide');
+            $('#Proveedor').prop('readonly', true);
         }
 function equipo(){
         $("#datos").empty();
@@ -356,6 +357,7 @@ function prv(){
             success:function(data){
                 $("#datos").append(data);
                 $('#modalDetalle').modal('show');
+                
             },
             error: function (xhr,ajaxOptions,thrownError){alert(xhr.responseText);}
         });
@@ -393,13 +395,14 @@ function servicioS(serv){
             url:"@Url.Action("Serv","Catalogos")",
             success:function(data){
                 $("#datos").append(data);
-                $('#modalDetalle').modal('show');
+                $('#modalDetalle').modal('show');       
             },
             error: function (xhr,ajaxOptions,thrownError){alert(xhr.responseText);}
         });
 }
 function equipoGS(equipo,nombre,chofer,nombreCh,modelo,marca,serie,lectura,año,motor,placas){
     $('#Equipo').val(equipo);
+    $('#Equipo').prop('readonly', true);
     $('#EquipoN').val(nombre);
     $('#Chofer').val(chofer);
     $('#ChoferN').val(nombreCh);
@@ -419,30 +422,35 @@ function serv1(servicio,nombre){
             $('#servicio').val(servicio);
             $('#ServicioN').val(nombre);
             $('#modalDetalle').modal('hide');
+            $('#servicio').prop('readonly', true);
             readon();
             break;
         case '2': 
             $('#servicio2').val(servicio);
             $('#ServicioN2').val(nombre);
             $('#modalDetalle').modal('hide');
+            $('#servicio2').prop('readonly', true);
             readon();
             break;
         case '3': 
             $('#servicio3').val(servicio);
             $('#ServicioN3').val(nombre);
             $('#modalDetalle').modal('hide');
+            $('#servicio3').prop('readonly', true);
             readon();
             break;
         case '4': 
             $('#servicio4').val(servicio);
             $('#ServicioN4').val(nombre);
             $('#modalDetalle').modal('hide');
+            $('#servicio4').prop('readonly', true);
             readon();
             break;
         case '5': 
             $('#servicio5').val(servicio);
             $('#ServicioN5').val(nombre);
             $('#modalDetalle').modal('hide');
+            $('#servicio5').prop('readonly', true);
             break;
     }
 
@@ -504,6 +512,7 @@ function calculos(){
             var dat ='<button type="button" class="btn btn-secondary" onclick="cerrar()">Cerrar</button>';
             $("#datos1").append(data);
             $("#footer").append(dat);
+            $("#Importe").val('0');
             $("#modalConfirm").modal('show');
     }else{
         subneto = importe - descUni;
@@ -517,6 +526,7 @@ function calculos(){
             var dat ='<button type="button" class="btn btn-secondary" onclick="cerrar()">Cerrar</button>';
             $("#datos1").append(data);
             $("#footer").append(dat);
+            $("#DescuentoPorc").val('0');
             $("#modalConfirm").modal('show');
         }else{
             subneto = subneto - descuento;
@@ -531,6 +541,7 @@ function calculos(){
             var dat ='<button type="button" class="btn btn-secondary" onclick="cerrar()">Cerrar</button>';
             $("#datos1").append(data);
             $("#footer").append(dat);
+            $("#Importe2").val('0');
             $("#modalConfirm").modal('show');
     }else{
         subneto2 = importe2 - descUni2;
@@ -542,6 +553,7 @@ function calculos(){
             var dat ='<button type="button" class="btn btn-secondary" onclick="cerrar()">Cerrar</button>';
             $("#datos1").append(data);
             $("#footer").append(dat);
+            $("#DescuentoPorc2").val('0');
             $("#modalConfirm").modal('show');
         }else{
             subneto2 = subneto2 - descuento2;
@@ -554,6 +566,7 @@ function calculos(){
             var dat ='<button type="button" class="btn btn-secondary" onclick="cerrar()">Cerrar</button>';
             $("#datos1").append(data);
             $("#footer").append(dat);
+            $("#Importe3").val('0');
             $("#modalConfirm").modal('show');
     }else{
         subneto3 = importe3 - descUni3;
@@ -565,6 +578,7 @@ function calculos(){
             var dat ='<button type="button" class="btn btn-secondary" onclick="cerrar()">Cerrar</button>';
             $("#datos1").append(data);
             $("#footer").append(dat);
+             $("#DescuentoPorc3").val('0');
             $("#modalConfirm").modal('show');
         }else{
             subneto3 = subneto3 - descuento3;
@@ -578,6 +592,7 @@ function calculos(){
             var dat ='<button type="button" class="btn btn-secondary" onclick="cerrar()">Cerrar</button>';
             $("#datos1").append(data);
             $("#footer").append(dat);
+            $("#Importe4").val('0');
             $("#modalConfirm").modal('show');
     }else{
         subneto4 = importe4 - descUni4;
@@ -589,6 +604,7 @@ function calculos(){
             var dat ='<button type="button" class="btn btn-secondary" onclick="cerrar()">Cerrar</button>';
             $("#datos1").append(data);
             $("#footer").append(dat);
+             $("#DescuentoPorc4").val('0');
             $("#modalConfirm").modal('show');
         }else{
             subneto4 = subneto4 - descuento4;
@@ -602,6 +618,7 @@ function calculos(){
             var dat ='<button type="button" class="btn btn-secondary" onclick="cerrar()">Cerrar</button>';
             $("#datos1").append(data);
             $("#footer").append(dat);
+            $("#Importe5").val('0');
             $("#modalConfirm").modal('show');
     }else{
         subneto5 = importe5 - descUni5;
@@ -613,6 +630,7 @@ function calculos(){
             var dat ='<button type="button" class="btn btn-secondary" onclick="cerrar()">Cerrar</button>';
             $("#datos1").append(data);
             $("#footer").append(dat);
+             $("#DescuentoPorc5").val('0');
             $("#modalConfirm").modal('show');
         }else{
             subneto5 = subneto5 - descuento5;
