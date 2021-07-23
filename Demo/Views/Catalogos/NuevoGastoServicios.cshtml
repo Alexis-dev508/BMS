@@ -138,26 +138,27 @@
                                                 
                                                 <td>
                                                     <div class="form-inline">
-                                                        @Html.EditorFor(model => model.servicioGS[i].servicio,new {htmlAttributes = new {@class="from-control",@onkeydown="servicioS(this)",@style="width:35%;font-size:80%;"}})
+                                                        @Html.EditorFor(model => model.servicioGS[i].servicio,new {htmlAttributes = new {@class="form-control",@onkeydown="onKeyDownServicio(event)",@style="width:35%;font-size:80%;"}})
                                                             <a class="btn btn-primary" onclick="servicioS(this)" data-toggle="Buscar" title="Buscar" id="buscar-@i-">
                                                                 <i class="fas fa-search"></i>
                                                             </a>
                                                     </div>
+                                                    
                                                 </td>
 
                                                 <td>@Html.EditorFor(model => model.servicioGS[i].servicioN,new {htmlAttributes = new {@class="form-control",@style="font-size:80%;"}})</td>
                                                 
-                                                <td>@Html.EditorFor(model => model.servicioGS[i].cantidad,new {htmlAttributes = new {@class="form-control",@type="number",@style="font-size:80%;"}})</td>
+                                                <td>@Html.EditorFor(model => model.servicioGS[i].cantidad,new {htmlAttributes = new {@class="form-control",@type="number",@style="font-size:80%;" ,@value="0"}})</td>
                                                 
-                                                <td>@Html.EditorFor(model => model.servicioGS[i].importe,new {htmlAttributes = new {@class="form-control",@type="number",@style="font-size:80%;",@onchange="calculos()"}})</td>
+                                                <td>@Html.EditorFor(model => model.servicioGS[i].importe,new {htmlAttributes = new {@class="form-control",@type="number",@style="font-size:80%;",@onchange="calculoS()",@onkeyup="calculoS()" ,@value="0"}})</td>
                                                 
-                                                <td>@Html.EditorFor(model => model.servicioGS[i].lectura,new {htmlAttributes = new {@class="form-control",@type="number",@style="font-size:80%;"}})</td>
+                                                <td>@Html.EditorFor(model => model.servicioGS[i].lectura,new {htmlAttributes = new {@class="form-control",@type="number",@style="font-size:80%;" ,@value="0"}})</td>
                                                 
-                                                <td>@Html.EditorFor(model => model.servicioGS[i].Descporcent,new {htmlAttributes = new {@class="form-control",@type="number",@style="font-size:80%;",@onchange="calculos()"}})</td>
+                                                <td>@Html.EditorFor(model => model.servicioGS[i].Descporcent,new {htmlAttributes = new {@class="form-control",@type="number",@style="font-size:80%;",@onchange="calculoS()",@onkeyup="calculoS()" ,@value="0"}})</td>
                                                 
-                                                <td>@Html.EditorFor(model => model.servicioGS[i].Descuni,new {htmlAttributes = new {@class="form-control",@type="number",@style="font-size:80%;",@onchange="calculos()"}})</td>
+                                                <td>@Html.EditorFor(model => model.servicioGS[i].Descuni,new {htmlAttributes = new {@class="form-control",@type="number",@style="font-size:80%;",@onchange="calculoS()",@onkeyup="calculoS()" ,@value="0"}})</td>
                                                
-                                                <td>@Html.EditorFor(model => model.servicioGS[i].NetoServ,new {htmlAttributes = new {@class="form-control",@type="number",@readonly="readonly",@style="font-size:80%;"}})</td>
+                                                <td>@Html.EditorFor(model => model.servicioGS[i].NetoServ,new {htmlAttributes = new {@class="form-control",@type="number",@readonly="readonly",@style="font-size:80%;",@onkeyup="calculoS()" ,@value="0"}})</td>
                                                
                                                 <td>@Html.EditorFor(model => model.servicioGS[i].notasserv,new {htmlAttributes = new {@class="form-control"}})</td>
                                                 <td>
@@ -302,18 +303,18 @@ function onKeyDownPrv(event) {
       prv();
     }
 }
-function onKeyDownServicio(event,serv) {
-    var s = serv;
+function onKeyDownServicio(event) {
     var codigo = event.which || event.keyCode;
 
     if(codigo === 113){
-      servicio(s);
+      servicioS();
     }
 }
 function serv1(servicio,nombre){
     var id = $("#serV").val();
+    //document.getElementById("servicioGS_"+id+"__servicio").value=servicio;
     $("#servicioGS_"+id+"__servicio").val(servicio);
-    $("#servicioGS_"+id+"__servicio").prop('disabled', true);
+    $("#servicioGS_"+id+"__servicio").prop('readonly', true);
     $("#servicioGS_"+id+"__servicioN").val(nombre);
     $("#servicioGS_"+id+"__servicioN").prop('readonly', true);
     $("#buscar-"+id+"-").css('pointer-events', 'none');
@@ -358,7 +359,17 @@ function nuevaFila(btn){
     var importe = $("#servicioGS_"+s+"__importe").val();
     var lectura = $("#servicioGS_"+s+"__lectura").val();
     s*=1;
+
     if(servicio !=null && servicio != "" && cantidad != null && cantidad != 0 && cantidad !="" && importe != 0 && importe !=null && importe !="" && lectura != null && lectura != "" && lectura !=0){
+        
+        $("#servicioGS_"+s+"__lectura").prop('readonly', true);
+        $("#servicioGS_"+s+"__cantidad").prop('readonly', true);
+        $("#servicioGS_"+s+"__importe").prop('readonly', true);
+        $("#servicioGS_"+s+"__Descporcent").prop('readonly', true);
+        $("#servicioGS_"+s+"__Descuni").prop('readonly', true);
+        $("#servicioGS_"+s+"__notasserv").prop('readonly', true);
+        
+        
         var b = s + 1;
         
         $("#serV").val(b);
@@ -371,8 +382,14 @@ function nuevaFila(btn){
         var newRow = table.insertRow();
         newRow.innerHTML = rowOuterHtml;
         
-        $("#servicioGS_"+b+"__servicio").prop('disabled', false);
+        $("#servicioGS_"+b+"__servicio").prop('readonly', false);
         $("#servicioGS_"+b+"__servicioN").prop('readonly', false);
+        $("#servicioGS_"+b+"__lectura").prop('readonly', false);
+        $("#servicioGS_"+b+"__cantidad").prop('readonly', false);
+        $("#servicioGS_"+b+"__importe").prop('readonly', false);
+        $("#servicioGS_"+b+"__Descporcent").prop('readonly', false);
+        $("#servicioGS_"+b+"__Descuni").prop('readonly', false);
+        $("#servicioGS_"+b+"__notasserv").prop('readonly', false);
         $("#buscar-"+b+"-").css('pointer-events', '');
     
         var btnAddID = $("#btnid").val();
@@ -388,38 +405,18 @@ function nuevaFila(btn){
             $("#Importe").val('0');
             $("#modalConfirm").modal('show');
     }
-    
-
-    //var td = document.getElementById("tabla").rows[s].cells[0];
-    //td.getElementsByTagName('input')[0].value = servicio;
-    //table.rows[s].cells[0].innerText=servicio;
-   
-   
-
-    /*switch(s){
-        case '1': 
-            $('#servicio').val(servicio);
-            $('#ServicioN').val(nombre);
-            $('#modalDetalle').modal('hide');
-            $('#servicio').prop('readonly', true);
-            readon();
-            break;
-    }*/
-
-    
-    
 }
-function calculos(){
+function calculoS(){
     var id = $("#serV").val();
     id*=1;
     var lon = id+1;
     lon *=1;
     var servicio = $("#serV").val();
-    var importe = $("#servicioGS_"+id+"__importe").val();
+    var importe = ((document.getElementById("servicioGS_"+id+"__importe")||{}).value)||"";
         importe *=1;
-    var descporcent = $("#servicioGS_"+id+"__Descporcent").val();
+    var descporcent = ((document.getElementById("servicioGS_"+id+"__Descporcent")||{}).value)||""; 
         descporcent *=1;
-    var descUni = $("#servicioGS_"+id+"__Descuni").val();
+    var descUni = ((document.getElementById("servicioGS_"+id+"__Descuni")||{}).value)||""; 
         descUni *=1;
     var subneto = 0.0;
     var descuento = 0.0;
@@ -441,7 +438,7 @@ function calculos(){
         subneto = importe - descUni;
     }
     
-    if(descporcent * importe != 0){
+    if((descporcent * importe) != 0){
         descuento = (descporcent * importe)/100;
 
         if(descuento > importe){
@@ -456,12 +453,10 @@ function calculos(){
         }
         
     }
-    
-    $("servicioGS_"+id+"__NetoServ").val(subneto);
-    //resultados
+    document.getElementById("servicioGS_"+id+"__NetoServ").value=(subneto)*1;
     for(var i=0;i<lon;i++){
-        var a = $("servicioGS_"+i+"__NetoServ").val();
-        neto += a;
+        var a = ((document.getElementById("servicioGS_"+i+"__NetoServ")||{}).value)||""; 
+        neto += (a)*1;
     }
     if(neto * 16 != 0){
         iva = (neto * 16)/100;

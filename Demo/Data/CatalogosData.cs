@@ -1132,6 +1132,14 @@ namespace Demo.Data
             {
                 GS.notas2 = "";
             }
+            if (GS.mecanico == null)
+            {
+                GS.mecanico = "";
+            }
+            if (GS.operador == null)
+            {
+                GS.operador = "";
+            }
             SqlTransaction sqlTransaction = null;
             SqlConnection cnn = new SqlConnection(this.ConnectionString);
             
@@ -1148,7 +1156,7 @@ namespace Demo.Data
                     sda.SelectCommand.Parameters.AddWithValue("@oper", "G");
                     sda.SelectCommand.Parameters.AddWithValue("@suboper", "OR");
                     sda.SelectCommand.Parameters.AddWithValue("@transaccion", "273");
-                    
+
                     sda.SelectCommand.Parameters.AddWithValue("@fecha_servicio", GS.fecha_servicio);
                     sda.SelectCommand.Parameters.AddWithValue("@equipo", GS.equipo);
                     sda.SelectCommand.Parameters.AddWithValue("@status", "V");
@@ -1157,7 +1165,7 @@ namespace Demo.Data
 
                     sda.SelectCommand.Parameters.AddWithValue("@cod_estab", GS.cod_estab);
                     sda.SelectCommand.Parameters.AddWithValue("@notas", GS.notas);
-                 
+
                     sda.SelectCommand.Parameters.AddWithValue("@cod_prv", GS.cod_prv);
                     if (GS.fecha_cancelacion <= fecha1 || GS.fecha_cancelacion >= fecha2)
                     {
@@ -1181,7 +1189,7 @@ namespace Demo.Data
                     sqlTransaction.Commit();
                     cnn.Close();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     sqlTransaction.Rollback();
                     //return false;
@@ -1211,7 +1219,7 @@ namespace Demo.Data
                         sda.SelectCommand.Parameters.AddWithValue("@mano_obra_mecanico", GS.mano_obra_mecanico);
                         sda.SelectCommand.Parameters.AddWithValue("@mano_obra_total", GS.mano_obra_total);
                         sda.SelectCommand.Parameters.AddWithValue("@trabajos_otros_talleres", GS.trabajos_otros_talleres);
-                        sda.SelectCommand.Parameters.AddWithValue("@otros_gastos", GS.otros_gastos);
+                        sda.SelectCommand.Parameters.AddWithValue("@otros_gastos", i.importe);
                         sda.SelectCommand.Parameters.AddWithValue("@lectura", i.lectura);
                         sda.SelectCommand.Parameters.AddWithValue("@cantidad", i.cantidad);
                         sda.SelectCommand.Parameters.AddWithValue("@total", i.importe);

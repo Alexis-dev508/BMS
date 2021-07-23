@@ -56,6 +56,14 @@ namespace Demo.Controllers
                 //    TempData["proveedor"] = "V";
                 //    return View(model);
                 //}
+                foreach(var i in model.servicioGS)
+                {
+                    if(i.servicio == null)
+                    {
+                        
+
+                    }
+                }
                 var res = datos.GuardarGastosServicios(model);
                 if (res == true)
                 {
