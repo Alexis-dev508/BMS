@@ -37,6 +37,8 @@ namespace Demo.Controllers
         {
             var model = new AlimentacionGSModelView();
             var estab = datos.TraerEstablecimientos();
+            model.servicioGS.Add(new ServiciosGS() { id = 1 });
+
             foreach (var st in estab)
             {
                 model.EstabList.Add(new SelectListItem { Value = st.cod_estab, Text = st.nombre});
