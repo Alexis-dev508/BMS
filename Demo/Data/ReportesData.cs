@@ -83,6 +83,47 @@ namespace Demo.Data
             }
             return rpt;
         }
+       //Rendimiento por equipos
+        public List<RendimientoEquiposServicios> TraerReporteRendimiento(DateTime fi, DateTime ff)
+        {
+            List<RendimientoEquiposServicios> rpt = new List<RendimientoEquiposServicios>();
+            try
+            {
+
+                SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_rendimiento", this.ConnectionString);
+                sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sda.SelectCommand.Parameters.AddWithValue("@fecha_inicial", fi);
+                sda.SelectCommand.Parameters.AddWithValue("@fecha_final", ff);
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                rpt = dt.AsEnumerable().Select(r => new RendimientoEquiposServicios
+                {
+                    equipo = r["equipo"].ToString().Trim(),
+                    nombre = r["nombre"].ToString().Trim(),
+                    cod_eco = r["cod_eco"].ToString().Trim(),
+                    marca = r["marca"].ToString().Trim(),
+                    modelo = r["modelo"].ToString().Trim(),
+                    placas = r["placas"].ToString().Trim(),
+                    lectura_ini= Convert.ToInt32(r["lectura_ini"]),
+                    lectura_fin = Convert.ToInt32(r["lectura_fin"]),
+                    dist_recorrida = Convert.ToInt32(r["dist_recorrida"]),
+                    servicios = Convert.ToInt32(r["servicios"]),
+                    cantidad = Convert.ToDecimal(r["cantidad"]),
+                    importe = Convert.ToDecimal(r["importe"]),
+                    rend_cant = Convert.ToDecimal(r["rend_cant"]),
+                    rend_imp = Convert.ToDecimal(r["rend_imp"]),
+                    servicio = r["servicio"].ToString().Trim(),
+                    fecha_ini = Convert.ToDateTime(r["fecha_ini"]),
+                    fecha_fin = Convert.ToDateTime(r["fecha_fin"])                       
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+            return rpt;
+        }
         //cotizaciones
         public List<DetalleCotizacion> DetalleCotiz(string folio)
         {

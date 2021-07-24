@@ -26,6 +26,25 @@ namespace Demo.Controllers
             model.FechaFinal = DateTime.Now;
             return View(model);
         }
+        public IActionResult ReporteRendimientoEquipo()
+        {
+            return View();
+        }
+        public IActionResult ReporteRendimientoEquipos(ReportePedidosModelView model)
+        {
+            try
+            {
+                model.Datos = datos.TraerReportePedidos(model.FechaInicial.Date, model.FechaFinal.Date.AddDays(1).AddMinutes(-1));
+            }
+            catch (Exception ex)
+            {
+
+                ViewBag.Errores = ex.Message;
+            }
+
+
+            return View(model);
+        }
         //pedidos
         public IActionResult ReportePedidos()
         {
@@ -49,6 +68,29 @@ namespace Demo.Controllers
             }
            
             
+            return View(model);
+        }
+        //public IActionResult ReporteRendimientoEquiposServicios()
+        //{
+        //    ReporteRendimientoEquiposModelView model = new ReporteRendimientoEquiposModelView();
+        //    model.FechaInicial = DateTime.Now;
+        //    model.FechaFinal = DateTime.Now;
+        //    return View(model);
+        //}
+        [HttpPost]
+        public IActionResult ReporteRendimientoEquiposServicios(ReporteRendimientoEquiposModelView model)
+        {
+            try
+            {
+                model.Datos = datos.TraerReporteRendimiento(model.FechaInicial.Date, model.FechaFinal.Date.AddDays(1).AddMinutes(-1));
+            }
+            catch (Exception ex)
+            {
+
+                ViewBag.Errores = ex.Message;
+            }
+
+
             return View(model);
         }
         //pedidos
