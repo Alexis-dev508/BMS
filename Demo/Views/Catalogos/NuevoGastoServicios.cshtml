@@ -165,6 +165,8 @@
                                                 <td>
                                                         <button id="btnadd-@i-"type="button" value="Add" class="btn btn-primary" onclick="nuevaFila(this)">Add</button>
                                                         <button id="btnremove-@i-"type="button" value="Del" class="btn btn-danger" onclick="deleteItem(this)">Del</button>
+                                                        <input type="hidden" id="ID-@i-"/>
+                                                        @Html.EditorFor(model => model.servicioGS[i].id,new {htmlAttributes = new {@class="form-control",@type="hidden"}})
                                                 </td>
                                             </tr>
                                         }
@@ -348,7 +350,10 @@ function equipoGS(equipo,nombre,chofer,nombreCh,modelo,marca,serie,lectura,año,
     $('#modalDetalle').modal('hide');
 }
 function deleteItem(btn){
-    $(btn).closest('tr').remove();
+     var b = $(btn).closest('tr').index();
+     b = eval(b) + 1;
+     $("#servicioGS_"+s+"__servicio").prop("disabled","true");
+
 }
 function nuevaFila(btn){
     $("#btnid").val(btn.id);
@@ -514,7 +519,8 @@ function confirM(){
             }else{
                 var lecstat = false;
                 for(var i = 0; i < id; i++){
-                                var lec = ((document.getElementById("servicioGS_"+i+"__lectura")||{}).value)||"";
+                    if($("#servicioGS_"+i+"__lectura").length){
+                        var lec = ((document.getElementById("servicioGS_"+i+"__lectura")||{}).value)||"";
                                 if((lec)*1 == 0 || lec == null){
                                     $("#datos1").empty();
                                     $("#footer").empty();
@@ -526,10 +532,12 @@ function confirM(){
                                     i = (id + 1)*1;
                                     lecstat = true;
                                 }
+                    }            
                  }
                 var canstat = false;
                  for(var i = 0; i < id; i++){
-                                        var can = ((document.getElementById("servicioGS_"+i+"__cantidad")||{}).value)||"";
+                     if($("#servicioGS_"+i+"__cantidad").length){
+                         var can = ((document.getElementById("servicioGS_"+i+"__cantidad")||{}).value)||"";
                                         if((can)*1 == 0 || can == null){
                                             $("#datos1").empty();
                                             $("#footer").empty();
@@ -541,10 +549,12 @@ function confirM(){
                                             i = (id + 1)*1;
                                             canstat = true;
                                         }
+                     }                   
                     }
                 var impstat = false;                       
                 for(var i = 0; i < id; i++){
-                                                var imp = ((document.getElementById("servicioGS_"+i+"__importe")||{}).value)||"";
+                    if($("#servicioGS_"+i+"__importe").length){
+                        var imp = ((document.getElementById("servicioGS_"+i+"__importe")||{}).value)||"";
                                                 if((imp)*1 == 0 || imp == null){
                                                     $("#datos1").empty();
                                                     $("#footer").empty();
@@ -556,7 +566,8 @@ function confirM(){
                                                     i = (id + 1)*1;
                                                     impstat = true;
                                                 }
-                        }
+                    }                                   
+                 }
                  if(lecstat != true && canstat != true && impstat != true){
 		             $("#forma").submit();
                  }                       
