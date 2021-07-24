@@ -28,8 +28,12 @@ namespace Demo.Controllers
         }
         public IActionResult ReporteRendimientoEquipo()
         {
-            return View();
+            ReporteRendimientoEquiposModelView model = new ReporteRendimientoEquiposModelView();
+            model.FechaInicial = DateTime.Now;
+            model.FechaFinal = DateTime.Now;
+            return View(model);
         }
+        [HttpPost]
         public IActionResult ReporteRendimientoEquipos(ReportePedidosModelView model)
         {
             try
