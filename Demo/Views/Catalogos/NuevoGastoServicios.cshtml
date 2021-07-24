@@ -12,7 +12,7 @@
                             <i class="fas fa-arrow-alt-circle-left"></i>
                             Regresar
                         </a>
-                        <a class="btn btn-secondary" onclick="limPiar();" data-toggle="Limpiar" title="Limpiar" style="margin-left: 10px;">
+                        <a class="btn btn-secondary" onclick="location.reload()" data-toggle="Limpiar" title="Limpiar" style="margin-left: 10px;">
                               <i class="fas fa-trash-alt"></i>
                               Limpiar todo
 					    </a>
@@ -113,6 +113,7 @@
                             <input type="hidden" id="serV" value="0" /> @*campo oculto*@
                             <input type="hidden" id="proV" /> @*campo oculto*@
                             <input type="hidden" id="btnid"/> @*campo oculto*@
+
                             
                             <table class="table-responsive table-bordered" id="tab">
                                 <thead>
@@ -130,7 +131,7 @@
                                     </tr>
 
                                 </thead>
-                                <tbody>
+                                <tbody id ="bodytabla">
                                         
                                         @for(int i = 0; i < Model.servicioGS.Count; i++)
                                         {
@@ -176,7 +177,7 @@
                     </div>
 
                     <div class="form-group">
-                        <input type="submit" value="Guardar" class="btn btn-success my-2"/>
+                        <a onclick="confirM()"class="btn btn-success my-2">Guardar</a>
                     </div>
                 <div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
@@ -223,8 +224,7 @@
 $(document).ready( function () {
     $('#btnremove-0-').css('visibility','hidden');
     $("#alert").hide();
-    disabled();
-    $("").DataTable();
+    //$("").DataTable();
     $.ajax({
             type:"post",
             url:"@Url.Action("FolioGastoServicio","Catalogos")" + "?id=" + "1",
@@ -317,7 +317,7 @@ function serv1(servicio,nombre){
     $("#servicioGS_"+id+"__servicio").prop('readonly', true);
     $("#servicioGS_"+id+"__servicioN").val(nombre);
     $("#servicioGS_"+id+"__servicioN").prop('readonly', true);
-    $("#buscar-"+id+"-").css('pointer-events', 'none');
+    //$("#buscar-"+id+"-").css('pointer-events', 'none');
     $('#modalDetalle').modal('hide');   
 }
 function servicioS(){
@@ -368,6 +368,7 @@ function nuevaFila(btn){
         $("#servicioGS_"+s+"__Descporcent").prop('readonly', true);
         $("#servicioGS_"+s+"__Descuni").prop('readonly', true);
         $("#servicioGS_"+s+"__notasserv").prop('readonly', true);
+        $("#buscar-"+s+"-").css('pointer-events', 'none');
         
         
         var b = s + 1;
@@ -376,6 +377,7 @@ function nuevaFila(btn){
         var table = document.getElementById('tab');
         var rows = table.getElementsByTagName('tr');
         var rowOuterHtml = rows[rows.length -1].outerHTML;
+
         rowOuterHtml = rowOuterHtml.replaceAll('_'+ s +'_','_'+b+'_');
         rowOuterHtml = rowOuterHtml.replaceAll('['+ s +']','['+b+']');
         rowOuterHtml = rowOuterHtml.replaceAll('-'+ s +'-','-'+b+'-');
@@ -391,7 +393,7 @@ function nuevaFila(btn){
         $("#servicioGS_"+b+"__Descuni").prop('readonly', false);
         $("#servicioGS_"+b+"__notasserv").prop('readonly', false);
         $("#buscar-"+b+"-").css('pointer-events', '');
-    
+
         var btnAddID = $("#btnid").val();
         $('#'+btnAddID).css('visibility','hidden');
         var btnDelete = btnAddID.replaceAll('btnadd','btnremove');
@@ -432,7 +434,7 @@ function calculoS(){
             var dat ='<button type="button" class="btn btn-secondary" onclick="cerrar()">Cerrar</button>';
             $("#datos1").append(data);
             $("#footer").append(dat);
-            $("#servicioGS_"+id+"__importe").val('0');
+            $("#servicioGS_"+id+"__Descuni").val('0');
             $("#modalConfirm").modal('show');
     }else{
         subneto = importe - descUni;
@@ -478,37 +480,14 @@ function calculoS(){
 
 
 }
-function confirm(){
+function confirM(){
+    var id=$("#serV").val();
+    id*=1;
+    id+=1;
     var prv = $("#Proveedor").val();
-    var lect = $("#Lectura").val();
-    var cant = $("#Cantidad").val();
-    var importe = $("#Importe").val();
     var fol = $("#Folio").val();
     var eq = $("#Equipo").val();
-
-    //validacion de servicio
-    var servicio2 = $("#servicio2").val();
-    var servicio3 = $("#servicio3").val();
-    var servicio4 = $("#servicio4").val();
-    var servicio5 = $("#servicio5").val();
-    var lectura = $("#Lectura").val();
-    var lectura2 = $("#Lectura2").val();
-    var lectura3 = $("#Lectura3").val();
-    var lectura4 = $("#Lectura4").val();
-    var lectura5 = $("#Lectura5").val();
-    var cantidad = $("#Cantidad").val();
-    var cantidad2 = $("#Cantidad2").val();
-    var cantidad3 = $("#Cantidad2").val();
-    var cantidad4 = $("#Cantidad2").val();
-    var cantidad5 = $("#Cantidad2").val();
-    var importe = $("#Importe").val();
-    var importe2 = $("#Importe2").val();
-    var importe3 = $("#Importe3").val();
-    var importe4 = $("#Importe4").val();
-    var importe5 = $("#Importe5").val();
-
     var prov = $("#proV").val();
-
     //limpiar modal
     $("#datos1").empty();
     $("#footer").empty();
@@ -518,120 +497,71 @@ function confirm(){
             $("#datos1").append(data);
             $("#footer").append(dat);
             $("#modalConfirm").modal('show');
-    }else{
-        if((prv == null || prv =="") && (prov == null || prov == "")){
+    }else if((prv == null || prv =="") && (prov == null || prov == "")){
+        
                 var data="<label>No ha seleccionado un proveedor. ¿Desea continuar?.</label>";
                 var dat ='<button class="btn btn-success my-2" onclick="aceptar()">Aceptar</button> <button type="button" class="btn btn-secondary" onclick="cerrar()">Cancelar</button>';
                 $("#datos1").append(data);
                 $("#footer").append(dat);
                 $('#modalConfirm').modal('show');
+        }else if ( eq == null || eq == ""){
             
-             
-        }else{
-            if ( eq == null || eq == ""){
                 var data="<label>Seleccione un Equipo.</label>";
                 var dat ='<button type="button" class="btn btn-secondary" onclick="cerrar()">Cerrar</button>';
                 $("#datos1").append(data);
                 $("#footer").append(dat);
                 $("#modalConfirm").modal('show');
             }else{
-                if(servicio != null && servicio != ""){
-                    if(lectura != '0' && lectura != ''){
-                        if(cantidad != '0' && cantidad != ''){
-                            if(importe != '0' && importe != ''){
-                                if(servicio2 != null && servicio2 != ""){
-                                    if(lectura2 != '0' && lectura2 != ''){
-                                        if(cantidad2 != '0' && cantidad2 != ''){
-                                            if(importe2 != '0' && importe2 != ''){
-                                                if(servicio3 == null || servicio3 == ""){
-                                                    $("#forma").submit();
-                                                }else{
-                                                    if(lectura3 != '0' && lectura3 != ''){
-                                                        if(cantidad3 != '0' && cantidad3 != ''){
-                                                            if(importe3 != '0' && importe3 != ''){
-                                                                if(servicio4 == null || servicio4 == ""){
-                                                                    $("#forma").submit();
-                                                                }else{
-                                                                    if(lectura4 != '0' && lectura4 != ''){
-                                                                        if(cantidad4 != '0' && cantidad4 != ''){
-                                                                            if(importe4 != '0' && importe != ''){
-                                                                                if(servicio5== null || servicio5 == ""){
-                                                                                    $("#forma").submit();
-                                                                                }else{
-                                                                                    if(cantidad5 != '0' && cantidad5 != ''){
-                                                                                        if(lectura5 != '0' && lectura5 != ''){
-                                                                                            if(importe5 != '0' && importe5 != ''){
-                                                                                                $("#forma").submit();
-                                                                                            }else{
-                                                                                                 modalSubmit('servicio5 (Importe)');
-                                                                                            }
-                                                                                        }else{
-                                                                                            modalSubmit('servicio5 (Lectura)');
-                                                                                        }
-                                                                                    }else{
-                                                                                        modalSubmit('servicio5 (Cantidad)');
-                                                                                    }
-                                                                                }
-                                                                            }else{
-                                                                                modalSubmit('servicio4 (Importe)');
-                                                                            }
-                                                                        }else{
-                                                                            modalSubmit('servicio4 (Cantidad)');
-                                                                        }
-                                                                    }else{
-                                                                        modalSubmit('servicio4 (Lectura)');
-                                                                    }
-                                                                }
-                                                            }else{
-                                                                modalSubmit('servicio3 (Importe)');
-                                                            }
-                                                        }else{
-                                                            modalSubmit('servicio3 (Cantidad)');
-                                                        }
-                                                    }else{
-                                                        modalSubmit('servicio3 (Lectura)');
-                                                    }
-                                                }
-                                            }else{
-                                                modalSubmit('servicio2 (Importe)');
-                                            }
-                                        }else{
-                                            modalSubmit('servicio2 (Cantidad)');
-                                        }
-                                    }else{
-                                        modalSubmit('servicio2 (Lectura)');
-                                    }
-                                }else{
-                                    $("#forma").submit();
+                var lecstat = false;
+                for(var i = 0; i < id; i++){
+                                var lec = ((document.getElementById("servicioGS_"+i+"__lectura")||{}).value)||"";
+                                if((lec)*1 == 0 || lec == null){
+                                    $("#datos1").empty();
+                                    $("#footer").empty();
+                                    var data="<label>Hay conceptos de servicios, en los cuales la cantidad o el importe son Cero.</label>";
+                                    var dat ='<button type="button" class="btn btn-secondary" onclick="cerrar()">Cerrar</button>';
+                                    $("#datos1").append(data);
+                                    $("#footer").append(dat);
+                                    $("#modalConfirm").modal('show');
+                                    i = (id + 1)*1;
+                                    lecstat = true;
                                 }
-                            }else{
-                                modalSubmit('servicio 1 (Importe)');
-                            }
-                        }else{
-                            modalSubmit('servicio 1 (Cantidad)');
-                        }
-                    }else{
-                        modalSubmit('servicio 1 (Importe)');
+                 }
+                var canstat = false;
+                 for(var i = 0; i < id; i++){
+                                        var can = ((document.getElementById("servicioGS_"+i+"__cantidad")||{}).value)||"";
+                                        if((can)*1 == 0 || can == null){
+                                            $("#datos1").empty();
+                                            $("#footer").empty();
+                                            var data="<label>Hay conceptos de servicios, en los cuales la cantidad o el importe son Cero.</label>";
+                                            var dat ='<button type="button" class="btn btn-secondary" onclick="cerrar()">Cerrar</button>';
+                                            $("#datos1").append(data);
+                                            $("#footer").append(dat);
+                                            $("#modalConfirm").modal('show');
+                                            i = (id + 1)*1;
+                                            canstat = true;
+                                        }
                     }
-                }else{
-                    var data="<label>Algunos campos obligatorios estan vacios Indique un servicio.</label>";
-                    var dat ='<button type="button" class="btn btn-secondary" onclick="cerrar()">Cerrar</button>';
-                    $("#datos1").append(data);
-                    $("#footer").append(dat);
-                    $("#modalConfirm").modal('show');
-                }
-                
+                var impstat = false;                       
+                for(var i = 0; i < id; i++){
+                                                var imp = ((document.getElementById("servicioGS_"+i+"__importe")||{}).value)||"";
+                                                if((imp)*1 == 0 || imp == null){
+                                                    $("#datos1").empty();
+                                                    $("#footer").empty();
+                                                    var data="<label>Hay conceptos de servicios, en los cuales la cantidad o el importe son Cero.</label>";
+                                                    var dat ='<button type="button" class="btn btn-secondary" onclick="cerrar()">Cerrar</button>';
+                                                    $("#datos1").append(data);
+                                                    $("#footer").append(dat);
+                                                    $("#modalConfirm").modal('show');
+                                                    i = (id + 1)*1;
+                                                    impstat = true;
+                                                }
+                        }
+                 if(lecstat != true && canstat != true && impstat != true){
+		             $("#forma").submit();
+                 }                       
             }
-            
-        }
-    }
-}
-function modalSubmit(label){
-    var data="<label>Algunos campos obligatorios estan vacios en el " + label + " .</label>";
-    var dat ='<button type="button" class="btn btn-secondary" onclick="cerrar()">Cerrar</button>';
-    $("#datos1").append(data);
-    $("#footer").append(dat);
-    $("#modalConfirm").modal('show');
+    
 }
 function cerrar(){
     $('#modalConfirm').modal('hide');
@@ -640,202 +570,7 @@ function cerrar(){
     }
 function aceptar() {
      $("#proV").val('2');
-     confirm();
-}
-function readon(){
-    var servicio = $("#servicio").val();
-    var servicio2 = $("#servicio2").val();
-    var servicio3 = $("#servicio3").val();
-    var servicio4 = $("#servicio4").val();
-    var servicio5 = $("#servicio5").val();
-    if(servicio != null && servicio != ""){
-        enabledS2();
-    }
-    if(servicio2 != null && servicio2 != ""){
-        enabledS3();
-    }
-    
-    if(servicio3 != null && servicio3 != ""){
-        enabledS4();
-    }
-    if(servicio4 != null && servicio4 != ""){
-        enabledS5();
-    }
-}
-function disabled(){
-    $('#servicio2').prop('readonly', true);
-
-    $('#buscar2').css('pointer-events', 'none');
-        $('#Cantidad2').prop('readonly', true);
-        $('#Importe2').prop('readonly', true);
-        $('#DescuentoPorc2').prop('readonly', true);
-        $('#DescuentoUnidad2').prop('readonly', true);
-        $('#Lectura2').prop('readonly', true);
-        $('#Neto2').prop('readonly', true);
-        $('#notasserv2').prop('readonly', true);
-        $('#servicio3').prop('readonly', true);
-    $('#buscar3').css('pointer-events', 'none');
-        $('#Cantidad3').prop('readonly', true);
-        $('#Importe3').prop('readonly', true);
-        $('#DescuentoPorc3').prop('readonly', true);
-        $('#DescuentoUnidad3').prop('readonly', true);
-        $('#Lectura3').prop('readonly', true);
-        $('#Neto3').prop('readonly', true);
-        $('#notasserv3').prop('readonly', true);
-        $('#servicio4').prop('readonly', true);
-    $('#buscar4').css('pointer-events', 'none');
-        $('#Cantidad4').prop('readonly', true);
-        $('#Importe4').prop('readonly', true);
-        $('#DescuentoPorc4').prop('readonly', true);
-        $('#DescuentoUnidad4').prop('readonly', true);
-        $('#Lectura4').prop('readonly', true);
-        $('#Neto4').prop('readonly', true);
-        $('#notasserv4').prop('readonly', true);
-        $('#servicio5').prop('readonly', true);
-    $('#buscar5').css('pointer-events', 'none');
-        $('#Cantidad5').prop('readonly', true);
-        $('#Importe5').prop('readonly', true);
-        $('#DescuentoPorc5').prop('readonly', true);
-        $('#DescuentoUnidad5').prop('readonly', true);
-        $('#Lectura5').prop('readonly', true);
-        $('#Neto5').prop('readonly', true);
-        $('#notasserv5').prop('readonly', true);
-}
-function enabledS2(){
-    //servicio2 
-        $('#servicio2').prop('readonly', false);
-    $('#buscar2').css('pointer-events', '');
-        $('#Cantidad2').prop('readonly', false);
-        $('#Importe2').prop('readonly', false);
-        $('#DescuentoPorc2').prop('readonly', false);
-        $('#DescuentoUnidad2').prop('readonly', false);
-        $('#Lectura2').prop('readonly', false);
-        $('#Neto2').prop('readonly', false);
-        $('#notasserv2').prop('readonly', false);
-}
-function enabledS3(){
-    //servicio3
-        $('#servicio3').prop('readonly', false);
-    $('#buscar3').css('pointer-events', '');
-        $('#Cantidad3').prop('readonly', false);
-        $('#Importe3').prop('readonly', false);
-        $('#DescuentoPorc3').prop('readonly', false);
-        $('#DescuentoUnidad3').prop('readonly', false);
-        $('#Lectura3').prop('readonly', false);
-        $('#Neto3').prop('readonly', false);
-        $('#notasserv3').prop('readonly', false);
-}
-function enabledS4(){
-    //servicio4
-        $('#servicio4').prop('readonly', false);
-    $('#buscar4').css('pointer-events', '');
-        $('#Cantidad4').prop('readonly', false);
-        $('#Importe4').prop('readonly', false);
-        $('#DescuentoPorc4').prop('readonly', false);
-        $('#DescuentoUnidad4').prop('readonly', false);
-        $('#Lectura4').prop('readonly', false);
-        $('#Neto4').prop('readonly', false);
-        $('#notasserv4').prop('readonly', false);
-}
-function enabledS5(){
-    //servicio5
-        $('#servicio5').prop('readonly', false);
-    $('#buscar5').css('pointer-events', '');
-        $('#Cantidad5').prop('readonly', false);
-        $('#Importe5').prop('readonly', false);
-        $('#DescuentoPorc5').prop('readonly', false);
-        $('#DescuentoUnidad5').prop('readonly', false);
-        $('#Lectura5').prop('readonly', false);
-        $('#Neto5').prop('readonly', false);
-        $('#notasserv5').prop('readonly', false);
-}
-function limPiar(){
-   /* var stab = $("#estab_list").val();
-    $.ajax({
-           type:"post",
-          url:"@Url.Action("FolioGastoServicio","Catalogos")" + "?id=" + stab,
-            contentType:"html",
-            success:function(respond){
-                debugger
-                $("#Folio").val(respond);
-                var a = $("#Folio").val();
-            }
-        });
-   $("#forma").reset(); */
-   $('#servicio2').val('');
-        $('#Cantidad2').val('');
-        $('#Importe2').val('');
-        $('#DescuentoPorc2').val('');
-        $('#DescuentoUnidad2').val('');
-        $('#Lectura2').val('');
-        $('#Neto2').val('');
-        $('#notasserv2').val('');
-        $('#servicio3').val('');
-        $('#Cantidad3').val('');
-        $('#Importe3').val('');
-        $('#DescuentoPorc3').val('');
-        $('#DescuentoUnidad3').val('');
-        $('#Lectura3').val('');
-        $('#Neto3').val('');
-        $('#notasserv3').val('');
-        $('#servicio4').val('');
-        $('#Cantidad4').val('');
-        $('#Importe4').val('');
-        $('#DescuentoPorc4').val('');
-        $('#DescuentoUnidad4').val('');
-        $('#Lectura4').val('');
-        $('#Neto4').val('');
-        $('#notasserv4').val('');
-        $('#servicio5').val('');
-        $('#Cantidad5').val('');
-        $('#Importe5').val('');
-        $('#DescuentoPorc5').val('');
-        $('#DescuentoUnidad5').val('');
-        $('#Lectura5').val('');
-        $('#Neto5').val('');
-        $('#notasserv5').val('');
-
-        $('#Equipo').val('');
-        $('#Modelo').val('');
-        $('#Marca').val('');
-        $('#Annio').val('');
-        $('#Motor').val('');
-        $('#Notas').val('');
-        $('#Factura').val('');
-        $('#Proveedor').val('');
-        $('#Neto').val('');
-        $('#IVA').val('');
-        $('#IVARet').val('');
-        $('#ISRRet').val('');
-        $('#total').val('');
-
-        $('#Chofer').val('');
-        $('#ChoferN').val('');
-        $('#Serie').val('');
-        $('#Lectura1').val('');
-        $('#Placas').val('');
-        $('#ServicioN').val('');
-        $('#ServicioN2').val('');
-        $('#ServicioN3').val('');
-        $('#ServicioN4').val('');
-        $('#ServicioN5').val('');
-        $('#servicio').val('');
-        $('#Cantidad').val('');
-        $('#Importe').val('');
-        $('#DescuentoPorc').val('');
-        $('#DescuentoUnidad').val('');
-        $('#Lectura').val('');
-        $('#Neto1').val('');
-        $('#notasServicio1').val('');
-        $('#EquipoN').val('');
-        $('#ProveedorN').val('');
-        $('#notasserv2').val('');
-        $('#notasserv3').val('');
-        $('#notasserv4').val('');
-        $('#notasserv5').val('');
-       
-        
-   disabled();
+     confirM();
 }
 </script>
 

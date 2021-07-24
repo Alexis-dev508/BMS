@@ -51,20 +51,24 @@ namespace Demo.Controllers
         {
             try
             {
-                //if(model.cod_prv == null)
-                //{
-                //    TempData["proveedor"] = "V";
-                //    return View(model);
-                //}
-                foreach(var i in model.servicioGS)
+                var res = false;
+                try
                 {
-                    if(i.servicio == null)
+                    foreach(var i in model.servicioGS)
                     {
-                        
-
+                        if (i.servicio == null)
+                        {
+                            var itemToRemove = model.servicioGS.Single(r => r.servicio == null);
+                            model.servicioGS.Remove(itemToRemove);
+                        }
                     }
+                    
+                }catch(Exception ex)
+                {
+                    throw new Exception(ex.Message);
                 }
-                var res = datos.GuardarGastosServicios(model);
+
+                res = datos.GuardarGastosServicios(model);
                 if (res == true)
                 {
                     TempData["mensajeSAVE"] = "Guardado exitosamente";

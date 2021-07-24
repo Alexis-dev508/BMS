@@ -9,6 +9,7 @@ namespace Demo.Models
 {
     public class AlimentacionGastosServicios
     {
+        public int id { get; set; }
         [Key]
         public string folio { get; set; }
         public string transaccion { get; set; }

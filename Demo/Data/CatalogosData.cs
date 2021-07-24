@@ -1219,10 +1219,10 @@ namespace Demo.Data
                         sda.SelectCommand.Parameters.AddWithValue("@mano_obra_mecanico", GS.mano_obra_mecanico);
                         sda.SelectCommand.Parameters.AddWithValue("@mano_obra_total", GS.mano_obra_total);
                         sda.SelectCommand.Parameters.AddWithValue("@trabajos_otros_talleres", GS.trabajos_otros_talleres);
-                        sda.SelectCommand.Parameters.AddWithValue("@otros_gastos", i.importe);
+                        sda.SelectCommand.Parameters.AddWithValue("@otros_gastos", i.NetoServ);
                         sda.SelectCommand.Parameters.AddWithValue("@lectura", i.lectura);
                         sda.SelectCommand.Parameters.AddWithValue("@cantidad", i.cantidad);
-                        sda.SelectCommand.Parameters.AddWithValue("@total", i.importe);
+                        sda.SelectCommand.Parameters.AddWithValue("@total", i.NetoServ);
                         sda.SelectCommand.Parameters.AddWithValue("@operador", GS.operador);
                         sda.SelectCommand.Parameters.AddWithValue("@notas2", i.notasserv);
                         DataTable dt = new DataTable();
