@@ -358,7 +358,7 @@ function deleteItem(btn){
 function nuevaFila(btn){
     $("#btnid").val(btn.id);
     
-    var s = $("#serV").val(); //numero de servicio, id de la fila
+    var s = $(btn).closest('tr').index(); //numero de servicio, id de la fila
     var servicio = $("#servicioGS_"+s+"__servicio").val();
     var cantidad = $("#servicioGS_"+s+"__cantidad").val();
     var importe = $("#servicioGS_"+s+"__importe").val();
