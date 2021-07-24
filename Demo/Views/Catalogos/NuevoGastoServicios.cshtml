@@ -165,8 +165,7 @@
                                                 <td>
                                                         <button id="btnadd-@i-"type="button" value="Add" class="btn btn-primary" onclick="nuevaFila(this)">Add</button>
                                                         <button id="btnremove-@i-"type="button" value="Del" class="btn btn-danger" onclick="deleteItem(this)">Del</button>
-                                                        <input type="hidden" id="ID-@i-"/>
-                                                        @Html.EditorFor(model => model.servicioGS[i].id,new {htmlAttributes = new {@class="form-control",@type="hidden"}})
+                                                        @Html.EditorFor(model => model.servicioGS[i].id,new {htmlAttributes = new {@class="form-control",@type="hidden",@value="0"}})
                                                 </td>
                                             </tr>
                                         }
@@ -351,8 +350,9 @@ function equipoGS(equipo,nombre,chofer,nombreCh,modelo,marca,serie,lectura,año,
 }
 function deleteItem(btn){
      var b = $(btn).closest('tr').index();
-     b = eval(b) + 1;
-     $("#servicioGS_"+s+"__servicio").prop("disabled","true");
+     //b = eval(b) + 1;
+     $("#servicioGS_"+b+"__id").val(0);
+     $(btn).closest('tr').css("visibility","collapse");
 
 }
 function nuevaFila(btn){
@@ -551,6 +551,23 @@ function confirM(){
                                         }
                      }                   
                     }
+                var servi = false;
+                 for(var i = 0; i < id; i++){
+                     if($("#servicioGS_"+i+"__servicio").length){
+                         var can = ((document.getElementById("servicioGS_"+i+"__servicio")||{}).value)||"";
+                                        if((can)*1 == 0 || can == null){
+                                            $("#datos1").empty();
+                                            $("#footer").empty();
+                                            var data="<label>Hay conceptos de servicios, en los cuales la cantidad o el importe son Cero.</label>";
+                                            var dat ='<button type="button" class="btn btn-secondary" onclick="cerrar()">Cerrar</button>';
+                                            $("#datos1").append(data);
+                                            $("#footer").append(dat);
+                                            $("#modalConfirm").modal('show');
+                                            i = (id + 1)*1;
+                                            servi = true;
+                                        }
+                     }                   
+                    }
                 var impstat = false;                       
                 for(var i = 0; i < id; i++){
                     if($("#servicioGS_"+i+"__importe").length){
@@ -568,7 +585,7 @@ function confirM(){
                                                 }
                     }                                   
                  }
-                 if(lecstat != true && canstat != true && impstat != true){
+                 if(lecstat != true && canstat != true && impstat != true && servi != true){
 		             $("#forma").submit();
                  }                       
             }

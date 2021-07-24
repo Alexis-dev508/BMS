@@ -54,14 +54,18 @@ namespace Demo.Controllers
                 var res = false;
                 try
                 {
-                    foreach(var i in model.servicioGS)
+                    foreach(var i in model.servicioGS.ToList())
                     {
                         if (i.servicio == null)
                         {
-                            var itemToRemove = model.servicioGS.Single(r => r.servicio == null);
-                            model.servicioGS.Remove(itemToRemove);
+                            model.servicioGS.RemoveAll(r => r.servicio == null);
+                        }
+                        if(i.id == 0)
+                        {
+                            model.servicioGS.RemoveAll(r => r.id == 0);
                         }
                     }
+                  
                     
                 }catch(Exception ex)
                 {
