@@ -63,33 +63,9 @@
 
                                 @Html.Label("factura", "Factura", new { @class = "control-label" })
                                 @Html.TextBoxFor(model => model.factura_proveedor, new { @class = "form-control my-2",@id="Factura"})
-                                @Html.Label("proveedor", "Proveedor", new { @class = "control-label"})
-                                <div class="input-group">
-                                     @Html.TextBoxFor(model => model.cod_prv, new { @class = "form-control",@id="Proveedor",@onkeydown="onKeyDownPrv(event)"})
-                                    <span class="input-group-btn">
-                                        <a class="btn btn-primary" onclick="prv()" data-toggle="Buscar" title="Buscar">
-                                           <i class="fas fa-search"></i>
-					                  </a>
-                                    </span>
-                                </div>
-                               
                                 
-                                <input class="form-control my-3" id="ProveedorN" data-toggle="Proveedor" title="Proveedor" readonly="readonly" />
 
-                                @Html.Label("neto", "Neto", new { @class = "control-label" })
-                                <input type="number" class="form-control" id="Neto" data-toggle="Neto" title="Neto" readonly="readonly" />
-
-                                @Html.Label("iva", "IVA", new { @class = "control-label" })
-                                <input type="number" class="form-control" id="IVA" data-toggle="IVA" title="IVA" readonly="readonly" />
-
-                                @Html.Label("ivaret", "IVA Ret", new { @class = "control-label" })
-                                <input type="number" class="form-control" id="IVARet" data-toggle="IVA Ret" title="IVA Ret" readonly="readonly"/>
-
-                                @Html.Label("isrret", "ISR Ret", new { @class = "control-label" })
-                                <input type="number" class="form-control" id="ISRRet" data-toggle="ISR Ret" title="ISR Ret" readonly="readonly"/>
-
-                                @Html.Label("total", "Total", new { @class = "control-label" })
-                                <input type="number" class="form-control" id="total" readonly="readonly"/>
+                                
 
 
                             </div>
@@ -114,8 +90,37 @@
                             <input type="hidden" id="proV" /> @*campo oculto*@
                             <input type="hidden" id="btnid"/> @*campo oculto*@
 
+                            @Html.Label("proveedor", "Proveedor", new { @class = "control-label"})
+                                <div class="input-group">
+                                     @Html.TextBoxFor(model => model.cod_prv, new { @class = "form-control",@id="Proveedor",@onkeydown="onKeyDownPrv(event)"})
+                                    <span class="input-group-btn">
+                                        <a class="btn btn-primary" onclick="prv()" data-toggle="Buscar" title="Buscar">
+                                           <i class="fas fa-search"></i>
+					                  </a>
+                                    </span>
+                                </div>
+                               
+                                
+                                <input class="form-control my-3" id="ProveedorN" data-toggle="Proveedor" title="Proveedor" readonly="readonly" />
+
+                            @Html.Label("neto", "Neto", new { @class = "control-label" })
+                                <input type="number" class="form-control" id="Neto" data-toggle="Neto" title="Neto" readonly="readonly" />
+
+                                @Html.Label("iva", "IVA", new { @class = "control-label" })
+                                <input type="number" class="form-control" id="IVA" data-toggle="IVA" title="IVA" readonly="readonly" />
+
+                                @Html.Label("ivaret", "IVA Ret", new { @class = "control-label" })
+                                <input type="number" class="form-control" id="IVARet" data-toggle="IVA Ret" title="IVA Ret" readonly="readonly"/>
+
+                                @Html.Label("isrret", "ISR Ret", new { @class = "control-label" })
+                                <input type="number" class="form-control" id="ISRRet" data-toggle="ISR Ret" title="ISR Ret" readonly="readonly"/>
+
+                                @Html.Label("total", "Total", new { @class = "control-label" })
+                                <input type="number" class="form-control" id="total" readonly="readonly"/>
                             
-                            <table class="table-responsive table-bordered" id="tab">
+                            
+                        </div>
+                        <table class="table-responsive table-bordered" id="tab">
                                 <thead>
                                     <tr>
                                         <th>Servicio</th>
@@ -137,9 +142,9 @@
                                         {
                                             <tr>
                                                 
-                                                <td>
+                                                <td style="width:8%;">
                                                     <div class="form-inline">
-                                                        @Html.EditorFor(model => model.servicioGS[i].servicio,new {htmlAttributes = new {@class="form-control",@onkeydown="onKeyDownServicio(event)",@style="width:35%;font-size:80%;"}})
+                                                        @Html.EditorFor(model => model.servicioGS[i].servicio,new {htmlAttributes = new {@class="form-control",@onkeydown="onKeyDownServicio(event)",@style="width:60%;"}})
                                                             <a class="btn btn-primary" onclick="servicioS(this)" data-toggle="Buscar" title="Buscar" id="buscar-@i-">
                                                                 <i class="fas fa-search"></i>
                                                             </a>
@@ -149,22 +154,31 @@
 
                                                 <td>@Html.EditorFor(model => model.servicioGS[i].servicioN,new {htmlAttributes = new {@class="form-control",@style="font-size:80%;"}})</td>
                                                 
-                                                <td>@Html.EditorFor(model => model.servicioGS[i].cantidad,new {htmlAttributes = new {@class="form-control",@type="number",@style="font-size:80%;" ,@value="0"}})</td>
+                                                <td style="width:8%;">@Html.EditorFor(model => model.servicioGS[i].cantidad,new {htmlAttributes = new {@class="form-control",@type="number",@style="font-size:80%; text-align: right;" ,@value="0",@onchange="calculoS(this)",@onkeyup="calculoS(this)"}})</td>
                                                 
-                                                <td>@Html.EditorFor(model => model.servicioGS[i].importe,new {htmlAttributes = new {@class="form-control",@type="number",@style="font-size:80%;",@onchange="calculoS()",@onkeyup="calculoS()" ,@value="0"}})</td>
+                                                <td style="width:8%;">@Html.EditorFor(model => model.servicioGS[i].importe,new {htmlAttributes = new {@class="form-control",@type="number",@style="font-size:80%; text-align: right;",@onchange="calculoS(this)",@onkeyup="calculoS(this)" ,@value="0"}})</td>
                                                 
-                                                <td>@Html.EditorFor(model => model.servicioGS[i].lectura,new {htmlAttributes = new {@class="form-control",@type="number",@style="font-size:80%;" ,@value="0"}})</td>
+                                                <td style="width:8%;">@Html.EditorFor(model => model.servicioGS[i].lectura,new {htmlAttributes = new {@class="form-control",@type="number",@style="font-size:80%; text-align: right;" ,@value="0" ,@onchange="calculoS(this)",@onkeyup="calculoS(this)"}})</td>
                                                 
-                                                <td>@Html.EditorFor(model => model.servicioGS[i].Descporcent,new {htmlAttributes = new {@class="form-control",@type="number",@style="font-size:80%;",@onchange="calculoS()",@onkeyup="calculoS()" ,@value="0"}})</td>
+                                                <td style="width:8%;">@Html.EditorFor(model => model.servicioGS[i].Descporcent,new {htmlAttributes = new {@class="form-control",@type="number",@style="font-size:80%; text-align: right;",@onchange="calculoS(this)",@onkeyup="calculoS(this)" ,@value="0"}})</td>
                                                 
-                                                <td>@Html.EditorFor(model => model.servicioGS[i].Descuni,new {htmlAttributes = new {@class="form-control",@type="number",@style="font-size:80%;",@onchange="calculoS()",@onkeyup="calculoS()" ,@value="0"}})</td>
+                                                <td style="width:8%;">@Html.EditorFor(model => model.servicioGS[i].Descuni,new {htmlAttributes = new {@class="form-control",@type="number",@style="font-size:80%; text-align: right;",@onchange="calculoS(this)",@onkeyup="calculoS(this)" ,@value="0"}})</td>
                                                
-                                                <td>@Html.EditorFor(model => model.servicioGS[i].NetoServ,new {htmlAttributes = new {@class="form-control",@type="number",@readonly="readonly",@style="font-size:80%;",@onkeyup="calculoS()" ,@value="0"}})</td>
+                                                <td>@Html.EditorFor(model => model.servicioGS[i].NetoServ,new {htmlAttributes = new {@class="form-control",@type="number",@readonly="readonly",@style="font-size:80%; text-align: right;",@value="0"}})</td>
                                                
                                                 <td>@Html.EditorFor(model => model.servicioGS[i].notasserv,new {htmlAttributes = new {@class="form-control"}})</td>
                                                 <td>
-                                                        <button id="btnadd-@i-"type="button" value="Add" class="btn btn-primary" onclick="nuevaFila(this)">Add</button>
-                                                        <button id="btnremove-@i-"type="button" value="Del" class="btn btn-danger" onclick="deleteItem(this)">Del</button>
+                                                    <div class="form-inline">
+                                                        <a class="btn btn-danger" id="btnremove-@i-" onclick="deleteItem(this)" data-toggle="Eliminar" title="Eliminar">
+                                                            <i class="fas fa-trash"></i>
+                                                        </a>
+                                                        <a class="btn btn-primary" id="btnadd-@i-" onclick="nuevaFila(this)" data-toggle="Agregar servicio" title="Agregar servicio">
+                                                            <i class="fas fa-plus"></i>
+                                                        </a>
+                                                        @*<button id="btnadd-@i-"type="button" value="Add" class="btn btn-primary" onclick="nuevaFila(this)">Add</button>*@
+                                                        @*<button id="btnremove-@i-"type="button" value="Del" class="btn btn-danger" onclick="deleteItem(this)">Del</button>*@
+                                                    </div>
+                                                    
                                                         @Html.EditorFor(model => model.servicioGS[i].id,new {htmlAttributes = new {@class="form-control",@type="hidden",@value="0"}})
                                                 </td>
                                             </tr>
@@ -173,7 +187,6 @@
                                 </tbody>
 
                             </table>
-                        </div>
                         </div>
                     </div>
 
@@ -224,6 +237,7 @@
 <script>
 $(document).ready( function () {
     $('#btnremove-0-').css('visibility','hidden');
+    $('#btnedit-0-').css('visibility','hidden');
     $("#alert").hide();
     //$("").DataTable();
     $.ajax({
@@ -305,6 +319,8 @@ function onKeyDownPrv(event) {
     }
 }
 function onKeyDownServicio(event) {
+    var s = $(event).closest('tr').index();
+    $("#serV").val(eval(s));
     var codigo = event.which || event.keyCode;
 
     if(codigo === 113){
@@ -321,7 +337,9 @@ function serv1(servicio,nombre){
     //$("#buscar-"+id+"-").css('pointer-events', 'none');
     $('#modalDetalle').modal('hide');   
 }
-function servicioS(){
+function servicioS(event){
+    var s = $(event).closest('tr').index();
+    $("#serV").val(s);
         $("#datos").empty();
         $.ajax({
             type:"GET",
@@ -348,6 +366,17 @@ function equipoGS(equipo,nombre,chofer,nombreCh,modelo,marca,serie,lectura,año,
     $('#Placas').val(placas);
     $('#modalDetalle').modal('hide');
 }
+/*function ediT(btn){
+    var b = $(btn).closest('tr').index();
+    $("#serV").val(b);
+    $("#servicioGS_"+b+"__servicio").prop('readonly', false);
+        $("#servicioGS_"+b+"__servicioN").prop('readonly', false);
+        $("#servicioGS_"+b+"__lectura").prop('readonly', false);
+        $("#servicioGS_"+b+"__cantidad").prop('readonly', false);
+        $("#servicioGS_"+b+"__importe").prop('readonly', false);
+        $("#servicioGS_"+b+"__Descporcent").prop('readonly', false);
+        $("#servicioGS_"+b+"__Descuni").prop('readonly', false);
+}*/
 function deleteItem(btn){
      var b = $(btn).closest('tr').index();
      //b = eval(b) + 1;
@@ -366,18 +395,7 @@ function nuevaFila(btn){
     s*=1;
 
     if(servicio !=null && servicio != "" && cantidad != null && cantidad != 0 && cantidad !="" && importe != 0 && importe !=null && importe !="" && lectura != null && lectura != "" && lectura !=0){
-        
-        $("#servicioGS_"+s+"__lectura").prop('readonly', true);
-        $("#servicioGS_"+s+"__cantidad").prop('readonly', true);
-        $("#servicioGS_"+s+"__importe").prop('readonly', true);
-        $("#servicioGS_"+s+"__Descporcent").prop('readonly', true);
-        $("#servicioGS_"+s+"__Descuni").prop('readonly', true);
-        //$("#servicioGS_"+s+"__notasserv").prop('readonly', true);
-        $("#buscar-"+s+"-").css('pointer-events', 'none');
-        
-        
         var b = s + 1;
-        
         $("#serV").val(b);
         var table = document.getElementById('tab');
         var rows = table.getElementsByTagName('tr');
@@ -388,21 +406,12 @@ function nuevaFila(btn){
         rowOuterHtml = rowOuterHtml.replaceAll('-'+ s +'-','-'+b+'-');
         var newRow = table.insertRow();
         newRow.innerHTML = rowOuterHtml;
-        
-        $("#servicioGS_"+b+"__servicio").prop('readonly', false);
-        $("#servicioGS_"+b+"__servicioN").prop('readonly', false);
-        $("#servicioGS_"+b+"__lectura").prop('readonly', false);
-        $("#servicioGS_"+b+"__cantidad").prop('readonly', false);
-        $("#servicioGS_"+b+"__importe").prop('readonly', false);
-        $("#servicioGS_"+b+"__Descporcent").prop('readonly', false);
-        $("#servicioGS_"+b+"__Descuni").prop('readonly', false);
-        //$("#servicioGS_"+b+"__notasserv").prop('readonly', false);
-        $("#buscar-"+b+"-").css('pointer-events', '');
 
         var btnAddID = $("#btnid").val();
         $('#'+btnAddID).css('visibility','hidden');
         var btnDelete = btnAddID.replaceAll('btnadd','btnremove');
         $('#'+btnDelete).css('visibility','visible');
+        $('#btnedit-'+s+'-').css('visibility','visible');
     }else{
         s=s+1;
         var data="<label>Faltan datos por ingresar en el servicio #"+s+".</label>";
@@ -413,11 +422,13 @@ function nuevaFila(btn){
             $("#modalConfirm").modal('show');
     }
 }
-function calculoS(){
-    var id = $("#serV").val();
+function calculoS(btn){
+    var id = $(btn).closest('tr').index();
     id*=1;
     var lon = id+1;
     lon *=1;
+    var cantidad = ((document.getElementById("servicioGS_"+id+"__cantidad")||{}).value)||"";
+    var lectura = ((document.getElementById("servicioGS_"+id+"__lectura")||{}).value)||"";
     var servicio = $("#serV").val();
     var importe = ((document.getElementById("servicioGS_"+id+"__importe")||{}).value)||"";
         importe *=1;
@@ -432,6 +443,26 @@ function calculoS(){
     var iva = 0.0;
     var Ivaret = 0.0;
     var total = 0.0;
+    if(eval(cantidad) < 0){
+        $("#servicioGS_"+id+"__cantidad").val(0);
+        return;
+    }
+    if(eval(lectura) < 0){
+        $("#servicioGS_"+id+"__lectura").val(0);
+        return;
+    }
+    if(importe < 0){
+        $("#servicioGS_"+id+"__importe").val(0);
+        return;
+    }
+    if(descporcent < 0){
+        $("#servicioGS_"+id+"__Descporcent").val(0);
+        return;
+    }
+    if(descUni < 0){
+        $("#servicioGS_"+id+"__Descuni").val(0);
+        return;
+    }
     
     //servicio1
     if(descUni > importe){
@@ -460,6 +491,7 @@ function calculoS(){
         }
         
     }
+    subneto = subneto.toFixed(2);
     document.getElementById("servicioGS_"+id+"__NetoServ").value=(subneto)*1;
     for(var i=0;i<lon;i++){
         var a = ((document.getElementById("servicioGS_"+i+"__NetoServ")||{}).value)||""; 
@@ -477,6 +509,11 @@ function calculoS(){
 
     total = neto + iva ;
     total = total - ISR - Ivaret;
+    neto = neto.toFixed(2);
+    Ivaret = Ivaret.toFixed(2);
+    ISR = ISR.toFixed(2);
+    iva = iva.toFixed(2);
+    total = total.toFixed(2);
     $("#Neto").val(neto);
     $("#IVA").val(iva);
     $("#ISRRet").val(ISR);

@@ -13,6 +13,7 @@ namespace Demo.Models
       
         public DateTime FechaInicial { get; set; }
         public DateTime FechaFinal { get; set; }
+        public string servicio { get; set; }
         public List<RendimientoEquiposServicios> Datos { get; set; }
     }
 }
