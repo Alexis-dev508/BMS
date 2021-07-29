@@ -62,7 +62,8 @@
                                 @Html.TextAreaFor(model => model.notas, new { @class = "form-control my-2",@rows="5", @id="Notas"})
 
                                 @Html.Label("factura", "Factura", new { @class = "control-label" })
-                                @Html.TextBoxFor(model => model.factura_proveedor, new { @class = "form-control my-2",@id="Factura"})
+                                @Html.TextBoxFor(model => model.factura_proveedor, new { @class = "form-control my-2",@id="Factura",@onkeydown="validarFactura(event)"})
+                                @Html.TextBoxFor(model => model.folio_propio,new {@class = "form-control my-2",@id="Folio_propio",@readonly="readonly"})
                                 
 
                                 
@@ -88,6 +89,8 @@
                             <input class="form-control" id="Placas" data-toggle="Placas" title="Placas" readonly="readonly"/>
                             <input type="hidden" id="serV" value="0" /> @*campo oculto*@
                             <input type="hidden" id="proV" /> @*campo oculto*@
+                            <input type="hidden" id="facT" /> @*campo oculto*@
+                            <input type="hidden" id="facturaStatus" /> @*campo oculto*@
                             <input type="hidden" id="btnid"/> @*campo oculto*@
 
                             @Html.Label("proveedor", "Proveedor", new { @class = "control-label"})
@@ -104,19 +107,24 @@
                                 <input class="form-control my-3" id="ProveedorN" data-toggle="Proveedor" title="Proveedor" readonly="readonly" />
 
                             @Html.Label("neto", "Neto", new { @class = "control-label" })
-                                <input type="number" class="form-control" id="Neto" data-toggle="Neto" title="Neto" readonly="readonly" />
+                                
+                                @Html.TextBoxFor(model => model.Neto, new { @class = "form-control my-2",@id="Neto",@readonly="readonly",@type="number"})
 
                                 @Html.Label("iva", "IVA", new { @class = "control-label" })
-                                <input type="number" class="form-control" id="IVA" data-toggle="IVA" title="IVA" readonly="readonly" />
+                                
+                                @Html.TextBoxFor(model => model.IVA, new { @class = "form-control my-2",@id="IVA",@readonly="readonly",@type="number"})
 
                                 @Html.Label("ivaret", "IVA Ret", new { @class = "control-label" })
-                                <input type="number" class="form-control" id="IVARet" data-toggle="IVA Ret" title="IVA Ret" readonly="readonly"/>
+                                
+                                @Html.TextBoxFor(model => model.IVARet, new { @class = "form-control my-2",@id="IVARet",@readonly="readonly",@type="number"})
 
                                 @Html.Label("isrret", "ISR Ret", new { @class = "control-label" })
-                                <input type="number" class="form-control" id="ISRRet" data-toggle="ISR Ret" title="ISR Ret" readonly="readonly"/>
+                                
+                                @Html.TextBoxFor(model => model.ISRRet, new { @class = "form-control my-2",@id="ISRRet",@readonly="readonly",@type="number"})
 
                                 @Html.Label("total", "Total", new { @class = "control-label" })
-                                <input type="number" class="form-control" id="total" readonly="readonly"/>
+                                
+                                @Html.TextBoxFor(model => model.total, new { @class = "form-control my-2",@id="total",@readonly="readonly",@type="number"})
                             
                             
                         </div>
@@ -175,8 +183,7 @@
                                                         <a class="btn btn-primary" id="btnadd-@i-" onclick="nuevaFila(this)" data-toggle="Agregar servicio" title="Agregar servicio">
                                                             <i class="fas fa-plus"></i>
                                                         </a>
-                                                        @*<button id="btnadd-@i-"type="button" value="Add" class="btn btn-primary" onclick="nuevaFila(this)">Add</button>*@
-                                                        @*<button id="btnremove-@i-"type="button" value="Del" class="btn btn-danger" onclick="deleteItem(this)">Del</button>*@
+                                                        
                                                     </div>
                                                     
                                                         @Html.EditorFor(model => model.servicioGS[i].id,new {htmlAttributes = new {@class="form-control",@type="hidden",@value="0"}})
@@ -318,6 +325,31 @@ function onKeyDownPrv(event) {
       prv();
     }
 }
+function validarFactura(event) {
+
+    var codigo = event.which || event.keyCode;
+
+    if(codigo === 13){
+        facTura();
+    }
+}
+function facTura(){
+    var factura = $("#Factura").val();
+        var estab = $("#estab_list").val();
+        $.ajax({
+            type:"post",
+            url:"@Url.Action("FacturaGastoServicio","Catalogos")",
+            dataType:"json",
+            data: {'estab':estab,'factura':factura},
+            success:function(respond){
+                if(respond != null){
+                    $("#Folio_propio").val(respond);
+                }else{
+                    alert("Esta factura ya está registrada.")
+                }
+            }
+        });
+}
 function onKeyDownServicio(event) {
     var s = $(event).closest('tr').index();
     $("#serV").val(eval(s));
@@ -329,12 +361,10 @@ function onKeyDownServicio(event) {
 }
 function serv1(servicio,nombre){
     var id = $("#serV").val();
-    //document.getElementById("servicioGS_"+id+"__servicio").value=servicio;
     $("#servicioGS_"+id+"__servicio").val(servicio);
     $("#servicioGS_"+id+"__servicio").prop('readonly', true);
     $("#servicioGS_"+id+"__servicioN").val(nombre);
     $("#servicioGS_"+id+"__servicioN").prop('readonly', true);
-    //$("#buscar-"+id+"-").css('pointer-events', 'none');
     $('#modalDetalle').modal('hide');   
 }
 function servicioS(event){
@@ -366,22 +396,12 @@ function equipoGS(equipo,nombre,chofer,nombreCh,modelo,marca,serie,lectura,año,
     $('#Placas').val(placas);
     $('#modalDetalle').modal('hide');
 }
-/*function ediT(btn){
-    var b = $(btn).closest('tr').index();
-    $("#serV").val(b);
-    $("#servicioGS_"+b+"__servicio").prop('readonly', false);
-        $("#servicioGS_"+b+"__servicioN").prop('readonly', false);
-        $("#servicioGS_"+b+"__lectura").prop('readonly', false);
-        $("#servicioGS_"+b+"__cantidad").prop('readonly', false);
-        $("#servicioGS_"+b+"__importe").prop('readonly', false);
-        $("#servicioGS_"+b+"__Descporcent").prop('readonly', false);
-        $("#servicioGS_"+b+"__Descuni").prop('readonly', false);
-}*/
 function deleteItem(btn){
      var b = $(btn).closest('tr').index();
-     //b = eval(b) + 1;
      $("#servicioGS_"+b+"__id").val(0);
-     $(btn).closest('tr').css("visibility","collapse");
+    $(btn).closest('tr').css("visibility","collapse");
+    calculoS(btn);
+     
 
 }
 function nuevaFila(btn){
@@ -425,8 +445,8 @@ function nuevaFila(btn){
 function calculoS(btn){
     var id = $(btn).closest('tr').index();
     id*=1;
-    var lon = id+1;
-    lon *=1;
+    var lon = $("#serV").val();
+    lon = eval(lon) + 1;
     var cantidad = ((document.getElementById("servicioGS_"+id+"__cantidad")||{}).value)||"";
     var lectura = ((document.getElementById("servicioGS_"+id+"__lectura")||{}).value)||"";
     var servicio = $("#serV").val();
@@ -493,10 +513,17 @@ function calculoS(btn){
     }
     subneto = subneto.toFixed(2);
     document.getElementById("servicioGS_"+id+"__NetoServ").value=(subneto)*1;
-    for(var i=0;i<lon;i++){
-        var a = ((document.getElementById("servicioGS_"+i+"__NetoServ")||{}).value)||""; 
-        neto += (a)*1;
+
+    for(var i=0; i < lon; i++){
+        //var a = ((document.getElementById("servicioGS_"+i+"__NetoServ")||{}).value)||"";
+        var id = $("#servicioGS_"+i+"__id").val();
+        var a = $("#servicioGS_"+i+"__NetoServ").val();
+        if((id)*1 == 1){
+            neto += (a)*1;
+        }
+        
     }
+
     if(neto * 16 != 0){
         iva = (neto * 16)/100;
     }
@@ -530,6 +557,8 @@ function confirM(){
     var fol = $("#Folio").val();
     var eq = $("#Equipo").val();
     var prov = $("#proV").val();
+    var factura = $("#Factura").val();
+    var fact = $("#facT").val();
     //limpiar modal
     $("#datos1").empty();
     $("#footer").empty();
@@ -539,15 +568,19 @@ function confirM(){
             $("#datos1").append(data);
             $("#footer").append(dat);
             $("#modalConfirm").modal('show');
+    }else if((factura == null || factura == "") && (fact == null || fact == "")){
+        var data="<label>No ha proporcionado datos de FACTURA. ¿Desea continuar?.</label>";
+            var dat ='<button class="btn btn-success my-2" onclick="aceptar1()">Aceptar</button> <button type="button" class="btn btn-secondary" onclick="cerrar()">Cancelar</button>';
+            $("#datos1").append(data);
+            $("#footer").append(dat);
+            $("#modalConfirm").modal('show');
     }else if((prv == null || prv =="") && (prov == null || prov == "")){
-        
                 var data="<label>No ha seleccionado un proveedor. ¿Desea continuar?.</label>";
                 var dat ='<button class="btn btn-success my-2" onclick="aceptar()">Aceptar</button> <button type="button" class="btn btn-secondary" onclick="cerrar()">Cancelar</button>';
                 $("#datos1").append(data);
                 $("#footer").append(dat);
                 $('#modalConfirm').modal('show');
         }else if ( eq == null || eq == ""){
-            
                 var data="<label>Seleccione un Equipo.</label>";
                 var dat ='<button type="button" class="btn btn-secondary" onclick="cerrar()">Cerrar</button>';
                 $("#datos1").append(data);
@@ -622,7 +655,26 @@ function confirM(){
                                                 }
                     }                                   
                  }
-                 if(lecstat != true && canstat != true && impstat != true && servi != true){
+                 //validar factura nuevamente
+                 var ftura = false;
+                 var factura = $("#Factura").val();
+                var estab = $("#estab_list").val();
+                $.ajax({
+                    type:"post",
+                    url:"@Url.Action("FacturaGastoServicio","Catalogos")",
+                    dataType:"json",
+                    data: {'estab':estab,'factura':factura},
+                    success:function(respond){
+                        if(respond != null){
+                            $("#Folio_propio").val(respond);
+                        }else{
+                            alert("Esta factura ya está registrada.")
+                            ftura = true;
+                        }
+                    }
+                });
+
+                 if(lecstat != true && canstat != true && impstat != true && servi != true && ftura != true){
 		             $("#forma").submit();
                  }                       
             }
@@ -636,6 +688,10 @@ function cerrar(){
 function aceptar() {
      $("#proV").val('2');
      confirM();
+}
+function aceptar1(){
+    $("#facT").val('2');
+    confirM();
 }
 </script>
 

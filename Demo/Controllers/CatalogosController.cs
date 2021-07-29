@@ -929,10 +929,24 @@ namespace Demo.Controllers
             fol = datos.TraerFolio(id);
             if (fol.folio.Trim() == "Error")
             {
-                return PartialView("_FolioGS"); ;
+                return PartialView("_FolioGS");
             }
             ViewBag.folio = fol.folio.Trim();
             return PartialView("_FolioGS");
+        }
+        //factura gastos servicios
+        public string FacturaGastoServicio(string estab,string factura)
+        {
+            AlimentacionGSModelView model = new AlimentacionGSModelView();
+            model = datos.TraerFactura(estab,factura);
+            if (model.folio_propio.Trim() == "Error")
+            {
+                return null;
+            }
+            else
+            {
+                return model.folio_propio.Trim();
+            }
         }
         //vista de servicios depende
         [HttpGet]

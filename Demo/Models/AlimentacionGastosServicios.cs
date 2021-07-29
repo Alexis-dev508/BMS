@@ -12,6 +12,7 @@ namespace Demo.Models
         public int id { get; set; }
         [Key]
         public string folio { get; set; }
+        public string folio_propio { get; set; }
         public string transaccion { get; set; }
         [DataType(DataType.Date)]
         public DateTime fecha_servicio { get; set; }
@@ -53,6 +54,10 @@ namespace Demo.Models
         public string pNombre { get; set; }
         public string eqNombre { get; set; }
 
+        public decimal Neto { get; set; }
+        public decimal IVA { get; set; }
+        public decimal IVARet { get; set; }
+        public decimal ISRRet { get; set; }
         public virtual List<ServiciosGS> servicioGS { get; set; } = new List<ServiciosGS>();
 
         //servicio2

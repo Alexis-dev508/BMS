@@ -574,6 +574,34 @@ namespace Demo.Data
             }
             return GS;
         }
+        //facturas
+        public AlimentacionGSModelView TraerFactura(string estab,string factura)
+        {
+            AlimentacionGSModelView GS = new AlimentacionGSModelView();
+            try
+            {
+                SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_alimentacionGS_equipos", this.ConnectionString);
+                sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sda.SelectCommand.Parameters.AddWithValue("@folio", "");
+                sda.SelectCommand.Parameters.AddWithValue("@folio_propio", "");
+                sda.SelectCommand.Parameters.AddWithValue("@oper", "A");
+                sda.SelectCommand.Parameters.AddWithValue("@factura_proveedor", factura);
+                sda.SelectCommand.Parameters.AddWithValue("@cod_estab", estab);
+
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                GS = dt.AsEnumerable().Select(a =>
+                new AlimentacionGSModelView
+                {
+                    folio_propio = a["folio_propio"].ToString()
+                }).SingleOrDefault();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return GS;
+        }
         //traer informacion de equipos
         public List<Equipos> TraerEquipos(string oper)
         {
@@ -1145,6 +1173,41 @@ namespace Demo.Data
             
             try
             {
+                if(GS.factura_proveedor != null)
+                    {
+                        try
+                        {
+                            cnn.Open();
+                            sqlTransaction = cnn.BeginTransaction();
+                            SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_alimentacionGS_equipos", cnn);
+                            sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                            sda.SelectCommand.Transaction = sqlTransaction;
+                            sda.SelectCommand.Parameters.AddWithValue("@folio", GS.factura_proveedor);
+                            sda.SelectCommand.Parameters.AddWithValue("@oper", "G");
+                            sda.SelectCommand.Parameters.AddWithValue("@suboper", "FA");
+                            sda.SelectCommand.Parameters.AddWithValue("@fecha", fecha);
+                            sda.SelectCommand.Parameters.AddWithValue("@importe", GS.Neto);
+                            sda.SelectCommand.Parameters.AddWithValue("@iva", GS.IVA);
+                            sda.SelectCommand.Parameters.AddWithValue("#@iva_ret", GS.IVARet);
+                            sda.SelectCommand.Parameters.AddWithValue("#@neto", GS.total);
+                            sda.SelectCommand.Parameters.AddWithValue("@cod_usr", GS.usuario);
+                            sda.SelectCommand.Parameters.AddWithValue("@cod_estab", GS.cod_estab);
+                            sda.SelectCommand.Parameters.AddWithValue("@Fecha", fecha);
+                            sda.SelectCommand.Parameters.AddWithValue("@folio_fiscal", "");
+                            //sda.SelectCommand.Parameters.Add(new SqlParameter("@Msg", SqlDbType.VarChar, 500, ParameterDirection.InputOutput, false, 0, 0, "", DataRowVersion.Current, ""));
+                            DataTable dt = new DataTable();
+                            sda.Fill(dt);
+
+                            sqlTransaction.Commit();
+                            cnn.Close();
+                        }
+                        catch(Exception e)
+                        {
+                            sqlTransaction.Rollback();
+                            throw new Exception(e.Message);
+                        }
+                    }
+
                 try
                 {
                     cnn.Open();
@@ -1232,7 +1295,6 @@ namespace Demo.Data
                         sqlTransaction.Commit();
                         cnn.Close();
                     }
-                    
                 }
                 catch(Exception ex)
                 {
