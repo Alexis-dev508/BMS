@@ -361,11 +361,24 @@ function onKeyDownServicio(event) {
 }
 function serv1(servicio,nombre){
     var id = $("#serV").val();
-    $("#servicioGS_"+id+"__servicio").val(servicio);
-    $("#servicioGS_"+id+"__servicio").prop('readonly', true);
-    $("#servicioGS_"+id+"__servicioN").val(nombre);
-    $("#servicioGS_"+id+"__servicioN").prop('readonly', true);
-    $('#modalDetalle').modal('hide');   
+    $.ajax({
+       type:"post",
+       url:"@Url.Action("ConceptoGastosServicio","Catalogos")",
+       dataType:"json",
+       data: {'servicio':servicio},
+       success:function(respond){
+       if(respond != null){
+            $("#servicioGS_"+id+"__servicio").val(servicio);
+            $("#servicioGS_"+id+"__servicio").prop('readonly', true);
+            $("#servicioGS_"+id+"__servicioN").val(nombre);
+            $("#servicioGS_"+id+"__servicioN").prop('readonly', true);
+            $('#modalDetalle').modal('hide'); 
+       }else{
+       alert("Este servicio no tiene un concepto de gasto ligado.");
+        }
+       }
+    });
+      
 }
 function servicioS(event){
     var s = $(event).closest('tr').index();
@@ -668,7 +681,7 @@ function confirM(){
                         if(respond != null){
                             $("#Folio_propio").val(respond);
                         }else{
-                            alert("Esta factura ya está registrada.")
+                            alert("Esta factura ya está registrada.");
                             ftura = true;
                         }
                     }

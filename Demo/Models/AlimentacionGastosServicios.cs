@@ -59,6 +59,7 @@ namespace Demo.Models
         public decimal IVARet { get; set; }
         public decimal ISRRet { get; set; }
         public virtual List<ServiciosGS> servicioGS { get; set; } = new List<ServiciosGS>();
+        //public string concepto { get; set; }
 
         //servicio2
         //public string servicio2 { get; set; }

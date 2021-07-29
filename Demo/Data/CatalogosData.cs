@@ -602,6 +602,32 @@ namespace Demo.Data
             }
             return GS;
         }
+        //consultar concepto de gasto
+        public AlimentacionGSModelView consultarConcepto(string servicio)
+        {
+            AlimentacionGSModelView GS = new AlimentacionGSModelView();
+            try
+            {
+                SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_alimentacionGS_equipos", this.ConnectionString);
+                sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sda.SelectCommand.Parameters.AddWithValue("@folio", "");
+                sda.SelectCommand.Parameters.AddWithValue("@servicio", servicio);
+                sda.SelectCommand.Parameters.AddWithValue("@oper", "B");
+
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                GS = dt.AsEnumerable().Select(a =>
+                new AlimentacionGSModelView
+                {
+                    servicio = a["servicio"].ToString()
+                }).SingleOrDefault();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return GS;
+        }
         //traer informacion de equipos
         public List<Equipos> TraerEquipos(string oper)
         {
@@ -1174,7 +1200,7 @@ namespace Demo.Data
             try
             {
                 if(GS.factura_proveedor != null)
-                    {
+                {
                         try
                         {
                             cnn.Open();
@@ -1206,7 +1232,7 @@ namespace Demo.Data
                             sqlTransaction.Rollback();
                             throw new Exception(e.Message);
                         }
-                    }
+                }
 
                 try
                 {
@@ -1281,8 +1307,8 @@ namespace Demo.Data
                         sda.SelectCommand.Parameters.AddWithValue("@refacciones", GS.refacciones);
                         sda.SelectCommand.Parameters.AddWithValue("@mano_obra_mecanico", GS.mano_obra_mecanico);
                         sda.SelectCommand.Parameters.AddWithValue("@mano_obra_total", GS.mano_obra_total);
-                        sda.SelectCommand.Parameters.AddWithValue("@trabajos_otros_talleres", GS.trabajos_otros_talleres);
-                        sda.SelectCommand.Parameters.AddWithValue("@otros_gastos", i.NetoServ);
+                        sda.SelectCommand.Parameters.AddWithValue("@trabajos_otros_talleres", i.importe);
+                        sda.SelectCommand.Parameters.AddWithValue("@otros_gastos", GS.otros_gastos);
                         sda.SelectCommand.Parameters.AddWithValue("@lectura", i.lectura);
                         sda.SelectCommand.Parameters.AddWithValue("@cantidad", i.cantidad);
                         sda.SelectCommand.Parameters.AddWithValue("@total", i.NetoServ);

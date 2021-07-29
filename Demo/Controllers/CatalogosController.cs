@@ -948,6 +948,21 @@ namespace Demo.Controllers
                 return model.folio_propio.Trim();
             }
         }
+        //comprobar concepto de gasto servicio alimentacion de gastos
+        public string ConceptoGastosServicio(string servicio)
+        {
+            AlimentacionGSModelView model = new AlimentacionGSModelView();
+            model = datos.consultarConcepto(servicio);
+            
+            if (model.servicio.Trim() == "Error")
+            {
+                return null;
+            }
+            else
+            {
+                return model.servicio.Trim();
+            }
+        }
         //vista de servicios depende
         [HttpGet]
         public IActionResult ServiciosDepende()
