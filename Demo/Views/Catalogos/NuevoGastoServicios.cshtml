@@ -496,6 +496,7 @@ function calculoS(btn){
     var Ivaret = 0.0;
     var total = 0.0;
     var ivaServicio  = ((document.getElementById("ivaporcent-"+id+"-")||{}).value)||""; 
+    var ivas = 0;
     var ivaRetServicio = 0;
     var irsRetServicio = 0;
     
@@ -556,12 +557,16 @@ function calculoS(btn){
         var a = $("#servicioGS_"+i+"__NetoServ").val();
         if((id)*1 == 1){
             if(a * ivaServicio != 0){
-                var ivas = (a * ivaServicio)/100;
+                ivas = (a * ivaServicio)/100;
                 $("#servicioGS_"+i+"__iva").val(ivas);
             }
             if(a * 10 != 0){
                 isrRetServicio = (a *  10)/100;
                 $("#servicioGS_"+i+"__isr_ret").val(isrRetServicio);
+            }
+            if((ivas / 3) > 0 ){
+                ivaRetServicio = (ivas / 3) * 2;
+                $("#servicioGS_"+i+"__iva_ret").val(ivaRetServicio);
             }
             neto += (a)*1;
         }
