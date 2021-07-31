@@ -393,9 +393,7 @@ function traerIva(id,concepto){
        dataType:"json",
        data: {'concepto':concepto},
        success:function(respond){
-       if(respond != null && respond != 0){
-            $("#ivaporcent-"+id+"-").val(respond);
-       }
+         $("#ivaporcent-"+id+"-").val(respond);
        }
     });  
 }
@@ -573,8 +571,9 @@ function calculoS(btn){
         
     }
 
-    if(neto * 16 != 0){
-        iva = (neto * 16)/100;
+    for(var i  = 0; i < lon; i++){
+        var a = $("#servicioGS_"+i+"__iva").val();
+        iva += a * 1;
     }
     if(neto * 10 != 0){
         ISR = (neto * 10)/100;
