@@ -187,6 +187,11 @@
                                                     </div>
                                                     
                                                         @Html.EditorFor(model => model.servicioGS[i].id,new {htmlAttributes = new {@class="form-control",@type="hidden",@value="0"}})
+                                                        @Html.EditorFor(model => model.servicioGS[i].concepto,new {htmlAttributes = new {@class="form-control",@type="hidden"}})
+                                                        @Html.EditorFor(model => model.servicioGS[i].iva,new {htmlAttributes = new {@class="form-control",@type="hidden"}})
+                                                        <input type="hidden" id="ivaporcent-@i-"/>
+                                                        @Html.EditorFor(model => model.servicioGS[i].iva_ret,new {htmlAttributes = new {@class="form-control",@type="hidden"}})
+                                                        @Html.EditorFor(model => model.servicioGS[i].isr_ret,new {htmlAttributes = new {@class="form-control",@type="hidden"}})
                                                 </td>
                                             </tr>
                                         }
@@ -367,18 +372,32 @@ function serv1(servicio,nombre){
        dataType:"json",
        data: {'servicio':servicio},
        success:function(respond){
-       if(respond != null){
+       if(respond != null && respond != ""){
             $("#servicioGS_"+id+"__servicio").val(servicio);
             $("#servicioGS_"+id+"__servicio").prop('readonly', true);
             $("#servicioGS_"+id+"__servicioN").val(nombre);
             $("#servicioGS_"+id+"__servicioN").prop('readonly', true);
+            $("#servicioGS_"+id+"__concepto").val(respond);
+            traerIva(id,respond);
             $('#modalDetalle').modal('hide'); 
        }else{
        alert("Este servicio no tiene un concepto de gasto ligado.");
         }
        }
-    });
-      
+    });    
+}
+function traerIva(id,concepto){
+    $.ajax({
+       type:"post",
+       url:"@Url.Action("IvaGastosServicio","Catalogos")",
+       dataType:"json",
+       data: {'concepto':concepto},
+       success:function(respond){
+       if(respond != null && respond != 0){
+            $("#ivaporcent-"+id+"-").val(respond);
+       }
+       }
+    });  
 }
 function servicioS(event){
     var s = $(event).closest('tr').index();
@@ -476,6 +495,10 @@ function calculoS(btn){
     var iva = 0.0;
     var Ivaret = 0.0;
     var total = 0.0;
+    var ivaServicio  = 0;
+    var ivaRetServicio = 0;
+    var irsRetServicio = 0;
+    
     if(eval(cantidad) < 0){
         $("#servicioGS_"+id+"__cantidad").val(0);
         return;
@@ -537,6 +560,9 @@ function calculoS(btn){
         
     }
 
+    for(var i  = 0; i<lon;i++){
+
+    }
     if(neto * 16 != 0){
         iva = (neto * 16)/100;
     }

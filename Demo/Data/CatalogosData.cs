@@ -628,6 +628,32 @@ namespace Demo.Data
             }
             return GS;
         }
+        //consultar iva de concepto
+        public AlimentacionGSModelView traerIva(string concepto)
+        {
+            AlimentacionGSModelView GS = new AlimentacionGSModelView();
+            try
+            {
+                SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_alimentacionGS_equipos", this.ConnectionString);
+                sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sda.SelectCommand.Parameters.AddWithValue("@folio", "");
+                sda.SelectCommand.Parameters.AddWithValue("@concepto", concepto);
+                sda.SelectCommand.Parameters.AddWithValue("@oper", "D");
+
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                GS = dt.AsEnumerable().Select(a =>
+                new AlimentacionGSModelView
+                {
+                    IVA = Convert.ToDecimal(a["iva"])
+                }).SingleOrDefault();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return GS;
+        }
         //traer informacion de equipos
         public List<Equipos> TraerEquipos(string oper)
         {

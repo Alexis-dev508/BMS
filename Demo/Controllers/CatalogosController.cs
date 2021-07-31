@@ -963,6 +963,21 @@ namespace Demo.Controllers
                 return model.servicio.Trim();
             }
         }
+        //comprobar iva de gasto servicio alimentacion de gastos
+        public decimal IvaGastosServicio(string concepto)
+        {
+            AlimentacionGSModelView model = new AlimentacionGSModelView();
+            model = datos.traerIva(concepto);
+
+            if (model.IVA == 0)
+            {
+                return 0;
+            }
+            else
+            {
+                return model.IVA;
+            }
+        }
         //vista de servicios depende
         [HttpGet]
         public IActionResult ServiciosDepende()

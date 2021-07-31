@@ -28,5 +28,9 @@ namespace Demo.Models
         public decimal NetoServ { get; set; }
 
         public string notasserv { get; set; }
+        public decimal iva { get; set; }
+        public decimal iva_ret { get; set; }
+        public decimal isr_ret { get; set; }
+        public string concepto { get; set; }
     }
 }
