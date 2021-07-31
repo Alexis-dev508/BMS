@@ -559,14 +559,15 @@ function calculoS(btn){
                 var ivas = (a * ivaServicio)/100;
                 $("#servicioGS_"+i+"__iva").val(ivas);
             }
+            if(a * 10 != 0){
+                isrRetServicio = (a *  10)/100;
+                $("#servicioGS_"+i+"__isr_ret").val(isrRetServicio);
+            }
             neto += (a)*1;
         }
         
     }
-    
-    for(var i  = 0; i<lon;i++){
 
-    }
     if(neto * 16 != 0){
         iva = (neto * 16)/100;
     }
