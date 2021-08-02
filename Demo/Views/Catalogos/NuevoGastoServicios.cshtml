@@ -254,12 +254,10 @@ $(document).ready( function () {
     //$("").DataTable();
     $.ajax({
             type:"post",
-            url:"@Url.Action("FolioGastoServicio","Catalogos")" + "?id=" + "1",
+            url:"@Url.Action("FolioGastoServicio","Catalogos")"+ "?id=" +"1",
             contentType:"html",
             success:function(respond){
-                debugger
                 $("#Folio").val(respond);
-                var a = $("#Folio").val();
             }
         })
     $("#estab_list").change(function(){
@@ -378,7 +376,10 @@ function serv1(servicio,nombre){
             $("#servicioGS_"+id+"__servicioN").val(nombre);
             $("#servicioGS_"+id+"__servicioN").prop('readonly', true);
             $("#servicioGS_"+id+"__concepto").val(respond);
+            $("#servicioGS_"+id+"__iva").val(0);
+            $("#servicioGS_"+id+"__iva_ret").val(0);
             traerIva(id,respond);
+            $("#servicioGS_"+id+"__importe").val(0);
             $('#modalDetalle').modal('hide'); 
        }else{
        alert("Este servicio no tiene un concepto de gasto ligado.");
@@ -707,20 +708,23 @@ function confirM(){
                  var ftura = false;
                  var factura = $("#Factura").val();
                 var estab = $("#estab_list").val();
-                $.ajax({
-                    type:"post",
-                    url:"@Url.Action("FacturaGastoServicio","Catalogos")",
-                    dataType:"json",
-                    data: {'estab':estab,'factura':factura},
-                    success:function(respond){
-                        if(respond != null){
-                            $("#Folio_propio").val(respond);
-                        }else{
-                            alert("Esta factura ya está registrada.");
-                            ftura = true;
+                if(factura != "" && fact != "2"){
+                    $.ajax({
+                        type:"post",
+                        url:"@Url.Action("FacturaGastoServicio","Catalogos")",
+                        dataType:"json",
+                        data: {'estab':estab,'factura':factura},
+                        success:function(respond){
+                            if(respond != null){
+                                $("#Folio_propio").val(respond);
+                            }else{
+                                alert("Esta factura ya está registrada.");
+                                ftura = true;
+                            }
                         }
-                    }
-                });
+                    });
+                }
+                
 
                  if(lecstat != true && canstat != true && impstat != true && servi != true && ftura != true){
 		             $("#forma").submit();

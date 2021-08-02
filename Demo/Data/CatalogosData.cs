@@ -1225,7 +1225,7 @@ namespace Demo.Data
             
             try
             {
-                if(GS.factura_proveedor != null)
+                if(GS.factura_proveedor != null && GS.folio_propio != null)
                 {
                         try
                         {
@@ -1234,19 +1234,20 @@ namespace Demo.Data
                             SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_alimentacionGS_equipos", cnn);
                             sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
                             sda.SelectCommand.Transaction = sqlTransaction;
-                            sda.SelectCommand.Parameters.AddWithValue("@folio", GS.factura_proveedor);
+                            sda.SelectCommand.Parameters.AddWithValue("@folio", "");
+                            sda.SelectCommand.Parameters.AddWithValue("@factura_proveedor", GS.factura_proveedor);
                             sda.SelectCommand.Parameters.AddWithValue("@oper", "G");
                             sda.SelectCommand.Parameters.AddWithValue("@suboper", "FA");
+                            sda.SelectCommand.Parameters.AddWithValue("@cod_prv", GS.cod_prv);
                             sda.SelectCommand.Parameters.AddWithValue("@fecha", fecha);
                             sda.SelectCommand.Parameters.AddWithValue("@importe", GS.Neto);
                             sda.SelectCommand.Parameters.AddWithValue("@iva", GS.IVA);
-                            sda.SelectCommand.Parameters.AddWithValue("#@iva_ret", GS.IVARet);
-                            sda.SelectCommand.Parameters.AddWithValue("#@neto", GS.total);
+                            sda.SelectCommand.Parameters.AddWithValue("@iva_ret", GS.IVARet);
+                            sda.SelectCommand.Parameters.AddWithValue("@isr_ret", GS.ISRRet);
+                            sda.SelectCommand.Parameters.AddWithValue("@neto", GS.total);
                             sda.SelectCommand.Parameters.AddWithValue("@cod_usr", GS.usuario);
                             sda.SelectCommand.Parameters.AddWithValue("@cod_estab", GS.cod_estab);
-                            sda.SelectCommand.Parameters.AddWithValue("@Fecha", fecha);
                             sda.SelectCommand.Parameters.AddWithValue("@folio_fiscal", "");
-                            //sda.SelectCommand.Parameters.Add(new SqlParameter("@Msg", SqlDbType.VarChar, 500, ParameterDirection.InputOutput, false, 0, 0, "", DataRowVersion.Current, ""));
                             DataTable dt = new DataTable();
                             sda.Fill(dt);
 
@@ -1258,6 +1259,40 @@ namespace Demo.Data
                             sqlTransaction.Rollback();
                             throw new Exception(e.Message);
                         }
+                    try
+                    {
+                        foreach(var i in GS.servicioGS)
+                        {
+                            cnn.Open();
+                            sqlTransaction = cnn.BeginTransaction();
+                            SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_alimentacionGS_equipos", cnn);
+                            sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                            sda.SelectCommand.Transaction = sqlTransaction;
+                            sda.SelectCommand.Parameters.AddWithValue("@folio", "");
+                            sda.SelectCommand.Parameters.AddWithValue("@oper", "G");
+                            sda.SelectCommand.Parameters.AddWithValue("@suboper", "MF");
+                            sda.SelectCommand.Parameters.AddWithValue("@folio_propio", GS.folio_propio);
+                            sda.SelectCommand.Parameters.AddWithValue("@cod_prv", GS.cod_prv);
+                            sda.SelectCommand.Parameters.AddWithValue("@fecha", fecha);
+                            sda.SelectCommand.Parameters.AddWithValue("@concepto", i.concepto);
+                            sda.SelectCommand.Parameters.AddWithValue("@importe", i.importe);
+                            sda.SelectCommand.Parameters.AddWithValue("@iva", i.iva);
+                            sda.SelectCommand.Parameters.AddWithValue("@iva_ret", i.iva_ret);
+                            sda.SelectCommand.Parameters.AddWithValue("@isr_ret", i.isr_ret);
+                            sda.SelectCommand.Parameters.AddWithValue("@cod_estab", GS.cod_estab);
+                            DataTable dt = new DataTable();
+                            sda.Fill(dt);
+
+                            sqlTransaction.Commit();
+                            cnn.Close();
+                        }
+                        
+                    }
+                    catch (Exception e)
+                    {
+                        sqlTransaction.Rollback();
+                        throw new Exception(e.Message);
+                    }
                 }
 
                 try
