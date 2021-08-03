@@ -1,0 +1,168 @@
+﻿@model Demo.Models.AlimentacionGSModelView
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-info">
+                <div class="card-header">
+                    <h3>Nuevo Gasto y servicio de equipo</h3>
+                </div>
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <form class="form-inline my-2 my-lg-0">
+                        <a href="@Url.Action("AlimentacionGastosServicios","Catalogos")" class="btn btn-outline-info" data-toggle="Regresar" title="Regresar">
+                            <i class="fas fa-arrow-alt-circle-left"></i>
+                            Regresar
+                        </a>
+                    </form>
+                </nav>
+                @using (Html.BeginForm("NuevoGastoServicios", "Catalogos", FormMethod.Post,new { enctype = "multipart/form-data", id="forma"}))
+                {
+                    <div class="container-fluid">
+                        <div class="row">
+                            @*----COLUMNA NUMERO 1*@
+                            <div class="col-lg">
+                                @Html.Label("fecha", "Fecha", new { @class = "control-label my-2" })
+                                <br />
+                                @Html.TextBoxFor(model => model.fecha_servicio, new { @class = "my-2"})<br>
+                                 
+                                @Html.Label("estab", "Estab", new { @class = "control-label my-2" })
+                                @Html.DropDownListFor(model => model.cod_estab, Model.EstabList, new { @class = "form-control",@id="estab_list"})
+
+                                @Html.Label("equipo", "Equipo", new { @class = "control-label" })
+                                <div class="input-group" id="inputEquipo">
+                                     @Html.TextBoxFor(model => model.equipo, new { @class = "form-control"})
+                                     <span class="input-group-btn">
+                                      <a class="btn btn-primary" onclick="equipo()" data-toggle="Buscar" title="Buscar">
+                                           <i class="fas fa-search"></i>
+					                  </a>
+                                    </span>
+                                </div>
+                                @Html.TextBoxFor(model => model.eqNombre, new { @class = "form-control"})
+                                @Html.Label("modelo", "Modelo", new { @class = "control-label my-2" })
+                                @Html.TextBoxFor(model => model.modelo, new { @class = "form-control"})
+                                @Html.Label("marca", "Marca", new { @class = "control-label my-2" })
+                                @Html.TextBoxFor(model => model.marca, new { @class = "form-control"})
+                                @Html.Label("año", "Año", new { @class = "control-label my-2" })
+                                @Html.TextBoxFor(model => model.año, new { @class = "form-control"})
+
+                                @Html.Label("motor", "Motor", new { @class = "control-label my-2" })
+                                @Html.TextBoxFor(model => model.motor, new { @class = "form-control"})
+
+                                @Html.Label("notas", "Notas", new { @class = "control-label" })
+                                @Html.TextAreaFor(model => model.notas, new { @class = "form-control my-2",@rows="5", @id="Notas"})
+
+                                @Html.Label("factura", "Factura", new { @class = "control-label" })
+                                @Html.TextBoxFor(model => model.factura_proveedor, new { @class = "form-control my-2",@id="Factura",@onkeydown="validarFactura(event)"})
+                                @Html.TextBoxFor(model => model.folio_propio,new {@class = "form-control my-2",@id="Folio_propio",@readonly="readonly"})
+                            </div>
+                            @*----COLUMNA NUMERO 2*@
+                        <div class="col-lg">
+                            @Html.Label("folio", "Folio", new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.folio, new { @class = "form-control my-2",@id="Folio",@readonly="readonly"})
+
+                            @Html.Label("chofer", "Chofer", new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.chofer, new { @class = "form-control"})
+                            @Html.TextBoxFor(model => model.choferN, new { @class = "form-control"})
+
+                            @Html.Label("serie", "Serie", new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.serie, new { @class = "form-control"})
+
+                            @Html.Label("lectura", "Lectura", new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.lectura, new { @class = "form-control"})
+                             
+                            @Html.Label("placas", "Placas", new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.placas, new { @class = "form-control"})
+
+                            @Html.Label("proveedor", "Proveedor", new { @class = "control-label"})
+                                <div class="input-group">
+                                     @Html.TextBoxFor(model => model.cod_prv, new { @class = "form-control",@id="Proveedor",@onkeydown="onKeyDownPrv(event)"})
+                                    <span class="input-group-btn">
+                                        <a class="btn btn-primary" onclick="prv()" data-toggle="Buscar" title="Buscar">
+                                           <i class="fas fa-search"></i>
+					                  </a>
+                                    </span>
+                                </div>
+                               
+                                
+                                @Html.TextBoxFor(model => model.pNombre, new { @class = "form-control"})
+
+                            @Html.Label("neto", "Neto", new { @class = "control-label" })
+                                
+                                @Html.TextBoxFor(model => model.Neto, new { @class = "form-control my-2",@id="Neto",@readonly="readonly",@type="number"})
+
+                                @Html.Label("iva", "IVA", new { @class = "control-label" })
+                                
+                                @Html.TextBoxFor(model => model.IVA, new { @class = "form-control my-2",@id="IVA",@readonly="readonly",@type="number"})
+
+                                @Html.Label("ivaret", "IVA Ret", new { @class = "control-label" })
+                                
+                                @Html.TextBoxFor(model => model.IVARet, new { @class = "form-control my-2",@id="IVARet",@readonly="readonly",@type="number"})
+
+                                @Html.Label("isrret", "ISR Ret", new { @class = "control-label" })
+                                
+                                @Html.TextBoxFor(model => model.ISRRet, new { @class = "form-control my-2",@id="ISRRet",@readonly="readonly",@type="number"})
+
+                                @Html.Label("total", "Total", new { @class = "control-label" })
+                                
+                                @Html.TextBoxFor(model => model.total, new { @class = "form-control my-2",@id="total",@readonly="readonly",@type="number"})
+                            
+                            
+                        </div>
+                        <table class="table-responsive table-bordered" id="tab">
+                                <thead>
+                                    <tr>
+                                        <th>Servicio</th>
+                                        <th>Nombre</th>
+                                        <th>Cantidad</th>
+                                        <th>Importe</th>
+                                        <th>Lectura</th>
+                                        <th>Descuento%</th>
+                                        <th>Descuento$</th>
+                                        <th>Neto</th>
+                                        <th>Notas</th>
+                                    </tr>
+
+                                </thead>
+                                <tbody id ="bodytabla">
+                                        
+                                        @for(int i = 0; i < Model.servicioGS.Count; i++)
+                                        {
+                                            <tr>
+                                                
+                                                <td style="width:8%;">
+                                                    <div class="form-inline">
+                                                        @Html.EditorFor(model => model.servicioGS[i].servicio,new {htmlAttributes = new {@class="form-control",@onkeydown="onKeyDownServicio(event)",@style="width:60%;"}})
+                                                            <a class="btn btn-primary" onclick="servicioS(this)" data-toggle="Buscar" title="Buscar" id="buscar-@i-">
+                                                                <i class="fas fa-search"></i>
+                                                            </a>
+                                                    </div>
+                                                    
+                                                </td>
+
+                                                <td>@Html.EditorFor(model => model.servicioGS[i].servicioN,new {htmlAttributes = new {@class="form-control",@style="font-size:80%;"}})</td>
+                                                
+                                                <td style="width:8%;">@Html.EditorFor(model => model.servicioGS[i].cantidad,new {htmlAttributes = new {@class="form-control",@type="number",@style="font-size:80%; text-align: right;" ,@value="0",@onchange="calculoS(this)",@onkeyup="calculoS(this)"}})</td>
+                                                
+                                                <td style="width:8%;">@Html.EditorFor(model => model.servicioGS[i].importe,new {htmlAttributes = new {@class="form-control",@type="number",@style="font-size:80%; text-align: right;",@onchange="calculoS(this)",@onkeyup="calculoS(this)" ,@value="0"}})</td>
+                                                
+                                                <td style="width:8%;">@Html.EditorFor(model => model.servicioGS[i].lectura,new {htmlAttributes = new {@class="form-control",@type="number",@style="font-size:80%; text-align: right;" ,@value="0" ,@onchange="calculoS(this)",@onkeyup="calculoS(this)"}})</td>
+                                                
+                                                <td style="width:8%;">@Html.EditorFor(model => model.servicioGS[i].Descporcent,new {htmlAttributes = new {@class="form-control",@type="number",@style="font-size:80%; text-align: right;",@onchange="calculoS(this)",@onkeyup="calculoS(this)" ,@value="0"}})</td>
+                                                
+                                                <td style="width:8%;">@Html.EditorFor(model => model.servicioGS[i].Descuni,new {htmlAttributes = new {@class="form-control",@type="number",@style="font-size:80%; text-align: right;",@onchange="calculoS(this)",@onkeyup="calculoS(this)" ,@value="0"}})</td>
+                                               
+                                                <td>@Html.EditorFor(model => model.servicioGS[i].NetoServ,new {htmlAttributes = new {@class="form-control",@type="number",@readonly="readonly",@style="font-size:80%; text-align: right;",@value="0"}})</td>
+                                               
+                                                <td>@Html.EditorFor(model => model.servicioGS[i].notasserv,new {htmlAttributes = new {@class="form-control"}})</td>
+                                            </tr>
+                                        }
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

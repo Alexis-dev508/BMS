@@ -60,38 +60,16 @@ namespace Demo.Models
         public decimal ISRRet { get; set; }
         public virtual List<ServiciosGS> servicioGS { get; set; } = new List<ServiciosGS>();
 
-        //public string concepto { get; set; }
+        public string modelo { get; set; }
 
-        //servicio2
-        //public string servicio2 { get; set; }
-        //public int lectura2 { get; set; }
-        //public decimal cantidad2 { get; set; }
-        //public decimal total2 { get; set; }
-        //public string notasserv2 { get; set; }
+        public string marca { get; set; }
 
-        ////servicio3
-        //public string servicio3 { get; set; }
-        //public int lectura3 { get; set; }
-        //public decimal cantidad3 { get; set; }
-        //public decimal total3 { get; set; }
-        //public string notasserv3 { get; set; }
-
-        ////servicio4
-        //public string servicio4 { get; set; }
-        //public int lectura4 { get; set; }
-        //public decimal cantidad4 { get; set; }
-        //public decimal total4 { get; set; }
-        //public string notasserv4 { get; set; }
-
-        ////servicio5
-        //public string servicio5 { get; set; }
-        //public int lectura5 { get; set; }
-        //public decimal cantidad5 { get; set; }
-        //public decimal total5 { get; set; }
-        //public string notasserv5 { get; set; }
-
-
-
+        public string chofer { get; set; }
+        public string choferN { get; set; }
+        public string serie { get; set; }
+        public string año { get; set; }
+        public string motor { get; set; }
+        public string placas { get; set; }
 
     }
 }

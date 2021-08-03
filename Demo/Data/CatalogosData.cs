@@ -1247,6 +1247,7 @@ namespace Demo.Data
                             sda.SelectCommand.Parameters.AddWithValue("@neto", GS.total);
                             sda.SelectCommand.Parameters.AddWithValue("@cod_usr", GS.usuario);
                             sda.SelectCommand.Parameters.AddWithValue("@cod_estab", GS.cod_estab);
+                            sda.SelectCommand.Parameters.AddWithValue("@folio_propio", GS.folio_propio);
                             sda.SelectCommand.Parameters.AddWithValue("@folio_fiscal", "");
                             DataTable dt = new DataTable();
                             sda.Fill(dt);
