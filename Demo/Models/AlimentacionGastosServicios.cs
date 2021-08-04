@@ -54,6 +54,7 @@ namespace Demo.Models
         public string pNombre { get; set; }
         public string eqNombre { get; set; }
 
+        public decimal importe { get; set; }
         public decimal Neto { get; set; }
         public decimal IVA { get; set; }
         public decimal IVARet { get; set; }

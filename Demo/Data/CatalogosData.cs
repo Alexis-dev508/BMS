@@ -1156,6 +1156,7 @@ namespace Demo.Data
                     choferN = a["chNombre"].ToString(),
                     serie = a["serie"].ToString(),
                     lectura = Convert.ToInt32(a["lectura"]),
+                    importe = Convert.ToDecimal(a["importe"]),
                     placas = a["placas"].ToString(),
                     Neto = Convert.ToDecimal(a["neto"]),
                     IVA = Convert.ToDecimal(a["iva"]),
@@ -1173,39 +1174,9 @@ namespace Demo.Data
             {
                 throw new Exception(ex.Message);
             }
-            if(GS.folio_propio != null && GS.folio_propio != "")
+            if(GS.folio_propio == null || GS.folio_propio.Trim() == "")
             {
-                try
-                {
-                    SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_alimentacionGS_equipos", this.ConnectionString);
-                    sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
-                    sda.SelectCommand.Parameters.AddWithValue("@folio", "");
-                    sda.SelectCommand.Parameters.AddWithValue("@oper", "F");
-                    sda.SelectCommand.Parameters.AddWithValue("@folio_propio", GS.folio_propio.Trim());
-                    DataTable dt = new DataTable();
-                    sda.Fill(dt);
-                    GS.servicioGS = dt.AsEnumerable().Select(a =>
-                    new ServiciosGS
-                    {
-                        servicio = a["servicio"].ToString(),
-                        servicioN = a["servicioN"].ToString(),
-                        cantidad = Convert.ToInt32(a["cantidad"]),
-                        lectura = Convert.ToInt32(a["lectura"]),
-                        notasserv = a["notasserv"].ToString(),
-                        importe = Convert.ToDecimal(a["importe"]),
-                        iva = Convert.ToDecimal(a["iva"]),
-                        iva_ret = Convert.ToDecimal(a["va_ret"]),
-                        isr_ret = Convert.ToDecimal(a["isr_ret"]),
-                        NetoServ = Convert.ToDecimal(a["NetoServ"])
-                    }).ToList();
-                }
-                catch (Exception e)
-                {
-                    throw new Exception(e.Message);
-                }
-            }
-            else
-            {
+                
                 try
                 {
                     SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_alimentacionGS_equipos", this.ConnectionString);
@@ -1230,7 +1201,38 @@ namespace Demo.Data
                         costo = Convert.ToDecimal(a["costo"]),
                         horas_mecanico = Convert.ToDecimal(a["horas_mecanico"]),
                         costo_hora_mecanico = Convert.ToDecimal(a["costo_hora_mecanico"])
-                        
+
+                    }).ToList();
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
+            }
+            else
+            {
+                try
+                {
+                    SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_alimentacionGS_equipos", this.ConnectionString);
+                    sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                    sda.SelectCommand.Parameters.AddWithValue("@folio", folio);
+                    sda.SelectCommand.Parameters.AddWithValue("@oper", "F");
+                    sda.SelectCommand.Parameters.AddWithValue("@folio_propio", GS.folio_propio.Trim());
+                    DataTable dt = new DataTable();
+                    sda.Fill(dt);
+                    GS.servicioGS = dt.AsEnumerable().Select(a =>
+                    new ServiciosGS
+                    {
+                        servicio = a["servicio"].ToString(),
+                        servicioN = a["servicioN"].ToString(),
+                        cantidad = Convert.ToInt32(a["cantidad"]),
+                        lectura = Convert.ToInt32(a["lectura"]),
+                        notasserv = a["notasserv"].ToString(),
+                        importe = Convert.ToDecimal(a["importe"]),
+                        iva = Convert.ToDecimal(a["iva"]),
+                        iva_ret = Convert.ToDecimal(a["iva_ret"]),
+                        isr_ret = Convert.ToDecimal(a["isr_ret"]),
+                        NetoServ = Convert.ToDecimal(a["NetoServ"])
                     }).ToList();
                 }
                 catch (Exception e)

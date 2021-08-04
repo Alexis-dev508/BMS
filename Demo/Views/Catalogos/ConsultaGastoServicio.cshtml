@@ -4,7 +4,7 @@
         <div class="col-sm-12">
             <div class="card-info">
                 <div class="card-header">
-                    <h3>Nuevo Gasto y servicio de equipo</h3>
+                    <h3>Consulta</h3>
                 </div>
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                     <form class="form-inline my-2 my-lg-0">
@@ -20,9 +20,9 @@
                         <div class="row">
                             @*----COLUMNA NUMERO 1*@
                             <div class="col-lg">
-                                @Html.Label("fecha", "Fecha", new { @class = "control-label my-2",@readonly="readonly"})
+                                @Html.Label("fecha", "Fecha", new { @class = "control-label my-2"})
                                 <br />
-                                @Html.TextBoxFor(model => model.fecha_servicio, new { @class = "my-2"})<br>
+                                @Html.TextBoxFor(model => model.fecha_servicio, new { @class = "my-2",@readonly="readonly"})<br>
                                  
                                 @Html.Label("estab", "Estab", new { @class = "control-label my-2" })
                                 @Html.TextBoxFor(model => model.eNombre, new { @class = "form-control",@readonly="readonly"})
@@ -76,7 +76,7 @@
                                 <div class="input-group">
                                      @Html.TextBoxFor(model => model.cod_prv, new { @class = "form-control",@id="Proveedor",@readonly="readonly"})
                                     <span class="input-group-btn">
-                                        <a class="btn btn-primary" data-toggle="Buscar" title="Buscar" styele="pointer-events:none;">
+                                        <a class="btn btn-primary" data-toggle="Buscar" title="Buscar" style="pointer-events:none;">
                                            <i class="fas fa-search"></i>
 					                  </a>
                                     </span>
@@ -85,9 +85,9 @@
                                 
                                 @Html.TextBoxFor(model => model.pNombre, new { @class = "form-control",@readonly="readonly"})
 
-                            @Html.Label("neto", "Neto", new { @class = "control-label" })
+                                @Html.Label("importe", "importe", new { @class = "control-label" })
                                 
-                                @Html.TextBoxFor(model => model.Neto, new { @class = "form-control my-2",@id="Neto",@readonly="readonly"})
+                                @Html.TextBoxFor(model => model.importe, new { @class = "form-control my-2",@readonly="readonly"})   
 
                                 @Html.Label("iva", "IVA", new { @class = "control-label" })
                                 
@@ -100,6 +100,10 @@
                                 @Html.Label("isrret", "ISR Ret", new { @class = "control-label" })
                                 
                                 @Html.TextBoxFor(model => model.ISRRet, new { @class = "form-control my-2",@id="ISRRet",@readonly="readonly"})
+
+                                @Html.Label("neto", "Neto", new { @class = "control-label" })
+                                
+                                @Html.TextBoxFor(model => model.Neto, new { @class = "form-control my-2",@id="Neto",@readonly="readonly"})
 
                                 @Html.Label("total", "Total", new { @class = "control-label" })
                                 
@@ -117,6 +121,9 @@
                                         <th>Cantidad</th>
                                         <th>Importe</th>
                                         <th>Lectura</th>
+                                        <th>Iva</th>
+                                        <th>Iva Ret</th>
+                                        <th>Isr Ret</th>
                                         <th>Neto</th>
                                         <th>Notas</th>
                                     </tr>
@@ -154,7 +161,7 @@
                                             
                                                 <td>@Html.EditorFor(model => model.servicioGS[i].NetoServ,new {htmlAttributes = new {@class="form-control",@readonly="readonly",@style="font-size:80%; text-align: right;"}})</td>
                                                
-                                                <td>@Html.EditorFor(model => model.servicioGS[i].notasserv,new {htmlAttributes = new {@class="form-control"}})</td>
+                                                <td>@Html.EditorFor(model => model.servicioGS[i].notasserv,new {htmlAttributes = new {@class="form-control",@readonly="readonly"}})</td>
                                             </tr>
                                         }
 
@@ -164,7 +171,7 @@
                             }
                             else
                             {
-                                <table class="table-responsive table-bordered">
+                                <table class="table table-bordered">
                                     <thead>
                                         <tr>
                                             <th>Servicio</th>
@@ -190,17 +197,17 @@
                                                 <td>@i.servicio</td>
                                                 <td>@i.servicioN</td>
                                                 <td>@i.mecanico</td>
-                                                <td>@i.mano_obra_mecanico</td>
-                                                <td>@i.mano_obra_total</td>
-                                                <td>@i.trabajos_otros_talleres</td>
-                                                <td>@i.otros_gastos</td>
+                                                <td align="right">@i.mano_obra_mecanico.ToString("#,##0.00")</td>
+                                                <td align="right">@i.mano_obra_total.ToString("#,##0.00")</td>
+                                                <td align="right">@i.trabajos_otros_talleres.ToString("#,##0.00")</td>
+                                                <td align="right">@i.otros_gastos.ToString("#,##0.00")</td>
                                                 <td>@i.lectura</td>
                                                 <td>@i.cantidad</td>
-                                                <td>@i.NetoServ</td>
+                                                <td align="right">@i.NetoServ.ToString("#,##0.00")</td>
                                                 <td>@i.notasserv</td>
-                                                <td>@i.costo</td>
+                                                <td align="right">@i.costo.ToString("#,##0.00")</td>
                                                 <td>@i.horas_mecanico</td>
-                                                <td>@i.costo_hora_mecanico</td>
+                                                <td align="right">@i.costo_hora_mecanico.ToString("#,##0.00")</td>
                                             </tr>
                                         }
                                     </tbody>
