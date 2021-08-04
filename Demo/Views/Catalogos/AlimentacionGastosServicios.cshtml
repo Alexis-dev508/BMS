@@ -52,7 +52,7 @@
                             @foreach (var dat in Model)
                             {
                                 <tr>
-                                    <td>@dat.folio</td>
+                                    <td><a href="@Url.Action("ConsultaGastoServicio","Catalogos", new {folio = dat.folio})">@dat.folio</a></td>
                                     <td>@dat.equipo</td>
                                     <td>@dat.eqNombre</td>
                                     <td>@dat.fecha_servicio</td>

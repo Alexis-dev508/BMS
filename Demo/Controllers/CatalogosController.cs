@@ -91,6 +91,19 @@ namespace Demo.Controllers
                 return View(model);
             }
         }
+        [HttpGet]
+        public IActionResult ConsultaGastoServicio(string folio)
+        {
+            AlimentacionGSModelView model = new AlimentacionGSModelView();
+            model = datos.ConsultarGS(folio);
+            if (model.folio_propio == null || model.folio_propio == "" || model.factura_proveedor == null || model.factura_proveedor == "")
+            {
+                ViewBag.factura = "1";
+                return View(model);
+            }
+            ViewBag.factura = "0";
+            return View(model);
+        }
         public IActionResult Index()
         {
             return View();

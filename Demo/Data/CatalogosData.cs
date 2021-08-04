@@ -1127,6 +1127,120 @@ namespace Demo.Data
             
 
         }
+        //traer informacion de gasto de servicio consulta
+        public AlimentacionGSModelView ConsultarGS(string folio)
+        {
+            AlimentacionGSModelView GS = new AlimentacionGSModelView();
+            try
+            {
+                SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_alimentacionGS_equipos", this.ConnectionString);
+                sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sda.SelectCommand.Parameters.AddWithValue("@folio", folio);
+                sda.SelectCommand.Parameters.AddWithValue("@oper", "E");
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                GS = dt.AsEnumerable().Select(a =>
+                new AlimentacionGSModelView
+                {
+                    folio = a["folio"].ToString(),
+                    fecha_servicio = Convert.ToDateTime(a["fecha_servicio"]),
+                    equipo = a["equipo"].ToString(),
+                    eqNombre = a["eqNombre"].ToString(),
+                    marca = a["marca"].ToString(),
+                    modelo = a["modelo"].ToString(),
+                    año = a["año"].ToString(),
+                    motor = a["motor"].ToString(),
+                    factura_proveedor = a["factura_proveedor"].ToString(),
+                    folio_propio = a["folio_propio"].ToString(),
+                    chofer = a["chofer"].ToString(),
+                    choferN = a["chNombre"].ToString(),
+                    serie = a["serie"].ToString(),
+                    lectura = Convert.ToInt32(a["lectura"]),
+                    placas = a["placas"].ToString(),
+                    Neto = Convert.ToDecimal(a["neto"]),
+                    IVA = Convert.ToDecimal(a["iva"]),
+                    IVARet = Convert.ToDecimal(a["iva_ret"]),
+                    ISRRet = Convert.ToDecimal(a["isr_ret"]),
+                    total = Convert.ToDecimal(a["total"]),
+                    cod_estab = a["cod_estab"].ToString(),
+                    cod_prv = a["cod_prv"].ToString(),
+                    notas = a["notas"].ToString(),
+                    eNombre = a["eNombre"].ToString(),
+                    pNombre = a["pNombre"].ToString(),
+                }).SingleOrDefault();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            if(GS.folio_propio != null && GS.folio_propio != "")
+            {
+                try
+                {
+                    SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_alimentacionGS_equipos", this.ConnectionString);
+                    sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                    sda.SelectCommand.Parameters.AddWithValue("@folio", "");
+                    sda.SelectCommand.Parameters.AddWithValue("@oper", "F");
+                    sda.SelectCommand.Parameters.AddWithValue("@folio_propio", GS.folio_propio.Trim());
+                    DataTable dt = new DataTable();
+                    sda.Fill(dt);
+                    GS.servicioGS = dt.AsEnumerable().Select(a =>
+                    new ServiciosGS
+                    {
+                        servicio = a["servicio"].ToString(),
+                        servicioN = a["servicioN"].ToString(),
+                        cantidad = Convert.ToInt32(a["cantidad"]),
+                        lectura = Convert.ToInt32(a["lectura"]),
+                        notasserv = a["notasserv"].ToString(),
+                        importe = Convert.ToDecimal(a["importe"]),
+                        iva = Convert.ToDecimal(a["iva"]),
+                        iva_ret = Convert.ToDecimal(a["va_ret"]),
+                        isr_ret = Convert.ToDecimal(a["isr_ret"]),
+                        NetoServ = Convert.ToDecimal(a["NetoServ"])
+                    }).ToList();
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
+            }
+            else
+            {
+                try
+                {
+                    SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_alimentacionGS_equipos", this.ConnectionString);
+                    sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                    sda.SelectCommand.Parameters.AddWithValue("@folio", folio);
+                    sda.SelectCommand.Parameters.AddWithValue("@oper", "H");
+                    DataTable dt = new DataTable();
+                    sda.Fill(dt);
+                    GS.servicioGS = dt.AsEnumerable().Select(a =>
+                    new ServiciosGS
+                    {
+                        servicio = a["servicio"].ToString(),
+                        servicioN = a["servicioN"].ToString(),
+                        mecanico = a["mecanico"].ToString(),
+                        mano_obra_mecanico = Convert.ToDecimal(a["mano_obra_mecanico"]),
+                        mano_obra_total = Convert.ToDecimal(a["mano_obra_total"]),
+                        trabajos_otros_talleres = Convert.ToDecimal(a["trabajos_otros_talleres"]),
+                        otros_gastos = Convert.ToDecimal(a["otros_gastos"]),
+                        cantidad = Convert.ToInt32(a["cantidad"]),
+                        lectura = Convert.ToInt32(a["lectura"]),
+                        NetoServ = Convert.ToDecimal(a["total"]),
+                        costo = Convert.ToDecimal(a["costo"]),
+                        horas_mecanico = Convert.ToDecimal(a["horas_mecanico"]),
+                        costo_hora_mecanico = Convert.ToDecimal(a["costo_hora_mecanico"])
+                        
+                    }).ToList();
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
+            }
+            
+            return GS;
+        }
         //traer informacion de gasto de servicio
         public List<AlimentacionGastosServicios> TraerGS()
         {

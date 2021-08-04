@@ -32,5 +32,14 @@ namespace Demo.Models
         public decimal iva_ret { get; set; }
         public decimal isr_ret { get; set; }
         public string concepto { get; set; }
+        public string mecanico { get; set; }
+        public decimal refacciones { get; set; }
+        public decimal mano_obra_mecanico { get; set; }
+        public decimal mano_obra_total { get; set; }
+        public decimal trabajos_otros_talleres { get; set; }
+        public decimal otros_gastos { get; set; }
+        public decimal costo { get; set; }
+        public decimal horas_mecanico { get; set; }
+        public decimal costo_hora_mecanico { get; set; }
     }
 }
