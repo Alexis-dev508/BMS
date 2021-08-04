@@ -8,7 +8,7 @@
                 </div>
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                     <form class="form-inline my-2 my-lg-0">
-                        <a href="@Url.Action("AlimentacionGastosServicios","Catalogos")" class="btn btn-outline-info" data-toggle="Regresar" title="Regresar">
+                        <a href="@Url.Action("AlimentacionGastosServicios","Catalogos")" class="btn btn-outline-primary" data-toggle="Regresar" title="Regresar">
                             <i class="fas fa-arrow-alt-circle-left"></i>
                             Regresar
                         </a>
@@ -65,10 +65,6 @@
                                 @Html.TextBoxFor(model => model.factura_proveedor, new { @class = "form-control my-2",@id="Factura",@onkeydown="validarFactura(event)"})
                                 @Html.TextBoxFor(model => model.folio_propio,new {@class = "form-control my-2",@id="Folio_propio",@readonly="readonly"})
                                 
-
-                                
-
-
                             </div>
                             @*----COLUMNA NUMERO 2*@
                         <div class="col-lg">
@@ -92,7 +88,6 @@
                             <input type="hidden" id="facT" /> @*campo oculto*@
                             <input type="hidden" id="facturaStatus" /> @*campo oculto*@
                             <input type="hidden" id="btnid"/> @*campo oculto*@
-
                             @Html.Label("proveedor", "Proveedor", new { @class = "control-label"})
                                 <div class="input-group">
                                      @Html.TextBoxFor(model => model.cod_prv, new { @class = "form-control",@id="Proveedor",@onkeydown="onKeyDownPrv(event)"})
@@ -102,11 +97,9 @@
 					                  </a>
                                     </span>
                                 </div>
-                               
-                                
                                 <input class="form-control my-3" id="ProveedorN" data-toggle="Proveedor" title="Proveedor" readonly="readonly" />
 
-                            @Html.Label("neto", "Neto", new { @class = "control-label" })
+                                @Html.Label("neto", "Neto", new { @class = "control-label" })
                                 
                                 @Html.TextBoxFor(model => model.Neto, new { @class = "form-control my-2",@id="Neto",@readonly="readonly",@type="number"})
 
@@ -125,8 +118,7 @@
                                 @Html.Label("total", "Total", new { @class = "control-label" })
                                 
                                 @Html.TextBoxFor(model => model.total, new { @class = "form-control my-2",@id="total",@readonly="readonly",@type="number"})
-                            
-                            
+                              
                         </div>
                         <table class="table-responsive table-bordered" id="tab">
                                 <thead>
@@ -142,7 +134,6 @@
                                         <th>Notas</th>
                                         <th>Acciones</th>
                                     </tr>
-
                                 </thead>
                                 <tbody id ="bodytabla">
                                         
@@ -182,8 +173,7 @@
                                                         </a>
                                                         <a class="btn btn-primary" id="btnadd-@i-" onclick="nuevaFila(this)" data-toggle="Agregar servicio" title="Agregar servicio">
                                                             <i class="fas fa-plus"></i>
-                                                        </a>
-                                                        
+                                                        </a>   
                                                     </div>
                                                     
                                                         @Html.EditorFor(model => model.servicioGS[i].id,new {htmlAttributes = new {@class="form-control",@type="hidden",@value="0"}})
@@ -195,13 +185,10 @@
                                                 </td>
                                             </tr>
                                         }
-
                                 </tbody>
-
                             </table>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <a onclick="confirM()"class="btn btn-success my-2">Guardar</a>
                     </div>
@@ -215,11 +202,8 @@
                         </button>
                       </div>
                       <div class="modal-body" id="datos1">
-                        
                       </div>
-                      <div class="modal-footer" id="footer">
-                          
-                          
+                      <div class="modal-footer" id="footer"> 
                       </div>
                     </div>
                   </div>

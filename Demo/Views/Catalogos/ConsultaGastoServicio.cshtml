@@ -36,42 +36,34 @@
 					                  </a>
                                     </span>
                                 </div>
-                                @Html.TextBoxFor(model => model.eqNombre, new { @class = "form-control",@readonly="readonly"})
+                                @Html.TextBoxFor(model => model.eqNombre, new { @class = "form-control", @toggle = "Nombre", @title = "Nombre",@readonly="readonly"})
                                 @Html.Label("modelo", "Modelo", new { @class = "control-label my-2" })
                                 @Html.TextBoxFor(model => model.modelo, new { @class = "form-control",@readonly="readonly"})
                                 @Html.Label("marca", "Marca", new { @class = "control-label my-2" })
                                 @Html.TextBoxFor(model => model.marca, new { @class = "form-control",@readonly="readonly"})
                                 @Html.Label("año", "Año", new { @class = "control-label my-2" })
                                 @Html.TextBoxFor(model => model.año, new { @class = "form-control",@readonly="readonly"})
-
                                 @Html.Label("motor", "Motor", new { @class = "control-label my-2" })
                                 @Html.TextBoxFor(model => model.motor, new { @class = "form-control",@readonly="readonly"})
-
                                 @Html.Label("notas", "Notas", new { @class = "control-label" })
-                                @Html.TextAreaFor(model => model.notas, new { @class = "form-control my-2",@rows="5", @id="Notas",@readonly="readonly"})
-
+                                @Html.TextAreaFor(model => model.notas, new { @class = "form-control my-2",@rows="5",@readonly="readonly"})
                                 @Html.Label("factura", "Factura", new { @class = "control-label" })
-                                @Html.TextBoxFor(model => model.factura_proveedor, new { @class = "form-control my-2",@id="Factura",@readonly="readonly"})
-                                @Html.TextBoxFor(model => model.folio_propio,new {@class = "form-control my-2",@id="Folio_propio",@readonly="readonly"})
+                                @Html.TextBoxFor(model => model.factura_proveedor, new { @class = "form-control my-2",@readonly="readonly"})
+                                @Html.TextBoxFor(model => model.folio_propio,new {@class = "form-control my-2", @toggle = "Folio propio", @title = "Folio propio",@readonly="readonly"})
                             </div>
                             @*----COLUMNA NUMERO 2*@
                         <div class="col-lg">
                             @Html.Label("folio", "Folio", new { @class = "control-label" })
                             @Html.TextBoxFor(model => model.folio, new { @class = "form-control my-2",@id="Folio",@readonly="readonly"})
-
                             @Html.Label("chofer", "Chofer", new { @class = "control-label" })
                             @Html.TextBoxFor(model => model.chofer, new { @class = "form-control",@readonly="readonly"})
-                            @Html.TextBoxFor(model => model.choferN, new { @class = "form-control",@readonly="readonly"})
-
+                            @Html.TextBoxFor(model => model.choferN, new { @class = "form-control", @toggle = "Chofer", @title = "Chofer",@readonly="readonly"})
                             @Html.Label("serie", "Serie", new { @class = "control-label" })
                             @Html.TextBoxFor(model => model.serie, new { @class = "form-control",@readonly="readonly"})
-
                             @Html.Label("lectura", "Lectura", new { @class = "control-label" })
                             @Html.TextBoxFor(model => model.lectura, new { @class = "form-control",@readonly="readonly"})
-                             
                             @Html.Label("placas", "Placas", new { @class = "control-label" })
                             @Html.TextBoxFor(model => model.placas, new { @class = "form-control",@readonly="readonly"})
-
                             @Html.Label("proveedor", "Proveedor", new { @class = "control-label"})
                                 <div class="input-group">
                                      @Html.TextBoxFor(model => model.cod_prv, new { @class = "form-control",@id="Proveedor",@readonly="readonly"})
@@ -81,13 +73,11 @@
 					                  </a>
                                     </span>
                                 </div>
-                               
-                                
-                                @Html.TextBoxFor(model => model.pNombre, new { @class = "form-control",@readonly="readonly"})
+                                @Html.TextBoxFor(model => model.pNombre, new { @class = "form-control", @toggle = "Proveedor", @title = "Proveedor",@readonly="readonly"})
 
                                 @Html.Label("importe", "importe", new { @class = "control-label" })
                                 
-                                @Html.TextBoxFor(model => model.importe, new { @class = "form-control my-2",@readonly="readonly"})   
+                                @Html.TextBoxFor(model => model.importe, new { @class = "form-control my-2",@id="importe",@readonly="readonly"})   
 
                                 @Html.Label("iva", "IVA", new { @class = "control-label" })
                                 
@@ -108,8 +98,6 @@
                                 @Html.Label("total", "Total", new { @class = "control-label" })
                                 
                                 @Html.TextBoxFor(model => model.total, new { @class = "form-control my-2",@id="total",@readonly="readonly"})
-                            
-                            
                         </div>
                             @if(ViewBag.factura != "1")
                             {
@@ -127,14 +115,11 @@
                                         <th>Neto</th>
                                         <th>Notas</th>
                                     </tr>
-
                                 </thead>
-                                <tbody id ="bodytabla">
-                                        
+                                <tbody>
                                         @for(int i = 0; i < Model.servicioGS.Count; i++)
                                         {
                                             <tr>
-                                                
                                                 <td style="width:8%;">
                                                     <div class="form-inline">
                                                         @Html.EditorFor(model => model.servicioGS[i].servicio,new {htmlAttributes = new {@class="form-control",@style="width:60%;",@readonly="readonly"}})
@@ -142,9 +127,7 @@
                                                                 <i class="fas fa-search"></i>
                                                             </a>
                                                     </div>
-                                                    
                                                 </td>
-
                                                 <td>@Html.EditorFor(model => model.servicioGS[i].servicioN,new {htmlAttributes = new {@class="form-control",@style="font-size:80%;",@readonly="readonly"}})</td>
                                                 
                                                 <td style="width:8%;">@Html.EditorFor(model => model.servicioGS[i].cantidad,new {htmlAttributes = new {@class="form-control",@style="font-size:80%; text-align: right;",@readonly="readonly"}})</td>
@@ -164,9 +147,7 @@
                                                 <td>@Html.EditorFor(model => model.servicioGS[i].notasserv,new {htmlAttributes = new {@class="form-control",@readonly="readonly"}})</td>
                                             </tr>
                                         }
-
                                 </tbody>
-
                             </table>
                             }
                             else
@@ -213,7 +194,6 @@
                                     </tbody>
                                 </table>
                             }
-                        
                         </div>
                     </div>
                 }
@@ -221,3 +201,27 @@
         </div>
     </div>
 </div>
+<script>
+$(window).on("load",function(){
+    var importe = $("#importe").val();
+    var iva = $("#IVA").val();
+    var iva_ret = $("#IVARet").val();
+    var isr_ret = $("#ISRRet").val();
+    var neto = $("#Neto").val();
+    var total = $("#total").val();
+    if(importe != ""){
+       importe = parseFloat(importe).toFixed(2);
+       iva= parseFloat(iva).toFixed(2);
+       iva_ret = parseFloat(iva_ret).toFixed(2);
+       isr_ret = parseFloat(isr_ret).toFixed(2);
+       neto =  parseFloat(neto).toFixed(2);
+       total = parseFloat(total).toFixed(2);
+        $("#importe").val(importe);
+        $("#IVA").val(iva);
+        $("#IVARet").val(iva_ret);
+        $("#ISRRet").val(isr_ret);
+        $("#Neto").val(neto);
+        $("#total").val(total);
+    }
+});
+</script>
