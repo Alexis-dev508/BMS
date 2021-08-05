@@ -88,6 +88,7 @@
                             <input type="hidden" id="facT" /> @*campo oculto*@
                             <input type="hidden" id="facturaStatus" /> @*campo oculto*@
                             <input type="hidden" id="btnid"/> @*campo oculto*@
+                            <input type="hidden" id="contador"/> @*campo oculto*@
                             @Html.Label("proveedor", "Proveedor", new { @class = "control-label"})
                                 <div class="input-group">
                                      @Html.TextBoxFor(model => model.cod_prv, new { @class = "form-control",@id="Proveedor",@onkeydown="onKeyDownPrv(event)"})
@@ -431,7 +432,8 @@ function nuevaFila(btn){
 
     if(servicio !=null && servicio != "" && cantidad != null && cantidad != 0 && cantidad !="" && importe != 0 && importe !=null && importe !="" && lectura != null && lectura != "" && lectura !=0){
         var b = s + 1;
-        $("#serV").val(b);
+       // $("#serV").val(b);
+       $("#contador").val(b);
         var table = document.getElementById('tab');
         var rows = table.getElementsByTagName('tr');
         var rowOuterHtml = rows[rows.length -1].outerHTML;
@@ -460,7 +462,7 @@ function nuevaFila(btn){
 function calculoS(btn){
     var id = $(btn).closest('tr').index();
     id*=1;
-    var lon = $("#serV").val();
+    var lon = $("#contador").val();
     lon = eval(lon) + 1;
     var cantidad = ((document.getElementById("servicioGS_"+id+"__cantidad")||{}).value)||"";
     var lectura = ((document.getElementById("servicioGS_"+id+"__lectura")||{}).value)||"";
@@ -478,7 +480,6 @@ function calculoS(btn){
     var iva = 0.0;
     var Ivaret = 0.0;
     var total = 0.0;
-    var ivaServicio  = ((document.getElementById("ivaporcent-"+id+"-")||{}).value)||""; 
     var ivas = 0;
     var ivaRetServicio = 0;
     var irsRetServicio = 0;
@@ -535,13 +536,16 @@ function calculoS(btn){
     document.getElementById("servicioGS_"+id+"__NetoServ").value=(subneto)*1;
 
     for(var i=0; i < lon; i++){
-        //var a = ((document.getElementById("servicioGS_"+i+"__NetoServ")||{}).value)||"";
-        var id = $("#servicioGS_"+i+"__id").val();
+        var ide = $("#servicioGS_"+i+"__id").val();
         var a = $("#servicioGS_"+i+"__NetoServ").val();
-        if((id)*1 == 1){
+        var ivaServicio  = ((document.getElementById("ivaporcent-"+i+"-")||{}).value)||""; 
+        if((ide)*1 == 1){
             if(a * ivaServicio != 0){
                 ivas = (a * ivaServicio)/100;
                 $("#servicioGS_"+i+"__iva").val(ivas);
+            }
+            else{
+                $("#servicioGS_"+i+"__iva").val('0');
             }
             if(a * 10 != 0){
                 isrRetServicio = (a *  10)/100;
