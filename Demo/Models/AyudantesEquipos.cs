@@ -7,7 +7,6 @@ namespace Demo.Models
 {
     public class AyudantesEquipos
     {
-        //chofer_ayudante, nombre
         public string chofer_ayudante { get; set; }
         public string nombre { get; set; }
     }

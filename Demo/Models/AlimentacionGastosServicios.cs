@@ -36,7 +36,6 @@ namespace Demo.Models
         [DataType(DataType.Date)]
         public DateTime fecha_entrega { get; set; }
         public string factura_proveedor { get; set; }
-        //[Required]
         public string servicio { get; set; }
         public string mecanico { get; set; }
         public decimal refacciones { get; set; }
@@ -49,7 +48,6 @@ namespace Demo.Models
         public decimal total { get; set; }
         public string operador { get; set; }
         public string tNombre { get; set; }
-        //public string sNombre { get; set; }
         public string eNombre { get; set; }
         public string pNombre { get; set; }
         public string eqNombre { get; set; }

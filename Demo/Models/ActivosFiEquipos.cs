@@ -8,8 +8,6 @@ namespace Demo.Models
 {
     public class ActivosFiEquipos
     {
-        //activo_fijo, fecha, descripcion, marca, modelo, talla, color, serie, motor, tipo_activo_fijo, transaccion, cod_estab, ubicacion,
-        //fecha_adquisicion, monto_original_inversion, usuario, usuario_baja, fecha_baja, fecha_modificacion, status, empleado
         public string activo_fijo { get; set; }
         [DataType(DataType.Date)]
         public DateTime fecha { get; set; }

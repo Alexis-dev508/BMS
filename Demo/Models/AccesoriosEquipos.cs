@@ -8,8 +8,7 @@ namespace Demo.Models
 {
     public class AccesoriosEquipos
     {
-        //accesorios_por_equipo.equipo, accesorios_por_equipo.accesorio_equipos, accesorios_por_equipo.cantidad,
-        //accesorios_por_equipo.valor, accesorios_por_equipo.fecha, accesorios_equipos.nombre, tipos_equipo.nombre AS Tipo_equipo
+ 
         public string equipo { get; set; }
         public string accesorio { get; set; }
         public decimal cantidad { get; set; }

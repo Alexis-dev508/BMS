@@ -21,7 +21,6 @@ namespace Demo.Models
         public string motor { get; set; }
         public string caracteristicas { get; set; }
         public string placas { get; set; }
-        //ultima lectura
         public Int64 ultima_lectura { get; set; }
         public decimal seguro { get; set; }
         public decimal tenencia { get; set; }
@@ -29,7 +28,6 @@ namespace Demo.Models
         public string status { get; set; }
         public string activo_fijo { get; set; }
         public Boolean es_activo_fijo { get; set; }
-        //fecha alta
         [DataType(DataType.Date)]
         public DateTime fecha_alta { get; set; }
         public string cod_estab { get; set; }
@@ -37,7 +35,6 @@ namespace Demo.Models
         public string codigo_economico { get; set; }
         public string empleado { get; set; }
         public string nombre_empleado { get; set; }
-        //fecha compra
         [DataType(DataType.Date)]
         public DateTime fecha_compra { get; set; }
         public decimal costo { get; set; }
@@ -56,16 +53,11 @@ namespace Demo.Models
         public string combustible1 { get; set; }
         public string combustible2 { get; set; }
         public string combustible3 { get; set; }
-        //nivel licencia
         public Int32 nivel_licencia { get; set; }
-        //nivel licencia empresa
         public Int32 nivel_licencia_empresa { get; set; }
-        //usa_lubricante
         public Boolean usa_lubricante { get; set; }
-        //vigencia placas
         [DataType(DataType.Date)]
         public DateTime vigencia_placas { get; set; }
-        //vigencia circulacion
         [DataType(DataType.Date)]
         public DateTime vigencia_circulacion { get; set; }
         public int vida_util2 { get; set; }
@@ -82,32 +74,19 @@ namespace Demo.Models
         public int recorrido_maximo { get; set;}
         public string version { get; set; }
         public string odometro { get; set; }
-        //llantas
         public Int32 llantas { get; set; }
-        //llantas extras
         public Int32 llantas_extras { get; set; }
-        //llantas eje1
         public Int32 llantas_eje1 { get; set; }
-        //llantas eje2
         public Int32 llantas_eje2 { get; set; }
-        //llantas eje3
         public Int32 llantas_eje3 { get; set; }
-        //llantas eje4
         public Int32 llantas_eje4 { get; set; }
-        //llantas eje5
         public Int32 llantas_eje5 { get; set; }
-        //llantas eje6
         public Int32 llantas_eje6 { get; set; }
         public string color { get; set; }
         public string ayudante2 { get; set; }
-        //sirve odometro
         public Boolean sirve_odometro { get; set; }
-
-        //nombre activo fijo
         public string NombreAF { get; set; }
-        //nombre area
         public string NombreAR { get; set; }
-        //nombre departamento 
         public string NombreDE { get; set; }
         public string NombreDD { get; set; }
         public string Nombre_Chofer { get; set; }
