@@ -83,30 +83,68 @@ namespace Demo.Data
             }
             return rpt;
         }
-       //Rendimiento por equipos
-        public List<RendimientoEquiposServicios> TraerReporteRendimiento(DateTime fi, DateTime ff)
+        //traer servicios
+        public List<Servicios> TraerServicios()
+        {
+            List<Servicios> talleres = new List<Servicios>();
+            try
+            {
+                SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_Taller", this.ConnectionString);
+                sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sda.SelectCommand.Parameters.AddWithValue("@oper", "R");
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                talleres = dt.AsEnumerable().Select(a =>
+                new Servicios
+                {
+                    servicio = a["servicio"].ToString(),
+                    nombre = a["nombre"].ToString(),
+                    tipo_servicio = a["tipo_servicio"].ToString(),
+                    status = a["status"].ToString(),
+                    horas_mecanico = Convert.ToInt32(a["horas_mecanico"]),
+                    minutos_mecanico = Convert.ToInt32(a["minutos_mecanico"]),
+                    concepto_servicio = a["concepto_servicio"].ToString(),
+                    orden_mostrar = Convert.ToInt32(a["orden_mostrar"]),
+                    dias = Convert.ToInt16(a["dias"]),
+                    precio = Convert.ToDecimal(a["precio"]),
+                    cs_nombre = a["cs_nombre"].ToString()
+
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+            return talleres;
+        }
+        //Rendimiento por equipos
+        public List<RendimientoEquiposServicios> TraerReporteRendimiento(DateTime fi, DateTime ff, string servicio)
         {
             List<RendimientoEquiposServicios> rpt = new List<RendimientoEquiposServicios>();
             try
             {
 
-                SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_rendimiento", this.ConnectionString);
+                SqlDataAdapter sda = new SqlDataAdapter("dbo.Demo_rendimiento_equipo", this.ConnectionString);
                 sda.SelectCommand.CommandType = System.Data.CommandType.StoredProcedure;
                 sda.SelectCommand.Parameters.AddWithValue("@fecha_inicial", fi);
                 sda.SelectCommand.Parameters.AddWithValue("@fecha_final", ff);
+                sda.SelectCommand.Parameters.AddWithValue("@oper", "P");
+                sda.SelectCommand.Parameters.AddWithValue("@servicio", servicio);
+                sda.SelectCommand.Parameters.AddWithValue("@equipo", "");
                 DataTable dt = new DataTable();
                 sda.Fill(dt);
                 rpt = dt.AsEnumerable().Select(r => new RendimientoEquiposServicios
                 {
                     equipo = r["equipo"].ToString().Trim(),
                     nombre = r["nombre"].ToString().Trim(),
-                    cod_eco = r["cod_eco"].ToString().Trim(),
+                    //cod_eco = r["cod_eco"].ToString().Trim(),
                     marca = r["marca"].ToString().Trim(),
                     modelo = r["modelo"].ToString().Trim(),
                     placas = r["placas"].ToString().Trim(),
                     lectura_ini= Convert.ToInt32(r["lectura_ini"]),
                     lectura_fin = Convert.ToInt32(r["lectura_fin"]),
-                    dist_recorrida = Convert.ToInt32(r["dist_recorrida"]),
+                    //dist_recorrida = Convert.ToInt32(r["dist_recorrida"]),
                     servicios = Convert.ToInt32(r["servicios"]),
                     cantidad = Convert.ToDecimal(r["cantidad"]),
                     importe = Convert.ToDecimal(r["importe"]),
