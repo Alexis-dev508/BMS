@@ -28,7 +28,6 @@ namespace Demo.Controllers
         }
         public IActionResult ReporteRendimientoEquipo()
         {
-            //te faltaba esto alexis
             ReporteRendimientoEquiposModelView model = new ReporteRendimientoEquiposModelView();
             model.FechaInicial = DateTime.Now;
             model.FechaFinal = DateTime.Now;
