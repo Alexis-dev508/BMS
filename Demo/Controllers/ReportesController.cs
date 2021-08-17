@@ -81,12 +81,28 @@ namespace Demo.Controllers
         //    model.FechaFinal = DateTime.Now;
         //    return View(model);
         //}
+        //vista de servicios F2
+        [HttpGet]
+        public IActionResult Serv()
+        {
+            List<Servicios> detalle = new List<Servicios>();
+            try
+            {
+                detalle = datos.TraerServicios();
+            }
+            catch (Exception ex)
+            {
+
+                ViewBag.ErroresM = ex.Message;
+            }
+            return PartialView("_Servicios", detalle);
+        }
         [HttpPost]
-        public IActionResult ReporteRendimientoEquiposServicios(ReporteRendimientoEquiposModelView model)
+        public IActionResult ReporteRendimientoEquipo(ReporteRendimientoEquiposModelView model)
         {
             try
             {
-                model.Datos = datos.TraerReporteRendimiento(model.FechaInicial.Date, model.FechaFinal.Date.AddDays(1).AddMinutes(-1));
+                model.Datos = datos.TraerReporteRendimiento(model.FechaInicial.Date, model.FechaFinal.Date.AddDays(1).AddMinutes(-1), model.servicio);
             }
             catch (Exception ex)
             {

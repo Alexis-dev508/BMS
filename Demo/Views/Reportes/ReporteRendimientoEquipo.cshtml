@@ -7,87 +7,94 @@
                     <h3>Reporte de rendimiento por equipo</h3>
                 </div>
                 <br />
-                @using (Html.BeginForm("ReporteRendimientoEquipos", "Reportes", FormMethod.Post))
+                @using (Html.BeginForm("ReporteRendimientoEquipo", "Reportes", FormMethod.Post, new { enctype = "multipart/form-data", id = "forma" }))
                 {
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                @Html.Label("FechaInicial", "Fecha inicial")
-                                @Html.TextBoxFor(m => m.FechaInicial, new { @class = "form-control datetimepicker-input" })
+                    
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.Label("FechaInicial", "Fecha inicial")
+                                    @Html.TextBoxFor(m => m.FechaInicial, new { @class = "form-control datetimepicker-input" })
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                @Html.Label("FechaFinal", "Fecha final")
-                                @Html.TextBoxFor(m => m.FechaFinal, new { @class = "form-control datetimepicker-input" })
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.Label("FechaFinal", "Fecha final")
+                                    @Html.TextBoxFor(m => m.FechaFinal, new { @class = "form-control datetimepicker-input" })
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-12">
-                            <input type="submit" class="btn btn-lg btn-success" value="Actualizar" />
-                        </div>
-                    </div>
-                    <br />
-                    <table id="tabla" class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Equipo</th>
-                                <th>Nombre</th>
-                                <th>Cod. Económico</th>
-                                <th>Marca</th>
-                                <th>Modelo</th>
-                                <th>Placas</th>
-                                <th>Lec. Inicial</th>
-                                <th>Lec. Final</th>
-                                <th>Dist. Recorrida </th>
-                                <th>Servicios</th>
-                                <th>Cantidad</th>
-                                <th>Importe</th>
-                                <th>Rend/Cant</th>
-                                <th>Rend/Imp </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var rend in Model.Datos)
-                            {
-                            <tr>
-                                <td>@rend.equipo</td>
-                                <td>@rend.nombre</td>
-                                <td>@rend.cod_eco</td>
-                                <td>@rend.marca</td>
-                                <td>@rend.modelo</td>
-                                <td>@rend.placas</td>
-                                <td>@rend.lectura_ini</td>
-                                <td>@rend.lectura_fin</td>
-                                <td>@rend.dist_recorrida</td>
-                                <td>@rend.servicios</td>
-                                <td>@rend.cantidad</td>
-                                <td>@rend.importe</td>
-                                <td>@rend.rend_cant</td>
-                                <td>@rend.rend_imp</td>
-                               
-                            </tr>
-                            }
-                        </tbody>
-                    </table>
-                }
+                            @Html.Label("servicio", "Servicio", new { @class = "control-label" })
+                            <div class="input-group" id="inputEquipo">
+                                @Html.TextBoxFor(model => model.servicio, new { @class = "form-control", @id = "Servicio", @required = "required", @readonly = "readonly" })
+                                <span class="input-group-btn">
+                                    <a class="btn btn-primary" onclick="servicioS()" data-toggle="Buscar" title="Buscar">
+                                        <i class="fas fa-search"></i>
+                                    </a>
+                                </span>
+                            </div>
 
-            </div>
+                            <button type="submit" onclick="actualizar()">Actualizar</button>
+                        </div>
+
+
+                        <table id="tabla" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Equipo</th>
+                                    <th>Nombre</th>
+                                    <th>Cod. Económico</th>
+                                    <th>Marca</th>
+                                    <th>Modelo</th>
+                                    <th>Placas</th>
+                                    <th>Lec. Inicial</th>
+                                    <th>Lec. Final</th>
+                                    <th>Dist. Recorrida </th>
+                                    <th>Servicios</th>
+                                    <th>Cantidad</th>
+                                    <th>Importe</th>
+                                    <th>Rend/Cant</th>
+                                    <th>Rend/Imp </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var rend in Model.Datos)
+                                {
+                                    <tr>
+                                        <td>@rend.equipo</td>
+                                        <td>@rend.nombre</td>
+                                        <td>@rend.cod_eco</td>
+                                        <td>@rend.marca</td>
+                                        <td>@rend.modelo</td>
+                                        <td>@rend.placas</td>
+                                        <td>@rend.lectura_ini</td>
+                                        <td>@rend.lectura_fin</td>
+                                        <td>@rend.dist_recorrida</td>
+                                        <td>@rend.servicios</td>
+                                        <td>@rend.cantidad</td>
+                                        <td>@rend.importe</td>
+                                        <td>@rend.rend_cant</td>
+                                        <td>@rend.rend_imp</td>
+
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+
+                </div>
         </div>
     </div>
 </div>
-<div class="modal modal-lg fade" id="modalDetalle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+<div class="modal fade bd-example-modal-xl" id="modalDetalle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Productos de la cotizacion</h5>
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" id="datosProductos">
+            <div class="modal-body" id="datos">
 
             </div>
             <div class="modal-footer">
@@ -118,5 +125,26 @@
             },
             error: function (xhr,ajaxOptions,thrownError){alert(xhr.responseText);}
         });
+    }
+
+    function servicioS() {
+
+        $("#datos").empty();
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("Serv","Catalogos")",
+            success: function (data) {
+                $("#datos").append(data);
+                $('#modalDetalle').modal('show');
+            },
+            error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
+        });
+    }
+    function serv1(servicio, nombre) {
+        $('#Servicio').val(servicio);
+        $('#modalDetalle').modal('hide');
+    }
+    function actualizar() {
+        $("#forma").submit();
     }
 </script>
