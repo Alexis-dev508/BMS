@@ -32,7 +32,7 @@
                                 <a class="btn btn-primary" onclick="servicioS()" data-toggle="Buscar" title="Buscar">
                                             <i class="fas fa-search"></i>
                                         </a>
-                                <input class="form-control my-4" id="nombre"/>
+                                @Html.TextBoxFor(model => model.nombre, new { @class = "form-control my-4", @id="nombre"})
                                 </div>
                                 
                             </div>
