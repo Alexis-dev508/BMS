@@ -14,27 +14,30 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     @Html.Label("FechaInicial", "Fecha inicial")
-                                    @Html.TextBoxFor(m => m.FechaInicial, new { @class = "form-control datetimepicker-input" })
+                                    @Html.TextBoxFor(model => model.FechaInicial, new { @class = "my-4", @type = "datetime-local",@required="required",@id="fi"})
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     @Html.Label("FechaFinal", "Fecha final")
-                                    @Html.TextBoxFor(m => m.FechaFinal, new { @class = "form-control datetimepicker-input" })
+                                    @Html.TextBoxFor(model => model.FechaFinal, new { @class = "my-4", @type = "datetime-local",@required="required",@id="ff"})
                                 </div>
                             </div>
-                            @Html.Label("servicio", "Servicio", new { @class = "control-label" })
-                            <div class="input-group" id="inputEquipo">
-                                @Html.TextBoxFor(model => model.servicio, new { @class = "form-control", @id = "Servicio", @required = "required", @readonly = "readonly" })
-                                <span class="input-group-btn">
-                                    <a class="btn btn-primary" onclick="servicioS()" data-toggle="Buscar" title="Buscar">
-                                        <i class="fas fa-search"></i>
-                                    </a>
-                                </span>
-                            </div>
-
-                            <button type="submit" onclick="actualizar()">Actualizar</button>
                         </div>
+                        @Html.Label("servicio", "Servicio", new { @class = "control-label" })
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-inline">
+                                @Html.TextBoxFor(model => model.servicio, new { @class = "form-control my-4", @id="Servicio",@required="required"})
+                                <a class="btn btn-primary" onclick="servicioS()" data-toggle="Buscar" title="Buscar">
+                                            <i class="fas fa-search"></i>
+                                        </a>
+                                <input class="form-control my-4" id="nombre"/>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success" onclick="actualizar()">Actualizar</button>
 
 
                         <table id="tabla" class="table table-bordered">
@@ -60,7 +63,7 @@
                                 @foreach (var rend in Model.Datos)
                                 {
                                     <tr>
-                                        <td>@rend.equipo</td>
+                                        <td><a href="javascript:detalleS(@rend.equipo)">@rend.equipo</a></td>
                                         <td>@rend.nombre</td>
                                         <td>@rend.cod_eco</td>
                                         <td>@rend.marca</td>
@@ -106,28 +109,30 @@
 <script>
     $(document).ready(function () {
         $('#tabla').DataTable();
-        $('#FechaInicial').datetimepicker({
-            format: 'L'
-        });
-        $('#FechaFinal').datetimepicker({
-            format: 'L'
-        });
     });
 
-    function detalleCotizacion(folio){
-        $("#datosProductos").empty();
+    function detalleS(equipo){
+        var servicio = $("#Servicio").val();
+        var fi = $("#fi").val();
+        var ff = $("#ff").val();
+        $("#datos").empty();
+        $("#datos").empty();
         $.ajax({
-            type:"GET",
-            url:"@Url.Action("DetalleCotizacion","Reportes")" + "?folio=" + folio,
-            success:function(data){
-                $("#datosProductos").append(data);
+            type: "GET",
+            url: "@Url.Action("DetalleRendimiento","Reportes")",
+            dataType:"json",
+            data:{'equipo':equipo,'servicio':servicio,'fi':fi,'ff':ff},
+            success: function (data) {
+                $("#datos").append(data);
                 $('#modalDetalle').modal('show');
             },
-            error: function (xhr,ajaxOptions,thrownError){alert(xhr.responseText);}
+            error: function (xhr, ajaxOptions, thrownError) { 
+            $("#datos").append(xhr.responseText);
+            $("#modalDetalle").modal('show'); }
         });
     }
 
-    function servicioS() {
+    function servicioS(){
 
         $("#datos").empty();
         $.ajax({
@@ -142,9 +147,19 @@
     }
     function serv1(servicio, nombre) {
         $('#Servicio').val(servicio);
+        $('#nombre').val(nombre);
+        $("#Servicio").prop('readonly',true);
         $('#modalDetalle').modal('hide');
     }
-    function actualizar() {
-        $("#forma").submit();
+    function actualizar(){
+        var fi = $("#fi").val();
+        var ff = $("#ff").val();
+        var serv = $("#Servicio").val();
+        if(fi == "" || ff == "" || serv == ""){
+            alert("Algunos campos necesarios se encuentran vacios");
+        }else{
+            $("#forma").submit();
+        }
+        
     }
 </script>

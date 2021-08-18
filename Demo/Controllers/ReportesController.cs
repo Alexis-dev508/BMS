@@ -26,27 +26,12 @@ namespace Demo.Controllers
             model.FechaFinal = DateTime.Now;
             return View(model);
         }
+        [HttpGet]
         public IActionResult ReporteRendimientoEquipo()
         {
             ReporteRendimientoEquiposModelView model = new ReporteRendimientoEquiposModelView();
             model.FechaInicial = DateTime.Now;
             model.FechaFinal = DateTime.Now;
-            return View(model);
-        }
-        [HttpPost]
-        public IActionResult ReporteRendimientoEquipos(ReportePedidosModelView model)
-        {
-            try
-            {
-                model.Datos = datos.TraerReportePedidos(model.FechaInicial.Date, model.FechaFinal.Date.AddDays(1).AddMinutes(-1));
-            }
-            catch (Exception ex)
-            {
-
-                ViewBag.Errores = ex.Message;
-            }
-
-
             return View(model);
         }
         //pedidos
@@ -109,8 +94,6 @@ namespace Demo.Controllers
 
                 ViewBag.Errores = ex.Message;
             }
-
-
             return View(model);
         }
         //pedidos
@@ -146,8 +129,23 @@ namespace Demo.Controllers
             }
             return PartialView("_DetalleCotizacion", detalle);
         }
+        //rendimiento
+        [HttpGet]
+        public IActionResult DetalleRendimiento(string equipo,string servicio,string fi,string ff)
+        {
+            List<DetalleRendimiento> detalle = new List<DetalleRendimiento>();
+            try
+            {
+                detalle = datos.DetalleRend(equipo,servicio,Convert.ToDateTime(fi),Convert.ToDateTime(ff));
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErroresM = ex.Message;
+            }
+            return PartialView("_DetalleRendimiento", detalle);
+        }
         //pedidos
-            [HttpGet]
+        [HttpGet]
         public IActionResult DetallePedido(string folio)
         {
             List<DetallePedido> detalle = new List<DetallePedido>();
