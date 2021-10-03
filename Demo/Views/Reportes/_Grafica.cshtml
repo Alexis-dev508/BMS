@@ -1,0 +1,21 @@
+﻿<div class="container-fluid">
+	<div class="row">
+	 <div class="col-sm-12">
+	  <div class="card-primary">
+	   <div class="card-header">
+		<h3>Rendimiento</h3>
+	</div>
+	@if(TempData["graficaDat"] != null && TempData["graficaLabel"] != null)
+	{
+		<input value="@TempData["graficaDat"]" id="datos" type="hidden"/>
+		<input value="@TempData["graficaLabel"]" id="labels" type="hidden"/>
+		<canvas id="miGrafica" width="400" height="400"></canvas>
+	}else{
+		<label>No hay datos para mostrar !</label>
+	}
+   </div>
+  </div>
+ </div>
+</div>
+
+

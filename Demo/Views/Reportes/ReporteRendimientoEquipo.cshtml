@@ -63,7 +63,7 @@
                                 @foreach (var rend in Model.Datos)
                                 {
                                     <tr>
-                                        <td><a href="javascript:detalleS(@rend.equipo)">@rend.equipo</a></td>
+                                        <td><a href="javascript:detalleS(@rend.equipo)">@rend.equipo</a><a href="javascript:graficA(@rend.equipo)"><i class="fas fa-eye", style="color:green;"></i></a></td>
                                         <td>@rend.nombre</td>
                                         <td>@rend.cod_eco</td>
                                         <td>@rend.marca</td>
@@ -144,6 +144,63 @@
             },
             error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
         });
+    }
+    function graficA(equipo){
+        var servicio = $("#Servicio").val();
+        var fi = $("#fi").val();
+        var ff = $("#ff").val();
+        $("#datos").empty();
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("Grafica","Reportes")",
+            dataType:"json",
+            data:{'equipo':equipo,'servicio':servicio,'fi':fi,'ff':ff},
+            success: function (data) {
+                $("#datos").append(data);
+                $('#modalDetalle').modal('show');
+	            graFicar();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+            $("#datos").append(xhr.responseText);
+            $("#modalDetalle").modal('show');
+            graFicar();
+            }
+        });
+    }
+    function graFicar(){
+        var ctx = document.getElementById("miGrafica").getContext("2d");
+	            var datos= ((document.getElementById("datos")||{}).value)||"";
+	            var labels= ((document.getElementById("labels")||{}).value)||"";
+                var array  = labels.split(",");
+                //var dat = "["+datos+"]";
+                //valores de las columnas
+                var array2 = datos.split(",");
+	            var miGrafica = new Chart(ctx,{
+                    //cambiar a tipo line ya que funcione
+		            type:"bar",
+			            data:{
+                            //nombres de las columnas
+				            labels:array,
+				            datasets:[{
+					            label:'Rendimiento',
+                                //aqui se insertan los valores
+					            data:array2,
+                                //colores de las columnas
+                                backgroundColor:[
+								'rgb(66,134,244)'
+                                ]
+				            }]
+			            },
+			            options:{
+				            scales:{
+					            yAxes:[{
+						            ticks:{
+							            beginAtZero: true
+						            }
+					            }]
+				            }
+			            }
+	            });
     }
     function serv1(servicio, nombre) {
         $('#Servicio').val(servicio);

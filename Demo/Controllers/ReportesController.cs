@@ -144,6 +144,32 @@ namespace Demo.Controllers
             }
             return PartialView("_DetalleRendimiento", detalle);
         }
+        //graficas
+        [HttpGet]
+        public IActionResult Grafica(string equipo, string servicio, string fi, string ff)
+        {
+            List<DetalleRendimiento> detalle = new List<DetalleRendimiento>();
+            try
+            {
+                detalle = datos.DetalleRend(equipo, servicio, Convert.ToDateTime(fi), Convert.ToDateTime(ff));
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErroresM = ex.Message;
+            }
+            var dat = "";
+            var label = "";
+            foreach (var item in detalle)
+            {
+                dat = dat + item.rend_acum + ",";
+                label = label + item.fecha + ",";
+            }
+            dat = dat.TrimEnd(',');
+            label = label.TrimEnd(',');
+            TempData["graficaDat"] = dat;
+            TempData["graficaLabel"] = label;
+            return PartialView("_Grafica");
+        }
         //pedidos
         [HttpGet]
         public IActionResult DetallePedido(string folio)
