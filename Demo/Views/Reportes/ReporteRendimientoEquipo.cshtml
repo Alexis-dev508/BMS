@@ -63,7 +63,7 @@
                                 @foreach (var rend in Model.Datos)
                                 {
                                     <tr>
-                                        <td><a href="javascript:detalleS(@rend.equipo)">@rend.equipo</a><a href="javascript:graficA(@rend.equipo)"><i class="fas fa-eye", style="color:green;"></i></a></td>
+                                        <td><a href="javascript:detalleS(@rend.equipo)">@rend.equipo</a><a data-toggle="Grafica" title="Grafica" href="javascript:graficA(@rend.equipo)"><i class="fas fa-eye", style="color:green;"></i></a></td>
                                         <td>@rend.nombre</td>
                                         <td>@rend.cod_eco</td>
                                         <td>@rend.marca</td>
@@ -174,19 +174,15 @@
                 var array  = labels.split(",");
                 //valores de las columnas
                 var array2 = datos.split(",");
-                debugger
 	            var miGrafica = new Chart(ctx,{
-                    //cambiar a tipo line ya que funcione
 		            type:"line",
 			            data:{
                             //nombres de las columnas
-				            labels:array,
-                           
+				            labels:array,                
 				            datasets:[{
 					            label:'Rendimiento',
                                 //aqui se insertan los valores
-					            data:array2,
-                                
+					            data:array2,            
                                 //colores de las columnas
                                 backgroundColor:[
 								'rgb(66,134,244)'
@@ -194,6 +190,7 @@
 				            }]
 			            },
 			            options:{
+                            responsive: true,
 				            scales:{
 					            yAxes:[{
 						            ticks:{
