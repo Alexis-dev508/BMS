@@ -7,7 +7,7 @@
 	</div>
 	@if(TempData["graficaDat"] != null && TempData["graficaLabel"] != null)
 	{
-		<input value="@TempData["graficaDat"]" id="datos" type="hidden"/>
+		<input value="@TempData["graficaDat"]" id="datosGraf" type="hidden"/>
 		<input value="@TempData["graficaLabel"]" id="labels" type="hidden"/>
 		<canvas id="miGrafica" width="400" height="400"></canvas>
 	}else{

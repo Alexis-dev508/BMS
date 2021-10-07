@@ -169,22 +169,24 @@
     }
     function graFicar(){
         var ctx = document.getElementById("miGrafica").getContext("2d");
-	            var datos= ((document.getElementById("datos")||{}).value)||"";
+	            var datos= ((document.getElementById("datosGraf")||{}).value)||"";
 	            var labels= ((document.getElementById("labels")||{}).value)||"";
                 var array  = labels.split(",");
-                //var dat = "["+datos+"]";
                 //valores de las columnas
                 var array2 = datos.split(",");
+                debugger
 	            var miGrafica = new Chart(ctx,{
                     //cambiar a tipo line ya que funcione
-		            type:"bar",
+		            type:"line",
 			            data:{
                             //nombres de las columnas
 				            labels:array,
+                           
 				            datasets:[{
 					            label:'Rendimiento',
                                 //aqui se insertan los valores
 					            data:array2,
+                                
                                 //colores de las columnas
                                 backgroundColor:[
 								'rgb(66,134,244)'
